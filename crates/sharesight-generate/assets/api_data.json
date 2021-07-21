@@ -6436,21 +6436,21 @@
             },
             {
               "group": "Parameter",
-              "type": "Hash",
+              "type": "String",
               "optional": false,
               "field": "user.email",
               "description": "<p>The email address of the new user.</p>"
             },
             {
               "group": "Parameter",
-              "type": "Hash",
+              "type": "String",
               "optional": false,
               "field": "user.first_name",
               "description": "<p>The first name of the new user.</p>"
             },
             {
               "group": "Parameter",
-              "type": "Hash",
+              "type": "String",
               "optional": false,
               "field": "user.last_name",
               "description": "<p>The last name of the new user.</p>"
