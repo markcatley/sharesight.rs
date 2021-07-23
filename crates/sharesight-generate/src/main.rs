@@ -3,7 +3,7 @@ use std::{collections::HashMap, env, fmt, fs::File, io::Write, path::PathBuf};
 use clap::Parser;
 use heck::CamelCase;
 use indexmap::IndexMap;
-use log::{info, warn};
+use log::{error, info, warn};
 use serde::{de::IntoDeserializer, Deserialize};
 use serde_with::{rust::StringWithSeparator, Separator};
 
@@ -32,7 +32,6 @@ struct ApiEndpoint {
     #[serde(rename = "type")]
     #[allow(dead_code)]
     method: Method,
-    #[allow(dead_code)]
     url: String,
     #[allow(dead_code)]
     title: String,
@@ -65,7 +64,7 @@ impl fmt::Display for ApiEndpoint {
             .iter()
             .any(|f| f.field.iter().any(|s| s.contains('/')))
         {
-            warn!("Endpoint {} has fields with / in them", self.name);
+            warn!("Endpoint {} has parameter fields with / in them", self.name);
             return Ok(());
         }
         if parameter_fields.is_empty() {
@@ -85,9 +84,95 @@ impl fmt::Display for ApiEndpoint {
                 acc
             });
 
+        if !fields.contains_key(&[][..]) {
+            warn!("Endpoint {} parameters have no root node", self.name);
+            return Ok(());
+        }
+
         let endpoint_name = self.name.to_camel_case();
 
+        writeln!(f, "pub struct {};", endpoint_name)?;
+        writeln!(f)?;
+
+        let path = self
+            .url
+            .split('/')
+            .filter(|s| !s.is_empty())
+            .map(|s| {
+                let extension = s
+                    .split('.')
+                    .nth(1)
+                    .map(|ext| format!(".{}", ext))
+                    .unwrap_or_else(String::new);
+                if s.starts_with(':') {
+                    format!("{{}}{}", extension)
+                } else {
+                    s.to_string()
+                }
+            })
+            .fold(String::new(), |x, y| x + "/" + &y);
+        let params = self
+            .url
+            .split('/')
+            .filter_map(|s| s.strip_prefix(':'))
+            .filter_map(|s| s.split('.').next())
+            .map(String::from)
+            .collect::<Vec<_>>();
+
+        writeln!(f, "impl<'a> ApiEndpoint<'a> for {} {{", endpoint_name)?;
+        writeln!(f, "    const URL_PATH: &'static str = \"{}\";", self.url)?;
+        writeln!(f)?;
+        if params.is_empty() {
+            writeln!(f, "    type UrlDisplay = &'static str;")?;
+        } else {
+            writeln!(f, "    type UrlDisplay = {}UrlDisplay<'a>;", endpoint_name)?;
+        }
+        writeln!(f, "    type Parameters = {}Parameters;", endpoint_name)?;
+        writeln!(f)?;
+        writeln!(
+            f,
+            "    fn url_path({}parameters: &'a Self::Parameters) -> Self::UrlDisplay {{",
+            if params.is_empty() { "_" } else { "" }
+        )?;
+        if params.is_empty() {
+            write!(f, "        \"{}\"", path)?;
+        } else {
+            write!(f, "        {}UrlDisplay(parameters)", endpoint_name)?;
+        }
+        writeln!(f, "    }}")?;
+        writeln!(f, "}}")?;
+        writeln!(f)?;
+
+        if !params.is_empty() {
+            writeln!(
+                f,
+                "pub struct {}UrlDisplay<'a>(&'a {}Parameters);",
+                endpoint_name, endpoint_name
+            )?;
+            writeln!(f)?;
+            writeln!(
+                f,
+                "impl<'a> fmt::Display for {}UrlDisplay<'a> {{",
+                endpoint_name
+            )?;
+            writeln!(
+                f,
+                "    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {{"
+            )?;
+            writeln!(f, "        let parameters = self.0;")?;
+            writeln!(f)?;
+            write!(f, "        write!(f, \"{}\"", path)?;
+            for param in params {
+                write!(f, ", parameters.{}", param)?;
+            }
+            writeln!(f, ")")?;
+            writeln!(f, "    }}")?;
+            writeln!(f, "}}")?;
+            writeln!(f)?;
+        }
+
         for (prefix, fields) in fields.into_iter() {
+            writeln!(f, "#[derive(Debug, Clone, Serialize)]")?;
             writeln!(
                 f,
                 "pub struct {}{}Parameters {{",
@@ -98,7 +183,7 @@ impl fmt::Display for ApiEndpoint {
                     .fold(String::new(), |acc, ref item| acc + item)
             )?;
             for parameter in fields {
-                if let [.., ref field_name] = &parameter.field[..] {
+                if let [.., ref field_name] = parameter.field[..] {
                     write!(f, "    pub {}: ", field_name)?;
                     if parameter.optional {
                         write!(f, "Option<")?;
@@ -117,6 +202,11 @@ impl fmt::Display for ApiEndpoint {
                         write!(f, ">")?;
                     }
                     writeln!(f, ",")?;
+                } else {
+                    error!(
+                        "Endpoint {} has parameter field with no field name: {:?} ",
+                        endpoint_name, parameter
+                    );
                 }
             }
             writeln!(f, "}}")?;
