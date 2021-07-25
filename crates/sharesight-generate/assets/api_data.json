@@ -1394,7 +1394,7 @@
             },
             {
               "group": "200 Success",
-              "type": "Hash",
+              "type": "String",
               "optional": false,
               "field": "cash_account_transaction.cash_account_transaction_type",
               "description": "<p>The transaction type.</p>"

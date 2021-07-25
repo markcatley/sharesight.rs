@@ -4,7 +4,10 @@ use clap::Parser;
 use heck::CamelCase;
 use indexmap::IndexMap;
 use log::{error, info, warn};
-use serde::{de::IntoDeserializer, Deserialize};
+use serde::{
+    de::{IntoDeserializer, Unexpected},
+    Deserialize,
+};
 use serde_with::{rust::StringWithSeparator, Separator};
 
 /// Generate sharesight types from the swagger manifest
@@ -42,15 +45,14 @@ struct ApiEndpoint {
     #[allow(dead_code)]
     description: String,
     #[allow(dead_code)]
-    header: FieldsAndExamples,
+    header: ApiHeaders,
     #[serde(default)]
     parameter: ApiParameters,
     #[serde(default)]
-    #[allow(dead_code)]
-    success: FieldsAndExamples,
+    success: ApiSuccess,
     #[serde(default)]
     #[allow(dead_code)]
-    error: FieldsAndExamples,
+    error: ApiErrors,
     #[allow(dead_code)]
     filename: String,
     #[allow(dead_code)]
@@ -72,19 +74,9 @@ impl fmt::Display for ApiEndpoint {
             return Ok(());
         }
 
-        let fields = parameter_fields
-            .iter()
-            .map(|f| {
-                let (_, prefix) = f.field.split_last().unwrap();
+        let parameter_fields = group_fields_by_prefix(parameter_fields);
 
-                (prefix, f)
-            })
-            .fold(IndexMap::<_, Vec<_>>::new(), |mut acc, (k, v)| {
-                acc.entry(k).or_default().push(v);
-                acc
-            });
-
-        if !fields.contains_key(&[][..]) {
+        if !parameter_fields.contains_key(&[][..]) {
             warn!("Endpoint {} parameters have no root node", self.name);
             return Ok(());
         }
@@ -128,6 +120,11 @@ impl fmt::Display for ApiEndpoint {
             writeln!(f, "    type UrlDisplay = {}UrlDisplay<'a>;", endpoint_name)?;
         }
         writeln!(f, "    type Parameters = {}Parameters;", endpoint_name)?;
+        if self.success.fields.fields.is_empty() {
+            writeln!(f, "    type Success = ();")?;
+        } else {
+            writeln!(f, "    type Success = {}Success;", endpoint_name)?;
+        }
         writeln!(f)?;
         writeln!(
             f,
@@ -171,30 +168,117 @@ impl fmt::Display for ApiEndpoint {
             writeln!(f)?;
         }
 
-        for (prefix, fields) in fields.into_iter() {
-            writeln!(f, "#[derive(Debug, Clone, Serialize)]")?;
-            writeln!(
-                f,
-                "pub struct {}{}Parameters {{",
-                endpoint_name,
-                prefix
-                    .iter()
-                    .map(|s| s.to_camel_case())
-                    .fold(String::new(), |acc, ref item| acc + item)
-            )?;
+        writeln!(
+            f,
+            "{}",
+            ApiStruct::parameters(&endpoint_name, &parameter_fields)
+        )?;
+        writeln!(f)?;
+
+        let success_fields = group_fields_by_prefix(&self.success.fields.fields);
+
+        writeln!(f, "{}", ApiStruct::success(&endpoint_name, &success_fields))?;
+        writeln!(f)?;
+
+        Ok(())
+    }
+}
+
+fn group_fields_by_prefix(fields: &[Field]) -> IndexMap<&[String], Vec<&Field>> {
+    fields
+        .iter()
+        .map(|f| {
+            let (_, prefix) = f.field.split_last().unwrap();
+
+            (prefix, f)
+        })
+        .fold(IndexMap::<_, Vec<_>>::new(), |mut acc, (k, v)| {
+            acc.entry(k).or_default().push(v);
+            acc
+        })
+}
+
+struct ApiStruct<'a> {
+    tag: &'a str,
+    label: &'a str,
+    endpoint_name: &'a str,
+    fields: &'a IndexMap<&'a [std::string::String], Vec<&'a Field>>,
+    derives: &'a [&'static str],
+}
+
+impl<'a> ApiStruct<'a> {
+    fn parameters(
+        endpoint_name: &'a str,
+        fields: &'a IndexMap<&'a [std::string::String], Vec<&'a Field>>,
+    ) -> Self {
+        ApiStruct {
+            tag: "Parameters",
+            label: "parameter",
+            endpoint_name,
+            fields,
+            derives: &["Serialize"],
+        }
+    }
+
+    fn success(
+        endpoint_name: &'a str,
+        fields: &'a IndexMap<&'a [std::string::String], Vec<&'a Field>>,
+    ) -> Self {
+        ApiStruct {
+            tag: "Success",
+            label: "success",
+            endpoint_name,
+            fields,
+            derives: &["Deserialize"],
+        }
+    }
+}
+
+impl<'a> fmt::Display for ApiStruct<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let ApiStruct {
+            tag,
+            label,
+            endpoint_name,
+            fields,
+            derives,
+        } = *self;
+
+        for (prefix, fields) in fields.iter() {
+            write!(f, "#[derive(Debug, Clone")?;
+            for derive in derives {
+                write!(f, ", {}", derive)?;
+            }
+            writeln!(f, ")]")?;
+            write!(f, "pub struct {}", endpoint_name)?;
+            for prefix_segment in prefix.iter() {
+                write!(f, "{}", prefix_segment.to_camel_case())?;
+            }
+            writeln!(f, "{} {{", tag)?;
             for parameter in fields {
-                if let [.., ref field_name] = parameter.field[..] {
-                    write!(f, "    pub {}: ", field_name)?;
+                if let [ref prefix_segments @ .., ref field_name] = parameter.field[..] {
+                    if field_name == "self" {
+                        writeln!(f, "    #[serde(rename = \"self\")]")?;
+                    }
+
+                    write!(
+                        f,
+                        "    pub {}: ",
+                        if field_name == "self" {
+                            "itself"
+                        } else {
+                            field_name
+                        }
+                    )?;
                     if parameter.optional {
                         write!(f, "Option<")?;
                     }
                     if parameter.field_type.is_hash() {
-                        write!(
-                            f,
-                            "{}{}Parameters",
-                            endpoint_name,
-                            field_name.to_camel_case(),
-                        )?;
+                        write!(f, "{}", endpoint_name)?;
+                        for prefix_segment in prefix_segments.iter() {
+                            write!(f, "{}", prefix_segment.to_camel_case())?;
+                        }
+                        write!(f, "{}{}", field_name.to_camel_case(), tag)?;
                     } else {
                         write!(f, "{}", parameter.field_type.rust_type_name())?;
                     }
@@ -204,8 +288,8 @@ impl fmt::Display for ApiEndpoint {
                     writeln!(f, ",")?;
                 } else {
                     error!(
-                        "Endpoint {} has parameter field with no field name: {:?} ",
-                        endpoint_name, parameter
+                        "Endpoint {} has {} field with no field name: {:?} ",
+                        endpoint_name, label, parameter
                     );
                 }
             }
@@ -234,6 +318,13 @@ enum Method {
 
 #[derive(Debug, Default, Deserialize)]
 #[serde(rename_all = "camelCase", default)]
+struct ApiHeaders {
+    fields: HashMap<String, Vec<Field>>,
+    examples: Vec<Example>,
+}
+
+#[derive(Debug, Default, Deserialize)]
+#[serde(rename_all = "camelCase", default)]
 struct ApiParameters {
     fields: ApiParameterFields,
     examples: Vec<Example>,
@@ -247,9 +338,68 @@ struct ApiParameterFields {
 
 #[derive(Debug, Default, Deserialize)]
 #[serde(rename_all = "camelCase", default)]
-struct FieldsAndExamples {
-    fields: HashMap<String, Vec<Field>>,
+struct ApiSuccess {
+    fields: ApiSuccessField,
     examples: Vec<Example>,
+}
+
+#[derive(Debug, Default)]
+struct ApiSuccessField {
+    #[allow(dead_code)]
+    status: ApiHttpStatus,
+    fields: Vec<Field>,
+}
+
+impl<'de> Deserialize<'de> for ApiSuccessField {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use serde::de::Error;
+
+        let map = HashMap::<ApiHttpStatus, Vec<Field>>::deserialize(deserializer)?;
+
+        if map.len() != 1 {
+            return Err(D::Error::invalid_length(map.len(), &"1"));
+        }
+
+        let (status, fields) = map.into_iter().next().unwrap();
+
+        Ok(ApiSuccessField { status, fields })
+    }
+}
+
+#[derive(Debug, Default, Deserialize)]
+#[serde(rename_all = "camelCase", default)]
+struct ApiErrors {
+    fields: HashMap<ApiHttpStatus, Vec<Field>>,
+    examples: Vec<Example>,
+}
+
+#[derive(Debug, Default, PartialEq, Eq, PartialOrd, Ord, Hash)]
+struct ApiHttpStatus(u16, String);
+
+impl<'de> Deserialize<'de> for ApiHttpStatus {
+    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        use serde::de::Error;
+
+        let s = String::deserialize(deserializer)?;
+        let status = s
+            .find(' ')
+            .map(|loc| (s[..loc].parse(), s[(loc + 1)..].to_string()));
+
+        if let Some((Ok(code), name)) = status {
+            Ok(Self(code, name))
+        } else {
+            Err(D::Error::invalid_value(
+                Unexpected::Str(&s),
+                &"<u16:code> <str:label>",
+            ))
+        }
+    }
 }
 
 #[derive(Debug, Deserialize)]

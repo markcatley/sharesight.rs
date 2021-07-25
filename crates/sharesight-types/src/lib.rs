@@ -2,6 +2,7 @@ mod types;
 mod types_prelude;
 
 pub use types::*;
+pub use types_prelude::ApiEndpoint;
 
 #[cfg(test)]
 mod tests {
