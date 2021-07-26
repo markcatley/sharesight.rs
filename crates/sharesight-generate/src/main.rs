@@ -33,7 +33,6 @@ struct ApiData {
 #[serde(rename_all = "camelCase")]
 struct ApiEndpoint {
     #[serde(rename = "type")]
-    #[allow(dead_code)]
     method: Method,
     url: String,
     #[allow(dead_code)]
@@ -113,6 +112,11 @@ impl fmt::Display for ApiEndpoint {
 
         writeln!(f, "impl<'a> ApiEndpoint<'a> for {} {{", endpoint_name)?;
         writeln!(f, "    const URL_PATH: &'static str = \"{}\";", self.url)?;
+        writeln!(
+            f,
+            "    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::{};",
+            self.method.api_http_method()
+        )?;
         writeln!(f)?;
         if params.is_empty() {
             writeln!(f, "    type UrlDisplay = &'static str;")?;
@@ -314,6 +318,17 @@ enum Method {
     Put,
     #[serde(alias = "SHOW")]
     Show,
+}
+
+impl Method {
+    fn api_http_method(&self) -> &'static str {
+        match self {
+            Method::Delete => "Delete",
+            Method::Get | Method::Show => "Get",
+            Method::Post => "Post",
+            Method::Put => "Put",
+        }
+    }
 }
 
 #[derive(Debug, Default, Deserialize)]
