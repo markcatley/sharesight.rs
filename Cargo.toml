@@ -1,2 +1,2 @@
 [workspace]
-members = ["crates/types", "crates/generate"]
+members = ["crates/sharesight-types", "crates/sharesight-generate"]
