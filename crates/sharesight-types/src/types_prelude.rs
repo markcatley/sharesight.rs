@@ -22,6 +22,20 @@ pub trait ApiEndpoint<'a> {
     type Success: DeserializeOwned;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay;
+
+    fn url(api_host: &'a str, parameters: &'a Self::Parameters) -> ApiUrl<'a, Self> {
+        ApiUrl(api_host, parameters)
+    }
+}
+
+pub struct ApiUrl<'a, T: ApiEndpoint<'a> + ?Sized>(&'a str, &'a T::Parameters);
+
+impl<'a, T: ApiEndpoint<'a>> fmt::Display for ApiUrl<'a, T> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let Self(api_host, parameters) = self;
+
+        write!(f, "https://{}/api/v2{}", api_host, T::url_path(parameters))
+    }
 }
 
 pub struct DeserializeDate;
