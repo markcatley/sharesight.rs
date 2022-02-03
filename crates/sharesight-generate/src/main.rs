@@ -305,6 +305,7 @@ impl<'a> fmt::Display for ApiStruct<'a> {
         } = *self;
 
         for (prefix, fields) in fields.iter() {
+            write!(f, "#[serde_as]")?;
             write!(f, "#[derive(Debug, Clone")?;
             for derive in derives {
                 write!(f, ", {}", derive)?;
@@ -319,6 +320,27 @@ impl<'a> fmt::Display for ApiStruct<'a> {
                 if let [ref prefix_segments @ .., ref field_name] = parameter.field[..] {
                     if field_name == "self" {
                         writeln!(f, "    #[serde(rename = \"self\")]")?;
+                    }
+
+                    if matches!(
+                        parameter.field_type,
+                        FieldType::Scalar(FieldTypeBase::Integer)
+                    ) {
+                        if parameter.optional {
+                            writeln!(
+                                f,
+                                "    #[serde_as(as = \"Option<PickFirst<(_, DisplayFromStr)>>\")]"
+                            )?;
+                        } else {
+                            writeln!(
+                                f,
+                                "    #[serde_as(as = \"PickFirst<(_, DisplayFromStr)>\")]"
+                            )?;
+                        }
+                    }
+
+                    if parameter.optional {
+                        writeln!(f, "    #[serde(default)]")?;
                     }
 
                     write!(
