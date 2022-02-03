@@ -2343,7 +2343,7 @@ impl<'a> ApiEndpoint<'a> for PortfolioList {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct PortfolioListSuccess {
-    pub portfolios: Vec<()>,
+    pub portfolios: Vec<PortfolioListPortfoliosSuccess>,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub trade_sync_cash_account_id: i64,
     pub links: PortfolioListLinksSuccess,
