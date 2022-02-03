@@ -339,6 +339,14 @@ impl<'a> fmt::Display for ApiStruct<'a> {
                         }
                     }
 
+                    if matches!(parameter.field_type, FieldType::Scalar(FieldTypeBase::Date)) {
+                        if parameter.optional {
+                            writeln!(f, "    #[serde_as(as = \"Option<DeserializeDate>\")]")?;
+                        } else {
+                            writeln!(f, "    #[serde_as(as = \"DeserializeDate\")]")?;
+                        }
+                    }
+
                     if parameter.optional {
                         writeln!(f, "    #[serde(default)]")?;
                     }
