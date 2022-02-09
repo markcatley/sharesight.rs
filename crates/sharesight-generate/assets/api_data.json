@@ -47,6 +47,13 @@
           "Parameter": [
             {
               "group": "Parameter",
+              "type": "Integer",
+              "optional": false,
+              "field": "portfolio_id",
+              "description": ""
+            },
+            {
+              "group": "Parameter",
               "type": "Hash",
               "optional": false,
               "field": "cash_account",
@@ -3500,8 +3507,8 @@
             {
               "group": "Parameter",
               "type": "String",
-              "optional": true,
-              "field": "id",
+              "optional": false,
+              "field": "holding_id",
               "description": "<p>The holding id(to show trades for).</p>"
             },
             {
@@ -3779,8 +3786,8 @@
             {
               "group": "Parameter",
               "type": "String",
-              "optional": true,
-              "field": "id",
+              "optional": false,
+              "field": "holding_id",
               "description": "<p>The holding id(to show trades for).</p>"
             },
             {
