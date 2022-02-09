@@ -364,11 +364,17 @@ impl<'a> fmt::Display for ApiStruct<'a> {
                         write!(f, "Option<")?;
                     }
                     if parameter.field_type.is_hash() {
+                        if parameter.field_type.is_array() {
+                            write!(f, "Vec<")?;
+                        }
                         write!(f, "{}", endpoint_name)?;
                         for prefix_segment in prefix_segments.iter() {
                             write!(f, "{}", prefix_segment.to_camel_case())?;
                         }
                         write!(f, "{}{}", field_name.to_camel_case(), tag)?;
+                        if parameter.field_type.is_array() {
+                            write!(f, ">")?;
+                        }
                     } else {
                         write!(f, "{}", parameter.field_type.rust_type_name())?;
                     }
@@ -544,8 +550,15 @@ impl FieldType {
         FieldTypeRustTypeNameDisplay(self)
     }
 
+    fn is_array(&self) -> bool {
+        matches!(self, FieldType::Array(_))
+    }
+
     fn is_hash(&self) -> bool {
-        matches!(self, FieldType::Scalar(FieldTypeBase::Hash))
+        matches!(
+            self,
+            FieldType::Scalar(t) | FieldType::Array(t) if t.is_hash()
+        )
     }
 }
 
@@ -627,6 +640,11 @@ enum FieldTypeBase {
 impl FieldTypeBase {
     fn rust_type_name(&self) -> FieldTypeBaseRustTypeNameDisplay {
         FieldTypeBaseRustTypeNameDisplay(self)
+    }
+
+    fn is_hash(&self) -> bool {
+        use FieldTypeBase::*;
+        matches!(self, Hash | Portfolio)
     }
 }
 
