@@ -4,8 +4,16 @@ pub use serde::{Deserialize, Serialize};
 
 pub use std::fmt;
 
+pub enum ApiHttpMethod {
+    Get,
+    Post,
+    Put,
+    Delete,
+}
+
 pub trait ApiEndpoint<'a> {
     const URL_PATH: &'static str;
+    const HTTP_METHOD: ApiHttpMethod;
 
     type UrlDisplay: 'a + fmt::Display;
     type Parameters: Serialize;

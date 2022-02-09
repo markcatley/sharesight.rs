@@ -4,6 +4,7 @@ pub struct CashAccountCreate;
 
 impl<'a> ApiEndpoint<'a> for CashAccountCreate {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/cash_accounts.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
 
     type UrlDisplay = CashAccountCreateUrlDisplay<'a>;
     type Parameters = CashAccountCreateParameters;
@@ -67,6 +68,7 @@ pub struct CashAccountDelete;
 
 impl<'a> ApiEndpoint<'a> for CashAccountDelete {
     const URL_PATH: &'static str = "/cash_accounts/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
 
     type UrlDisplay = CashAccountDeleteUrlDisplay<'a>;
     type Parameters = CashAccountDeleteParameters;
@@ -96,6 +98,7 @@ pub struct CashAccountShow;
 
 impl<'a> ApiEndpoint<'a> for CashAccountShow {
     const URL_PATH: &'static str = "/cash_accounts/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = CashAccountShowUrlDisplay<'a>;
     type Parameters = CashAccountShowParameters;
@@ -146,6 +149,7 @@ pub struct CashAccountTransactionCreate;
 
 impl<'a> ApiEndpoint<'a> for CashAccountTransactionCreate {
     const URL_PATH: &'static str = "/cash_accounts/:cash_account_id/cash_account_transactions.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
 
     type UrlDisplay = CashAccountTransactionCreateUrlDisplay<'a>;
     type Parameters = CashAccountTransactionCreateParameters;
@@ -209,6 +213,7 @@ pub struct CashAccountTransactionDelete;
 
 impl<'a> ApiEndpoint<'a> for CashAccountTransactionDelete {
     const URL_PATH: &'static str = "/cash_account_transactions/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
 
     type UrlDisplay = CashAccountTransactionDeleteUrlDisplay<'a>;
     type Parameters = CashAccountTransactionDeleteParameters;
@@ -238,6 +243,7 @@ pub struct CashAccountTransactionUpdate;
 
 impl<'a> ApiEndpoint<'a> for CashAccountTransactionUpdate {
     const URL_PATH: &'static str = "/cash_account_transactions/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
 
     type UrlDisplay = CashAccountTransactionUpdateUrlDisplay<'a>;
     type Parameters = CashAccountTransactionUpdateParameters;
@@ -297,6 +303,7 @@ pub struct CashAccountTransactionsList;
 
 impl<'a> ApiEndpoint<'a> for CashAccountTransactionsList {
     const URL_PATH: &'static str = "/cash_accounts/:cash_account_id/cash_account_transactions.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = CashAccountTransactionsListUrlDisplay<'a>;
     type Parameters = CashAccountTransactionsListParameters;
@@ -366,6 +373,7 @@ pub struct CashAccountUpdate;
 
 impl<'a> ApiEndpoint<'a> for CashAccountUpdate {
     const URL_PATH: &'static str = "/cash_accounts/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
 
     type UrlDisplay = CashAccountUpdateUrlDisplay<'a>;
     type Parameters = CashAccountUpdateParameters;
@@ -415,6 +423,7 @@ pub struct CashAccountsList;
 
 impl<'a> ApiEndpoint<'a> for CashAccountsList {
     const URL_PATH: &'static str = "/cash_accounts.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = &'static str;
     type Parameters = CashAccountsListParameters;
@@ -464,6 +473,7 @@ pub struct DocumentShow;
 
 impl<'a> ApiEndpoint<'a> for DocumentShow {
     const URL_PATH: &'static str = "/documents/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = DocumentShowUrlDisplay<'a>;
     type Parameters = DocumentShowParameters;
@@ -498,6 +508,7 @@ pub struct HoldingMergesCreate;
 
 impl<'a> ApiEndpoint<'a> for HoldingMergesCreate {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/holding_merges.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
 
     type UrlDisplay = HoldingMergesCreateUrlDisplay<'a>;
     type Parameters = HoldingMergesCreateParameters;
@@ -576,6 +587,7 @@ pub struct HoldingMergesUpdate;
 
 impl<'a> ApiEndpoint<'a> for HoldingMergesUpdate {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/holding_merges/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
 
     type UrlDisplay = HoldingMergesUpdateUrlDisplay<'a>;
     type Parameters = HoldingMergesUpdateParameters;
@@ -654,6 +666,7 @@ pub struct HoldingTrades;
 
 impl<'a> ApiEndpoint<'a> for HoldingTrades {
     const URL_PATH: &'static str = "/holdings/:holding_id/trades.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = HoldingTradesUrlDisplay<'a>;
     type Parameters = HoldingTradesParameters;
@@ -725,6 +738,7 @@ pub struct HoldingTradesRejected;
 
 impl<'a> ApiEndpoint<'a> for HoldingTradesRejected {
     const URL_PATH: &'static str = "/holdings/:holding_id/rejected_trades.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = HoldingTradesRejectedUrlDisplay<'a>;
     type Parameters = HoldingTradesRejectedParameters;
@@ -799,6 +813,7 @@ pub struct IdentityByToken;
 
 impl<'a> ApiEndpoint<'a> for IdentityByToken {
     const URL_PATH: &'static str = ".1-mobile/identity/by_token.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = &'static str;
     type Parameters = IdentityByTokenParameters;
@@ -827,6 +842,7 @@ pub struct IdentitySignupByToken;
 
 impl<'a> ApiEndpoint<'a> for IdentitySignupByToken {
     const URL_PATH: &'static str = ".1-mobile/identity/signup_by_token.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = &'static str;
     type Parameters = IdentitySignupByTokenParameters;
@@ -856,6 +872,7 @@ pub struct MembershipCreate;
 
 impl<'a> ApiEndpoint<'a> for MembershipCreate {
     const URL_PATH: &'static str = "/memberships.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
 
     type UrlDisplay = &'static str;
     type Parameters = MembershipCreateParameters;
@@ -932,6 +949,7 @@ pub struct MembershipDelete;
 
 impl<'a> ApiEndpoint<'a> for MembershipDelete {
     const URL_PATH: &'static str = "/memberships/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
 
     type UrlDisplay = MembershipDeleteUrlDisplay<'a>;
     type Parameters = MembershipDeleteParameters;
@@ -961,6 +979,7 @@ pub struct MembershipUpdate;
 
 impl<'a> ApiEndpoint<'a> for MembershipUpdate {
     const URL_PATH: &'static str = "/memberships/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
 
     type UrlDisplay = MembershipUpdateUrlDisplay<'a>;
     type Parameters = MembershipUpdateParameters;
@@ -1025,6 +1044,7 @@ pub struct ListHoldingPayouts;
 
 impl<'a> ApiEndpoint<'a> for ListHoldingPayouts {
     const URL_PATH: &'static str = "/holdings/:holding_id/payouts.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = ListHoldingPayoutsUrlDisplay<'a>;
     type Parameters = ListHoldingPayoutsParameters;
@@ -1120,6 +1140,7 @@ pub struct ListPortfolioPayouts;
 
 impl<'a> ApiEndpoint<'a> for ListPortfolioPayouts {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/payouts.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = ListPortfolioPayoutsUrlDisplay<'a>;
     type Parameters = ListPortfolioPayoutsParameters;
@@ -1215,6 +1236,7 @@ pub struct PayoutCreate;
 
 impl<'a> ApiEndpoint<'a> for PayoutCreate {
     const URL_PATH: &'static str = "/payouts";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
 
     type UrlDisplay = &'static str;
     type Parameters = PayoutCreateParameters;
@@ -1335,6 +1357,7 @@ pub struct PayoutDelete;
 
 impl<'a> ApiEndpoint<'a> for PayoutDelete {
     const URL_PATH: &'static str = "/payouts/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
 
     type UrlDisplay = PayoutDeleteUrlDisplay<'a>;
     type Parameters = PayoutDeleteParameters;
@@ -1369,6 +1392,7 @@ pub struct PayoutReject;
 
 impl<'a> ApiEndpoint<'a> for PayoutReject {
     const URL_PATH: &'static str = "/payouts.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
 
     type UrlDisplay = &'static str;
     type Parameters = PayoutRejectParameters;
@@ -1418,6 +1442,7 @@ pub struct PayoutShow;
 
 impl<'a> ApiEndpoint<'a> for PayoutShow {
     const URL_PATH: &'static str = "/payouts/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = PayoutShowUrlDisplay<'a>;
     type Parameters = PayoutShowParameters;
@@ -1503,6 +1528,7 @@ pub struct PayoutUpdate;
 
 impl<'a> ApiEndpoint<'a> for PayoutUpdate {
     const URL_PATH: &'static str = "/payouts/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
 
     type UrlDisplay = PayoutUpdateUrlDisplay<'a>;
     type Parameters = PayoutUpdateParameters;
@@ -1623,6 +1649,7 @@ pub struct PortfolioCreate;
 
 impl<'a> ApiEndpoint<'a> for PortfolioCreate {
     const URL_PATH: &'static str = "/portfolios.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
 
     type UrlDisplay = &'static str;
     type Parameters = PortfolioCreateParameters;
@@ -1657,6 +1684,7 @@ pub struct PortfolioDelete;
 
 impl<'a> ApiEndpoint<'a> for PortfolioDelete {
     const URL_PATH: &'static str = "/portfolios/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
 
     type UrlDisplay = PortfolioDeleteUrlDisplay<'a>;
     type Parameters = PortfolioDeleteParameters;
@@ -1691,6 +1719,7 @@ pub struct PortfolioUpdate;
 
 impl<'a> ApiEndpoint<'a> for PortfolioUpdate {
     const URL_PATH: &'static str = "/portfolios/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
 
     type UrlDisplay = PortfolioUpdateUrlDisplay<'a>;
     type Parameters = PortfolioUpdateParameters;
@@ -1766,6 +1795,7 @@ pub struct CapitalGains;
 
 impl<'a> ApiEndpoint<'a> for CapitalGains {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/capital_gains.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = CapitalGainsUrlDisplay<'a>;
     type Parameters = CapitalGainsParameters;
@@ -1884,6 +1914,7 @@ pub struct Diversity;
 
 impl<'a> ApiEndpoint<'a> for Diversity {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/diversity.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = DiversityUrlDisplay<'a>;
     type Parameters = DiversityParameters;
@@ -1946,6 +1977,7 @@ pub struct Performance;
 
 impl<'a> ApiEndpoint<'a> for Performance {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/performance.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = PerformanceUrlDisplay<'a>;
     type Parameters = PerformanceParameters;
@@ -2053,6 +2085,7 @@ pub struct UnrealisedCgt;
 
 impl<'a> ApiEndpoint<'a> for UnrealisedCgt {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/unrealised_cgt.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = UnrealisedCgtUrlDisplay<'a>;
     type Parameters = UnrealisedCgtParameters;
@@ -2142,6 +2175,7 @@ pub struct Valuation;
 
 impl<'a> ApiEndpoint<'a> for Valuation {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/valuation.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = ValuationUrlDisplay<'a>;
     type Parameters = ValuationParameters;
@@ -2218,6 +2252,7 @@ pub struct TradeConfirm;
 
 impl<'a> ApiEndpoint<'a> for TradeConfirm {
     const URL_PATH: &'static str = "/trades.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
 
     type UrlDisplay = &'static str;
     type Parameters = TradeConfirmParameters;
@@ -2266,6 +2301,7 @@ pub struct TradeReject;
 
 impl<'a> ApiEndpoint<'a> for TradeReject {
     const URL_PATH: &'static str = "/trades.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
 
     type UrlDisplay = &'static str;
     type Parameters = TradeRejectParameters;
@@ -2314,6 +2350,7 @@ pub struct Trades;
 
 impl<'a> ApiEndpoint<'a> for Trades {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/trades.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = TradesUrlDisplay<'a>;
     type Parameters = TradesParameters;
@@ -2387,6 +2424,7 @@ pub struct TradesDestroy;
 
 impl<'a> ApiEndpoint<'a> for TradesDestroy {
     const URL_PATH: &'static str = "/trades/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
 
     type UrlDisplay = TradesDestroyUrlDisplay<'a>;
     type Parameters = TradesDestroyParameters;
@@ -2430,6 +2468,7 @@ pub struct TradesShow;
 
 impl<'a> ApiEndpoint<'a> for TradesShow {
     const URL_PATH: &'static str = "/trades/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
     type UrlDisplay = TradesShowUrlDisplay<'a>;
     type Parameters = TradesShowParameters;
