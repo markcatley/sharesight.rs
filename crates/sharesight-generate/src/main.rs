@@ -1,7 +1,7 @@
 use std::{collections::HashMap, env, fmt, fs::File, io::Write, path::PathBuf};
 
 use clap::Parser;
-use heck::CamelCase;
+use heck::ToUpperCamelCase;
 use indexmap::IndexMap;
 use log::{error, info, warn};
 use serde::{
@@ -134,7 +134,7 @@ impl fmt::Display for ApiEndpoint {
 
         let parameter_fields = group_fields_by_prefix(parameter_fields);
 
-        let endpoint_name = self.name.to_camel_case();
+        let endpoint_name = self.name.to_upper_camel_case();
 
         writeln!(f, "pub struct {};", endpoint_name)?;
         writeln!(f)?;
@@ -313,7 +313,7 @@ impl<'a> fmt::Display for ApiStruct<'a> {
             writeln!(f, ")]")?;
             write!(f, "pub struct {}", endpoint_name)?;
             for prefix_segment in prefix.iter() {
-                write!(f, "{}", prefix_segment.to_camel_case())?;
+                write!(f, "{}", prefix_segment.to_upper_camel_case())?;
             }
             writeln!(f, "{} {{", tag)?;
             for parameter in fields {
@@ -369,9 +369,9 @@ impl<'a> fmt::Display for ApiStruct<'a> {
                         }
                         write!(f, "{}", endpoint_name)?;
                         for prefix_segment in prefix_segments.iter() {
-                            write!(f, "{}", prefix_segment.to_camel_case())?;
+                            write!(f, "{}", prefix_segment.to_upper_camel_case())?;
                         }
-                        write!(f, "{}{}", field_name.to_camel_case(), tag)?;
+                        write!(f, "{}{}", field_name.to_upper_camel_case(), tag)?;
                         if parameter.field_type.is_array() {
                             write!(f, ">")?;
                         }
