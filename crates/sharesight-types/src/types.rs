@@ -7,6 +7,7 @@ impl<'a> ApiEndpoint<'a> for CashAccountCreate {
 
     type UrlDisplay = CashAccountCreateUrlDisplay<'a>;
     type Parameters = CashAccountCreateParameters;
+    type Success = CashAccountCreateSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         CashAccountCreateUrlDisplay(parameters)
@@ -39,6 +40,29 @@ pub struct CashAccountCreateCashAccountParameters {
     pub currency: String,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountCreateSuccess {
+    pub cash_account: CashAccountCreateCashAccountSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountCreateCashAccountSuccess {
+    pub id: i64,
+    pub name: String,
+    pub currency: String,
+    pub portfolio_currency: String,
+    pub portfolio_id: i64,
+    pub date: NaiveDate,
+    pub balance: f64,
+    pub balance_in_portfolio_currency: f64,
+    pub links: CashAccountCreateCashAccountLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountCreateCashAccountLinksSuccess {
+    pub portfolio: String,
+}
+
 pub struct CashAccountDelete;
 
 impl<'a> ApiEndpoint<'a> for CashAccountDelete {
@@ -46,6 +70,7 @@ impl<'a> ApiEndpoint<'a> for CashAccountDelete {
 
     type UrlDisplay = CashAccountDeleteUrlDisplay<'a>;
     type Parameters = CashAccountDeleteParameters;
+    type Success = ();
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         CashAccountDeleteUrlDisplay(parameters)
@@ -74,6 +99,7 @@ impl<'a> ApiEndpoint<'a> for CashAccountShow {
 
     type UrlDisplay = CashAccountShowUrlDisplay<'a>;
     type Parameters = CashAccountShowParameters;
+    type Success = CashAccountShowSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         CashAccountShowUrlDisplay(parameters)
@@ -96,6 +122,26 @@ pub struct CashAccountShowParameters {
     pub date: Option<NaiveDate>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountShowSuccess {
+    pub id: i64,
+    pub name: String,
+    pub currency: String,
+    pub portfolio_currency: String,
+    pub portfolio_id: i64,
+    pub date: NaiveDate,
+    pub balance: f64,
+    pub balance_in_portfolio_currency: f64,
+    pub links: CashAccountShowLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountShowLinksSuccess {
+    pub portfolio: String,
+    #[serde(rename = "self")]
+    pub itself: String,
+}
+
 pub struct CashAccountTransactionCreate;
 
 impl<'a> ApiEndpoint<'a> for CashAccountTransactionCreate {
@@ -103,6 +149,7 @@ impl<'a> ApiEndpoint<'a> for CashAccountTransactionCreate {
 
     type UrlDisplay = CashAccountTransactionCreateUrlDisplay<'a>;
     type Parameters = CashAccountTransactionCreateParameters;
+    type Success = CashAccountTransactionCreateSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         CashAccountTransactionCreateUrlDisplay(parameters)
@@ -133,6 +180,31 @@ pub struct CashAccountTransactionCreateParameters {
     pub foreign_identifier: Option<String>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountTransactionCreateSuccess {
+    pub cash_account_transaction: CashAccountTransactionCreateCashAccountTransactionSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountTransactionCreateCashAccountTransactionSuccess {
+    pub id: i64,
+    pub description: String,
+    pub date_time: NaiveDateTime,
+    pub amount: f64,
+    pub balance: f64,
+    pub cash_account_id: String,
+    pub foreign_identifier: String,
+    pub holding_id: i64,
+    pub trade_id: i64,
+    pub cash_account_transaction_type: String,
+    pub links: CashAccountTransactionCreateCashAccountTransactionLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountTransactionCreateCashAccountTransactionLinksSuccess {
+    pub portfolio: String,
+}
+
 pub struct CashAccountTransactionDelete;
 
 impl<'a> ApiEndpoint<'a> for CashAccountTransactionDelete {
@@ -140,6 +212,7 @@ impl<'a> ApiEndpoint<'a> for CashAccountTransactionDelete {
 
     type UrlDisplay = CashAccountTransactionDeleteUrlDisplay<'a>;
     type Parameters = CashAccountTransactionDeleteParameters;
+    type Success = ();
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         CashAccountTransactionDeleteUrlDisplay(parameters)
@@ -168,6 +241,7 @@ impl<'a> ApiEndpoint<'a> for CashAccountTransactionUpdate {
 
     type UrlDisplay = CashAccountTransactionUpdateUrlDisplay<'a>;
     type Parameters = CashAccountTransactionUpdateParameters;
+    type Success = CashAccountTransactionUpdateSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         CashAccountTransactionUpdateUrlDisplay(parameters)
@@ -194,6 +268,31 @@ pub struct CashAccountTransactionUpdateParameters {
     pub foreign_identifier: Option<String>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountTransactionUpdateSuccess {
+    pub cash_account_transaction: CashAccountTransactionUpdateCashAccountTransactionSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountTransactionUpdateCashAccountTransactionSuccess {
+    pub id: i64,
+    pub description: String,
+    pub date_time: NaiveDateTime,
+    pub amount: f64,
+    pub balance: f64,
+    pub cash_account_id: String,
+    pub foreign_identifier: String,
+    pub holding_id: i64,
+    pub trade_id: i64,
+    pub cash_account_transaction_type: String,
+    pub links: CashAccountTransactionUpdateCashAccountTransactionLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountTransactionUpdateCashAccountTransactionLinksSuccess {
+    pub portfolio: String,
+}
+
 pub struct CashAccountTransactionsList;
 
 impl<'a> ApiEndpoint<'a> for CashAccountTransactionsList {
@@ -201,6 +300,7 @@ impl<'a> ApiEndpoint<'a> for CashAccountTransactionsList {
 
     type UrlDisplay = CashAccountTransactionsListUrlDisplay<'a>;
     type Parameters = CashAccountTransactionsListParameters;
+    type Success = CashAccountTransactionsListSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         CashAccountTransactionsListUrlDisplay(parameters)
@@ -230,6 +330,38 @@ pub struct CashAccountTransactionsListParameters {
     pub foreign_identifier: Option<String>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountTransactionsListSuccess {
+    pub cash_account_transactions: Vec<()>,
+    pub links: CashAccountTransactionsListLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountTransactionsListCashAccountTransactionSuccess {
+    pub id: i64,
+    pub date_time: NaiveDateTime,
+    pub amount: f64,
+    pub balance: f64,
+    pub cash_account_id: i64,
+    pub foreign_identifier: String,
+    pub holding_id: i64,
+    pub trade_id: i64,
+    pub payout_id: i64,
+    pub cash_account_transaction_type: String,
+    pub links: CashAccountTransactionsListCashAccountTransactionLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountTransactionsListCashAccountTransactionLinksSuccess {
+    pub portfolio: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountTransactionsListLinksSuccess {
+    #[serde(rename = "self")]
+    pub itself: String,
+}
+
 pub struct CashAccountUpdate;
 
 impl<'a> ApiEndpoint<'a> for CashAccountUpdate {
@@ -237,6 +369,7 @@ impl<'a> ApiEndpoint<'a> for CashAccountUpdate {
 
     type UrlDisplay = CashAccountUpdateUrlDisplay<'a>;
     type Parameters = CashAccountUpdateParameters;
+    type Success = CashAccountUpdateSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         CashAccountUpdateUrlDisplay(parameters)
@@ -260,6 +393,24 @@ pub struct CashAccountUpdateParameters {
     pub currency: String,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountUpdateSuccess {
+    pub id: i64,
+    pub name: String,
+    pub currency: String,
+    pub portfolio_currency: String,
+    pub portfolio_id: i64,
+    pub date: NaiveDate,
+    pub balance: f64,
+    pub balance_in_portfolio_currency: f64,
+    pub links: CashAccountUpdateLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountUpdateLinksSuccess {
+    pub portfolio: String,
+}
+
 pub struct CashAccountsList;
 
 impl<'a> ApiEndpoint<'a> for CashAccountsList {
@@ -267,6 +418,7 @@ impl<'a> ApiEndpoint<'a> for CashAccountsList {
 
     type UrlDisplay = &'static str;
     type Parameters = CashAccountsListParameters;
+    type Success = CashAccountsListSuccess;
 
     fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         "/cash_accounts.json"
@@ -278,6 +430,36 @@ pub struct CashAccountsListParameters {
     pub date: Option<NaiveDate>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountsListSuccess {
+    pub cash_accounts: Vec<()>,
+    pub links: CashAccountsListLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountsListCashAccountsSuccess {
+    pub id: i64,
+    pub name: String,
+    pub currency: String,
+    pub portfolio_id: i64,
+    pub portfolio_currency: String,
+    pub date: NaiveDate,
+    pub balance: f64,
+    pub balance_in_portfolio_currency: f64,
+    pub links: CashAccountsListCashAccountsLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountsListCashAccountsLinksSuccess {
+    pub portfolio: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CashAccountsListLinksSuccess {
+    #[serde(rename = "self")]
+    pub itself: String,
+}
+
 pub struct DocumentShow;
 
 impl<'a> ApiEndpoint<'a> for DocumentShow {
@@ -285,6 +467,7 @@ impl<'a> ApiEndpoint<'a> for DocumentShow {
 
     type UrlDisplay = DocumentShowUrlDisplay<'a>;
     type Parameters = DocumentShowParameters;
+    type Success = DocumentShowSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         DocumentShowUrlDisplay(parameters)
@@ -306,6 +489,11 @@ pub struct DocumentShowParameters {
     pub id: i64,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct DocumentShowSuccess {
+    pub file: (),
+}
+
 pub struct HoldingMergesCreate;
 
 impl<'a> ApiEndpoint<'a> for HoldingMergesCreate {
@@ -313,6 +501,7 @@ impl<'a> ApiEndpoint<'a> for HoldingMergesCreate {
 
     type UrlDisplay = HoldingMergesCreateUrlDisplay<'a>;
     type Parameters = HoldingMergesCreateParameters;
+    type Success = HoldingMergesCreateSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         HoldingMergesCreateUrlDisplay(parameters)
@@ -348,6 +537,41 @@ pub struct HoldingMergesCreateParameters {
     pub attachment_filename: Option<String>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingMergesCreateSuccess {
+    pub holding_merge: HoldingMergesCreateHoldingMergeSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingMergesCreateHoldingMergeSuccess {
+    pub id: i64,
+    pub trades: Vec<()>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingMergesCreateHoldingMergeTradesSuccess {
+    pub id: i64,
+    pub transaction_type: String,
+    pub transaction_date: String,
+    pub market: String,
+    pub symbol: String,
+    pub quantity: f64,
+    pub price: f64,
+    pub exchange_rate: f64,
+    pub brokerage: f64,
+    pub brokerage_currency_code: String,
+    pub value: String,
+    pub company_event_id: i64,
+    pub unique_identifier: String,
+    pub comments: String,
+    pub portfolio_id: i64,
+    pub holding_id: i64,
+    pub instrument_id: i64,
+    pub state: String,
+    pub attachment_filename: String,
+    pub attachment_id: String,
+}
+
 pub struct HoldingMergesUpdate;
 
 impl<'a> ApiEndpoint<'a> for HoldingMergesUpdate {
@@ -355,6 +579,7 @@ impl<'a> ApiEndpoint<'a> for HoldingMergesUpdate {
 
     type UrlDisplay = HoldingMergesUpdateUrlDisplay<'a>;
     type Parameters = HoldingMergesUpdateParameters;
+    type Success = HoldingMergesUpdateSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         HoldingMergesUpdateUrlDisplay(parameters)
@@ -390,6 +615,41 @@ pub struct HoldingMergesUpdateParameters {
     pub attachment_filename: Option<String>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingMergesUpdateSuccess {
+    pub holding_merge: HoldingMergesUpdateHoldingMergeSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingMergesUpdateHoldingMergeSuccess {
+    pub id: i64,
+    pub trades: Vec<()>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingMergesUpdateHoldingMergeTradesSuccess {
+    pub id: i64,
+    pub transaction_type: String,
+    pub transaction_date: String,
+    pub market: String,
+    pub symbol: String,
+    pub quantity: f64,
+    pub price: f64,
+    pub exchange_rate: f64,
+    pub brokerage: f64,
+    pub brokerage_currency_code: String,
+    pub value: String,
+    pub company_event_id: i64,
+    pub unique_identifier: String,
+    pub comments: String,
+    pub portfolio_id: i64,
+    pub holding_id: i64,
+    pub instrument_id: i64,
+    pub state: String,
+    pub attachment_filename: String,
+    pub attachment_id: String,
+}
+
 pub struct HoldingTrades;
 
 impl<'a> ApiEndpoint<'a> for HoldingTrades {
@@ -397,6 +657,7 @@ impl<'a> ApiEndpoint<'a> for HoldingTrades {
 
     type UrlDisplay = HoldingTradesUrlDisplay<'a>;
     type Parameters = HoldingTradesParameters;
+    type Success = HoldingTradesSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         HoldingTradesUrlDisplay(parameters)
@@ -419,6 +680,47 @@ pub struct HoldingTradesParameters {
     pub unique_identifier: Option<String>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingTradesSuccess {
+    pub trades: Vec<String>,
+    pub api_transaction: HoldingTradesApiTransactionSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingTradesTradesSuccess {
+    pub id: String,
+    pub unique_identifier: String,
+    pub transaction_date: NaiveDate,
+    pub quantity: f64,
+    pub price: f64,
+    pub cost_base: f64,
+    pub exchange_rate: f64,
+    pub brokerage: f64,
+    pub brokerage_currency_code: String,
+    pub value: f64,
+    pub paid_on: NaiveDate,
+    pub company_event_id: i64,
+    pub comments: String,
+    pub portfolio_id: i64,
+    pub holding_id: i64,
+    pub state: String,
+    pub transaction_type: String,
+    pub instrument_id: i64,
+    pub symbol: String,
+    pub market: String,
+    pub attachment_filename: String,
+    pub attachment_id: i64,
+    pub confirmed: bool,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingTradesApiTransactionSuccess {
+    pub id: i64,
+    pub version: i64,
+    pub action: String,
+    pub timestamp: String,
+}
+
 pub struct HoldingTradesRejected;
 
 impl<'a> ApiEndpoint<'a> for HoldingTradesRejected {
@@ -426,6 +728,7 @@ impl<'a> ApiEndpoint<'a> for HoldingTradesRejected {
 
     type UrlDisplay = HoldingTradesRejectedUrlDisplay<'a>;
     type Parameters = HoldingTradesRejectedParameters;
+    type Success = HoldingTradesRejectedSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         HoldingTradesRejectedUrlDisplay(parameters)
@@ -451,6 +754,47 @@ pub struct HoldingTradesRejectedParameters {
     pub holding_id: String,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingTradesRejectedSuccess {
+    pub trades: Vec<String>,
+    pub api_transaction: HoldingTradesRejectedApiTransactionSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingTradesRejectedTradesSuccess {
+    pub id: String,
+    pub unique_identifier: String,
+    pub transaction_date: NaiveDate,
+    pub quantity: f64,
+    pub price: f64,
+    pub cost_base: f64,
+    pub exchange_rate: f64,
+    pub brokerage: f64,
+    pub brokerage_currency_code: String,
+    pub value: f64,
+    pub paid_on: NaiveDate,
+    pub company_event_id: i64,
+    pub comments: String,
+    pub portfolio_id: i64,
+    pub holding_id: i64,
+    pub state: String,
+    pub transaction_type: String,
+    pub instrument_id: i64,
+    pub symbol: String,
+    pub market: String,
+    pub attachment_filename: String,
+    pub attachment_id: i64,
+    pub confirmed: bool,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingTradesRejectedApiTransactionSuccess {
+    pub id: i64,
+    pub version: i64,
+    pub action: String,
+    pub timestamp: String,
+}
+
 pub struct IdentityByToken;
 
 impl<'a> ApiEndpoint<'a> for IdentityByToken {
@@ -458,6 +802,7 @@ impl<'a> ApiEndpoint<'a> for IdentityByToken {
 
     type UrlDisplay = &'static str;
     type Parameters = IdentityByTokenParameters;
+    type Success = IdentityByTokenSuccess;
 
     fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         "/.1-mobile/identity/by_token.json"
@@ -470,6 +815,14 @@ pub struct IdentityByTokenParameters {
     pub client_id: String,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct IdentityByTokenSuccess {
+    pub access_token: String,
+    pub refresh_token: String,
+    pub expires_in: i64,
+    pub token_type: String,
+}
+
 pub struct IdentitySignupByToken;
 
 impl<'a> ApiEndpoint<'a> for IdentitySignupByToken {
@@ -477,6 +830,7 @@ impl<'a> ApiEndpoint<'a> for IdentitySignupByToken {
 
     type UrlDisplay = &'static str;
     type Parameters = IdentitySignupByTokenParameters;
+    type Success = IdentitySignupByTokenSuccess;
 
     fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         "/.1-mobile/identity/signup_by_token.json"
@@ -490,6 +844,14 @@ pub struct IdentitySignupByTokenParameters {
     pub country_code: String,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct IdentitySignupByTokenSuccess {
+    pub access_token: String,
+    pub refresh_token: String,
+    pub expires_in: i64,
+    pub token_type: String,
+}
+
 pub struct MembershipCreate;
 
 impl<'a> ApiEndpoint<'a> for MembershipCreate {
@@ -497,6 +859,7 @@ impl<'a> ApiEndpoint<'a> for MembershipCreate {
 
     type UrlDisplay = &'static str;
     type Parameters = MembershipCreateParameters;
+    type Success = MembershipCreateSuccess;
 
     fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         "/memberships.json"
@@ -530,6 +893,41 @@ pub struct MembershipCreateInvitationParameters {
     pub no_email: Option<bool>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct MembershipCreateSuccess {
+    pub id: i64,
+    pub access_code: String,
+    pub portfolio_id: i64,
+    pub organisation_name: String,
+    pub shared_with_organisation: bool,
+    pub user: MembershipCreateUserSuccess,
+    pub alerts_enabled: bool,
+    pub company_event_alerts_enabled: bool,
+    pub price_alerts_enabled: bool,
+    pub invitation: MembershipCreateInvitationSuccess,
+    pub links: MembershipCreateLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct MembershipCreateUserSuccess {
+    pub id: i64,
+    pub first_name: i64,
+    pub last_name: i64,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct MembershipCreateInvitationSuccess {
+    pub id: i64,
+    pub text: String,
+    pub status: String,
+    pub url: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct MembershipCreateLinksSuccess {
+    pub portfolio: String,
+}
+
 pub struct MembershipDelete;
 
 impl<'a> ApiEndpoint<'a> for MembershipDelete {
@@ -537,6 +935,7 @@ impl<'a> ApiEndpoint<'a> for MembershipDelete {
 
     type UrlDisplay = MembershipDeleteUrlDisplay<'a>;
     type Parameters = MembershipDeleteParameters;
+    type Success = ();
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         MembershipDeleteUrlDisplay(parameters)
@@ -565,6 +964,7 @@ impl<'a> ApiEndpoint<'a> for MembershipUpdate {
 
     type UrlDisplay = MembershipUpdateUrlDisplay<'a>;
     type Parameters = MembershipUpdateParameters;
+    type Success = MembershipUpdateSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         MembershipUpdateUrlDisplay(parameters)
@@ -587,6 +987,40 @@ pub struct MembershipUpdateParameters {
     pub access_code: String,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct MembershipUpdateSuccess {
+    pub id: i64,
+    pub access_code: String,
+    pub portfolio_id: i64,
+    pub user: MembershipUpdateUserSuccess,
+    pub alerts_enabled: bool,
+    pub company_event_alerts_enabled: bool,
+    pub price_alerts_enabled: bool,
+    pub invitation: MembershipUpdateInvitationSuccess,
+    pub links: MembershipUpdateLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct MembershipUpdateUserSuccess {
+    pub id: i64,
+    pub first_name: String,
+    pub last_name: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct MembershipUpdateInvitationSuccess {
+    pub id: i64,
+    pub text: String,
+    pub url: String,
+    pub status: String,
+    pub invitation_path: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct MembershipUpdateLinksSuccess {
+    pub portfolio: String,
+}
+
 pub struct ListHoldingPayouts;
 
 impl<'a> ApiEndpoint<'a> for ListHoldingPayouts {
@@ -594,6 +1028,7 @@ impl<'a> ApiEndpoint<'a> for ListHoldingPayouts {
 
     type UrlDisplay = ListHoldingPayoutsUrlDisplay<'a>;
     type Parameters = ListHoldingPayoutsParameters;
+    type Success = ListHoldingPayoutsSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         ListHoldingPayoutsUrlDisplay(parameters)
@@ -618,6 +1053,69 @@ pub struct ListHoldingPayoutsParameters {
     pub use_date: Option<String>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct ListHoldingPayoutsSuccess {
+    pub payouts: Vec<()>,
+    pub links: ListHoldingPayoutsLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ListHoldingPayoutsPayoutsSuccess {
+    pub id: String,
+    pub symbol: String,
+    pub market: String,
+    pub paid_on: String,
+    pub ex_date: String,
+    pub amount: f64,
+    pub gross_amount: f64,
+    pub transaction_description: String,
+    pub resident_withholding_tax: f64,
+    pub non_resident_withholding_tax: f64,
+    pub tax_credit: f64,
+    pub currency: String,
+    pub exchange_rate: f64,
+    pub non_taxable: bool,
+    pub comments: String,
+    pub other_net_fsi: f64,
+    pub lic_capital_gain: f64,
+    pub company_event_id: i64,
+    pub state: String,
+    pub drp_trade_attributes: (),
+    pub franked_amount: f64,
+    pub unfranked_amount: f64,
+    pub trust: bool,
+    pub extra_interest_payment_amount: f64,
+    pub capital_gains: f64,
+    pub discounted_capital_gains: f64,
+    pub interest_payment: f64,
+    pub foreign_source_income: f64,
+    pub deferred_income: f64,
+    pub non_assessable: bool,
+    pub cgt_concession_amount: f64,
+    pub amit_decrease_amount: f64,
+    pub amit_increase_amount: f64,
+    pub links: ListHoldingPayoutsPayoutsLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ListHoldingPayoutsPayoutsDrpTradeAttributesSuccess {
+    pub dividend_reinvested: bool,
+    pub quantity: f64,
+    pub price: f64,
+    pub source_adjustment_id: i64,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ListHoldingPayoutsPayoutsLinksSuccess {
+    pub portfolio: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ListHoldingPayoutsLinksSuccess {
+    #[serde(rename = "self")]
+    pub itself: String,
+}
+
 pub struct ListPortfolioPayouts;
 
 impl<'a> ApiEndpoint<'a> for ListPortfolioPayouts {
@@ -625,6 +1123,7 @@ impl<'a> ApiEndpoint<'a> for ListPortfolioPayouts {
 
     type UrlDisplay = ListPortfolioPayoutsUrlDisplay<'a>;
     type Parameters = ListPortfolioPayoutsParameters;
+    type Success = ListPortfolioPayoutsSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         ListPortfolioPayoutsUrlDisplay(parameters)
@@ -649,6 +1148,69 @@ pub struct ListPortfolioPayoutsParameters {
     pub use_date: Option<String>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct ListPortfolioPayoutsSuccess {
+    pub payouts: Vec<()>,
+    pub links: ListPortfolioPayoutsLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ListPortfolioPayoutsPayoutsSuccess {
+    pub id: String,
+    pub portfolio_id: i64,
+    pub holding_id: i64,
+    pub instrument_id: i64,
+    pub symbol: String,
+    pub market: String,
+    pub paid_on: String,
+    pub ex_date: String,
+    pub amount: f64,
+    pub gross_amount: f64,
+    pub resident_withholding_tax: f64,
+    pub non_resident_withholding_tax: f64,
+    pub tax_credit: f64,
+    pub currency: String,
+    pub exchange_rate: f64,
+    pub non_taxable: String,
+    pub comments: String,
+    pub other_net_fsi: f64,
+    pub company_event_id: i64,
+    pub state: String,
+    pub drp_trade_attributes: (),
+    pub franked_amount: f64,
+    pub unfranked_amount: f64,
+    pub trust: bool,
+    pub extra_interest_payment_amount: f64,
+    pub capital_gains: f64,
+    pub discounted_capital_gains: f64,
+    pub interest_payment: f64,
+    pub foreign_source_income: f64,
+    pub deferred_income: f64,
+    pub non_assessable: bool,
+    pub amit_decrease_amount: f64,
+    pub amit_increase_amount: f64,
+    pub links: ListPortfolioPayoutsPayoutsLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ListPortfolioPayoutsPayoutsDrpTradeAttributesSuccess {
+    pub dividend_reinvested: bool,
+    pub quantity: f64,
+    pub price: f64,
+    pub source_adjustment_id: i64,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ListPortfolioPayoutsPayoutsLinksSuccess {
+    pub portfolio: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ListPortfolioPayoutsLinksSuccess {
+    #[serde(rename = "self")]
+    pub itself: String,
+}
+
 pub struct PayoutCreate;
 
 impl<'a> ApiEndpoint<'a> for PayoutCreate {
@@ -656,6 +1218,7 @@ impl<'a> ApiEndpoint<'a> for PayoutCreate {
 
     type UrlDisplay = &'static str;
     type Parameters = PayoutCreateParameters;
+    type Success = PayoutCreateSuccess;
 
     fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         "/payouts"
@@ -713,6 +1276,61 @@ pub struct PayoutCreatePayoutDrpTradeAttributesParameters {
     pub source_adjustment_id: Option<i64>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct PayoutCreateSuccess {
+    pub payout: (),
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PayoutCreatePayoutSuccess {
+    pub id: i64,
+    pub symbol: String,
+    pub market: String,
+    pub paid_on: String,
+    pub ex_date: String,
+    pub amount: f64,
+    pub gross_amount: f64,
+    pub resident_withholding_tax: f64,
+    pub non_resident_withholding_tax: f64,
+    pub tax_credit: f64,
+    pub currency: String,
+    pub exchange_rate: f64,
+    pub non_taxable: bool,
+    pub franked_amount: f64,
+    pub unfranked_amount: f64,
+    pub comments: String,
+    pub interest_payment: f64,
+    pub non_discounted_capital_gains: f64,
+    pub discounted_capital_gains: f64,
+    pub foreign_tax_income: f64,
+    pub non_assessable: f64,
+    pub trust: bool,
+    pub drp_trade_attributes: (),
+    pub extra_interest_payment_amount: f64,
+    pub capital_gains: f64,
+    pub foreign_source_income: f64,
+    pub deferred_income: f64,
+    pub cgt_concession_amount: f64,
+    pub amit_decrease_amount: f64,
+    pub amit_increase_amount: f64,
+    pub attachment_filename: String,
+    pub attachment_id: String,
+    pub links: PayoutCreatePayoutLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PayoutCreatePayoutDrpTradeAttributesSuccess {
+    pub dividend_reinvested: bool,
+    pub quantity: f64,
+    pub price: f64,
+    pub source_adjustment_id: i64,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PayoutCreatePayoutLinksSuccess {
+    pub portfolio: String,
+}
+
 pub struct PayoutDelete;
 
 impl<'a> ApiEndpoint<'a> for PayoutDelete {
@@ -720,6 +1338,7 @@ impl<'a> ApiEndpoint<'a> for PayoutDelete {
 
     type UrlDisplay = PayoutDeleteUrlDisplay<'a>;
     type Parameters = PayoutDeleteParameters;
+    type Success = PayoutDeleteSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         PayoutDeleteUrlDisplay(parameters)
@@ -741,6 +1360,11 @@ pub struct PayoutDeleteParameters {
     pub id: i64,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct PayoutDeleteSuccess {
+    pub deleted: bool,
+}
+
 pub struct PayoutReject;
 
 impl<'a> ApiEndpoint<'a> for PayoutReject {
@@ -748,6 +1372,7 @@ impl<'a> ApiEndpoint<'a> for PayoutReject {
 
     type UrlDisplay = &'static str;
     type Parameters = PayoutRejectParameters;
+    type Success = PayoutRejectSuccess;
 
     fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         "/payouts.json"
@@ -761,6 +1386,34 @@ pub struct PayoutRejectParameters {
     pub state: String,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct PayoutRejectSuccess {
+    pub payout: PayoutRejectPayoutSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PayoutRejectPayoutSuccess {
+    pub id: i64,
+    pub portfolio_id: i64,
+    pub holding_id: i64,
+    pub instrument_id: i64,
+    pub symbol: String,
+    pub market: String,
+    pub paid_on: NaiveDate,
+    pub ex_date: NaiveDate,
+    pub amount: f64,
+    pub gross_amount: f64,
+    pub resident_withholding_tax: f64,
+    pub non_resident_withholding_tax: f64,
+    pub tax_credit: f64,
+    pub currency: String,
+    pub exchange_rate: f64,
+    pub non_taxable: bool,
+    pub comments: String,
+    pub company_event_id: i64,
+    pub state: String,
+}
+
 pub struct PayoutShow;
 
 impl<'a> ApiEndpoint<'a> for PayoutShow {
@@ -768,6 +1421,7 @@ impl<'a> ApiEndpoint<'a> for PayoutShow {
 
     type UrlDisplay = PayoutShowUrlDisplay<'a>;
     type Parameters = PayoutShowParameters;
+    type Success = PayoutShowSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         PayoutShowUrlDisplay(parameters)
@@ -789,6 +1443,62 @@ pub struct PayoutShowParameters {
     pub id: i64,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct PayoutShowSuccess {
+    pub id: i64,
+    pub portfolio_id: i64,
+    pub holding_id: i64,
+    pub instrument_id: i64,
+    pub symbol: String,
+    pub market: String,
+    pub paid_on: String,
+    pub ex_date: String,
+    pub amount: f64,
+    pub gross_amount: f64,
+    pub resident_withholding_tax: f64,
+    pub non_resident_withholding_tax: f64,
+    pub tax_credit: f64,
+    pub currency: String,
+    pub exchange_rate: f64,
+    pub non_taxable: String,
+    pub comments: String,
+    pub other_net_fsi: f64,
+    pub lic_capital_gain: f64,
+    pub company_event_id: i64,
+    pub state: String,
+    pub drp_trade_attributes: (),
+    pub franked_amount: f64,
+    pub unfranked_amount: f64,
+    pub trust: bool,
+    pub extra_interest_payment_amount: f64,
+    pub capital_gains: f64,
+    pub discounted_capital_gains: f64,
+    pub foreign_source_income: f64,
+    pub non_assessable: bool,
+    pub deferred_income: f64,
+    pub cgt_concession_amount: f64,
+    pub amit_decrease_amount: f64,
+    pub amit_increase_amount: f64,
+    pub attachment_filename: String,
+    pub attachment_id: String,
+    pub links: PayoutShowLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PayoutShowDrpTradeAttributesSuccess {
+    pub dividend_reinvested: bool,
+    pub quantity: f64,
+    pub price: f64,
+    pub source_adjustment_id: i64,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PayoutShowLinksSuccess {
+    #[serde(rename = "self")]
+    pub itself: String,
+    pub portfolio: String,
+}
+
 pub struct PayoutUpdate;
 
 impl<'a> ApiEndpoint<'a> for PayoutUpdate {
@@ -796,6 +1506,7 @@ impl<'a> ApiEndpoint<'a> for PayoutUpdate {
 
     type UrlDisplay = PayoutUpdateUrlDisplay<'a>;
     type Parameters = PayoutUpdateParameters;
+    type Success = PayoutUpdateSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         PayoutUpdateUrlDisplay(parameters)
@@ -859,6 +1570,55 @@ pub struct PayoutUpdatePayoutDrpTradeAttributesParameters {
     pub source_adjustment_id: Option<i64>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct PayoutUpdateSuccess {
+    pub id: i64,
+    pub symbol: String,
+    pub market: String,
+    pub paid_on: NaiveDate,
+    pub ex_date: NaiveDate,
+    pub amount: f64,
+    pub gross_amount: f64,
+    pub resident_withholding_tax: f64,
+    pub non_resident_withholding_tax: f64,
+    pub tax_credit: f64,
+    pub currency: String,
+    pub exchange_rate: f64,
+    pub non_taxable: String,
+    pub comments: String,
+    pub company_event_id: i64,
+    pub state: String,
+    pub drp_trade_attributes: (),
+    pub franked_amount: f64,
+    pub unfranked_amount: f64,
+    pub trust: bool,
+    pub extra_interest_payment_amount: f64,
+    pub capital_gains: f64,
+    pub discounted_capital_gains: f64,
+    pub foreign_source_income: f64,
+    pub non_assessable: bool,
+    pub deferred_income: f64,
+    pub cgt_concession_amount: f64,
+    pub amit_decrease_amount: f64,
+    pub amit_increase_amount: f64,
+    pub attachment_filename: String,
+    pub attachment_id: String,
+    pub links: PayoutUpdateLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PayoutUpdateDrpTradeAttributesSuccess {
+    pub dividend_reinvested: bool,
+    pub quantity: f64,
+    pub price: f64,
+    pub source_adjustment_id: i64,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PayoutUpdateLinksSuccess {
+    pub portfolio: String,
+}
+
 pub struct PortfolioCreate;
 
 impl<'a> ApiEndpoint<'a> for PortfolioCreate {
@@ -866,6 +1626,7 @@ impl<'a> ApiEndpoint<'a> for PortfolioCreate {
 
     type UrlDisplay = &'static str;
     type Parameters = PortfolioCreateParameters;
+    type Success = ();
 
     fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         "/portfolios.json"
@@ -899,6 +1660,7 @@ impl<'a> ApiEndpoint<'a> for PortfolioDelete {
 
     type UrlDisplay = PortfolioDeleteUrlDisplay<'a>;
     type Parameters = PortfolioDeleteParameters;
+    type Success = PortfolioDeleteSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         PortfolioDeleteUrlDisplay(parameters)
@@ -920,6 +1682,11 @@ pub struct PortfolioDeleteParameters {
     pub id: i64,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct PortfolioDeleteSuccess {
+    pub status: (),
+}
+
 pub struct PortfolioUpdate;
 
 impl<'a> ApiEndpoint<'a> for PortfolioUpdate {
@@ -927,6 +1694,7 @@ impl<'a> ApiEndpoint<'a> for PortfolioUpdate {
 
     type UrlDisplay = PortfolioUpdateUrlDisplay<'a>;
     type Parameters = PortfolioUpdateParameters;
+    type Success = PortfolioUpdateSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         PortfolioUpdateUrlDisplay(parameters)
@@ -963,6 +1731,37 @@ pub struct PortfolioUpdateParameters {
     pub trade_sync_cash_account_id: i64,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct PortfolioUpdateSuccess {
+    pub id: i64,
+    pub name: String,
+    pub default_sale_allocation_method: String,
+    pub cg_discount: String,
+    pub rwtr_rate: f64,
+    pub trader: bool,
+    pub tax_entity_type: String,
+    pub broker_email_api_enabled: bool,
+    pub broker_email_key: String,
+    pub financial_year_end_month_id: i64,
+    pub financial_year_end: String,
+    pub interest_method: String,
+    pub country_code: String,
+    pub currency_code: String,
+    pub apply_cash_account_adjustments: bool,
+    pub buy_trade_settlement_delay: i64,
+    pub sell_trade_settlement_delay: i64,
+    pub account_for_delayed_cash_transactions: bool,
+    pub trade_sync_cash_account_id: i64,
+    pub links: PortfolioUpdateLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PortfolioUpdateLinksSuccess {
+    #[serde(rename = "self")]
+    pub itself: String,
+    pub portfolio: String,
+}
+
 pub struct CapitalGains;
 
 impl<'a> ApiEndpoint<'a> for CapitalGains {
@@ -970,6 +1769,7 @@ impl<'a> ApiEndpoint<'a> for CapitalGains {
 
     type UrlDisplay = CapitalGainsUrlDisplay<'a>;
     type Parameters = CapitalGainsParameters;
+    type Success = CapitalGainsSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         CapitalGainsUrlDisplay(parameters)
@@ -997,6 +1797,89 @@ pub struct CapitalGainsParameters {
     pub end_date: Option<NaiveDate>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct CapitalGainsSuccess {
+    pub short_term_gains: f64,
+    pub long_term_gains: f64,
+    pub losses: f64,
+    pub short_term_losses: f64,
+    pub long_term_losses: f64,
+    pub total_discounted_capital_gain_distributions: f64,
+    pub total_non_discounted_capital_gain_distributions: f64,
+    pub cgt_concession_rate: f64,
+    pub cgt_concession_amount: f64,
+    pub market_value: f64,
+    pub tax_gain_loss: f64,
+    pub discounted_capital_gain_distributions: Vec<()>,
+    pub non_discounted_capital_gain_distributions: Vec<()>,
+    pub short_term_parcels: Vec<()>,
+    pub long_term_parcels: Vec<()>,
+    pub loss_parcels: Vec<()>,
+    pub start_date: NaiveDate,
+    pub end_date: NaiveDate,
+    pub portfolio_id: i64,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CapitalGainsDiscountedCapitalGainDistributionsSuccess {
+    pub market: String,
+    pub symbol: String,
+    pub name: String,
+    pub gain: f64,
+    pub gain_date: NaiveDate,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CapitalGainsNonDiscountedCapitalGainDistributionsSuccess {
+    pub market: String,
+    pub symbol: String,
+    pub name: String,
+    pub gain: f64,
+    pub gain_date: NaiveDate,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CapitalGainsShortTermParcelsSuccess {
+    pub market: String,
+    pub symbol: String,
+    pub name: String,
+    pub allocation_method: String,
+    pub purchase_date: NaiveDate,
+    pub quantity: f64,
+    pub cost_base: f64,
+    pub market_value: f64,
+    pub gain: f64,
+    pub gain_date: NaiveDate,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CapitalGainsLongTermParcelsSuccess {
+    pub market: String,
+    pub symbol: String,
+    pub name: String,
+    pub allocation_method: String,
+    pub purchase_date: NaiveDate,
+    pub quantity: f64,
+    pub cost_base: f64,
+    pub market_value: f64,
+    pub gain: f64,
+    pub gain_date: NaiveDate,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CapitalGainsLossParcelsSuccess {
+    pub market: String,
+    pub symbol: String,
+    pub name: String,
+    pub allocation_method: String,
+    pub purchase_date: NaiveDate,
+    pub quantity: f64,
+    pub cost_base: f64,
+    pub market_value: f64,
+    pub gain: f64,
+    pub gain_date: NaiveDate,
+}
+
 pub struct Diversity;
 
 impl<'a> ApiEndpoint<'a> for Diversity {
@@ -1004,6 +1887,7 @@ impl<'a> ApiEndpoint<'a> for Diversity {
 
     type UrlDisplay = DiversityUrlDisplay<'a>;
     type Parameters = DiversityParameters;
+    type Success = DiversitySuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         DiversityUrlDisplay(parameters)
@@ -1029,6 +1913,35 @@ pub struct DiversityParameters {
     pub custom_group_id: Option<i64>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct DiversitySuccess {
+    pub groups: Vec<()>,
+    pub percentage: f64,
+    pub value: f64,
+    pub date: NaiveDate,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct DiversityGroupsSuccess {
+    pub group: (),
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct DiversityGroupsGroupSuccess {
+    pub elements: Vec<()>,
+    pub percentage: f64,
+    pub value: f64,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct DiversityGroupsGroupElementsSuccess {
+    pub name: String,
+    pub code: String,
+    pub market: String,
+    pub percentage: f64,
+    pub value: f64,
+}
+
 pub struct Performance;
 
 impl<'a> ApiEndpoint<'a> for Performance {
@@ -1036,6 +1949,7 @@ impl<'a> ApiEndpoint<'a> for Performance {
 
     type UrlDisplay = PerformanceUrlDisplay<'a>;
     type Parameters = PerformanceParameters;
+    type Success = PerformanceSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         PerformanceUrlDisplay(parameters)
@@ -1067,6 +1981,74 @@ pub struct PerformanceParameters {
     pub custom_group_id: Option<i64>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceSuccess {
+    pub id: String,
+    pub portfolio_id: String,
+    pub grouping: String,
+    pub custom_group_id: String,
+    pub value: f64,
+    pub capital_gain: f64,
+    pub capital_gain_percent: f64,
+    pub payout_gain: f64,
+    pub payout_gain_percent: f64,
+    pub currency_gain: f64,
+    pub currency_gain_percent: f64,
+    pub total_gain: f64,
+    pub total_gain_percent: f64,
+    pub start_date: NaiveDate,
+    pub end_date: NaiveDate,
+    pub include_sales: NaiveDate,
+    pub holdings: Vec<()>,
+    pub cash_accounts: Vec<()>,
+    pub sub_totals: Vec<()>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceHoldingsSuccess {
+    pub id: String,
+    pub symbol: String,
+    pub instrument_id: String,
+    pub market: String,
+    pub _group_type_: String,
+    pub grouping: String,
+    pub name: String,
+    pub value: f64,
+    pub quantity: f64,
+    pub capital_gain: f64,
+    pub capital_gain_percent: f64,
+    pub payout_gain: f64,
+    pub payout_gain_percent: f64,
+    pub currency_gain: f64,
+    pub currency_gain_percent: f64,
+    pub total_gain: f64,
+    pub total_gain_percent: f64,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceCashAccountsSuccess {
+    pub id: String,
+    pub cash_account_id: String,
+    pub name: String,
+    pub value: f64,
+    pub currency: String,
+    pub currency_code: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceSubTotalsSuccess {
+    pub _group_type_: String,
+    pub value: f64,
+    pub capital_gain: f64,
+    pub capital_gain_percent: f64,
+    pub payout_gain: f64,
+    pub payout_gain_percent: f64,
+    pub currency_gain: f64,
+    pub currency_gain_percent: f64,
+    pub total_gain: f64,
+    pub total_gain_percent: f64,
+}
+
 pub struct UnrealisedCgt;
 
 impl<'a> ApiEndpoint<'a> for UnrealisedCgt {
@@ -1074,6 +2056,7 @@ impl<'a> ApiEndpoint<'a> for UnrealisedCgt {
 
     type UrlDisplay = UnrealisedCgtUrlDisplay<'a>;
     type Parameters = UnrealisedCgtParameters;
+    type Success = UnrealisedCgtSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         UnrealisedCgtUrlDisplay(parameters)
@@ -1100,6 +2083,61 @@ pub struct UnrealisedCgtParameters {
     pub balance_date: NaiveDate,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct UnrealisedCgtSuccess {
+    pub unrealised_short_term_gains: f64,
+    pub unrealised_long_term_gains: f64,
+    pub unrealised_losses: f64,
+    pub cgt_concession_rate: f64,
+    pub unrealised_cgt_concession_amount: f64,
+    pub market_value: f64,
+    pub unrealised_tax_gain_loss: f64,
+    pub short_term_parcels: Vec<()>,
+    pub long_term_parcels: Vec<()>,
+    pub losses: Vec<()>,
+    pub balance_date: NaiveDate,
+    pub portfolio_id: i64,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct UnrealisedCgtShortTermParcelsSuccess {
+    pub market: String,
+    pub symbol: String,
+    pub name: String,
+    pub allocation_method: String,
+    pub purchase_date: NaiveDate,
+    pub quantity: f64,
+    pub cost_base: f64,
+    pub market_value: f64,
+    pub unrealised_gain: f64,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct UnrealisedCgtLongTermParcelsSuccess {
+    pub market: String,
+    pub symbol: String,
+    pub name: String,
+    pub allocation_method: String,
+    pub purchase_date: NaiveDate,
+    pub quantity: f64,
+    pub cost_base: f64,
+    pub market_value: f64,
+    pub unrealised_gain: f64,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct UnrealisedCgtLossesSuccess {
+    pub market: String,
+    pub symbol: String,
+    pub name: String,
+    pub allocation_method: String,
+    pub purchase_date: NaiveDate,
+    pub quantity: f64,
+    pub cost_base: f64,
+    pub market_value: f64,
+    pub unrealised_gain: f64,
+}
+
 pub struct Valuation;
 
 impl<'a> ApiEndpoint<'a> for Valuation {
@@ -1107,6 +2145,7 @@ impl<'a> ApiEndpoint<'a> for Valuation {
 
     type UrlDisplay = ValuationUrlDisplay<'a>;
     type Parameters = ValuationParameters;
+    type Success = ValuationSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         ValuationUrlDisplay(parameters)
@@ -1133,6 +2172,48 @@ pub struct ValuationParameters {
     pub custom_group_id: Option<i64>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct ValuationSuccess {
+    pub id: String,
+    pub balance_date: NaiveDate,
+    pub portfolio_id: String,
+    pub grouping: String,
+    pub custom_group_id: String,
+    pub value: f64,
+    pub holdings: Vec<()>,
+    pub cash_accounts: Vec<()>,
+    pub sub_totals: Vec<()>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ValuationHoldingsSuccess {
+    pub id: String,
+    pub symbol: String,
+    pub instrument_id: String,
+    pub market: String,
+    pub _group_type_: String,
+    pub grouping: String,
+    pub name: String,
+    pub value: f64,
+    pub quantity: f64,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ValuationCashAccountsSuccess {
+    pub id: String,
+    pub cash_account_id: String,
+    pub name: String,
+    pub value: f64,
+    pub currency: String,
+    pub currency_code: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ValuationSubTotalsSuccess {
+    pub _group_type_: String,
+    pub value: f64,
+}
+
 pub struct TradeConfirm;
 
 impl<'a> ApiEndpoint<'a> for TradeConfirm {
@@ -1140,6 +2221,7 @@ impl<'a> ApiEndpoint<'a> for TradeConfirm {
 
     type UrlDisplay = &'static str;
     type Parameters = TradeConfirmParameters;
+    type Success = TradeConfirmSuccess;
 
     fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         "/trades.json"
@@ -1154,6 +2236,32 @@ pub struct TradeConfirmParameters {
     pub state: String,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct TradeConfirmSuccess {
+    pub trade: TradeConfirmTradeSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct TradeConfirmTradeSuccess {
+    pub id: i64,
+    pub transaction_type: String,
+    pub transaction_date: String,
+    pub market: String,
+    pub symbol: String,
+    pub quantity: f64,
+    pub price: f64,
+    pub exchange_rate: f64,
+    pub brokerage: f64,
+    pub brokerage_currency_code: String,
+    pub value: String,
+    pub comments: String,
+    pub portfolio_id: i64,
+    pub holding_id: i64,
+    pub instrument_id: i64,
+    pub company_event_id: i64,
+    pub state: String,
+}
+
 pub struct TradeReject;
 
 impl<'a> ApiEndpoint<'a> for TradeReject {
@@ -1161,6 +2269,7 @@ impl<'a> ApiEndpoint<'a> for TradeReject {
 
     type UrlDisplay = &'static str;
     type Parameters = TradeRejectParameters;
+    type Success = TradeRejectSuccess;
 
     fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         "/trades.json"
@@ -1175,6 +2284,32 @@ pub struct TradeRejectParameters {
     pub state: String,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct TradeRejectSuccess {
+    pub trade: TradeRejectTradeSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct TradeRejectTradeSuccess {
+    pub id: i64,
+    pub transaction_type: String,
+    pub transaction_date: String,
+    pub market: String,
+    pub symbol: String,
+    pub quantity: f64,
+    pub price: f64,
+    pub exchange_rate: f64,
+    pub brokerage: f64,
+    pub brokerage_currency_code: String,
+    pub value: String,
+    pub comments: String,
+    pub portfolio_id: i64,
+    pub holding_id: i64,
+    pub instrument_id: i64,
+    pub company_event_id: i64,
+    pub state: String,
+}
+
 pub struct Trades;
 
 impl<'a> ApiEndpoint<'a> for Trades {
@@ -1182,6 +2317,7 @@ impl<'a> ApiEndpoint<'a> for Trades {
 
     type UrlDisplay = TradesUrlDisplay<'a>;
     type Parameters = TradesParameters;
+    type Success = TradesSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         TradesUrlDisplay(parameters)
@@ -1206,6 +2342,47 @@ pub struct TradesParameters {
     pub unique_identifier: Option<String>,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct TradesSuccess {
+    pub trades: Vec<String>,
+    pub api_transaction: TradesApiTransactionSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct TradesTradesSuccess {
+    pub id: String,
+    pub unique_identifier: String,
+    pub transaction_date: NaiveDate,
+    pub quantity: f64,
+    pub price: f64,
+    pub cost_base: f64,
+    pub exchange_rate: f64,
+    pub brokerage: f64,
+    pub brokerage_currency_code: String,
+    pub value: f64,
+    pub paid_on: NaiveDate,
+    pub company_event_id: i64,
+    pub comments: String,
+    pub portfolio_id: i64,
+    pub holding_id: i64,
+    pub state: String,
+    pub transaction_type: String,
+    pub instrument_id: i64,
+    pub symbol: String,
+    pub market: String,
+    pub attachment_filename: String,
+    pub attachment_id: i64,
+    pub confirmed: bool,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct TradesApiTransactionSuccess {
+    pub id: i64,
+    pub version: i64,
+    pub action: String,
+    pub timestamp: String,
+}
+
 pub struct TradesDestroy;
 
 impl<'a> ApiEndpoint<'a> for TradesDestroy {
@@ -1213,6 +2390,7 @@ impl<'a> ApiEndpoint<'a> for TradesDestroy {
 
     type UrlDisplay = TradesDestroyUrlDisplay<'a>;
     type Parameters = TradesDestroyParameters;
+    type Success = TradesDestroySuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         TradesDestroyUrlDisplay(parameters)
@@ -1234,6 +2412,20 @@ pub struct TradesDestroyParameters {
     pub id: i64,
 }
 
+#[derive(Debug, Clone, Deserialize)]
+pub struct TradesDestroySuccess {
+    pub deleted: bool,
+    pub api_transaction: TradesDestroyApiTransactionSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct TradesDestroyApiTransactionSuccess {
+    pub id: i64,
+    pub version: i64,
+    pub action: String,
+    pub timestamp: String,
+}
+
 pub struct TradesShow;
 
 impl<'a> ApiEndpoint<'a> for TradesShow {
@@ -1241,6 +2433,7 @@ impl<'a> ApiEndpoint<'a> for TradesShow {
 
     type UrlDisplay = TradesShowUrlDisplay<'a>;
     type Parameters = TradesShowParameters;
+    type Success = TradesShowSuccess;
 
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         TradesShowUrlDisplay(parameters)
@@ -1260,4 +2453,40 @@ impl<'a> fmt::Display for TradesShowUrlDisplay<'a> {
 #[derive(Debug, Clone, Serialize)]
 pub struct TradesShowParameters {
     pub id: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct TradesShowSuccess {
+    pub id: String,
+    pub unique_identifier: String,
+    pub transaction_date: NaiveDate,
+    pub quantity: f64,
+    pub price: f64,
+    pub cost_base: f64,
+    pub exchange_rate: f64,
+    pub brokerage: f64,
+    pub brokerage_currency_code: String,
+    pub value: f64,
+    pub paid_on: NaiveDate,
+    pub company_event_id: i64,
+    pub comments: String,
+    pub portfolio_id: i64,
+    pub holding_id: i64,
+    pub state: String,
+    pub transaction_type: String,
+    pub instrument_id: i64,
+    pub symbol: String,
+    pub market: String,
+    pub attachment_filename: String,
+    pub attachment_id: i64,
+    pub confirmed: bool,
+    pub api_transaction: TradesShowApiTransactionSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct TradesShowApiTransactionSuccess {
+    pub id: i64,
+    pub version: i64,
+    pub action: String,
+    pub timestamp: String,
 }
