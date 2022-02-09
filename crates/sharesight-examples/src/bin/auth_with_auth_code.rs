@@ -1,4 +1,5 @@
 use clap::Parser;
+use sharesight_types::{Auth, AuthWithDetails};
 
 /// Auth with an OAuth2 Authorization Code using the Sharesight API
 #[derive(Parser, Debug)]
@@ -16,14 +17,9 @@ struct Args {
     client_secret: String,
     /// The authorization code of the user to use to access the API.
     authorization_code: String,
-}
-
-#[derive(Debug, serde::Deserialize)]
-struct Auth {
-    access_token: String,
-    expires_in: u32,
-    refresh_token: Option<String>,
-    created_at: i64,
+    /// A file to write the output to.
+    #[clap(long, short, parse(from_os_str))]
+    file: Option<std::path::PathBuf>,
 }
 
 #[tokio::main]
@@ -53,6 +49,18 @@ async fn main() -> anyhow::Result<()> {
         }
         println!("Expires in: {}s", auth.expires_in);
         println!("Created at: {}", auth.created_at);
+
+        if let Some(path) = args.file {
+            let file = std::fs::File::create(path)?;
+            let auth = AuthWithDetails {
+                auth,
+                host: args.api_host,
+                client_id: args.client_id,
+                client_secret: args.client_secret,
+            };
+
+            serde_json::to_writer_pretty(file, &auth)?;
+        }
     } else {
         println!("{:?}", resp);
 
