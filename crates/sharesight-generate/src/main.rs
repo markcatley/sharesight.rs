@@ -58,6 +58,69 @@ struct ApiEndpoint {
     group_title: String,
 }
 
+impl ApiEndpoint {
+    fn url_params(&self) -> Vec<String> {
+        self.url
+            .split('/')
+            .filter_map(|s| s.strip_prefix(':'))
+            .filter_map(|s| s.split('.').next())
+            .map(String::from)
+            .collect::<Vec<_>>()
+    }
+
+    fn fix(&mut self) {
+        self.fix_url_params();
+        self.fix_container_params();
+    }
+
+    fn fix_url_params(&mut self) {
+        for url_param in self.url_params() {
+            let parameter_fields = &mut self.parameter.fields.parameter;
+
+            if !parameter_fields
+                .iter()
+                .any(|f| matches!(&f.field[..], [name] if name == &url_param))
+            {
+                parameter_fields.push(Field {
+                    group: String::new(),
+                    field_type: FieldType::Scalar(FieldTypeBase::Integer),
+                    optional: false,
+                    field: vec![url_param.clone()],
+                    description: String::new(),
+                });
+            }
+        }
+    }
+
+    fn fix_container_params(&mut self) {
+        let parameter_fields = &self.parameter.fields.parameter;
+        let mut new_fields = Vec::new();
+
+        for field in parameter_fields {
+            if let Some(field) = field.field.get(0) {
+                if !parameter_fields
+                    .iter()
+                    .any(|f| matches!(&f.field[..], [name] if name == field))
+                    && !new_fields
+                        .iter()
+                        .any(|f: &Field| matches!(&f.field[..], [name] if name == field))
+                {
+                    new_fields.push(Field {
+                        group: String::new(),
+                        field_type: FieldType::Scalar(FieldTypeBase::Hash),
+                        optional: false,
+                        field: vec![field.clone()],
+                        description: String::new(),
+                    })
+                }
+            }
+        }
+
+        let parameter_fields = &mut self.parameter.fields.parameter;
+        parameter_fields.extend(new_fields);
+    }
+}
+
 impl fmt::Display for ApiEndpoint {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
         let parameter_fields = &self.parameter.fields.parameter;
@@ -68,17 +131,8 @@ impl fmt::Display for ApiEndpoint {
             warn!("Endpoint {} has parameter fields with / in them", self.name);
             return Ok(());
         }
-        if parameter_fields.is_empty() {
-            info!("Endpoint {} has no parameters", self.name);
-            return Ok(());
-        }
 
         let parameter_fields = group_fields_by_prefix(parameter_fields);
-
-        if !parameter_fields.contains_key(&[][..]) {
-            warn!("Endpoint {} parameters have no root node", self.name);
-            return Ok(());
-        }
 
         let endpoint_name = self.name.to_camel_case();
 
@@ -102,13 +156,7 @@ impl fmt::Display for ApiEndpoint {
                 }
             })
             .fold(String::new(), |x, y| x + "/" + &y);
-        let params = self
-            .url
-            .split('/')
-            .filter_map(|s| s.strip_prefix(':'))
-            .filter_map(|s| s.split('.').next())
-            .map(String::from)
-            .collect::<Vec<_>>();
+        let params = self.url_params();
 
         writeln!(f, "impl<'a> ApiEndpoint<'a> for {} {{", endpoint_name)?;
         writeln!(f, "    const URL_PATH: &'static str = \"{}\";", self.url)?;
@@ -123,7 +171,13 @@ impl fmt::Display for ApiEndpoint {
         } else {
             writeln!(f, "    type UrlDisplay = {}UrlDisplay<'a>;", endpoint_name)?;
         }
-        writeln!(f, "    type Parameters = {}Parameters;", endpoint_name)?;
+        write!(f, "    type Parameters = ")?;
+        if parameter_fields.is_empty() {
+            write!(f, "()")?;
+        } else {
+            write!(f, "{}Parameters", endpoint_name)?;
+        }
+        writeln!(f, ";")?;
         if self.success.fields.fields.is_empty() {
             writeln!(f, "    type Success = ();")?;
         } else {
@@ -172,11 +226,13 @@ impl fmt::Display for ApiEndpoint {
             writeln!(f)?;
         }
 
-        writeln!(
-            f,
-            "{}",
-            ApiStruct::parameters(&endpoint_name, &parameter_fields)
-        )?;
+        if !parameter_fields.is_empty() {
+            writeln!(
+                f,
+                "{}",
+                ApiStruct::parameters(&endpoint_name, &parameter_fields)
+            )?;
+        }
         writeln!(f)?;
 
         let success_fields = group_fields_by_prefix(&self.success.fields.fields);
@@ -601,14 +657,17 @@ fn main() -> anyhow::Result<()> {
 
     let opt = Opt::parse();
 
-    let ApiData { api: api_endpoints } =
-        serde_json::from_reader::<_, ApiData>(File::open(opt.input)?)?;
+    let ApiData {
+        api: mut api_endpoints,
+    } = serde_json::from_reader::<_, ApiData>(File::open(opt.input)?)?;
     let mut f = File::create(opt.output)?;
 
     writeln!(f, "use crate::types_prelude::*;")?;
     writeln!(f)?;
 
-    for api_endpoint in &api_endpoints {
+    for api_endpoint in &mut api_endpoints {
+        api_endpoint.fix();
+
         if let Some(ref only) = opt.only {
             if !only.iter().any(|name| name == &api_endpoint.name) {
                 continue;

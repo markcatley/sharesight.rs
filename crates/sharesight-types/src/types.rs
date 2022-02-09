@@ -504,6 +504,34 @@ pub struct DocumentShowSuccess {
     pub file: (),
 }
 
+pub struct GroupsList;
+
+impl<'a> ApiEndpoint<'a> for GroupsList {
+    const URL_PATH: &'static str = "/groups.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+
+    type UrlDisplay = &'static str;
+    type Parameters = ();
+    type Success = GroupsListSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/groups.json"
+    }
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct GroupsListSuccess {
+    pub groups: Vec<()>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct GroupsListGroupsSuccess {
+    pub id: String,
+    pub name: String,
+    pub custom: String,
+    pub portfolio_ids: Vec<i64>,
+}
+
 pub struct HoldingMergesCreate;
 
 impl<'a> ApiEndpoint<'a> for HoldingMergesCreate {
@@ -868,6 +896,45 @@ pub struct IdentitySignupByTokenSuccess {
     pub token_type: String,
 }
 
+pub struct ListUserInstruments;
+
+impl<'a> ApiEndpoint<'a> for ListUserInstruments {
+    const URL_PATH: &'static str = "/user_instruments.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+
+    type UrlDisplay = &'static str;
+    type Parameters = ();
+    type Success = ListUserInstrumentsSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/user_instruments.json"
+    }
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ListUserInstrumentsSuccess {
+    pub instruments: Vec<()>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct ListUserInstrumentsInstrumentsSuccess {
+    pub id: i64,
+    pub code: String,
+    pub market_code: String,
+    pub name: String,
+    pub currency_code: String,
+    pub pe_ratio: f64,
+    pub nta: f64,
+    pub eps: f64,
+    pub current_price: f64,
+    pub current_price_updated_at: NaiveDateTime,
+    pub sector_classification_name: String,
+    pub industry_classification_name: String,
+    pub security_type: String,
+    pub friendly_instrument_description: String,
+    pub registry_name: String,
+}
+
 pub struct MembershipCreate;
 
 impl<'a> ApiEndpoint<'a> for MembershipCreate {
@@ -975,6 +1042,74 @@ pub struct MembershipDeleteParameters {
     pub id: i64,
 }
 
+pub struct MembershipList;
+
+impl<'a> ApiEndpoint<'a> for MembershipList {
+    const URL_PATH: &'static str = "/memberships.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+
+    type UrlDisplay = &'static str;
+    type Parameters = ();
+    type Success = MembershipListSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/memberships.json"
+    }
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct MembershipListSuccess {
+    pub memberships: Vec<()>,
+    pub organisation_name: String,
+    pub shared_with_organisation: bool,
+    pub links: MembershipListLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct MembershipListMembershipsSuccess {
+    pub id: i64,
+    pub access_code: String,
+    pub portfolio_id: i64,
+    pub user: MembershipListMembershipsUserSuccess,
+    pub alerts_enabled: bool,
+    pub company_event_alerts_enabled: bool,
+    pub price_alerts_enabled: bool,
+    pub invitation: MembershipListMembershipsInvitationSuccess,
+    pub links: MembershipListMembershipsLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct MembershipListMembershipsUserSuccess {
+    pub id: i64,
+    pub first_name: String,
+    pub last_name: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct MembershipListPortfoliosSuccess {
+    pub api_email_notification: i64,
+    pub contract_note_email_notification: i64,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct MembershipListMembershipsInvitationSuccess {
+    pub id: i64,
+    pub text: String,
+    pub url: String,
+    pub status: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct MembershipListMembershipsLinksSuccess {
+    pub portfolio: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct MembershipListLinksSuccess {
+    #[serde(rename = "self")]
+    pub itself: String,
+}
+
 pub struct MembershipUpdate;
 
 impl<'a> ApiEndpoint<'a> for MembershipUpdate {
@@ -1038,6 +1173,36 @@ pub struct MembershipUpdateInvitationSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct MembershipUpdateLinksSuccess {
     pub portfolio: String,
+}
+
+pub struct Currencies;
+
+impl<'a> ApiEndpoint<'a> for Currencies {
+    const URL_PATH: &'static str = "/currencies.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+
+    type UrlDisplay = &'static str;
+    type Parameters = ();
+    type Success = CurrenciesSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/currencies.json"
+    }
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CurrenciesSuccess {
+    pub currencies: Vec<()>,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct CurrenciesCurrenciesSuccess {
+    pub code: String,
+    pub id: String,
+    pub description: String,
+    pub in_use_from: NaiveDate,
+    pub in_use_until: NaiveDate,
+    pub source_feeds: String,
 }
 
 pub struct ListHoldingPayouts;
@@ -1230,6 +1395,71 @@ pub struct ListPortfolioPayoutsPayoutsLinksSuccess {
 pub struct ListPortfolioPayoutsLinksSuccess {
     #[serde(rename = "self")]
     pub itself: String,
+}
+
+pub struct PayoutConfirm;
+
+impl<'a> ApiEndpoint<'a> for PayoutConfirm {
+    const URL_PATH: &'static str = "/payouts.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+
+    type UrlDisplay = &'static str;
+    type Parameters = PayoutConfirmParameters;
+    type Success = PayoutConfirmSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/payouts.json"
+    }
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct PayoutConfirmPayoutParameters {
+    pub holding_id: i64,
+    pub company_event_id: i64,
+    pub paid_on: NaiveDate,
+    pub state: String,
+    pub drp_trade_attributes: Option<()>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct PayoutConfirmPayoutDrpTradeAttributesParameters {
+    pub dividend_reinvested: Option<bool>,
+    pub quantity: Option<f64>,
+    pub price: Option<f64>,
+    pub source_adjustment_id: Option<i64>,
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct PayoutConfirmParameters {
+    pub payout: PayoutConfirmPayoutParameters,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PayoutConfirmSuccess {
+    pub payout: PayoutConfirmPayoutSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PayoutConfirmPayoutSuccess {
+    pub id: i64,
+    pub portfolio_id: i64,
+    pub holding_id: i64,
+    pub instrument_id: i64,
+    pub symbol: String,
+    pub market: String,
+    pub paid_on: NaiveDate,
+    pub ex_date: NaiveDate,
+    pub amount: f64,
+    pub gross_amount: f64,
+    pub resident_withholding_tax: f64,
+    pub non_resident_withholding_tax: f64,
+    pub tax_credit: f64,
+    pub currency: String,
+    pub exchange_rate: f64,
+    pub non_taxable: String,
+    pub comments: String,
+    pub company_event_id: i64,
+    pub state: String,
 }
 
 pub struct PayoutCreate;
@@ -1713,6 +1943,128 @@ pub struct PortfolioDeleteParameters {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PortfolioDeleteSuccess {
     pub status: (),
+}
+
+pub struct PortfolioList;
+
+impl<'a> ApiEndpoint<'a> for PortfolioList {
+    const URL_PATH: &'static str = "/portfolios.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+
+    type UrlDisplay = &'static str;
+    type Parameters = ();
+    type Success = PortfolioListSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/portfolios.json"
+    }
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PortfolioListSuccess {
+    pub portfolios: Vec<()>,
+    pub trade_sync_cash_account_id: i64,
+    pub links: PortfolioListLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PortfolioListPortfoliosSuccess {
+    pub id: i64,
+    pub name: String,
+    pub default_sale_allocation_method: String,
+    pub cg_discount: String,
+    pub rwtr_rate: f64,
+    pub trader: bool,
+    pub disable_automatic_transactions: bool,
+    pub broker_email_api_enabled: bool,
+    pub broker_email_key: String,
+    pub financial_year_end_month_id: i64,
+    pub financial_year_end: String,
+    pub interest_method: String,
+    pub country_code: String,
+    pub currency_code: String,
+    pub inception_date: NaiveDate,
+    pub tz_name: String,
+    pub apply_cash_account_adjustments: bool,
+    pub buy_trade_settlement_delay: i64,
+    pub sell_trade_settlement_delay: i64,
+    pub account_for_delayed_cash_transactions: bool,
+    pub links: PortfolioListPortfoliosLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PortfolioListPortfoliosLinksSuccess {
+    pub portfolio: String,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PortfolioListLinksSuccess {
+    #[serde(rename = "self")]
+    pub itself: String,
+}
+
+pub struct PortfolioShow;
+
+impl<'a> ApiEndpoint<'a> for PortfolioShow {
+    const URL_PATH: &'static str = "/portfolios/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+
+    type UrlDisplay = PortfolioShowUrlDisplay<'a>;
+    type Parameters = PortfolioShowParameters;
+    type Success = PortfolioShowSuccess;
+
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        PortfolioShowUrlDisplay(parameters)
+    }
+}
+
+pub struct PortfolioShowUrlDisplay<'a>(&'a PortfolioShowParameters);
+
+impl<'a> fmt::Display for PortfolioShowUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/portfolios/{}.json", parameters.id)
+    }
+}
+
+#[derive(Debug, Clone, Serialize)]
+pub struct PortfolioShowParameters {
+    pub id: i64,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PortfolioShowSuccess {
+    pub id: i64,
+    pub name: String,
+    pub default_sale_allocation_method: String,
+    pub cg_discount: String,
+    pub rwtr_rate: f64,
+    pub trader: bool,
+    pub disable_automatic_transactions: bool,
+    pub tax_entity_type: String,
+    pub broker_email_api_enabled: bool,
+    pub broker_email_key: String,
+    pub financial_year_end_month_id: i64,
+    pub financial_year_end: String,
+    pub interest_method: String,
+    pub country_code: String,
+    pub currency_code: String,
+    pub inception_date: NaiveDate,
+    pub tz_name: String,
+    pub apply_cash_account_adjustments: bool,
+    pub buy_trade_settlement_delay: i64,
+    pub sell_trade_settlement_delay: i64,
+    pub account_for_delayed_cash_transactions: bool,
+    pub trade_sync_cash_account_id: i64,
+    pub links: PortfolioShowLinksSuccess,
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct PortfolioShowLinksSuccess {
+    #[serde(rename = "self")]
+    pub itself: String,
+    pub portfolio: String,
 }
 
 pub struct PortfolioUpdate;
@@ -2248,6 +2600,26 @@ pub struct ValuationSubTotalsSuccess {
     pub value: f64,
 }
 
+pub struct RequestSingleSignOn;
+
+impl<'a> ApiEndpoint<'a> for RequestSingleSignOn {
+    const URL_PATH: &'static str = "/single_sign_on.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+
+    type UrlDisplay = &'static str;
+    type Parameters = ();
+    type Success = RequestSingleSignOnSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/single_sign_on.json"
+    }
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct RequestSingleSignOnSuccess {
+    pub login_url: String,
+}
+
 pub struct TradeConfirm;
 
 impl<'a> ApiEndpoint<'a> for TradeConfirm {
@@ -2528,4 +2900,42 @@ pub struct TradesShowApiTransactionSuccess {
     pub version: i64,
     pub action: String,
     pub timestamp: String,
+}
+
+pub struct MyUser;
+
+impl<'a> ApiEndpoint<'a> for MyUser {
+    const URL_PATH: &'static str = "/my_user.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+
+    type UrlDisplay = &'static str;
+    type Parameters = ();
+    type Success = MyUserSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/my_user.json"
+    }
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct MyUserSuccess {
+    pub user: (),
+}
+
+#[derive(Debug, Clone, Deserialize)]
+pub struct MyUserUserSuccess {
+    pub id: i64,
+    pub name: String,
+    pub first_name: String,
+    pub last_name: String,
+    pub email: String,
+    pub plan_code: String,
+    pub is_activated: bool,
+    pub is_free: bool,
+    pub is_beta: bool,
+    pub is_guest: bool,
+    pub is_staff: bool,
+    pub is_professional: bool,
+    pub is_cancelled: bool,
+    pub is_expired: bool,
 }
