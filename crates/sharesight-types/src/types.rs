@@ -60,6 +60,7 @@ pub struct CashAccountCreateCashAccountSuccess {
     pub portfolio_currency: String,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub portfolio_id: i64,
+    #[serde_as(as = "DeserializeDate")]
     pub date: NaiveDate,
     pub balance: f64,
     pub balance_in_portfolio_currency: f64,
@@ -134,6 +135,7 @@ impl<'a> fmt::Display for CashAccountShowUrlDisplay<'a> {
 pub struct CashAccountShowParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub date: Option<NaiveDate>,
 }
@@ -148,6 +150,7 @@ pub struct CashAccountShowSuccess {
     pub portfolio_currency: String,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub portfolio_id: i64,
+    #[serde_as(as = "DeserializeDate")]
     pub date: NaiveDate,
     pub balance: f64,
     pub balance_in_portfolio_currency: f64,
@@ -370,8 +373,10 @@ impl<'a> fmt::Display for CashAccountTransactionsListUrlDisplay<'a> {
 pub struct CashAccountTransactionsListParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub cash_account_id: i64,
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub from: Option<NaiveDate>,
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub to: Option<NaiveDate>,
     #[serde(default)]
@@ -465,6 +470,7 @@ pub struct CashAccountUpdateSuccess {
     pub portfolio_currency: String,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub portfolio_id: i64,
+    #[serde_as(as = "DeserializeDate")]
     pub date: NaiveDate,
     pub balance: f64,
     pub balance_in_portfolio_currency: f64,
@@ -495,6 +501,7 @@ impl<'a> ApiEndpoint<'a> for CashAccountsList {
 #[serde_as]
 #[derive(Debug, Clone, Serialize)]
 pub struct CashAccountsListParameters {
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub date: Option<NaiveDate>,
 }
@@ -516,6 +523,7 @@ pub struct CashAccountsListCashAccountsSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub portfolio_id: i64,
     pub portfolio_currency: String,
+    #[serde_as(as = "DeserializeDate")]
     pub date: NaiveDate,
     pub balance: f64,
     pub balance_in_portfolio_currency: f64,
@@ -639,6 +647,7 @@ pub struct HoldingMergesCreateParameters {
     pub portfolio_id: i64,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub holding_id: i64,
+    #[serde_as(as = "DeserializeDate")]
     pub merge_date: NaiveDate,
     pub quantity: f64,
     pub symbol: String,
@@ -735,6 +744,7 @@ pub struct HoldingMergesUpdateParameters {
     pub portfolio_id: i64,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub merge_date: Option<NaiveDate>,
     #[serde(default)]
@@ -844,6 +854,7 @@ pub struct HoldingTradesSuccess {
 pub struct HoldingTradesTradesSuccess {
     pub id: String,
     pub unique_identifier: String,
+    #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
     pub quantity: f64,
     pub price: f64,
@@ -852,6 +863,7 @@ pub struct HoldingTradesTradesSuccess {
     pub brokerage: f64,
     pub brokerage_currency_code: String,
     pub value: f64,
+    #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
@@ -930,6 +942,7 @@ pub struct HoldingTradesRejectedSuccess {
 pub struct HoldingTradesRejectedTradesSuccess {
     pub id: String,
     pub unique_identifier: String,
+    #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
     pub quantity: f64,
     pub price: f64,
@@ -938,6 +951,7 @@ pub struct HoldingTradesRejectedTradesSuccess {
     pub brokerage: f64,
     pub brokerage_currency_code: String,
     pub value: f64,
+    #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
@@ -1388,7 +1402,9 @@ pub struct CurrenciesCurrenciesSuccess {
     pub code: String,
     pub id: String,
     pub description: String,
+    #[serde_as(as = "DeserializeDate")]
     pub in_use_from: NaiveDate,
+    #[serde_as(as = "DeserializeDate")]
     pub in_use_until: NaiveDate,
     pub source_feeds: String,
 }
@@ -1423,8 +1439,10 @@ impl<'a> fmt::Display for ListHoldingPayoutsUrlDisplay<'a> {
 pub struct ListHoldingPayoutsParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub holding_id: i64,
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub start_date: Option<NaiveDate>,
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub end_date: Option<NaiveDate>,
     #[serde(default)]
@@ -1531,8 +1549,10 @@ impl<'a> fmt::Display for ListPortfolioPayoutsUrlDisplay<'a> {
 pub struct ListPortfolioPayoutsParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub portfolio_id: i64,
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub start_date: Option<NaiveDate>,
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub end_date: Option<NaiveDate>,
     #[serde(default)]
@@ -1634,6 +1654,7 @@ pub struct PayoutConfirmPayoutParameters {
     pub holding_id: i64,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
+    #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     pub state: String,
     #[serde(default)]
@@ -1679,7 +1700,9 @@ pub struct PayoutConfirmPayoutSuccess {
     pub instrument_id: i64,
     pub symbol: String,
     pub market: String,
+    #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
+    #[serde_as(as = "DeserializeDate")]
     pub ex_date: NaiveDate,
     pub amount: f64,
     pub gross_amount: f64,
@@ -1725,9 +1748,11 @@ pub struct PayoutCreatePayoutParameters {
     pub holding_id: i64,
     pub symbol: String,
     pub market: String,
+    #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     pub amount: f64,
     pub currency_code: String,
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub goes_ex_on: Option<NaiveDate>,
     #[serde(default)]
@@ -1933,7 +1958,9 @@ pub struct PayoutRejectPayoutSuccess {
     pub instrument_id: i64,
     pub symbol: String,
     pub market: String,
+    #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
+    #[serde_as(as = "DeserializeDate")]
     pub ex_date: NaiveDate,
     pub amount: f64,
     pub gross_amount: f64,
@@ -2082,8 +2109,10 @@ pub struct PayoutUpdateParameters {
 #[serde_as]
 #[derive(Debug, Clone, Serialize)]
 pub struct PayoutUpdatePayoutParameters {
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub paid_on: Option<NaiveDate>,
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub goes_ex_on: Option<NaiveDate>,
     #[serde(default)]
@@ -2105,6 +2134,7 @@ pub struct PayoutUpdatePayoutParameters {
     pub non_taxable: Option<bool>,
     #[serde(default)]
     pub currency_code: Option<String>,
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub source_payment_date: Option<NaiveDate>,
     #[serde(default)]
@@ -2161,7 +2191,9 @@ pub struct PayoutUpdateSuccess {
     pub id: i64,
     pub symbol: String,
     pub market: String,
+    #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
+    #[serde_as(as = "DeserializeDate")]
     pub ex_date: NaiveDate,
     pub amount: f64,
     pub gross_amount: f64,
@@ -2336,6 +2368,7 @@ pub struct PortfolioListPortfoliosSuccess {
     pub interest_method: String,
     pub country_code: String,
     pub currency_code: String,
+    #[serde_as(as = "DeserializeDate")]
     pub inception_date: NaiveDate,
     pub tz_name: String,
     pub apply_cash_account_adjustments: bool,
@@ -2412,6 +2445,7 @@ pub struct PortfolioShowSuccess {
     pub interest_method: String,
     pub country_code: String,
     pub currency_code: String,
+    #[serde_as(as = "DeserializeDate")]
     pub inception_date: NaiveDate,
     pub tz_name: String,
     pub apply_cash_account_adjustments: bool,
@@ -2561,8 +2595,10 @@ impl<'a> fmt::Display for CapitalGainsUrlDisplay<'a> {
 pub struct CapitalGainsParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub portfolio_id: i64,
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub start_date: Option<NaiveDate>,
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub end_date: Option<NaiveDate>,
 }
@@ -2586,7 +2622,9 @@ pub struct CapitalGainsSuccess {
     pub short_term_parcels: Vec<()>,
     pub long_term_parcels: Vec<()>,
     pub loss_parcels: Vec<()>,
+    #[serde_as(as = "DeserializeDate")]
     pub start_date: NaiveDate,
+    #[serde_as(as = "DeserializeDate")]
     pub end_date: NaiveDate,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub portfolio_id: i64,
@@ -2599,6 +2637,7 @@ pub struct CapitalGainsDiscountedCapitalGainDistributionsSuccess {
     pub symbol: String,
     pub name: String,
     pub gain: f64,
+    #[serde_as(as = "DeserializeDate")]
     pub gain_date: NaiveDate,
 }
 
@@ -2609,6 +2648,7 @@ pub struct CapitalGainsNonDiscountedCapitalGainDistributionsSuccess {
     pub symbol: String,
     pub name: String,
     pub gain: f64,
+    #[serde_as(as = "DeserializeDate")]
     pub gain_date: NaiveDate,
 }
 
@@ -2619,11 +2659,13 @@ pub struct CapitalGainsShortTermParcelsSuccess {
     pub symbol: String,
     pub name: String,
     pub allocation_method: String,
+    #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
     pub quantity: f64,
     pub cost_base: f64,
     pub market_value: f64,
     pub gain: f64,
+    #[serde_as(as = "DeserializeDate")]
     pub gain_date: NaiveDate,
 }
 
@@ -2634,11 +2676,13 @@ pub struct CapitalGainsLongTermParcelsSuccess {
     pub symbol: String,
     pub name: String,
     pub allocation_method: String,
+    #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
     pub quantity: f64,
     pub cost_base: f64,
     pub market_value: f64,
     pub gain: f64,
+    #[serde_as(as = "DeserializeDate")]
     pub gain_date: NaiveDate,
 }
 
@@ -2649,11 +2693,13 @@ pub struct CapitalGainsLossParcelsSuccess {
     pub symbol: String,
     pub name: String,
     pub allocation_method: String,
+    #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
     pub quantity: f64,
     pub cost_base: f64,
     pub market_value: f64,
     pub gain: f64,
+    #[serde_as(as = "DeserializeDate")]
     pub gain_date: NaiveDate,
 }
 
@@ -2689,6 +2735,7 @@ pub struct DiversityParameters {
     pub portfolio_id: i64,
     #[serde(default)]
     pub consolidated: Option<bool>,
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub date: Option<NaiveDate>,
     #[serde(default)]
@@ -2704,6 +2751,7 @@ pub struct DiversitySuccess {
     pub groups: Vec<()>,
     pub percentage: f64,
     pub value: f64,
+    #[serde_as(as = "DeserializeDate")]
     pub date: NaiveDate,
 }
 
@@ -2763,8 +2811,10 @@ impl<'a> fmt::Display for PerformanceUrlDisplay<'a> {
 #[serde_as]
 #[derive(Debug, Clone, Serialize)]
 pub struct PerformanceParameters {
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub start_date: Option<NaiveDate>,
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub end_date: Option<NaiveDate>,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -2796,8 +2846,11 @@ pub struct PerformanceSuccess {
     pub currency_gain_percent: f64,
     pub total_gain: f64,
     pub total_gain_percent: f64,
+    #[serde_as(as = "DeserializeDate")]
     pub start_date: NaiveDate,
+    #[serde_as(as = "DeserializeDate")]
     pub end_date: NaiveDate,
+    #[serde_as(as = "DeserializeDate")]
     pub include_sales: NaiveDate,
     pub holdings: Vec<()>,
     pub cash_accounts: Vec<()>,
@@ -2886,6 +2939,7 @@ impl<'a> fmt::Display for UnrealisedCgtUrlDisplay<'a> {
 pub struct UnrealisedCgtParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub portfolio_id: i64,
+    #[serde_as(as = "DeserializeDate")]
     pub balance_date: NaiveDate,
 }
 
@@ -2902,6 +2956,7 @@ pub struct UnrealisedCgtSuccess {
     pub short_term_parcels: Vec<()>,
     pub long_term_parcels: Vec<()>,
     pub losses: Vec<()>,
+    #[serde_as(as = "DeserializeDate")]
     pub balance_date: NaiveDate,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub portfolio_id: i64,
@@ -2914,6 +2969,7 @@ pub struct UnrealisedCgtShortTermParcelsSuccess {
     pub symbol: String,
     pub name: String,
     pub allocation_method: String,
+    #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
     pub quantity: f64,
     pub cost_base: f64,
@@ -2928,6 +2984,7 @@ pub struct UnrealisedCgtLongTermParcelsSuccess {
     pub symbol: String,
     pub name: String,
     pub allocation_method: String,
+    #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
     pub quantity: f64,
     pub cost_base: f64,
@@ -2942,6 +2999,7 @@ pub struct UnrealisedCgtLossesSuccess {
     pub symbol: String,
     pub name: String,
     pub allocation_method: String,
+    #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
     pub quantity: f64,
     pub cost_base: f64,
@@ -2977,6 +3035,7 @@ impl<'a> fmt::Display for ValuationUrlDisplay<'a> {
 #[serde_as]
 #[derive(Debug, Clone, Serialize)]
 pub struct ValuationParameters {
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub balance_date: Option<NaiveDate>,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -2996,6 +3055,7 @@ pub struct ValuationParameters {
 #[derive(Debug, Clone, Deserialize)]
 pub struct ValuationSuccess {
     pub id: String,
+    #[serde_as(as = "DeserializeDate")]
     pub balance_date: NaiveDate,
     pub portfolio_id: String,
     pub grouping: String,
@@ -3081,6 +3141,7 @@ pub struct TradeConfirmParameters {
     pub holding_id: i64,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
+    #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
     pub state: String,
 }
@@ -3140,6 +3201,7 @@ pub struct TradeRejectParameters {
     pub holding_id: i64,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
+    #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
     pub state: String,
 }
@@ -3206,8 +3268,10 @@ impl<'a> fmt::Display for TradesUrlDisplay<'a> {
 #[derive(Debug, Clone, Serialize)]
 pub struct TradesParameters {
     pub portfolio_id: String,
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub start_date: Option<NaiveDate>,
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub end_date: Option<NaiveDate>,
     #[serde(default)]
@@ -3226,6 +3290,7 @@ pub struct TradesSuccess {
 pub struct TradesTradesSuccess {
     pub id: String,
     pub unique_identifier: String,
+    #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
     pub quantity: f64,
     pub price: f64,
@@ -3234,6 +3299,7 @@ pub struct TradesTradesSuccess {
     pub brokerage: f64,
     pub brokerage_currency_code: String,
     pub value: f64,
+    #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
@@ -3351,6 +3417,7 @@ pub struct TradesShowParameters {
 pub struct TradesShowSuccess {
     pub id: String,
     pub unique_identifier: String,
+    #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
     pub quantity: f64,
     pub price: f64,
@@ -3359,6 +3426,7 @@ pub struct TradesShowSuccess {
     pub brokerage: f64,
     pub brokerage_currency_code: String,
     pub value: f64,
+    #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
