@@ -11289,7 +11289,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.trader",
               "description": "<p>Tax Status (<code>true</code>: Trade, <code>false</code>: Investor).</p>"
             },
@@ -11373,14 +11373,14 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.buy_trade_settlement_delay",
               "description": "<p>Specifies the number of working days between the buy trade date and settlement in the cash account</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.sell_trade_settlement_delay",
               "description": "<p>Specifies the number of working days between the sell trade date and settlement in the cash account</p>"
             },
@@ -11394,7 +11394,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "trade_sync_cash_account_id",
               "description": "<p>All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account.</p>"
             },

@@ -2344,8 +2344,9 @@ impl<'a> ApiEndpoint<'a> for PortfolioList {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PortfolioListSuccess {
     pub portfolios: Vec<PortfolioListPortfoliosSuccess>,
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub trade_sync_cash_account_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub trade_sync_cash_account_id: Option<i64>,
     pub links: PortfolioListLinksSuccess,
 }
 
@@ -2358,7 +2359,8 @@ pub struct PortfolioListPortfoliosSuccess {
     pub default_sale_allocation_method: String,
     pub cg_discount: String,
     pub rwtr_rate: f64,
-    pub trader: bool,
+    #[serde(default)]
+    pub trader: Option<bool>,
     pub disable_automatic_transactions: bool,
     pub broker_email_api_enabled: bool,
     pub broker_email_key: String,
@@ -2372,10 +2374,12 @@ pub struct PortfolioListPortfoliosSuccess {
     pub inception_date: NaiveDate,
     pub tz_name: String,
     pub apply_cash_account_adjustments: bool,
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub buy_trade_settlement_delay: i64,
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub sell_trade_settlement_delay: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub buy_trade_settlement_delay: Option<i64>,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub sell_trade_settlement_delay: Option<i64>,
     pub account_for_delayed_cash_transactions: bool,
     pub links: PortfolioListPortfoliosLinksSuccess,
 }
