@@ -46,7 +46,9 @@ impl<'de> DeserializeAs<'de, NaiveDate> for DeserializeDate {
         D: serde::Deserializer<'de>,
     {
         let s = String::deserialize(deserializer).map_err(serde::de::Error::custom)?;
-        NaiveDate::parse_from_str(&s, "%d %b %Y").map_err(serde::de::Error::custom)
+        NaiveDate::parse_from_str(&s, "%Y-%m-%d")
+            .or_else(|_| NaiveDate::parse_from_str(&s, "%d %b %Y"))
+            .map_err(serde::de::Error::custom)
     }
 }
 
@@ -57,4 +59,19 @@ impl<T: serde::Serialize> SerializeAs<T> for DeserializeDate {
     {
         source.serialize(serializer)
     }
+}
+
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
+pub struct Auth {
+    access_token: String,
+    expires_in: u32,
+    refresh_token: Option<String>,
+    created_at: i64,
+}
+
+#[derive(Debug, serde::Deserialize, serde::Serialize)]
+pub struct AuthWithHost {
+    #[serde(flatten)]
+    auth: Auth,
+    host: String,
 }
