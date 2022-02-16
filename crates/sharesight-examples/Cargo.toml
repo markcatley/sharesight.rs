@@ -5,7 +5,10 @@ edition = "2018"
 
 [dependencies]
 anyhow = { version = "1.0", features = ["backtrace"] }
+chrono = { version = "0.4.19", features = ["serde"] }
 clap = { version = "3.0.13", features = ["derive"] }
+csv = "1.1.6"
+env_logger = "0.9.0"
 reqwest = { version = "0.11", features = ["json"] }
 serde = { version = "1.0", features = ["derive"] }
 serde_json = "1.0.78"

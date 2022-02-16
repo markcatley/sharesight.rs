@@ -17678,7 +17678,7 @@
           "200 Success": [
             {
               "group": "200 Success",
-              "type": "String[]",
+              "type": "Hash[]",
               "optional": false,
               "field": "trades",
               "description": ""
@@ -17971,22 +17971,22 @@
           "200 Success": [
             {
               "group": "200 Success",
-              "type": "String[]",
+              "type": "Hash[]",
               "optional": false,
               "field": "trades",
               "description": ""
             },
             {
               "group": "200 Success",
-              "type": "String",
-              "optional": false,
+              "type": "Integer",
+              "optional": true,
               "field": "trades.id",
               "description": "<p>The trade ID. Maybe nil if the trade is based on an adjustment and has not yet been confirmed by the user.</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.unique_identifier",
               "description": "<p>A unique identifier associated with this trade</p>"
             },
@@ -18014,7 +18014,7 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "trades.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -18035,7 +18035,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.</p>"
             },
@@ -18049,14 +18049,14 @@
             {
               "group": "200 Success",
               "type": "Date",
-              "optional": false,
+              "optional": true,
               "field": "trades.paid_on",
               "description": "<p>For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "trades.company_event_id",
               "description": "<p>The company event linked to the transaction.</p>"
             },
@@ -18119,14 +18119,14 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.attachment_filename",
               "description": "<p>The filename of any attachment</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "trades.attachment_id",
               "description": "<p>The document id of any attachment, for use with the Show Document API (v2)</p>"
             },

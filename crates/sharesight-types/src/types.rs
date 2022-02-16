@@ -3285,28 +3285,35 @@ pub struct TradesParameters {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct TradesSuccess {
-    pub trades: Vec<String>,
+    pub trades: Vec<TradesTradesSuccess>,
     pub api_transaction: TradesApiTransactionSuccess,
 }
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct TradesTradesSuccess {
-    pub id: String,
-    pub unique_identifier: String,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub id: Option<i64>,
+    #[serde(default)]
+    pub unique_identifier: Option<String>,
     #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
     pub quantity: f64,
     pub price: f64,
-    pub cost_base: f64,
+    #[serde(default)]
+    pub cost_base: Option<f64>,
     pub exchange_rate: f64,
     pub brokerage: f64,
-    pub brokerage_currency_code: String,
+    #[serde(default)]
+    pub brokerage_currency_code: Option<String>,
     pub value: f64,
-    #[serde_as(as = "DeserializeDate")]
-    pub paid_on: NaiveDate,
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub company_event_id: i64,
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub paid_on: Option<NaiveDate>,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub company_event_id: Option<i64>,
     pub comments: String,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub portfolio_id: i64,
@@ -3318,9 +3325,11 @@ pub struct TradesTradesSuccess {
     pub instrument_id: i64,
     pub symbol: String,
     pub market: String,
-    pub attachment_filename: String,
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub attachment_id: i64,
+    #[serde(default)]
+    pub attachment_filename: Option<String>,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub attachment_id: Option<i64>,
     pub confirmed: bool,
 }
 
