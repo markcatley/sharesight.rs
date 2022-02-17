@@ -2,5 +2,6 @@
 members = [
   "crates/sharesight-types",
   "crates/sharesight-generate",
-  "crates/sharesight-examples"
+  "crates/sharesight-examples",
+  "crates/sharesight-reqwest"
 ]

@@ -1,5 +1,6 @@
 use clap::Parser;
-use sharesight_examples::{execute, init_logger};
+use sharesight_examples::init_logger;
+use sharesight_reqwest::Client;
 use sharesight_types::{
     PortfolioList, PortfolioListSuccess, Trades, TradesParameters, TradesSuccess,
     TradesTradesSuccess,
@@ -23,15 +24,11 @@ async fn main() -> anyhow::Result<()> {
     init_logger();
 
     let args = Args::parse();
-    let client = reqwest::Client::new();
+    let client = Client::new();
 
-    let PortfolioListSuccess { portfolios, .. } = execute::<PortfolioList, PortfolioListSuccess>(
-        &client,
-        &args.api_host,
-        &args.access_token,
-        &(),
-    )
-    .await?;
+    let PortfolioListSuccess { portfolios, .. } = client
+        .execute::<PortfolioList, PortfolioListSuccess>(&args.api_host, &args.access_token, &())
+        .await?;
 
     let portfolio = portfolios.iter().find(|p| p.name == args.portfolio_name);
 
@@ -42,13 +39,9 @@ async fn main() -> anyhow::Result<()> {
             end_date: None,
             unique_identifier: None,
         };
-        let TradesSuccess { trades, .. } = execute::<Trades, TradesSuccess>(
-            &client,
-            &args.api_host,
-            &args.access_token,
-            &trades_params,
-        )
-        .await?;
+        let TradesSuccess { trades, .. } = client
+            .execute::<Trades, TradesSuccess>(&args.api_host, &args.access_token, &trades_params)
+            .await?;
 
         #[derive(serde::Serialize)]
         pub struct TradesRecord {
