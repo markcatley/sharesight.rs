@@ -62,8 +62,8 @@ pub struct CashAccountCreateCashAccountSuccess {
     pub portfolio_id: i64,
     #[serde_as(as = "DeserializeDate")]
     pub date: NaiveDate,
-    pub balance: f64,
-    pub balance_in_portfolio_currency: f64,
+    pub balance: Float,
+    pub balance_in_portfolio_currency: Float,
     pub links: CashAccountCreateCashAccountLinksSuccess,
 }
 
@@ -152,8 +152,8 @@ pub struct CashAccountShowSuccess {
     pub portfolio_id: i64,
     #[serde_as(as = "DeserializeDate")]
     pub date: NaiveDate,
-    pub balance: f64,
-    pub balance_in_portfolio_currency: f64,
+    pub balance: Float,
+    pub balance_in_portfolio_currency: Float,
     pub links: CashAccountShowLinksSuccess,
 }
 
@@ -200,7 +200,7 @@ pub struct CashAccountTransactionCreateParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub cash_account_id: i64,
     pub description: String,
-    pub amount: f64,
+    pub amount: Float,
     pub type_name: String,
     pub date_time: NaiveDateTime,
     #[serde(default)]
@@ -220,8 +220,8 @@ pub struct CashAccountTransactionCreateCashAccountTransactionSuccess {
     pub id: i64,
     pub description: String,
     pub date_time: NaiveDateTime,
-    pub amount: f64,
-    pub balance: f64,
+    pub amount: Float,
+    pub balance: Float,
     pub cash_account_id: String,
     pub foreign_identifier: String,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -301,7 +301,7 @@ pub struct CashAccountTransactionUpdateParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     pub description: String,
-    pub amount: f64,
+    pub amount: Float,
     pub type_name: String,
     pub date_time: NaiveDateTime,
     #[serde(default)]
@@ -321,8 +321,8 @@ pub struct CashAccountTransactionUpdateCashAccountTransactionSuccess {
     pub id: i64,
     pub description: String,
     pub date_time: NaiveDateTime,
-    pub amount: f64,
-    pub balance: f64,
+    pub amount: Float,
+    pub balance: Float,
     pub cash_account_id: String,
     pub foreign_identifier: String,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -398,8 +398,8 @@ pub struct CashAccountTransactionsListCashAccountTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     pub date_time: NaiveDateTime,
-    pub amount: f64,
-    pub balance: f64,
+    pub amount: Float,
+    pub balance: Float,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub cash_account_id: i64,
     pub foreign_identifier: String,
@@ -472,8 +472,8 @@ pub struct CashAccountUpdateSuccess {
     pub portfolio_id: i64,
     #[serde_as(as = "DeserializeDate")]
     pub date: NaiveDate,
-    pub balance: f64,
-    pub balance_in_portfolio_currency: f64,
+    pub balance: Float,
+    pub balance_in_portfolio_currency: Float,
     pub links: CashAccountUpdateLinksSuccess,
 }
 
@@ -525,8 +525,8 @@ pub struct CashAccountsListCashAccountsSuccess {
     pub portfolio_currency: String,
     #[serde_as(as = "DeserializeDate")]
     pub date: NaiveDate,
-    pub balance: f64,
-    pub balance_in_portfolio_currency: f64,
+    pub balance: Float,
+    pub balance_in_portfolio_currency: Float,
     pub links: CashAccountsListCashAccountsLinksSuccess,
 }
 
@@ -649,11 +649,11 @@ pub struct HoldingMergesCreateParameters {
     pub holding_id: i64,
     #[serde_as(as = "DeserializeDate")]
     pub merge_date: NaiveDate,
-    pub quantity: f64,
+    pub quantity: Float,
     pub symbol: String,
     pub market: String,
     #[serde(default)]
-    pub cancelled_price: Option<f64>,
+    pub cancelled_price: Option<Float>,
     #[serde(default)]
     pub comments: Option<String>,
     #[serde(default)]
@@ -687,10 +687,10 @@ pub struct HoldingMergesCreateHoldingMergeTradesSuccess {
     pub transaction_date: String,
     pub market: String,
     pub symbol: String,
-    pub quantity: f64,
-    pub price: f64,
-    pub exchange_rate: f64,
-    pub brokerage: f64,
+    pub quantity: Float,
+    pub price: Float,
+    pub exchange_rate: Float,
+    pub brokerage: Float,
     pub brokerage_currency_code: String,
     pub value: String,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -748,13 +748,13 @@ pub struct HoldingMergesUpdateParameters {
     #[serde(default)]
     pub merge_date: Option<NaiveDate>,
     #[serde(default)]
-    pub quantity: Option<f64>,
+    pub quantity: Option<Float>,
     #[serde(default)]
     pub symbol: Option<String>,
     #[serde(default)]
     pub market: Option<String>,
     #[serde(default)]
-    pub cancelled_price: Option<f64>,
+    pub cancelled_price: Option<Float>,
     #[serde(default)]
     pub comments: Option<String>,
     #[serde(default)]
@@ -788,10 +788,10 @@ pub struct HoldingMergesUpdateHoldingMergeTradesSuccess {
     pub transaction_date: String,
     pub market: String,
     pub symbol: String,
-    pub quantity: f64,
-    pub price: f64,
-    pub exchange_rate: f64,
-    pub brokerage: f64,
+    pub quantity: Float,
+    pub price: Float,
+    pub exchange_rate: Float,
+    pub brokerage: Float,
     pub brokerage_currency_code: String,
     pub value: String,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -856,13 +856,13 @@ pub struct HoldingTradesTradesSuccess {
     pub unique_identifier: String,
     #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
-    pub quantity: f64,
-    pub price: f64,
-    pub cost_base: f64,
-    pub exchange_rate: f64,
-    pub brokerage: f64,
+    pub quantity: Float,
+    pub price: Float,
+    pub cost_base: Float,
+    pub exchange_rate: Float,
+    pub brokerage: Float,
     pub brokerage_currency_code: String,
-    pub value: f64,
+    pub value: Float,
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -944,13 +944,13 @@ pub struct HoldingTradesRejectedTradesSuccess {
     pub unique_identifier: String,
     #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
-    pub quantity: f64,
-    pub price: f64,
-    pub cost_base: f64,
-    pub exchange_rate: f64,
-    pub brokerage: f64,
+    pub quantity: Float,
+    pub price: Float,
+    pub cost_base: Float,
+    pub exchange_rate: Float,
+    pub brokerage: Float,
     pub brokerage_currency_code: String,
-    pub value: f64,
+    pub value: Float,
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -1078,10 +1078,10 @@ pub struct ListUserInstrumentsInstrumentsSuccess {
     pub market_code: String,
     pub name: String,
     pub currency_code: String,
-    pub pe_ratio: f64,
-    pub nta: f64,
-    pub eps: f64,
-    pub current_price: f64,
+    pub pe_ratio: Float,
+    pub nta: Float,
+    pub eps: Float,
+    pub current_price: Float,
     pub current_price_updated_at: NaiveDateTime,
     pub sector_classification_name: String,
     pub industry_classification_name: String,
@@ -1464,35 +1464,35 @@ pub struct ListHoldingPayoutsPayoutsSuccess {
     pub market: String,
     pub paid_on: String,
     pub ex_date: String,
-    pub amount: f64,
-    pub gross_amount: f64,
+    pub amount: Float,
+    pub gross_amount: Float,
     pub transaction_description: String,
-    pub resident_withholding_tax: f64,
-    pub non_resident_withholding_tax: f64,
-    pub tax_credit: f64,
+    pub resident_withholding_tax: Float,
+    pub non_resident_withholding_tax: Float,
+    pub tax_credit: Float,
     pub currency: String,
-    pub exchange_rate: f64,
+    pub exchange_rate: Float,
     pub non_taxable: bool,
     pub comments: String,
-    pub other_net_fsi: f64,
-    pub lic_capital_gain: f64,
+    pub other_net_fsi: Float,
+    pub lic_capital_gain: Float,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     pub state: String,
     pub drp_trade_attributes: (),
-    pub franked_amount: f64,
-    pub unfranked_amount: f64,
+    pub franked_amount: Float,
+    pub unfranked_amount: Float,
     pub trust: bool,
-    pub extra_interest_payment_amount: f64,
-    pub capital_gains: f64,
-    pub discounted_capital_gains: f64,
-    pub interest_payment: f64,
-    pub foreign_source_income: f64,
-    pub deferred_income: f64,
+    pub extra_interest_payment_amount: Float,
+    pub capital_gains: Float,
+    pub discounted_capital_gains: Float,
+    pub interest_payment: Float,
+    pub foreign_source_income: Float,
+    pub deferred_income: Float,
     pub non_assessable: bool,
-    pub cgt_concession_amount: f64,
-    pub amit_decrease_amount: f64,
-    pub amit_increase_amount: f64,
+    pub cgt_concession_amount: Float,
+    pub amit_decrease_amount: Float,
+    pub amit_increase_amount: Float,
     pub links: ListHoldingPayoutsPayoutsLinksSuccess,
 }
 
@@ -1500,8 +1500,8 @@ pub struct ListHoldingPayoutsPayoutsSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct ListHoldingPayoutsPayoutsDrpTradeAttributesSuccess {
     pub dividend_reinvested: bool,
-    pub quantity: f64,
-    pub price: f64,
+    pub quantity: Float,
+    pub price: Float,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub source_adjustment_id: i64,
 }
@@ -1580,32 +1580,32 @@ pub struct ListPortfolioPayoutsPayoutsSuccess {
     pub market: String,
     pub paid_on: String,
     pub ex_date: String,
-    pub amount: f64,
-    pub gross_amount: f64,
-    pub resident_withholding_tax: f64,
-    pub non_resident_withholding_tax: f64,
-    pub tax_credit: f64,
+    pub amount: Float,
+    pub gross_amount: Float,
+    pub resident_withholding_tax: Float,
+    pub non_resident_withholding_tax: Float,
+    pub tax_credit: Float,
     pub currency: String,
-    pub exchange_rate: f64,
+    pub exchange_rate: Float,
     pub non_taxable: String,
     pub comments: String,
-    pub other_net_fsi: f64,
+    pub other_net_fsi: Float,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     pub state: String,
     pub drp_trade_attributes: (),
-    pub franked_amount: f64,
-    pub unfranked_amount: f64,
+    pub franked_amount: Float,
+    pub unfranked_amount: Float,
     pub trust: bool,
-    pub extra_interest_payment_amount: f64,
-    pub capital_gains: f64,
-    pub discounted_capital_gains: f64,
-    pub interest_payment: f64,
-    pub foreign_source_income: f64,
-    pub deferred_income: f64,
+    pub extra_interest_payment_amount: Float,
+    pub capital_gains: Float,
+    pub discounted_capital_gains: Float,
+    pub interest_payment: Float,
+    pub foreign_source_income: Float,
+    pub deferred_income: Float,
     pub non_assessable: bool,
-    pub amit_decrease_amount: f64,
-    pub amit_increase_amount: f64,
+    pub amit_decrease_amount: Float,
+    pub amit_increase_amount: Float,
     pub links: ListPortfolioPayoutsPayoutsLinksSuccess,
 }
 
@@ -1613,8 +1613,8 @@ pub struct ListPortfolioPayoutsPayoutsSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct ListPortfolioPayoutsPayoutsDrpTradeAttributesSuccess {
     pub dividend_reinvested: bool,
-    pub quantity: f64,
-    pub price: f64,
+    pub quantity: Float,
+    pub price: Float,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub source_adjustment_id: i64,
 }
@@ -1667,9 +1667,9 @@ pub struct PayoutConfirmPayoutDrpTradeAttributesParameters {
     #[serde(default)]
     pub dividend_reinvested: Option<bool>,
     #[serde(default)]
-    pub quantity: Option<f64>,
+    pub quantity: Option<Float>,
     #[serde(default)]
-    pub price: Option<f64>,
+    pub price: Option<Float>,
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
     pub source_adjustment_id: Option<i64>,
@@ -1704,13 +1704,13 @@ pub struct PayoutConfirmPayoutSuccess {
     pub paid_on: NaiveDate,
     #[serde_as(as = "DeserializeDate")]
     pub ex_date: NaiveDate,
-    pub amount: f64,
-    pub gross_amount: f64,
-    pub resident_withholding_tax: f64,
-    pub non_resident_withholding_tax: f64,
-    pub tax_credit: f64,
+    pub amount: Float,
+    pub gross_amount: Float,
+    pub resident_withholding_tax: Float,
+    pub non_resident_withholding_tax: Float,
+    pub tax_credit: Float,
     pub currency: String,
-    pub exchange_rate: f64,
+    pub exchange_rate: Float,
     pub non_taxable: String,
     pub comments: String,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -1750,19 +1750,19 @@ pub struct PayoutCreatePayoutParameters {
     pub market: String,
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
-    pub amount: f64,
+    pub amount: Float,
     pub currency_code: String,
     #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub goes_ex_on: Option<NaiveDate>,
     #[serde(default)]
-    pub resident_withholding_tax: Option<f64>,
+    pub resident_withholding_tax: Option<Float>,
     #[serde(default)]
-    pub non_resident_withholding_tax: Option<f64>,
+    pub non_resident_withholding_tax: Option<Float>,
     #[serde(default)]
-    pub tax_credit: Option<f64>,
+    pub tax_credit: Option<Float>,
     #[serde(default)]
-    pub exchange_rate: Option<f64>,
+    pub exchange_rate: Option<Float>,
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
     pub adjustment_id: Option<i64>,
@@ -1775,28 +1775,28 @@ pub struct PayoutCreatePayoutParameters {
     #[serde(default)]
     pub send_to_xero: Option<bool>,
     #[serde(default)]
-    pub banked_amount: Option<f64>,
+    pub banked_amount: Option<Float>,
     #[serde(default)]
     pub drp_trade_attributes: Option<()>,
-    pub franked_amount: f64,
-    pub unfranked_amount: f64,
+    pub franked_amount: Float,
+    pub unfranked_amount: Float,
     pub trust: bool,
     #[serde(default)]
-    pub extra_interest_payment_amount: Option<f64>,
+    pub extra_interest_payment_amount: Option<Float>,
     #[serde(default)]
-    pub capital_gains: Option<f64>,
+    pub capital_gains: Option<Float>,
     #[serde(default)]
-    pub discounted_capital_gains: Option<f64>,
+    pub discounted_capital_gains: Option<Float>,
     #[serde(default)]
-    pub foreign_source_income: Option<f64>,
+    pub foreign_source_income: Option<Float>,
     #[serde(default)]
-    pub lic_capital_gain: Option<f64>,
+    pub lic_capital_gain: Option<Float>,
     #[serde(default)]
     pub non_assessable: Option<bool>,
-    pub deferred_income: f64,
-    pub cgt_concession_amount: f64,
-    pub amit_decrease_amount: f64,
-    pub amit_increase_amount: f64,
+    pub deferred_income: Float,
+    pub cgt_concession_amount: Float,
+    pub amit_decrease_amount: Float,
+    pub amit_increase_amount: Float,
     pub file_name: String,
     pub file_attachment: String,
 }
@@ -1807,9 +1807,9 @@ pub struct PayoutCreatePayoutDrpTradeAttributesParameters {
     #[serde(default)]
     pub dividend_reinvested: Option<bool>,
     #[serde(default)]
-    pub quantity: Option<f64>,
+    pub quantity: Option<Float>,
     #[serde(default)]
-    pub price: Option<f64>,
+    pub price: Option<Float>,
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
     pub source_adjustment_id: Option<i64>,
@@ -1830,31 +1830,31 @@ pub struct PayoutCreatePayoutSuccess {
     pub market: String,
     pub paid_on: String,
     pub ex_date: String,
-    pub amount: f64,
-    pub gross_amount: f64,
-    pub resident_withholding_tax: f64,
-    pub non_resident_withholding_tax: f64,
-    pub tax_credit: f64,
+    pub amount: Float,
+    pub gross_amount: Float,
+    pub resident_withholding_tax: Float,
+    pub non_resident_withholding_tax: Float,
+    pub tax_credit: Float,
     pub currency: String,
-    pub exchange_rate: f64,
+    pub exchange_rate: Float,
     pub non_taxable: bool,
-    pub franked_amount: f64,
-    pub unfranked_amount: f64,
+    pub franked_amount: Float,
+    pub unfranked_amount: Float,
     pub comments: String,
-    pub interest_payment: f64,
-    pub non_discounted_capital_gains: f64,
-    pub discounted_capital_gains: f64,
-    pub foreign_tax_income: f64,
-    pub non_assessable: f64,
+    pub interest_payment: Float,
+    pub non_discounted_capital_gains: Float,
+    pub discounted_capital_gains: Float,
+    pub foreign_tax_income: Float,
+    pub non_assessable: Float,
     pub trust: bool,
     pub drp_trade_attributes: (),
-    pub extra_interest_payment_amount: f64,
-    pub capital_gains: f64,
-    pub foreign_source_income: f64,
-    pub deferred_income: f64,
-    pub cgt_concession_amount: f64,
-    pub amit_decrease_amount: f64,
-    pub amit_increase_amount: f64,
+    pub extra_interest_payment_amount: Float,
+    pub capital_gains: Float,
+    pub foreign_source_income: Float,
+    pub deferred_income: Float,
+    pub cgt_concession_amount: Float,
+    pub amit_decrease_amount: Float,
+    pub amit_increase_amount: Float,
     pub attachment_filename: String,
     pub attachment_id: String,
     pub links: PayoutCreatePayoutLinksSuccess,
@@ -1864,8 +1864,8 @@ pub struct PayoutCreatePayoutSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PayoutCreatePayoutDrpTradeAttributesSuccess {
     pub dividend_reinvested: bool,
-    pub quantity: f64,
-    pub price: f64,
+    pub quantity: Float,
+    pub price: Float,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub source_adjustment_id: i64,
 }
@@ -1962,13 +1962,13 @@ pub struct PayoutRejectPayoutSuccess {
     pub paid_on: NaiveDate,
     #[serde_as(as = "DeserializeDate")]
     pub ex_date: NaiveDate,
-    pub amount: f64,
-    pub gross_amount: f64,
-    pub resident_withholding_tax: f64,
-    pub non_resident_withholding_tax: f64,
-    pub tax_credit: f64,
+    pub amount: Float,
+    pub gross_amount: Float,
+    pub resident_withholding_tax: Float,
+    pub non_resident_withholding_tax: Float,
+    pub tax_credit: Float,
     pub currency: String,
-    pub exchange_rate: f64,
+    pub exchange_rate: Float,
     pub non_taxable: bool,
     pub comments: String,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -2023,33 +2023,33 @@ pub struct PayoutShowSuccess {
     pub market: String,
     pub paid_on: String,
     pub ex_date: String,
-    pub amount: f64,
-    pub gross_amount: f64,
-    pub resident_withholding_tax: f64,
-    pub non_resident_withholding_tax: f64,
-    pub tax_credit: f64,
+    pub amount: Float,
+    pub gross_amount: Float,
+    pub resident_withholding_tax: Float,
+    pub non_resident_withholding_tax: Float,
+    pub tax_credit: Float,
     pub currency: String,
-    pub exchange_rate: f64,
+    pub exchange_rate: Float,
     pub non_taxable: String,
     pub comments: String,
-    pub other_net_fsi: f64,
-    pub lic_capital_gain: f64,
+    pub other_net_fsi: Float,
+    pub lic_capital_gain: Float,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     pub state: String,
     pub drp_trade_attributes: (),
-    pub franked_amount: f64,
-    pub unfranked_amount: f64,
+    pub franked_amount: Float,
+    pub unfranked_amount: Float,
     pub trust: bool,
-    pub extra_interest_payment_amount: f64,
-    pub capital_gains: f64,
-    pub discounted_capital_gains: f64,
-    pub foreign_source_income: f64,
+    pub extra_interest_payment_amount: Float,
+    pub capital_gains: Float,
+    pub discounted_capital_gains: Float,
+    pub foreign_source_income: Float,
     pub non_assessable: bool,
-    pub deferred_income: f64,
-    pub cgt_concession_amount: f64,
-    pub amit_decrease_amount: f64,
-    pub amit_increase_amount: f64,
+    pub deferred_income: Float,
+    pub cgt_concession_amount: Float,
+    pub amit_decrease_amount: Float,
+    pub amit_increase_amount: Float,
     pub attachment_filename: String,
     pub attachment_id: String,
     pub links: PayoutShowLinksSuccess,
@@ -2059,8 +2059,8 @@ pub struct PayoutShowSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PayoutShowDrpTradeAttributesSuccess {
     pub dividend_reinvested: bool,
-    pub quantity: f64,
-    pub price: f64,
+    pub quantity: Float,
+    pub price: Float,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub source_adjustment_id: i64,
 }
@@ -2116,15 +2116,15 @@ pub struct PayoutUpdatePayoutParameters {
     #[serde(default)]
     pub goes_ex_on: Option<NaiveDate>,
     #[serde(default)]
-    pub resident_withholding_tax: Option<f64>,
+    pub resident_withholding_tax: Option<Float>,
     #[serde(default)]
-    pub non_resident_withholding_tax: Option<f64>,
+    pub non_resident_withholding_tax: Option<Float>,
     #[serde(default)]
-    pub tax_credit: Option<f64>,
+    pub tax_credit: Option<Float>,
     #[serde(default)]
-    pub exchange_rate: Option<f64>,
+    pub exchange_rate: Option<Float>,
     #[serde(default)]
-    pub amount: Option<f64>,
+    pub amount: Option<Float>,
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
     pub adjustment_id: Option<i64>,
@@ -2140,34 +2140,34 @@ pub struct PayoutUpdatePayoutParameters {
     #[serde(default)]
     pub send_to_xero: Option<bool>,
     #[serde(default)]
-    pub banked_amount: Option<f64>,
+    pub banked_amount: Option<Float>,
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
     pub source_adjustment_id: Option<i64>,
     #[serde(default)]
     pub drp_trade_attributes: Option<()>,
     #[serde(default)]
-    pub franked_amount: Option<f64>,
+    pub franked_amount: Option<Float>,
     #[serde(default)]
-    pub unfranked_amount: Option<f64>,
+    pub unfranked_amount: Option<Float>,
     #[serde(default)]
     pub trust: Option<bool>,
     #[serde(default)]
-    pub extra_interest_payment_amount: Option<f64>,
+    pub extra_interest_payment_amount: Option<Float>,
     #[serde(default)]
-    pub capital_gains: Option<f64>,
+    pub capital_gains: Option<Float>,
     #[serde(default)]
-    pub discounted_capital_gains: Option<f64>,
+    pub discounted_capital_gains: Option<Float>,
     #[serde(default)]
-    pub foreign_source_income: Option<f64>,
+    pub foreign_source_income: Option<Float>,
     #[serde(default)]
-    pub lic_capital_gain: Option<f64>,
+    pub lic_capital_gain: Option<Float>,
     #[serde(default)]
     pub non_assessable: Option<bool>,
-    pub deferred_income: f64,
-    pub cgt_concession_amount: f64,
-    pub amit_decrease_amount: f64,
-    pub amit_increase_amount: f64,
+    pub deferred_income: Float,
+    pub cgt_concession_amount: Float,
+    pub amit_decrease_amount: Float,
+    pub amit_increase_amount: Float,
 }
 
 #[serde_as]
@@ -2176,9 +2176,9 @@ pub struct PayoutUpdatePayoutDrpTradeAttributesParameters {
     #[serde(default)]
     pub dividend_reinvested: Option<bool>,
     #[serde(default)]
-    pub quantity: Option<f64>,
+    pub quantity: Option<Float>,
     #[serde(default)]
-    pub price: Option<f64>,
+    pub price: Option<Float>,
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
     pub source_adjustment_id: Option<i64>,
@@ -2195,31 +2195,31 @@ pub struct PayoutUpdateSuccess {
     pub paid_on: NaiveDate,
     #[serde_as(as = "DeserializeDate")]
     pub ex_date: NaiveDate,
-    pub amount: f64,
-    pub gross_amount: f64,
-    pub resident_withholding_tax: f64,
-    pub non_resident_withholding_tax: f64,
-    pub tax_credit: f64,
+    pub amount: Float,
+    pub gross_amount: Float,
+    pub resident_withholding_tax: Float,
+    pub non_resident_withholding_tax: Float,
+    pub tax_credit: Float,
     pub currency: String,
-    pub exchange_rate: f64,
+    pub exchange_rate: Float,
     pub non_taxable: String,
     pub comments: String,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     pub state: String,
     pub drp_trade_attributes: (),
-    pub franked_amount: f64,
-    pub unfranked_amount: f64,
+    pub franked_amount: Float,
+    pub unfranked_amount: Float,
     pub trust: bool,
-    pub extra_interest_payment_amount: f64,
-    pub capital_gains: f64,
-    pub discounted_capital_gains: f64,
-    pub foreign_source_income: f64,
+    pub extra_interest_payment_amount: Float,
+    pub capital_gains: Float,
+    pub discounted_capital_gains: Float,
+    pub foreign_source_income: Float,
     pub non_assessable: bool,
-    pub deferred_income: f64,
-    pub cgt_concession_amount: f64,
-    pub amit_decrease_amount: f64,
-    pub amit_increase_amount: f64,
+    pub deferred_income: Float,
+    pub cgt_concession_amount: Float,
+    pub amit_decrease_amount: Float,
+    pub amit_increase_amount: Float,
     pub attachment_filename: String,
     pub attachment_id: String,
     pub links: PayoutUpdateLinksSuccess,
@@ -2229,8 +2229,8 @@ pub struct PayoutUpdateSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PayoutUpdateDrpTradeAttributesSuccess {
     pub dividend_reinvested: bool,
-    pub quantity: f64,
-    pub price: f64,
+    pub quantity: Float,
+    pub price: Float,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub source_adjustment_id: i64,
 }
@@ -2272,7 +2272,7 @@ pub struct PortfolioCreateParameters {
     pub disable_automatic_transactions: Option<bool>,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub cg_discount_id: i64,
-    pub rwtr_rate: f64,
+    pub rwtr_rate: Float,
     #[serde(default)]
     pub country_code: Option<String>,
     #[serde(default)]
@@ -2358,7 +2358,7 @@ pub struct PortfolioListPortfoliosSuccess {
     pub name: String,
     pub default_sale_allocation_method: String,
     pub cg_discount: String,
-    pub rwtr_rate: f64,
+    pub rwtr_rate: Float,
     #[serde(default)]
     pub trader: Option<bool>,
     pub disable_automatic_transactions: bool,
@@ -2437,7 +2437,7 @@ pub struct PortfolioShowSuccess {
     pub name: String,
     pub default_sale_allocation_method: String,
     pub cg_discount: String,
-    pub rwtr_rate: f64,
+    pub rwtr_rate: Float,
     pub trader: bool,
     pub disable_automatic_transactions: bool,
     pub tax_entity_type: String,
@@ -2512,7 +2512,7 @@ pub struct PortfolioUpdateParameters {
     pub tax_entity_type: String,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub cg_discount_id: i64,
-    pub rwtr_rate: f64,
+    pub rwtr_rate: Float,
     #[serde(default)]
     pub apply_cash_account_adjustments: Option<bool>,
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
@@ -2535,7 +2535,7 @@ pub struct PortfolioUpdateSuccess {
     pub name: String,
     pub default_sale_allocation_method: String,
     pub cg_discount: String,
-    pub rwtr_rate: f64,
+    pub rwtr_rate: Float,
     pub trader: bool,
     pub tax_entity_type: String,
     pub broker_email_api_enabled: bool,
@@ -2610,17 +2610,17 @@ pub struct CapitalGainsParameters {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct CapitalGainsSuccess {
-    pub short_term_gains: f64,
-    pub long_term_gains: f64,
-    pub losses: f64,
-    pub short_term_losses: f64,
-    pub long_term_losses: f64,
-    pub total_discounted_capital_gain_distributions: f64,
-    pub total_non_discounted_capital_gain_distributions: f64,
-    pub cgt_concession_rate: f64,
-    pub cgt_concession_amount: f64,
-    pub market_value: f64,
-    pub tax_gain_loss: f64,
+    pub short_term_gains: Float,
+    pub long_term_gains: Float,
+    pub losses: Float,
+    pub short_term_losses: Float,
+    pub long_term_losses: Float,
+    pub total_discounted_capital_gain_distributions: Float,
+    pub total_non_discounted_capital_gain_distributions: Float,
+    pub cgt_concession_rate: Float,
+    pub cgt_concession_amount: Float,
+    pub market_value: Float,
+    pub tax_gain_loss: Float,
     pub discounted_capital_gain_distributions: Vec<()>,
     pub non_discounted_capital_gain_distributions: Vec<()>,
     pub short_term_parcels: Vec<()>,
@@ -2640,7 +2640,7 @@ pub struct CapitalGainsDiscountedCapitalGainDistributionsSuccess {
     pub market: String,
     pub symbol: String,
     pub name: String,
-    pub gain: f64,
+    pub gain: Float,
     #[serde_as(as = "DeserializeDate")]
     pub gain_date: NaiveDate,
 }
@@ -2651,7 +2651,7 @@ pub struct CapitalGainsNonDiscountedCapitalGainDistributionsSuccess {
     pub market: String,
     pub symbol: String,
     pub name: String,
-    pub gain: f64,
+    pub gain: Float,
     #[serde_as(as = "DeserializeDate")]
     pub gain_date: NaiveDate,
 }
@@ -2665,10 +2665,10 @@ pub struct CapitalGainsShortTermParcelsSuccess {
     pub allocation_method: String,
     #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
-    pub quantity: f64,
-    pub cost_base: f64,
-    pub market_value: f64,
-    pub gain: f64,
+    pub quantity: Float,
+    pub cost_base: Float,
+    pub market_value: Float,
+    pub gain: Float,
     #[serde_as(as = "DeserializeDate")]
     pub gain_date: NaiveDate,
 }
@@ -2682,10 +2682,10 @@ pub struct CapitalGainsLongTermParcelsSuccess {
     pub allocation_method: String,
     #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
-    pub quantity: f64,
-    pub cost_base: f64,
-    pub market_value: f64,
-    pub gain: f64,
+    pub quantity: Float,
+    pub cost_base: Float,
+    pub market_value: Float,
+    pub gain: Float,
     #[serde_as(as = "DeserializeDate")]
     pub gain_date: NaiveDate,
 }
@@ -2699,10 +2699,10 @@ pub struct CapitalGainsLossParcelsSuccess {
     pub allocation_method: String,
     #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
-    pub quantity: f64,
-    pub cost_base: f64,
-    pub market_value: f64,
-    pub gain: f64,
+    pub quantity: Float,
+    pub cost_base: Float,
+    pub market_value: Float,
+    pub gain: Float,
     #[serde_as(as = "DeserializeDate")]
     pub gain_date: NaiveDate,
 }
@@ -2753,8 +2753,8 @@ pub struct DiversityParameters {
 #[derive(Debug, Clone, Deserialize)]
 pub struct DiversitySuccess {
     pub groups: Vec<()>,
-    pub percentage: f64,
-    pub value: f64,
+    pub percentage: Float,
+    pub value: Float,
     #[serde_as(as = "DeserializeDate")]
     pub date: NaiveDate,
 }
@@ -2769,8 +2769,8 @@ pub struct DiversityGroupsSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct DiversityGroupsGroupSuccess {
     pub elements: Vec<()>,
-    pub percentage: f64,
-    pub value: f64,
+    pub percentage: Float,
+    pub value: Float,
 }
 
 #[serde_as]
@@ -2779,8 +2779,8 @@ pub struct DiversityGroupsGroupElementsSuccess {
     pub name: String,
     pub code: String,
     pub market: String,
-    pub percentage: f64,
-    pub value: f64,
+    pub percentage: Float,
+    pub value: Float,
 }
 
 pub struct Performance;
@@ -2841,15 +2841,15 @@ pub struct PerformanceSuccess {
     pub portfolio_id: String,
     pub grouping: String,
     pub custom_group_id: String,
-    pub value: f64,
-    pub capital_gain: f64,
-    pub capital_gain_percent: f64,
-    pub payout_gain: f64,
-    pub payout_gain_percent: f64,
-    pub currency_gain: f64,
-    pub currency_gain_percent: f64,
-    pub total_gain: f64,
-    pub total_gain_percent: f64,
+    pub value: Float,
+    pub capital_gain: Float,
+    pub capital_gain_percent: Float,
+    pub payout_gain: Float,
+    pub payout_gain_percent: Float,
+    pub currency_gain: Float,
+    pub currency_gain_percent: Float,
+    pub total_gain: Float,
+    pub total_gain_percent: Float,
     #[serde_as(as = "DeserializeDate")]
     pub start_date: NaiveDate,
     #[serde_as(as = "DeserializeDate")]
@@ -2871,16 +2871,16 @@ pub struct PerformanceHoldingsSuccess {
     pub _group_type_: String,
     pub grouping: String,
     pub name: String,
-    pub value: f64,
-    pub quantity: f64,
-    pub capital_gain: f64,
-    pub capital_gain_percent: f64,
-    pub payout_gain: f64,
-    pub payout_gain_percent: f64,
-    pub currency_gain: f64,
-    pub currency_gain_percent: f64,
-    pub total_gain: f64,
-    pub total_gain_percent: f64,
+    pub value: Float,
+    pub quantity: Float,
+    pub capital_gain: Float,
+    pub capital_gain_percent: Float,
+    pub payout_gain: Float,
+    pub payout_gain_percent: Float,
+    pub currency_gain: Float,
+    pub currency_gain_percent: Float,
+    pub total_gain: Float,
+    pub total_gain_percent: Float,
 }
 
 #[serde_as]
@@ -2889,7 +2889,7 @@ pub struct PerformanceCashAccountsSuccess {
     pub id: String,
     pub cash_account_id: String,
     pub name: String,
-    pub value: f64,
+    pub value: Float,
     pub currency: String,
     pub currency_code: String,
 }
@@ -2898,15 +2898,15 @@ pub struct PerformanceCashAccountsSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PerformanceSubTotalsSuccess {
     pub _group_type_: String,
-    pub value: f64,
-    pub capital_gain: f64,
-    pub capital_gain_percent: f64,
-    pub payout_gain: f64,
-    pub payout_gain_percent: f64,
-    pub currency_gain: f64,
-    pub currency_gain_percent: f64,
-    pub total_gain: f64,
-    pub total_gain_percent: f64,
+    pub value: Float,
+    pub capital_gain: Float,
+    pub capital_gain_percent: Float,
+    pub payout_gain: Float,
+    pub payout_gain_percent: Float,
+    pub currency_gain: Float,
+    pub currency_gain_percent: Float,
+    pub total_gain: Float,
+    pub total_gain_percent: Float,
 }
 
 pub struct UnrealisedCgt;
@@ -2950,13 +2950,13 @@ pub struct UnrealisedCgtParameters {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct UnrealisedCgtSuccess {
-    pub unrealised_short_term_gains: f64,
-    pub unrealised_long_term_gains: f64,
-    pub unrealised_losses: f64,
-    pub cgt_concession_rate: f64,
-    pub unrealised_cgt_concession_amount: f64,
-    pub market_value: f64,
-    pub unrealised_tax_gain_loss: f64,
+    pub unrealised_short_term_gains: Float,
+    pub unrealised_long_term_gains: Float,
+    pub unrealised_losses: Float,
+    pub cgt_concession_rate: Float,
+    pub unrealised_cgt_concession_amount: Float,
+    pub market_value: Float,
+    pub unrealised_tax_gain_loss: Float,
     pub short_term_parcels: Vec<()>,
     pub long_term_parcels: Vec<()>,
     pub losses: Vec<()>,
@@ -2975,10 +2975,10 @@ pub struct UnrealisedCgtShortTermParcelsSuccess {
     pub allocation_method: String,
     #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
-    pub quantity: f64,
-    pub cost_base: f64,
-    pub market_value: f64,
-    pub unrealised_gain: f64,
+    pub quantity: Float,
+    pub cost_base: Float,
+    pub market_value: Float,
+    pub unrealised_gain: Float,
 }
 
 #[serde_as]
@@ -2990,10 +2990,10 @@ pub struct UnrealisedCgtLongTermParcelsSuccess {
     pub allocation_method: String,
     #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
-    pub quantity: f64,
-    pub cost_base: f64,
-    pub market_value: f64,
-    pub unrealised_gain: f64,
+    pub quantity: Float,
+    pub cost_base: Float,
+    pub market_value: Float,
+    pub unrealised_gain: Float,
 }
 
 #[serde_as]
@@ -3005,10 +3005,10 @@ pub struct UnrealisedCgtLossesSuccess {
     pub allocation_method: String,
     #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
-    pub quantity: f64,
-    pub cost_base: f64,
-    pub market_value: f64,
-    pub unrealised_gain: f64,
+    pub quantity: Float,
+    pub cost_base: Float,
+    pub market_value: Float,
+    pub unrealised_gain: Float,
 }
 
 pub struct Valuation;
@@ -3064,7 +3064,7 @@ pub struct ValuationSuccess {
     pub portfolio_id: String,
     pub grouping: String,
     pub custom_group_id: String,
-    pub value: f64,
+    pub value: Float,
     pub holdings: Vec<()>,
     pub cash_accounts: Vec<()>,
     pub sub_totals: Vec<()>,
@@ -3080,8 +3080,8 @@ pub struct ValuationHoldingsSuccess {
     pub _group_type_: String,
     pub grouping: String,
     pub name: String,
-    pub value: f64,
-    pub quantity: f64,
+    pub value: Float,
+    pub quantity: Float,
 }
 
 #[serde_as]
@@ -3090,7 +3090,7 @@ pub struct ValuationCashAccountsSuccess {
     pub id: String,
     pub cash_account_id: String,
     pub name: String,
-    pub value: f64,
+    pub value: Float,
     pub currency: String,
     pub currency_code: String,
 }
@@ -3099,7 +3099,7 @@ pub struct ValuationCashAccountsSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct ValuationSubTotalsSuccess {
     pub _group_type_: String,
-    pub value: f64,
+    pub value: Float,
 }
 
 pub struct RequestSingleSignOn;
@@ -3165,10 +3165,10 @@ pub struct TradeConfirmTradeSuccess {
     pub transaction_date: String,
     pub market: String,
     pub symbol: String,
-    pub quantity: f64,
-    pub price: f64,
-    pub exchange_rate: f64,
-    pub brokerage: f64,
+    pub quantity: Float,
+    pub price: Float,
+    pub exchange_rate: Float,
+    pub brokerage: Float,
     pub brokerage_currency_code: String,
     pub value: String,
     pub comments: String,
@@ -3225,10 +3225,10 @@ pub struct TradeRejectTradeSuccess {
     pub transaction_date: String,
     pub market: String,
     pub symbol: String,
-    pub quantity: f64,
-    pub price: f64,
-    pub exchange_rate: f64,
-    pub brokerage: f64,
+    pub quantity: Float,
+    pub price: Float,
+    pub exchange_rate: Float,
+    pub brokerage: Float,
     pub brokerage_currency_code: String,
     pub value: String,
     pub comments: String,
@@ -3299,15 +3299,15 @@ pub struct TradesTradesSuccess {
     pub unique_identifier: Option<String>,
     #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
-    pub quantity: f64,
-    pub price: f64,
+    pub quantity: Float,
+    pub price: Float,
     #[serde(default)]
-    pub cost_base: Option<f64>,
-    pub exchange_rate: f64,
-    pub brokerage: f64,
+    pub cost_base: Option<Float>,
+    pub exchange_rate: Float,
+    pub brokerage: Float,
     #[serde(default)]
     pub brokerage_currency_code: Option<String>,
-    pub value: f64,
+    pub value: Float,
     #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub paid_on: Option<NaiveDate>,
@@ -3432,13 +3432,13 @@ pub struct TradesShowSuccess {
     pub unique_identifier: String,
     #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
-    pub quantity: f64,
-    pub price: f64,
-    pub cost_base: f64,
-    pub exchange_rate: f64,
-    pub brokerage: f64,
+    pub quantity: Float,
+    pub price: Float,
+    pub cost_base: Float,
+    pub exchange_rate: Float,
+    pub brokerage: Float,
     pub brokerage_currency_code: String,
-    pub value: f64,
+    pub value: Float,
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]

@@ -659,7 +659,7 @@ impl<'a> fmt::Display for FieldTypeBaseRustTypeNameDisplay<'a> {
             FieldTypeBase::Hash => unreachable!(),
             FieldTypeBase::Integer => write!(f, "i64"),
             FieldTypeBase::Date => write!(f, "NaiveDate"),
-            FieldTypeBase::Float => write!(f, "f64"),
+            FieldTypeBase::Float => write!(f, "Float"),
             FieldTypeBase::DateTime => write!(f, "NaiveDateTime"),
             FieldTypeBase::Unit => write!(f, "()"),
             FieldTypeBase::File => write!(f, "()"),
