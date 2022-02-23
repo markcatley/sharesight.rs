@@ -6,6 +6,11 @@ use serde_with::{DeserializeAs, SerializeAs};
 
 pub use std::fmt;
 
+#[cfg(feature = "bigdecimal")]
+pub type Float = bigdecimal::BigDecimal;
+#[cfg(not(feature = "bigdecimal"))]
+pub type Float = f64;
+
 pub enum ApiHttpMethod {
     Get,
     Post,
