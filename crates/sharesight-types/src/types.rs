@@ -202,7 +202,7 @@ pub struct CashAccountTransactionCreateParameters {
     pub description: String,
     pub amount: Float,
     pub type_name: String,
-    pub date_time: NaiveDateTime,
+    pub date_time: DateTime<FixedOffset>,
     #[serde(default)]
     pub foreign_identifier: Option<String>,
 }
@@ -219,7 +219,7 @@ pub struct CashAccountTransactionCreateCashAccountTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     pub description: String,
-    pub date_time: NaiveDateTime,
+    pub date_time: DateTime<FixedOffset>,
     pub amount: Float,
     pub balance: Float,
     pub cash_account_id: String,
@@ -303,7 +303,7 @@ pub struct CashAccountTransactionUpdateParameters {
     pub description: String,
     pub amount: Float,
     pub type_name: String,
-    pub date_time: NaiveDateTime,
+    pub date_time: DateTime<FixedOffset>,
     #[serde(default)]
     pub foreign_identifier: Option<String>,
 }
@@ -320,7 +320,7 @@ pub struct CashAccountTransactionUpdateCashAccountTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     pub description: String,
-    pub date_time: NaiveDateTime,
+    pub date_time: DateTime<FixedOffset>,
     pub amount: Float,
     pub balance: Float,
     pub cash_account_id: String,
@@ -397,7 +397,7 @@ pub struct CashAccountTransactionsListSuccess {
 pub struct CashAccountTransactionsListCashAccountTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
-    pub date_time: NaiveDateTime,
+    pub date_time: DateTime<FixedOffset>,
     pub amount: Float,
     pub balance: Float,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -599,7 +599,7 @@ impl<'a> ApiEndpoint<'a> for GroupsList {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct GroupsListSuccess {
-    pub groups: Vec<()>,
+    pub groups: Vec<GroupsListGroupsSuccess>,
 }
 
 #[serde_as]
@@ -1066,7 +1066,7 @@ impl<'a> ApiEndpoint<'a> for ListUserInstruments {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct ListUserInstrumentsSuccess {
-    pub instruments: Vec<()>,
+    pub instruments: Vec<ListUserInstrumentsInstrumentsSuccess>,
 }
 
 #[serde_as]
@@ -1078,16 +1078,21 @@ pub struct ListUserInstrumentsInstrumentsSuccess {
     pub market_code: String,
     pub name: String,
     pub currency_code: String,
-    pub pe_ratio: Float,
-    pub nta: Float,
-    pub eps: Float,
+    #[serde(default)]
+    pub pe_ratio: Option<Float>,
+    #[serde(default)]
+    pub nta: Option<Float>,
+    #[serde(default)]
+    pub eps: Option<Float>,
     pub current_price: Float,
-    pub current_price_updated_at: NaiveDateTime,
+    pub current_price_updated_at: DateTime<FixedOffset>,
     pub sector_classification_name: String,
     pub industry_classification_name: String,
-    pub security_type: String,
+    #[serde(default)]
+    pub security_type: Option<String>,
     pub friendly_instrument_description: String,
-    pub registry_name: String,
+    #[serde(default)]
+    pub registry_name: Option<String>,
 }
 
 pub struct MembershipCreate;
@@ -1237,7 +1242,7 @@ impl<'a> ApiEndpoint<'a> for MembershipList {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct MembershipListSuccess {
-    pub memberships: Vec<()>,
+    pub memberships: Vec<MembershipListMembershipsSuccess>,
     pub organisation_name: String,
     pub shared_with_organisation: bool,
     pub links: MembershipListLinksSuccess,
@@ -1393,7 +1398,7 @@ impl<'a> ApiEndpoint<'a> for Currencies {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct CurrenciesSuccess {
-    pub currencies: Vec<()>,
+    pub currencies: Vec<CurrenciesCurrenciesSuccess>,
 }
 
 #[serde_as]
@@ -1479,7 +1484,7 @@ pub struct ListHoldingPayoutsPayoutsSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     pub state: String,
-    pub drp_trade_attributes: (),
+    pub drp_trade_attributes: ListHoldingPayoutsPayoutsDrpTradeAttributesSuccess,
     pub franked_amount: Float,
     pub unfranked_amount: Float,
     pub trust: bool,
@@ -1562,7 +1567,7 @@ pub struct ListPortfolioPayoutsParameters {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct ListPortfolioPayoutsSuccess {
-    pub payouts: Vec<()>,
+    pub payouts: Vec<ListPortfolioPayoutsPayoutsSuccess>,
     pub links: ListPortfolioPayoutsLinksSuccess,
 }
 
@@ -1593,7 +1598,7 @@ pub struct ListPortfolioPayoutsPayoutsSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     pub state: String,
-    pub drp_trade_attributes: (),
+    pub drp_trade_attributes: ListPortfolioPayoutsPayoutsDrpTradeAttributesSuccess,
     pub franked_amount: Float,
     pub unfranked_amount: Float,
     pub trust: bool,
@@ -1658,7 +1663,7 @@ pub struct PayoutConfirmPayoutParameters {
     pub paid_on: NaiveDate,
     pub state: String,
     #[serde(default)]
-    pub drp_trade_attributes: Option<()>,
+    pub drp_trade_attributes: Option<PayoutConfirmPayoutDrpTradeAttributesParameters>,
 }
 
 #[serde_as]
@@ -1777,7 +1782,7 @@ pub struct PayoutCreatePayoutParameters {
     #[serde(default)]
     pub banked_amount: Option<Float>,
     #[serde(default)]
-    pub drp_trade_attributes: Option<()>,
+    pub drp_trade_attributes: Option<PayoutCreatePayoutDrpTradeAttributesParameters>,
     pub franked_amount: Float,
     pub unfranked_amount: Float,
     pub trust: bool,
@@ -1818,7 +1823,7 @@ pub struct PayoutCreatePayoutDrpTradeAttributesParameters {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct PayoutCreateSuccess {
-    pub payout: (),
+    pub payout: PayoutCreatePayoutSuccess,
 }
 
 #[serde_as]
@@ -1847,7 +1852,7 @@ pub struct PayoutCreatePayoutSuccess {
     pub foreign_tax_income: Float,
     pub non_assessable: Float,
     pub trust: bool,
-    pub drp_trade_attributes: (),
+    pub drp_trade_attributes: PayoutCreatePayoutDrpTradeAttributesSuccess,
     pub extra_interest_payment_amount: Float,
     pub capital_gains: Float,
     pub foreign_source_income: Float,
@@ -2037,7 +2042,7 @@ pub struct PayoutShowSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     pub state: String,
-    pub drp_trade_attributes: (),
+    pub drp_trade_attributes: PayoutShowDrpTradeAttributesSuccess,
     pub franked_amount: Float,
     pub unfranked_amount: Float,
     pub trust: bool,
@@ -2103,7 +2108,7 @@ impl<'a> fmt::Display for PayoutUpdateUrlDisplay<'a> {
 pub struct PayoutUpdateParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
-    pub payout: (),
+    pub payout: PayoutUpdatePayoutParameters,
 }
 
 #[serde_as]
@@ -2145,7 +2150,7 @@ pub struct PayoutUpdatePayoutParameters {
     #[serde(default)]
     pub source_adjustment_id: Option<i64>,
     #[serde(default)]
-    pub drp_trade_attributes: Option<()>,
+    pub drp_trade_attributes: Option<PayoutUpdatePayoutDrpTradeAttributesParameters>,
     #[serde(default)]
     pub franked_amount: Option<Float>,
     #[serde(default)]
@@ -2207,7 +2212,7 @@ pub struct PayoutUpdateSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     pub state: String,
-    pub drp_trade_attributes: (),
+    pub drp_trade_attributes: PayoutUpdateDrpTradeAttributesSuccess,
     pub franked_amount: Float,
     pub unfranked_amount: Float,
     pub trust: bool,
@@ -2621,11 +2626,13 @@ pub struct CapitalGainsSuccess {
     pub cgt_concession_amount: Float,
     pub market_value: Float,
     pub tax_gain_loss: Float,
-    pub discounted_capital_gain_distributions: Vec<()>,
-    pub non_discounted_capital_gain_distributions: Vec<()>,
-    pub short_term_parcels: Vec<()>,
-    pub long_term_parcels: Vec<()>,
-    pub loss_parcels: Vec<()>,
+    pub discounted_capital_gain_distributions:
+        Vec<CapitalGainsDiscountedCapitalGainDistributionsSuccess>,
+    pub non_discounted_capital_gain_distributions:
+        Vec<CapitalGainsNonDiscountedCapitalGainDistributionsSuccess>,
+    pub short_term_parcels: Vec<CapitalGainsShortTermParcelsSuccess>,
+    pub long_term_parcels: Vec<CapitalGainsLongTermParcelsSuccess>,
+    pub loss_parcels: Vec<CapitalGainsLossParcelsSuccess>,
     #[serde_as(as = "DeserializeDate")]
     pub start_date: NaiveDate,
     #[serde_as(as = "DeserializeDate")]
@@ -2752,7 +2759,7 @@ pub struct DiversityParameters {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct DiversitySuccess {
-    pub groups: Vec<()>,
+    pub groups: Vec<DiversityGroupsSuccess>,
     pub percentage: Float,
     pub value: Float,
     #[serde_as(as = "DeserializeDate")]
@@ -2762,13 +2769,13 @@ pub struct DiversitySuccess {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct DiversityGroupsSuccess {
-    pub group: (),
+    pub group: DiversityGroupsGroupSuccess,
 }
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct DiversityGroupsGroupSuccess {
-    pub elements: Vec<()>,
+    pub elements: Vec<DiversityGroupsGroupElementsSuccess>,
     pub percentage: Float,
     pub value: Float,
 }
@@ -2856,9 +2863,9 @@ pub struct PerformanceSuccess {
     pub end_date: NaiveDate,
     #[serde_as(as = "DeserializeDate")]
     pub include_sales: NaiveDate,
-    pub holdings: Vec<()>,
-    pub cash_accounts: Vec<()>,
-    pub sub_totals: Vec<()>,
+    pub holdings: Vec<PerformanceHoldingsSuccess>,
+    pub cash_accounts: Vec<PerformanceCashAccountsSuccess>,
+    pub sub_totals: Vec<PerformanceSubTotalsSuccess>,
 }
 
 #[serde_as]
@@ -2957,9 +2964,9 @@ pub struct UnrealisedCgtSuccess {
     pub unrealised_cgt_concession_amount: Float,
     pub market_value: Float,
     pub unrealised_tax_gain_loss: Float,
-    pub short_term_parcels: Vec<()>,
-    pub long_term_parcels: Vec<()>,
-    pub losses: Vec<()>,
+    pub short_term_parcels: Vec<UnrealisedCgtShortTermParcelsSuccess>,
+    pub long_term_parcels: Vec<UnrealisedCgtLongTermParcelsSuccess>,
+    pub losses: Vec<UnrealisedCgtLossesSuccess>,
     #[serde_as(as = "DeserializeDate")]
     pub balance_date: NaiveDate,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -3065,9 +3072,9 @@ pub struct ValuationSuccess {
     pub grouping: String,
     pub custom_group_id: String,
     pub value: Float,
-    pub holdings: Vec<()>,
-    pub cash_accounts: Vec<()>,
-    pub sub_totals: Vec<()>,
+    pub holdings: Vec<ValuationHoldingsSuccess>,
+    pub cash_accounts: Vec<ValuationCashAccountsSuccess>,
+    pub sub_totals: Vec<ValuationSubTotalsSuccess>,
 }
 
 #[serde_as]
@@ -3490,7 +3497,7 @@ impl<'a> ApiEndpoint<'a> for MyUser {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct MyUserSuccess {
-    pub user: (),
+    pub user: MyUserUserSuccess,
 }
 
 #[serde_as]

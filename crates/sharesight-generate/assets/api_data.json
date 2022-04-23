@@ -5981,21 +5981,21 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "instruments.pe_ratio",
               "description": "<p>The price-earnings ratio for this instrument.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "instruments.nta",
               "description": "<p>The net tangible assets for this instrument displayed on it's currency.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "instruments.eps",
               "description": "<p>The earnings per share for this instrument displayed on it's currency.</p>"
             },
@@ -6030,7 +6030,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "instruments.security_type",
               "description": "<p>The instrument security type. [DEPRECATED, use friendly_instrument_description]</p>"
             },
@@ -6044,7 +6044,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "instruments.registry_name",
               "description": "<p>The instrument registry.</p>"
             },
@@ -6207,21 +6207,21 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "instruments.pe_ratio",
               "description": "<p>The price-earnings ratio for this instrument.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "instruments.nta",
               "description": "<p>The net tangible assets for this instrument displayed on it's currency.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "instruments.eps",
               "description": "<p>The earnings per share for this instrument displayed on it's currency.</p>"
             },
@@ -6256,7 +6256,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "instruments.security_type",
               "description": "<p>The instrument security type. [DEPRECATED, use friendly_instrument_description]</p>"
             },
@@ -6270,7 +6270,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "instruments.registry_name",
               "description": "<p>The instrument registry.</p>"
             }

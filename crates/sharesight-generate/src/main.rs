@@ -644,7 +644,35 @@ impl FieldTypeBase {
 
     fn is_hash(&self) -> bool {
         use FieldTypeBase::*;
-        matches!(self, Hash | Portfolio)
+        matches!(
+            self,
+            Hash | Group
+                | Portfolio
+                | Price
+                | Instruments
+                | Membership
+                | Currency
+                | DrpTrade
+                | Payout
+                | Parcel
+                | PortfolioDiversity
+                | PortfolioDiversityGroup
+                | PortfolioDiversityHolding
+                | CustomGroup
+                | Market
+                | IndustryClassification
+                | SectorClassification
+                | InvestmentType
+                | Country
+                | CustomGroupCategory
+                | Object
+                | PortfolioPerformance
+                | Holding
+                | CashAccount
+                | SubTotal
+                | PortfolioValuation
+                | User
+        )
     }
 }
 
@@ -660,36 +688,36 @@ impl<'a> fmt::Display for FieldTypeBaseRustTypeNameDisplay<'a> {
             FieldTypeBase::Integer => write!(f, "i64"),
             FieldTypeBase::Date => write!(f, "NaiveDate"),
             FieldTypeBase::Float => write!(f, "Float"),
-            FieldTypeBase::DateTime => write!(f, "NaiveDateTime"),
+            FieldTypeBase::DateTime => write!(f, "DateTime<FixedOffset>"),
             FieldTypeBase::Unit => write!(f, "()"),
             FieldTypeBase::File => write!(f, "()"),
             FieldTypeBase::Boolean => write!(f, "bool"),
-            FieldTypeBase::Group => write!(f, "()"),
-            FieldTypeBase::Portfolio => write!(f, "()"),
-            FieldTypeBase::Price => write!(f, "()"),
-            FieldTypeBase::Instruments => write!(f, "()"),
-            FieldTypeBase::Membership => write!(f, "()"),
-            FieldTypeBase::Currency => write!(f, "()"),
-            FieldTypeBase::DrpTrade => write!(f, "()"),
-            FieldTypeBase::Payout => write!(f, "()"),
-            FieldTypeBase::Parcel => write!(f, "()"),
-            FieldTypeBase::PortfolioDiversity => write!(f, "()"),
-            FieldTypeBase::PortfolioDiversityGroup => write!(f, "()"),
-            FieldTypeBase::PortfolioDiversityHolding => write!(f, "()"),
-            FieldTypeBase::CustomGroup => write!(f, "()"),
-            FieldTypeBase::Market => write!(f, "()"),
-            FieldTypeBase::IndustryClassification => write!(f, "()"),
-            FieldTypeBase::SectorClassification => write!(f, "()"),
-            FieldTypeBase::InvestmentType => write!(f, "()"),
-            FieldTypeBase::Country => write!(f, "()"),
-            FieldTypeBase::CustomGroupCategory => write!(f, "()"),
-            FieldTypeBase::Object => write!(f, "()"),
-            FieldTypeBase::PortfolioPerformance => write!(f, "()"),
-            FieldTypeBase::Holding => write!(f, "()"),
-            FieldTypeBase::CashAccount => write!(f, "()"),
-            FieldTypeBase::SubTotal => write!(f, "()"),
-            FieldTypeBase::PortfolioValuation => write!(f, "()"),
-            FieldTypeBase::User => write!(f, "()"),
+            FieldTypeBase::Group => unreachable!(),
+            FieldTypeBase::Portfolio => unreachable!(),
+            FieldTypeBase::Price => unreachable!(),
+            FieldTypeBase::Instruments => unreachable!(),
+            FieldTypeBase::Membership => unreachable!(),
+            FieldTypeBase::Currency => unreachable!(),
+            FieldTypeBase::DrpTrade => unreachable!(),
+            FieldTypeBase::Payout => unreachable!(),
+            FieldTypeBase::Parcel => unreachable!(),
+            FieldTypeBase::PortfolioDiversity => unreachable!(),
+            FieldTypeBase::PortfolioDiversityGroup => unreachable!(),
+            FieldTypeBase::PortfolioDiversityHolding => unreachable!(),
+            FieldTypeBase::CustomGroup => unreachable!(),
+            FieldTypeBase::Market => unreachable!(),
+            FieldTypeBase::IndustryClassification => unreachable!(),
+            FieldTypeBase::SectorClassification => unreachable!(),
+            FieldTypeBase::InvestmentType => unreachable!(),
+            FieldTypeBase::Country => unreachable!(),
+            FieldTypeBase::CustomGroupCategory => unreachable!(),
+            FieldTypeBase::Object => unreachable!(),
+            FieldTypeBase::PortfolioPerformance => unreachable!(),
+            FieldTypeBase::Holding => unreachable!(),
+            FieldTypeBase::CashAccount => unreachable!(),
+            FieldTypeBase::SubTotal => unreachable!(),
+            FieldTypeBase::PortfolioValuation => unreachable!(),
+            FieldTypeBase::User => unreachable!(),
         }
     }
 }
