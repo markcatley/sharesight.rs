@@ -1,4 +1,4 @@
-pub use chrono::{NaiveDate, NaiveDateTime};
+pub use chrono::{DateTime, FixedOffset, NaiveDate};
 pub use serde::de::DeserializeOwned;
 pub use serde::{Deserialize, Serialize};
 pub use serde_with::{serde_as, DisplayFromStr, PickFirst};
