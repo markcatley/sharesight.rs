@@ -388,13 +388,13 @@ pub struct CashAccountTransactionsListParameters {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct CashAccountTransactionsListSuccess {
-    pub cash_account_transactions: Vec<()>,
+    pub cash_account_transactions: Vec<CashAccountTransactionsListCashAccountTransactionsSuccess>,
     pub links: CashAccountTransactionsListLinksSuccess,
 }
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
-pub struct CashAccountTransactionsListCashAccountTransactionSuccess {
+pub struct CashAccountTransactionsListCashAccountTransactionsSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     pub date_time: DateTime<FixedOffset>,
@@ -410,12 +410,12 @@ pub struct CashAccountTransactionsListCashAccountTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub payout_id: i64,
     pub cash_account_transaction_type: String,
-    pub links: CashAccountTransactionsListCashAccountTransactionLinksSuccess,
+    pub links: CashAccountTransactionsListCashAccountTransactionsLinksSuccess,
 }
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
-pub struct CashAccountTransactionsListCashAccountTransactionLinksSuccess {
+pub struct CashAccountTransactionsListCashAccountTransactionsLinksSuccess {
     pub portfolio: String,
 }
 
@@ -509,7 +509,7 @@ pub struct CashAccountsListParameters {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct CashAccountsListSuccess {
-    pub cash_accounts: Vec<()>,
+    pub cash_accounts: Vec<CashAccountsListCashAccountsSuccess>,
     pub links: CashAccountsListLinksSuccess,
 }
 
@@ -675,7 +675,7 @@ pub struct HoldingMergesCreateSuccess {
 pub struct HoldingMergesCreateHoldingMergeSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
-    pub trades: Vec<()>,
+    pub trades: Vec<HoldingMergesCreateHoldingMergeTradesSuccess>,
 }
 
 #[serde_as]
@@ -776,7 +776,7 @@ pub struct HoldingMergesUpdateSuccess {
 pub struct HoldingMergesUpdateHoldingMergeSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
-    pub trades: Vec<()>,
+    pub trades: Vec<HoldingMergesUpdateHoldingMergeTradesSuccess>,
 }
 
 #[serde_as]
@@ -1457,7 +1457,7 @@ pub struct ListHoldingPayoutsParameters {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct ListHoldingPayoutsSuccess {
-    pub payouts: Vec<()>,
+    pub payouts: Vec<ListHoldingPayoutsPayoutsSuccess>,
     pub links: ListHoldingPayoutsLinksSuccess,
 }
 

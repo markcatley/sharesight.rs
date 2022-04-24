@@ -1333,84 +1333,84 @@
               "group": "200 Success",
               "type": "Integer",
               "optional": false,
-              "field": "cash_account_transaction.id",
+              "field": "cash_account_transactions.id",
               "description": "<p>The transaction ID.</p>"
             },
             {
               "group": "200 Success",
               "type": "DateTime",
               "optional": false,
-              "field": "cash_account_transaction.date_time",
+              "field": "cash_account_transactions.date_time",
               "description": "<p>The transaction date and time.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "cash_account_transaction.amount",
+              "field": "cash_account_transactions.amount",
               "description": "<p>The transaction amount (rounded to 2 decimal places).</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "cash_account_transaction.balance",
+              "field": "cash_account_transactions.balance",
               "description": "<p>The transaction balance (rounded to 2 decimal places).</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
               "optional": false,
-              "field": "cash_account_transaction.cash_account_id",
+              "field": "cash_account_transactions.cash_account_id",
               "description": "<p>ID of the cash account to list transactions for.</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
-              "field": "cash_account_transaction.foreign_identifier",
+              "field": "cash_account_transactions.foreign_identifier",
               "description": "<p>The transaction foreign_identifier.</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
               "optional": false,
-              "field": "cash_account_transaction.holding_id",
+              "field": "cash_account_transactions.holding_id",
               "description": "<p>Whenever the transaction was generated through a trade or payout sync, this is the ID for the holding it belongs to.</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
               "optional": false,
-              "field": "cash_account_transaction.trade_id",
+              "field": "cash_account_transactions.trade_id",
               "description": "<p>Whenever the transaction was generated through a trade sync, this is the ID for the trade it belongs to.</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
               "optional": false,
-              "field": "cash_account_transaction.payout_id",
+              "field": "cash_account_transactions.payout_id",
               "description": "<p>Whenever the transaction was generated through a payout sync, this is the ID for the payout it belongs to.</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
-              "field": "cash_account_transaction.cash_account_transaction_type",
+              "field": "cash_account_transactions.cash_account_transaction_type",
               "description": "<p>The transaction type.</p>"
             },
             {
               "group": "200 Success",
               "type": "Hash",
               "optional": false,
-              "field": "cash_account_transaction.links",
+              "field": "cash_account_transactions.links",
               "description": "<p>List of links for this cash account transaction</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
-              "field": "cash_account_transaction.links.portfolio",
+              "field": "cash_account_transactions.links.portfolio",
               "description": "<p>Url of the portfolio of this cash account transaction</p>"
             },
             {
