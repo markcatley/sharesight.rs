@@ -375,6 +375,27 @@ impl<'a> fmt::Display for ApiStruct<'a> {
                         if parameter.field_type.is_array() {
                             write!(f, ">")?;
                         }
+                    } else if parameter.field_type.is_string()
+                        && (field_name.ends_with("currency_code")
+                            || field_name.ends_with("currency"))
+                    {
+                        write!(f, "Currency")?;
+                    } else if parameter.field_type.is_string() && field_name == "country_code" {
+                        write!(f, "Country")?;
+                    } else if parameter.field_type.is_string()
+                        && (field_name == "market" || field_name == "market_code")
+                    {
+                        write!(f, "Market")?;
+                    } else if parameter.field_type.is_string() && field_name == "transaction_type" {
+                        write!(f, "TradeDescription")?;
+                    } else if parameter.field_type.is_string()
+                        && field_name == "transaction_description"
+                    {
+                        write!(f, "PayoutDescription")?;
+                    } else if parameter.field_type.is_string()
+                        && field_name == "default_sale_allocation_method"
+                    {
+                        write!(f, "SaleAllocationMethod")?;
                     } else {
                         write!(f, "{}", parameter.field_type.rust_type_name())?;
                     }
@@ -558,6 +579,13 @@ impl FieldType {
         matches!(
             self,
             FieldType::Scalar(t) | FieldType::Array(t) if t.is_hash()
+        )
+    }
+
+    fn is_string(&self) -> bool {
+        matches!(
+            self,
+            FieldType::Scalar(FieldTypeBase::String) | FieldType::Array(FieldTypeBase::String)
         )
     }
 }
