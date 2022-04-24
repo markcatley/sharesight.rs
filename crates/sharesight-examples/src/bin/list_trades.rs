@@ -2,8 +2,8 @@ use clap::Parser;
 use sharesight_examples::init_logger;
 use sharesight_reqwest::Client;
 use sharesight_types::{
-    PortfolioList, PortfolioListSuccess, Trades, TradesParameters, TradesSuccess,
-    TradesTradesSuccess,
+    Currency, Market, PortfolioList, PortfolioListSuccess, TradeDescription, Trades,
+    TradesParameters, TradesSuccess, TradesTradesSuccess,
 };
 
 /// List the portfolios using the Sharesight API
@@ -53,7 +53,7 @@ async fn main() -> anyhow::Result<()> {
             pub cost_base: Option<f64>,
             pub exchange_rate: f64,
             pub brokerage: f64,
-            pub brokerage_currency_code: Option<String>,
+            pub brokerage_currency_code: Option<Currency>,
             pub value: f64,
             pub paid_on: Option<chrono::NaiveDate>,
             pub company_event_id: Option<i64>,
@@ -61,10 +61,10 @@ async fn main() -> anyhow::Result<()> {
             pub portfolio_id: i64,
             pub holding_id: i64,
             pub state: String,
-            pub transaction_type: String,
+            pub transaction_type: TradeDescription,
             pub instrument_id: i64,
             pub symbol: String,
-            pub market: String,
+            pub market: Market,
             pub attachment_filename: Option<String>,
             pub attachment_id: Option<i64>,
             pub confirmed: bool,
