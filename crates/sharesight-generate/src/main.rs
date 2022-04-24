@@ -597,8 +597,8 @@ impl<'de> Deserialize<'de> for FieldType {
     {
         let field_type = String::deserialize(deserializer)?;
 
-        if field_type == "Array" {
-            Ok(FieldType::Array(FieldTypeBase::Unit))
+        if field_type == "[]" {
+            Ok(FieldType::Array(FieldTypeBase::Hash))
         } else if field_type.ends_with("[]") {
             Ok(FieldType::Array(FieldTypeBase::deserialize(
                 field_type.trim_end_matches("[]").into_deserializer(),
@@ -627,12 +627,13 @@ impl<'a> fmt::Display for FieldTypeRustTypeNameDisplay<'a> {
 #[derive(Debug, Deserialize)]
 enum FieldTypeBase {
     String,
+    #[serde(alias = "Array")]
     Hash,
     Integer,
     Date,
     Float,
     DateTime,
-    #[serde(rename = "", alias = "Array")]
+    #[serde(rename = "")]
     Unit,
     File,
     Boolean,
