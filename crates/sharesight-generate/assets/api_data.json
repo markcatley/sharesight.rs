@@ -14117,7 +14117,7 @@
               "type": "Float",
               "optional": false,
               "field": "portfolio_performance.capital_gain_percent",
-              "description": "<p>Capital Gain (percentage, rounded to 2 decimal places, 33% as <codre>33.0</codre>)<sup>1</sup></p>"
+              "description": "<p>Capital Gain (percentage, rounded to 2 decimal places, 33% as <code>33.0</code>)<sup>1</sup></p>"
             },
             {
               "group": "200 Success",
@@ -14884,7 +14884,7 @@
               "type": "Float",
               "optional": false,
               "field": "capital_gain_percent",
-              "description": "<p>Capital Gain (percentage, rounded to 2 decimal places, 33% as <codre>33.0</codre>)<sup>1</sup></p>"
+              "description": "<p>Capital Gain (percentage, rounded to 2 decimal places, 33% as <code>33.0</code>)<sup>1</sup></p>"
             },
             {
               "group": "200 Success",
