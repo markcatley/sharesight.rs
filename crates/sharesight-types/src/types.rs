@@ -3351,6 +3351,134 @@ pub struct TradesApiTransactionSuccess {
     pub timestamp: String,
 }
 
+pub struct TradesCreate;
+
+impl<'a> ApiEndpoint<'a> for TradesCreate {
+    const URL_PATH: &'static str = "/trades.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+
+    type UrlDisplay = &'static str;
+    type Parameters = TradesCreateParameters;
+    type Success = TradesCreateSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/trades.json"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct TradesCreateParameters {
+    pub trade: TradesCreateTradeParameters,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct TradesCreateTradeParameters {
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub portfolio_id: Option<i64>,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub holding_id: Option<i64>,
+    #[serde(default)]
+    pub unique_identifier: Option<String>,
+    #[serde(default)]
+    pub company_event_id: Option<String>,
+    #[serde(default)]
+    pub state: Option<String>,
+    #[serde(default)]
+    pub transaction_date: Option<String>,
+    #[serde(default)]
+    pub quantity: Option<Float>,
+    #[serde(default)]
+    pub price: Option<Float>,
+    #[serde(default)]
+    pub cost_base: Option<Float>,
+    #[serde(default)]
+    pub exchange_rate: Option<Float>,
+    #[serde(default)]
+    pub brokerage: Option<Float>,
+    #[serde(default)]
+    pub brokerage_currency_code: Option<Currency>,
+    #[serde(default)]
+    pub adjust_cost_base_value: Option<Float>,
+    #[serde(default)]
+    pub capital_return_value: Option<Float>,
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub paid_on: Option<NaiveDate>,
+    #[serde(default)]
+    pub comments: Option<String>,
+    #[serde(default)]
+    pub instrument_id: Option<String>,
+    #[serde(default)]
+    pub symbol: Option<String>,
+    #[serde(default)]
+    pub market: Option<Market>,
+    #[serde(default)]
+    pub market_country_code: Option<String>,
+    #[serde(default)]
+    pub transaction_type: Option<TradeDescription>,
+    #[serde(default)]
+    pub attachment: Option<String>,
+    #[serde(default)]
+    pub attachment_filename: Option<String>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct TradesCreateSuccess {
+    pub trade: TradesCreateTradeSuccess,
+    pub api_transaction: TradesCreateApiTransactionSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct TradesCreateTradeSuccess {
+    pub id: String,
+    pub unique_identifier: String,
+    #[serde_as(as = "DeserializeDate")]
+    pub transaction_date: NaiveDate,
+    pub quantity: Float,
+    pub price: Float,
+    pub cost_base: Float,
+    pub exchange_rate: Float,
+    pub brokerage: Float,
+    pub brokerage_currency_code: Currency,
+    pub value: Float,
+    #[serde_as(as = "DeserializeDate")]
+    pub paid_on: NaiveDate,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub company_event_id: i64,
+    pub comments: String,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub portfolio_id: i64,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub holding_id: i64,
+    pub state: String,
+    pub transaction_type: TradeDescription,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub instrument_id: i64,
+    pub symbol: String,
+    pub market: Market,
+    pub attachment_filename: String,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub attachment_id: i64,
+    pub confirmed: bool,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct TradesCreateApiTransactionSuccess {
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    pub action: String,
+    pub timestamp: String,
+}
+
 pub struct TradesDestroy;
 
 impl<'a> ApiEndpoint<'a> for TradesDestroy {
@@ -3471,6 +3599,134 @@ pub struct TradesShowSuccess {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct TradesShowApiTransactionSuccess {
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    pub action: String,
+    pub timestamp: String,
+}
+
+pub struct TradesUpdate;
+
+impl<'a> ApiEndpoint<'a> for TradesUpdate {
+    const URL_PATH: &'static str = "/trades/:id.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
+
+    type UrlDisplay = TradesUpdateUrlDisplay<'a>;
+    type Parameters = TradesUpdateParameters;
+    type Success = TradesUpdateSuccess;
+
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        TradesUpdateUrlDisplay(parameters)
+    }
+}
+
+pub struct TradesUpdateUrlDisplay<'a>(&'a TradesUpdateParameters);
+
+impl<'a> fmt::Display for TradesUpdateUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/trades/{}.json", parameters.id)
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct TradesUpdateParameters {
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    pub trade: TradesUpdateTradeParameters,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct TradesUpdateTradeParameters {
+    #[serde(default)]
+    pub transaction_date: Option<String>,
+    #[serde(default)]
+    pub quantity: Option<Float>,
+    #[serde(default)]
+    pub price: Option<Float>,
+    #[serde(default)]
+    pub cost_base: Option<Float>,
+    #[serde(default)]
+    pub exchange_rate: Option<Float>,
+    #[serde(default)]
+    pub brokerage: Option<Float>,
+    #[serde(default)]
+    pub brokerage_currency_code: Option<Currency>,
+    #[serde(default)]
+    pub adjust_cost_base_value: Option<Float>,
+    #[serde(default)]
+    pub capital_return_value: Option<Float>,
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub paid_on: Option<NaiveDate>,
+    #[serde(default)]
+    pub comments: Option<String>,
+    #[serde(default)]
+    pub instrument_id: Option<String>,
+    #[serde(default)]
+    pub symbol: Option<String>,
+    #[serde(default)]
+    pub market: Option<Market>,
+    #[serde(default)]
+    pub market_country_code: Option<String>,
+    #[serde(default)]
+    pub transaction_type: Option<TradeDescription>,
+    #[serde(default)]
+    pub attachment: Option<String>,
+    #[serde(default)]
+    pub attachment_filename: Option<String>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct TradesUpdateSuccess {
+    pub trade: TradesUpdateTradeSuccess,
+    pub api_transaction: TradesUpdateApiTransactionSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct TradesUpdateTradeSuccess {
+    pub id: String,
+    pub unique_identifier: String,
+    #[serde_as(as = "DeserializeDate")]
+    pub transaction_date: NaiveDate,
+    pub quantity: Float,
+    pub price: Float,
+    pub cost_base: Float,
+    pub exchange_rate: Float,
+    pub brokerage: Float,
+    pub brokerage_currency_code: Currency,
+    pub value: Float,
+    #[serde_as(as = "DeserializeDate")]
+    pub paid_on: NaiveDate,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub company_event_id: i64,
+    pub comments: String,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub portfolio_id: i64,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub holding_id: i64,
+    pub state: String,
+    pub transaction_type: TradeDescription,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub instrument_id: i64,
+    pub symbol: String,
+    pub market: Market,
+    pub attachment_filename: String,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub attachment_id: i64,
+    pub confirmed: bool,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct TradesUpdateApiTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
