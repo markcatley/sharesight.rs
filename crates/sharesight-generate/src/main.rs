@@ -136,6 +136,7 @@ impl fmt::Display for ApiEndpoint {
 
         let endpoint_name = self.name.to_upper_camel_case();
 
+        write!(f, "{}", DocComment(&self.description))?;
         writeln!(f, "pub struct {};", endpoint_name)?;
         writeln!(f)?;
 
@@ -318,6 +319,8 @@ impl<'a> fmt::Display for ApiStruct<'a> {
             writeln!(f, "{} {{", tag)?;
             for parameter in fields {
                 if let [ref prefix_segments @ .., ref field_name] = parameter.field[..] {
+                    write!(f, "{}", DocComment(&parameter.description))?;
+
                     if field_name == "self" {
                         writeln!(f, "    #[serde(rename = \"self\")]")?;
                     }
@@ -755,6 +758,58 @@ impl<'a> fmt::Display for FieldTypeBaseRustTypeNameDisplay<'a> {
 #[serde(rename_all = "camelCase")]
 enum ExampleType {
     Json,
+}
+
+struct DocComment<'a>(&'a str);
+
+impl<'a> fmt::Display for DocComment<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let DocComment(source) = *self;
+        let mut paragraphs = source
+            .split("<p>")
+            .map(|s| s.trim().trim_end_matches("</p>").trim())
+            .filter(|s| !s.is_empty())
+            .map(|s| {
+                s.replace("<code>", "`")
+                    .replace("</code>", "`")
+                    .replace("&quot;", "\"")
+                    .replace("&gt;", "\\<")
+                    .replace("&lt;", "\\>")
+            })
+            .flat_map(|s| {
+                s.split_inclusive("<h5>")
+                    .flat_map(|s| s.split_inclusive("</h5>"))
+                    .map(str::trim)
+                    .filter_map(|s| {
+                        if s.starts_with("<h5>") || s.ends_with("</h5>") {
+                            let s = s
+                                .trim_start_matches("<h5>")
+                                .trim_end_matches("</h5>")
+                                .trim();
+                            if !s.is_empty() {
+                                Some(format!("## {}", s))
+                            } else {
+                                None
+                            }
+                        } else {
+                            Some(s.to_string())
+                        }
+                    })
+                    .collect::<Vec<_>>()
+                    .into_iter()
+            });
+
+        if let Some(paragraph) = paragraphs.next() {
+            writeln!(f, "/// {}", paragraph)?;
+        }
+
+        for paragraph in paragraphs {
+            writeln!(f, "///")?;
+            writeln!(f, "/// {}", paragraph)?;
+        }
+
+        Ok(())
+    }
 }
 
 fn main() -> anyhow::Result<()> {
