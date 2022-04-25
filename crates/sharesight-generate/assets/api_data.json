@@ -18272,107 +18272,114 @@
           "Parameter": [
             {
               "group": "Parameter",
+              "type": "Hash",
+              "optional": false,
+              "field": "trade",
+              "description": ""
+            },
+            {
+              "group": "Parameter",
               "type": "Integer",
               "optional": true,
-              "field": "trade/portfolio_id",
+              "field": "trade.portfolio_id",
               "description": "<p>Portfolio ID to create the trade against. Alternatively, you can pass a 'holding_id' and also avoid sending instrument lookup parameters.</p>"
             },
             {
               "group": "Parameter",
               "type": "Integer",
               "optional": true,
-              "field": "trade/holding_id",
+              "field": "trade.holding_id",
               "description": "<p>Holding ID to create the trade for. If you specify this, you can avoid specifying 'portfolio_id' and instrument lookup parameters.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/unique_identifier",
+              "field": "trade.unique_identifier",
               "description": "<p>This is a string of up to 255 characters used to identify duplicate trades. Generate an identifier for each trade and Sharesight will check on upload that this trade has not already been loaded.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/transaction_date",
+              "field": "trade.transaction_date",
               "description": "<p>The transaction or trade date (format YYYY-MM-DD).</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/quantity",
+              "field": "trade.quantity",
               "description": "<p>Number of units in the transaction. Must be a whole number unless the market allows fractional quantities to be traded.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/price",
+              "field": "trade.price",
               "description": "<p>Currency value per unit.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/cost_base",
+              "field": "trade.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/exchange_rate",
+              "field": "trade.exchange_rate",
               "description": "<p>The exchange rate used for the transaction as portfolio currency / instrument currency.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/brokerage",
+              "field": "trade.brokerage",
               "description": "<p>The brokerage fee (currency value).</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/brokerage_currency_code",
+              "field": "trade.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/adjust_cost_base_value",
+              "field": "trade.adjust_cost_base_value",
               "description": "<p>When transaction_type &quot;ADJUST_COST_BASE&quot; was chosen, this is the required value</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/capital_return_value",
+              "field": "trade.capital_return_value",
               "description": "<p>When transaction_type &quot;CAPITAL_RETURN&quot; or &quot;CAPITAL_CALL&quot; is chosen, this is the required value</p>"
             },
             {
               "group": "Parameter",
               "type": "Date",
               "optional": true,
-              "field": "trade/paid_on",
+              "field": "trade.paid_on",
               "description": "<p>When transaction_type &quot;CAPITAL_RETURN&quot; or &quot;CAPITAL_CALL&quot; is chosen, this is the paid on date</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/comments",
+              "field": "trade.comments",
               "description": "<p>Comments against the trade.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/instrument_id",
+              "field": "trade.instrument_id",
               "description": "<p>An <code>instrument_id</code> to look up the Instrument.  Required unless you specify a <code>holding_id</code> or search by <code>instrument_code</code> and <code>instrument_market_code</code>.</p>"
             }
           ]
@@ -18390,7 +18397,7 @@
           "200 Success": [
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Hash",
               "optional": false,
               "field": "trade",
               "description": ""
@@ -18642,163 +18649,170 @@
           "Parameter": [
             {
               "group": "Parameter",
+              "type": "Hash",
+              "optional": false,
+              "field": "trade",
+              "description": ""
+            },
+            {
+              "group": "Parameter",
               "type": "Integer",
               "optional": true,
-              "field": "trade/portfolio_id",
+              "field": "trade.portfolio_id",
               "description": "<p>Portfolio ID to create the trade against. Alternatively, you can pass a 'holding_id' and also avoid sending instrument lookup parameters.</p>"
             },
             {
               "group": "Parameter",
               "type": "Integer",
               "optional": true,
-              "field": "trade/holding_id",
+              "field": "trade.holding_id",
               "description": "<p>Holding ID to create the trade for. If you specify this, you can avoid specifying 'portfolio_id' and instrument lookup parameters.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/unique_identifier",
+              "field": "trade.unique_identifier",
               "description": "<p>This is a string of up to 255 characters used to identify duplicate trades. Generate an identifier for each trade and Sharesight will check on upload that this trade has not already been loaded.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/company_event_id",
+              "field": "trade.company_event_id",
               "description": "<p>For an confirm trade, ID used to identify the company event the unconfirmed trade is based on.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/state",
+              "field": "trade.state",
               "description": "<p>For an confirm trade, the new state of the trade.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/transaction_date",
+              "field": "trade.transaction_date",
               "description": "<p>The transaction or trade date (format YYYY-MM-DD).</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/quantity",
+              "field": "trade.quantity",
               "description": "<p>Number of units in the transaction. Must be a whole number unless the market allows fractional quantities to be traded.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/price",
+              "field": "trade.price",
               "description": "<p>Currency value per unit.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/cost_base",
+              "field": "trade.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/exchange_rate",
+              "field": "trade.exchange_rate",
               "description": "<p>The exchange rate used for the transaction as portfolio currency / instrument currency.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/brokerage",
+              "field": "trade.brokerage",
               "description": "<p>The brokerage fee (currency value).</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/brokerage_currency_code",
+              "field": "trade.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/adjust_cost_base_value",
+              "field": "trade.adjust_cost_base_value",
               "description": "<p>When transaction_type &quot;ADJUST_COST_BASE&quot; was chosen, this is the required value</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/capital_return_value",
+              "field": "trade.capital_return_value",
               "description": "<p>When transaction_type &quot;CAPITAL_RETURN&quot; or &quot;CAPITAL_CALL&quot; is chosen, this is the required value</p>"
             },
             {
               "group": "Parameter",
               "type": "Date",
               "optional": true,
-              "field": "trade/paid_on",
+              "field": "trade.paid_on",
               "description": "<p>When transaction_type &quot;CAPITAL_RETURN&quot; or &quot;CAPITAL_CALL&quot; is chosen, this is the paid on date</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/comments",
+              "field": "trade.comments",
               "description": "<p>Comments against the trade.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/instrument_id",
+              "field": "trade.instrument_id",
               "description": "<p>An <code>instrument_id</code> to look up the Instrument.  Required unless you specify a <code>holding_id</code> or search by <code>instrument_code</code> and <code>instrument_market_code</code>.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/symbol",
+              "field": "trade.symbol",
               "description": "<p>Code to look up the Instrument; must be accompanied by <code>market</code>. Required unless you specify a <code>holding_id</code>.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/market",
+              "field": "trade.market",
               "description": "<p>Market Code to look up the Instrument; must be accompanied by <code>symbol</code>.  Required unless you specify a <code>holding_id</code>.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/market_country_code",
+              "field": "trade.market_country_code",
               "description": "<p>Market Country Code to look up the Instrument; must be accompanied by <code>symbol</code>.  Required unless you specify a <code>symbol</code> with <code>market</code>, or a <code>holding_id</code>.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/transaction_type",
+              "field": "trade.transaction_type",
               "description": "<p>Supported transaction types: 'BUY','SELL','SPLIT','BONUS','CONSOLD','CANCEL','CAPITAL_RETURN','OPENING_BALANCE','ADJUST_COST_BASE','CAPITAL_CALL'.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/attachment",
+              "field": "trade.attachment",
               "description": "<p>Base64 encoded file to be attached to the trade.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/attachment_filename",
+              "field": "trade.attachment_filename",
               "description": "<p>File name for the attachment. This parameter is required if attachment is set.</p>"
             }
           ]
@@ -18816,7 +18830,7 @@
           "200 Success": [
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Hash",
               "optional": false,
               "field": "trade",
               "description": ""
@@ -20043,86 +20057,93 @@
             },
             {
               "group": "Parameter",
+              "type": "Hash",
+              "optional": false,
+              "field": "trade",
+              "description": ""
+            },
+            {
+              "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/transaction_date",
+              "field": "trade.transaction_date",
               "description": "<p>The transaction or trade date (format YYYY-MM-DD).</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/quantity",
+              "field": "trade.quantity",
               "description": "<p>Number of units in the transaction. Must be a whole number unless the market allows fractional quantities to be traded.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/price",
+              "field": "trade.price",
               "description": "<p>Currency value per unit.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/cost_base",
+              "field": "trade.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/exchange_rate",
+              "field": "trade.exchange_rate",
               "description": "<p>The exchange rate used for the transaction as portfolio currency / instrument currency.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/brokerage",
+              "field": "trade.brokerage",
               "description": "<p>The brokerage fee (currency value).</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/brokerage_currency_code",
+              "field": "trade.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/adjust_cost_base_value",
+              "field": "trade.adjust_cost_base_value",
               "description": "<p>When transaction_type &quot;ADJUST_COST_BASE&quot; was chosen, this is the required value</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/capital_return_value",
+              "field": "trade.capital_return_value",
               "description": "<p>When transaction_type &quot;CAPITAL_RETURN&quot; or &quot;CAPITAL_CALL&quot; is chosen, this is the required value</p>"
             },
             {
               "group": "Parameter",
               "type": "Date",
               "optional": true,
-              "field": "trade/paid_on",
+              "field": "trade.paid_on",
               "description": "<p>When transaction_type &quot;CAPITAL_RETURN&quot; or &quot;CAPITAL_CALL&quot; is chosen, this is the paid on date</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/comments",
+              "field": "trade.comments",
               "description": "<p>Comments against the trade.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/instrument_id",
+              "field": "trade.instrument_id",
               "description": "<p>An <code>instrument_id</code> to look up the Instrument.  Required unless you specify a <code>holding_id</code> or search by <code>instrument_code</code> and <code>instrument_market_code</code>.</p>"
             }
           ]
@@ -20140,7 +20161,7 @@
           "200 Success": [
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Hash",
               "optional": false,
               "field": "trade",
               "description": ""
@@ -20399,128 +20420,135 @@
             },
             {
               "group": "Parameter",
+              "type": "Hash",
+              "optional": false,
+              "field": "trade",
+              "description": ""
+            },
+            {
+              "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/transaction_date",
+              "field": "trade.transaction_date",
               "description": "<p>The transaction or trade date (format YYYY-MM-DD).</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/quantity",
+              "field": "trade.quantity",
               "description": "<p>Number of units in the transaction. Must be a whole number unless the market allows fractional quantities to be traded.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/price",
+              "field": "trade.price",
               "description": "<p>Currency value per unit.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/cost_base",
+              "field": "trade.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/exchange_rate",
+              "field": "trade.exchange_rate",
               "description": "<p>The exchange rate used for the transaction as portfolio currency / instrument currency.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/brokerage",
+              "field": "trade.brokerage",
               "description": "<p>The brokerage fee (currency value).</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/brokerage_currency_code",
+              "field": "trade.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/adjust_cost_base_value",
+              "field": "trade.adjust_cost_base_value",
               "description": "<p>When transaction_type &quot;ADJUST_COST_BASE&quot; was chosen, this is the required value</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": true,
-              "field": "trade/capital_return_value",
+              "field": "trade.capital_return_value",
               "description": "<p>When transaction_type &quot;CAPITAL_RETURN&quot; or &quot;CAPITAL_CALL&quot; is chosen, this is the required value</p>"
             },
             {
               "group": "Parameter",
               "type": "Date",
               "optional": true,
-              "field": "trade/paid_on",
+              "field": "trade.paid_on",
               "description": "<p>When transaction_type &quot;CAPITAL_RETURN&quot; or &quot;CAPITAL_CALL&quot; is chosen, this is the paid on date</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/comments",
+              "field": "trade.comments",
               "description": "<p>Comments against the trade.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/instrument_id",
+              "field": "trade.instrument_id",
               "description": "<p>An <code>instrument_id</code> to look up the Instrument.  Required unless you specify a <code>holding_id</code> or search by <code>instrument_code</code> and <code>instrument_market_code</code>.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/symbol",
+              "field": "trade.symbol",
               "description": "<p>Code to look up the Instrument; must be accompanied by <code>market</code>. Required unless you specify a <code>holding_id</code>.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/market",
+              "field": "trade.market",
               "description": "<p>Market Code to look up the Instrument; must be accompanied by <code>symbol</code>.  Required unless you specify a <code>holding_id</code>.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/market_country_code",
+              "field": "trade.market_country_code",
               "description": "<p>Market Country Code to look up the Instrument; must be accompanied by <code>symbol</code>.  Required unless you specify a <code>symbol</code> with <code>market</code>, or a <code>holding_id</code>.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/transaction_type",
+              "field": "trade.transaction_type",
               "description": "<p>Supported transaction types: 'BUY','SELL','SPLIT','BONUS','CONSOLD','CANCEL','CAPITAL_RETURN','OPENING_BALANCE','ADJUST_COST_BASE','CAPITAL_CALL'.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/attachment",
+              "field": "trade.attachment",
               "description": "<p>Base64 encoded file to be attached to the trade.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "trade/attachment_filename",
+              "field": "trade.attachment_filename",
               "description": "<p>File name for the attachment. This parameter is required if attachment is set.</p>"
             }
           ]
@@ -20538,7 +20566,7 @@
           "200 Success": [
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Hash",
               "optional": false,
               "field": "trade",
               "description": ""
