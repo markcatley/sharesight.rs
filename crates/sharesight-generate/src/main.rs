@@ -405,6 +405,8 @@ impl<'a> fmt::Display for ApiStruct<'a> {
                         write!(f, "SaleAllocationMethod")?;
                     } else if parameter.field_type.is_string() && field_name == "type_name" {
                         write!(f, "CashAccountTransactionTypeName")?;
+                    } else if endpoint_name == "GroupsList" && field_name == "id" {
+                        write!(f, "IdOrName")?;
                     } else {
                         write!(f, "{}", parameter.field_type.rust_type_name())?;
                     }
