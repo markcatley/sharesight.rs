@@ -370,11 +370,15 @@ impl<'a> fmt::Display for ApiStruct<'a> {
                         if parameter.field_type.is_array() {
                             write!(f, "Vec<")?;
                         }
-                        write!(f, "{}", endpoint_name)?;
-                        for prefix_segment in prefix_segments.iter() {
-                            write!(f, "{}", prefix_segment.to_upper_camel_case())?;
+                        if field_name == "cash_account_transaction_type" {
+                            write!(f, "CashAccountTransactionType")?;
+                        } else {
+                            write!(f, "{}", endpoint_name)?;
+                            for prefix_segment in prefix_segments.iter() {
+                                write!(f, "{}", prefix_segment.to_upper_camel_case())?;
+                            }
+                            write!(f, "{}{}", field_name.to_upper_camel_case(), tag)?;
                         }
-                        write!(f, "{}{}", field_name.to_upper_camel_case(), tag)?;
                         if parameter.field_type.is_array() {
                             write!(f, ">")?;
                         }
@@ -399,6 +403,8 @@ impl<'a> fmt::Display for ApiStruct<'a> {
                         && field_name == "default_sale_allocation_method"
                     {
                         write!(f, "SaleAllocationMethod")?;
+                    } else if parameter.field_type.is_string() && field_name == "type_name" {
+                        write!(f, "CashAccountTransactionTypeName")?;
                     } else {
                         write!(f, "{}", parameter.field_type.rust_type_name())?;
                     }

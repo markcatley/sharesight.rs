@@ -1307,3 +1307,20 @@ pub enum SaleAllocationMethod {
     #[serde(rename = "ss_minimise")]
     MinimiseCgt,
 }
+
+#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
+#[serde(rename_all = "SCREAMING_SNAKE_CASE")]
+pub enum CashAccountTransactionTypeName {
+    #[serde(rename = "OPENING BALANCE")]
+    OpeningBalance,
+    Deposit,
+    Withdrawal,
+    InterestPayment,
+    Fee,
+    FeeReimbursement,
+}
+
+#[derive(Clone, Copy, Debug, Deserialize)]
+pub struct CashAccountTransactionType {
+    pub name: CashAccountTransactionTypeName,
+}
