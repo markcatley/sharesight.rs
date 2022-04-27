@@ -235,7 +235,7 @@ pub struct CashAccountTransactionCreateParameters {
     /// The new transaction amount.
     pub amount: Float,
     /// Transaction types may be any string. For example: `"OPENING BALANCE"`, `"DEPOSIT"`, `"WITHDRAWAL"`, `"INTEREST_PAYMENT"`, `"FEE"`, `"FEE_REIMBURSEMENT"`. The transaction type `"OPENING BALANCE"` has a rule to create an opening balance transaction, the others are all treated the same.
-    pub type_name: String,
+    pub type_name: CashAccountTransactionTypeName,
     /// The new transaction date and time (format `YYYY-MM-DDThh:mm:ss`, see <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>).
     pub date_time: DateTime<FixedOffset>,
     /// The new transaction foreign-identifier.
@@ -274,7 +274,7 @@ pub struct CashAccountTransactionCreateCashAccountTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub trade_id: i64,
     /// The transaction type.
-    pub cash_account_transaction_type: String,
+    pub cash_account_transaction_type: CashAccountTransactionType,
     /// List of links for this cash account transaction
     pub links: CashAccountTransactionCreateCashAccountTransactionLinksSuccess,
 }
@@ -357,7 +357,7 @@ pub struct CashAccountTransactionUpdateParameters {
     /// The transaction amount.
     pub amount: Float,
     /// Transaction types may be any string. For example: `"OPENING BALANCE"`, `"DEPOSIT"`, `"WITHDRAWAL"`, `"INTEREST_PAYMENT"`, `"FEE"`, `"FEE_REIMBURSEMENT"`. The transaction type `"OPENING BALANCE"` has a rule to create an opening balance transaction, the others are all treated the same.
-    pub type_name: String,
+    pub type_name: CashAccountTransactionTypeName,
     /// The transaction date and time (format `YYYY-MM-DDThh:mm:ss`, see <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>).
     pub date_time: DateTime<FixedOffset>,
     /// The transaction foreign-identifier.
@@ -396,7 +396,7 @@ pub struct CashAccountTransactionUpdateCashAccountTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub trade_id: i64,
     /// The transaction type.
-    pub cash_account_transaction_type: String,
+    pub cash_account_transaction_type: CashAccountTransactionType,
     /// List of links for this cash account transaction
     pub links: CashAccountTransactionUpdateCashAccountTransactionLinksSuccess,
 }
@@ -485,18 +485,22 @@ pub struct CashAccountTransactionsListCashAccountTransactionsSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub cash_account_id: i64,
     /// The transaction foreign_identifier.
-    pub foreign_identifier: String,
+    #[serde(default)]
+    pub foreign_identifier: Option<String>,
     /// Whenever the transaction was generated through a trade or payout sync, this is the ID for the holding it belongs to.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub holding_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub holding_id: Option<i64>,
     /// Whenever the transaction was generated through a trade sync, this is the ID for the trade it belongs to.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub trade_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub trade_id: Option<i64>,
     /// Whenever the transaction was generated through a payout sync, this is the ID for the payout it belongs to.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub payout_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub payout_id: Option<i64>,
     /// The transaction type.
-    pub cash_account_transaction_type: String,
+    pub cash_account_transaction_type: CashAccountTransactionType,
     /// List of links for this cash account transaction
     pub links: CashAccountTransactionsListCashAccountTransactionsLinksSuccess,
 }

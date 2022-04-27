@@ -765,7 +765,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Hash",
               "optional": false,
               "field": "cash_account_transaction.cash_account_transaction_type",
               "description": "<p>The transaction type.</p>"
@@ -1163,7 +1163,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Hash",
               "optional": false,
               "field": "cash_account_transaction.cash_account_transaction_type",
               "description": "<p>The transaction type.</p>"
@@ -1367,34 +1367,34 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "cash_account_transactions.foreign_identifier",
               "description": "<p>The transaction foreign_identifier.</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "cash_account_transactions.holding_id",
               "description": "<p>Whenever the transaction was generated through a trade or payout sync, this is the ID for the holding it belongs to.</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "cash_account_transactions.trade_id",
               "description": "<p>Whenever the transaction was generated through a trade sync, this is the ID for the trade it belongs to.</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "cash_account_transactions.payout_id",
               "description": "<p>Whenever the transaction was generated through a payout sync, this is the ID for the payout it belongs to.</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Hash",
               "optional": false,
               "field": "cash_account_transactions.cash_account_transaction_type",
               "description": "<p>The transaction type.</p>"
