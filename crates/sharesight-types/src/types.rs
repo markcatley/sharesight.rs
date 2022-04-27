@@ -734,13 +734,14 @@ pub struct GroupsListSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct GroupsListGroupsSuccess {
     /// A unique id identifying the custom or regular group.
-    pub id: String,
+    pub id: IdOrName,
     /// The name of the group (not reliably unique).
     pub name: String,
     /// True if this is a custom group.
-    pub custom: String,
+    pub custom: bool,
     /// A list of portfolio ids a custom group can be used with (Custom groups can only be used on their creators portfolios)
-    pub portfolio_ids: Vec<i64>,
+    #[serde(default)]
+    pub portfolio_ids: Option<Vec<i64>>,
 }
 
 /// The Create a holding merge endpoint is designed to record a company merger in the   situation where you hold shares in a listed company that is wholly acquired by another   listed company.

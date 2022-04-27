@@ -2059,7 +2059,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Boolean",
               "optional": false,
               "field": "groups.custom",
               "description": "<p>True if this is a custom group.</p>"
@@ -2067,7 +2067,7 @@
             {
               "group": "200 Success",
               "type": "Integer[]",
-              "optional": false,
+              "optional": true,
               "field": "groups.portfolio_ids",
               "description": "<p>A list of portfolio ids a custom group can be used with (Custom groups can only be used on their creators portfolios)</p>"
             }
