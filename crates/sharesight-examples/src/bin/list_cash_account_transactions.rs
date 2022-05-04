@@ -26,12 +26,12 @@ async fn main() -> anyhow::Result<()> {
     init_logger();
 
     let args = Args::parse();
-    let client = Client::new();
+    let client = Client::new_with_token(args.access_token, args.api_host);
 
     let account_params = CashAccountsListParameters { date: None };
 
     let CashAccountsListSuccess { cash_accounts, .. } = client
-        .execute::<CashAccountsList, _>(&args.api_host, &args.access_token, &account_params)
+        .execute::<CashAccountsList, _>(&account_params)
         .await?;
 
     for CashAccountsListCashAccountsSuccess {
@@ -57,11 +57,7 @@ async fn main() -> anyhow::Result<()> {
             cash_account_transactions,
             ..
         } = client
-            .execute::<CashAccountTransactionsList, _>(
-                &args.api_host,
-                &args.access_token,
-                &transactions_params,
-            )
+            .execute::<CashAccountTransactionsList, _>(&transactions_params)
             .await?;
 
         let mut wtr = csv::Writer::from_writer(std::io::stdout());

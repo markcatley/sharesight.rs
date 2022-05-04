@@ -19,14 +19,10 @@ async fn main() -> anyhow::Result<()> {
     init_logger();
 
     let args = Args::parse();
-    let client = Client::new();
+    let client = Client::new_with_token(args.access_token, args.api_host);
 
     let response = client
-        .execute::<ListUserInstruments, ListUserInstrumentsSuccess>(
-            &args.api_host,
-            &args.access_token,
-            &(),
-        )
+        .execute::<ListUserInstruments, ListUserInstrumentsSuccess>(&())
         .await;
     match response {
         Ok(result) => println!("{:#?}", result),
