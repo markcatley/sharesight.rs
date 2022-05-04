@@ -1,6 +1,6 @@
 [package]
 name = "sharesight-reqwest"
-version = "0.4.0"
+version = "0.5.0"
 edition = "2018"
 description = "A client that allows execution of sharesight-types using reqwest"
 license = "MIT"
