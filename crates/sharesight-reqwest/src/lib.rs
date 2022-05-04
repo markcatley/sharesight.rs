@@ -4,25 +4,45 @@ use log::warn;
 use serde::de::DeserializeOwned;
 use sharesight_types::ApiEndpoint;
 
+const DEFAULT_API_HOST: &str = "https://api.sharesight.com";
+
 pub struct Client<'a> {
     client: Cow<'a, reqwest::Client>,
+    api_host: String,
+    credentials: Credentials,
+}
+
+enum Credentials {
+    None,
+    AccessToken(String),
+}
+
+impl Credentials {
+    fn access_token(&self) -> &str {
+        match self {
+            Credentials::None => "",
+            Credentials::AccessToken(t) => t,
+        }
+    }
 }
 
 impl Client<'_> {
-    pub fn new() -> Client<'static> {
-        Default::default()
+    pub fn new_with_token(access_token: String, api_host: String) -> Client<'static> {
+        Client {
+            api_host,
+            credentials: Credentials::AccessToken(access_token),
+            client: Cow::Owned(reqwest::Client::default()),
+        }
     }
 
     pub async fn execute<'a, T: ApiEndpoint<'a>, U: DeserializeOwned>(
-        &self,
-        api_host: &'a str,
-        access_token: &str,
+        &'a self,
         parameters: &'a T::Parameters,
     ) -> Result<U, SharesightReqwestError> {
         let client = self.client.as_ref();
         let resp = client
-            .get(T::url(api_host, parameters).to_string())
-            .bearer_auth(access_token)
+            .get(T::url(&self.api_host, parameters).to_string())
+            .bearer_auth(self.credentials.access_token())
             .json(parameters)
             .send()
             .await?;
@@ -54,6 +74,8 @@ impl Default for Client<'_> {
     fn default() -> Self {
         Client {
             client: Cow::Owned(reqwest::Client::new()),
+            api_host: DEFAULT_API_HOST.into(),
+            credentials: Credentials::None,
         }
     }
 }

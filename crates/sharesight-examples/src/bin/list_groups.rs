@@ -19,11 +19,9 @@ async fn main() -> anyhow::Result<()> {
     init_logger();
 
     let args = Args::parse();
-    let client = Client::new();
+    let client = Client::new_with_token(args.access_token, args.api_host);
 
-    let response = client
-        .execute::<GroupsList, GroupsListSuccess>(&args.api_host, &args.access_token, &())
-        .await;
+    let response = client.execute::<GroupsList, GroupsListSuccess>(&()).await;
     match response {
         Ok(result) => println!("{:#?}", result),
         Err(SharesightReqwestError::Http(resp)) => {

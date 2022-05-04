@@ -24,13 +24,14 @@ async fn main() -> anyhow::Result<()> {
     init_logger();
 
     let args = Args::parse();
-    let client = Client::new();
+    let client = Client::new_with_token(args.access_token, args.api_host);
+    let portfolio_name = args.portfolio_name;
 
     let PortfolioListSuccess { portfolios, .. } = client
-        .execute::<PortfolioList, PortfolioListSuccess>(&args.api_host, &args.access_token, &())
+        .execute::<PortfolioList, PortfolioListSuccess>(&())
         .await?;
 
-    let portfolio = portfolios.iter().find(|p| p.name == args.portfolio_name);
+    let portfolio = portfolios.iter().find(|p| p.name == portfolio_name);
 
     if let Some(portfolio) = portfolio {
         let trades_params = TradesParameters {
@@ -40,7 +41,7 @@ async fn main() -> anyhow::Result<()> {
             unique_identifier: None,
         };
         let TradesSuccess { trades, .. } = client
-            .execute::<Trades, TradesSuccess>(&args.api_host, &args.access_token, &trades_params)
+            .execute::<Trades, TradesSuccess>(&trades_params)
             .await?;
 
         #[derive(serde::Serialize)]
@@ -125,7 +126,7 @@ async fn main() -> anyhow::Result<()> {
             })?;
         }
     } else {
-        eprint!("Unknown portfolio: {}, ", args.portfolio_name);
+        eprint!("Unknown portfolio: {}, ", portfolio_name);
 
         let mut names = portfolios.iter().map(|p| p.name.as_str());
 
