@@ -2,7 +2,7 @@ use std::borrow::Cow;
 
 use log::warn;
 use serde::de::DeserializeOwned;
-use sharesight_types::ApiEndpoint;
+use sharesight_types::{ApiEndpoint, ApiHttpMethod};
 
 const DEFAULT_API_HOST: &str = "https://api.sharesight.com";
 
@@ -40,8 +40,14 @@ impl Client<'_> {
         parameters: &'a T::Parameters,
     ) -> Result<U, SharesightReqwestError> {
         let client = self.client.as_ref();
+        let method = match T::HTTP_METHOD {
+            ApiHttpMethod::Get => reqwest::Method::GET,
+            ApiHttpMethod::Post => reqwest::Method::POST,
+            ApiHttpMethod::Put => reqwest::Method::PUT,
+            ApiHttpMethod::Delete => reqwest::Method::DELETE,
+        };
         let resp = client
-            .get(T::url(&self.api_host, parameters).to_string())
+            .request(method, T::url(&self.api_host, parameters).to_string())
             .bearer_auth(self.credentials.access_token())
             .json(parameters)
             .send()
