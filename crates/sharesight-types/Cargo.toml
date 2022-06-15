@@ -11,6 +11,7 @@ documentation = "https://docs.rs/sharesight-types/latest/sharesight_types/"
 [dependencies]
 bigdecimal = { version = "0.3.0", features = ["serde"], optional = true }
 chrono = { version = "0.4.19", features = ["serde"] }
+rust_decimal = { version = "1.25.0", features = ["serde"], optional = true }
 serde = { version = "1.0.126", features = ["derive"] }
 serde_with = { version = "1.11.0", features = ["chrono"] }
 
