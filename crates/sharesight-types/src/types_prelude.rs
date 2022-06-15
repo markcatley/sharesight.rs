@@ -9,10 +9,16 @@ pub use serde_with::{serde_as, DisplayFromStr, PickFirst};
 
 pub use crate::codes::*;
 
-#[cfg(feature = "bigdecimal")]
+#[cfg(all(feature = "rust_decimal", not(feature = "bigdecimal")))]
+pub type Float = rust_decimal::Decimal;
+#[cfg(all(feature = "bigdecimal", not(feature = "bigdecimal")))]
 pub type Float = bigdecimal::BigDecimal;
-#[cfg(not(feature = "bigdecimal"))]
+#[cfg(all(not(feature = "bigdecimal"), not(feature = "rust_decimal")))]
 pub type Float = f64;
+#[cfg(all(feature = "rust_decimal", feature = "bigdecimal"))]
+compile_error!(
+    "sharesight: Features rust_decimal and bigdecimal are mutually exclusive. Pick one."
+);
 
 pub enum ApiHttpMethod {
     Get,
