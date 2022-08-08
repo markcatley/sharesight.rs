@@ -3128,7 +3128,8 @@ pub struct PortfolioListPortfoliosSuccess {
     /// The default sale allocation method for tax reporting.
     pub default_sale_allocation_method: SaleAllocationMethod,
     /// Discount for Capital Gains Tax.
-    pub cg_discount: String,
+    #[serde(default)]
+    pub cg_discount: Option<String>,
     /// New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as `33.1`).
     pub rwtr_rate: Float,
     /// Tax Status (`true`: Trade, `false`: Investor).
@@ -3231,7 +3232,8 @@ pub struct PortfolioShowSuccess {
     /// The default sale allocation method for tax reporting.
     pub default_sale_allocation_method: SaleAllocationMethod,
     /// Discount for Capital Gains Tax.
-    pub cg_discount: String,
+    #[serde(default)]
+    pub cg_discount: Option<String>,
     /// New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as `33.1`).
     pub rwtr_rate: Float,
     /// Tax Status (`true`: Trade, `false`: Investor).
@@ -3371,7 +3373,8 @@ pub struct PortfolioUpdateSuccess {
     /// The default sale allocation method for tax reporting.
     pub default_sale_allocation_method: SaleAllocationMethod,
     /// Discount for Capital Gains Tax.
-    pub cg_discount: String,
+    #[serde(default)]
+    pub cg_discount: Option<String>,
     /// New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as `33.1`).
     pub rwtr_rate: Float,
     /// Tax Status (`true`: Trader, `false`: Investor).
