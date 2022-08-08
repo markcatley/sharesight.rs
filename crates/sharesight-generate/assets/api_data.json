@@ -11275,7 +11275,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.cg_discount",
               "description": "<p>Discount for Capital Gains Tax.</p>"
             },
@@ -11525,7 +11525,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "cg_discount",
               "description": "<p>Discount for Capital Gains Tax.</p>"
             },
@@ -11934,7 +11934,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "cg_discount",
               "description": "<p>Discount for Capital Gains Tax.</p>"
             },
