@@ -40,8 +40,14 @@ impl Client<'_> {
         parameters: &'a T::Parameters,
     ) -> Result<U, SharesightReqwestError> {
         let client = self.client.as_ref();
+        let method = match T::HTTP_METHOD {
+            sharesight_types::ApiHttpMethod::Get => reqwest::Method::GET,
+            sharesight_types::ApiHttpMethod::Post => reqwest::Method::POST,
+            sharesight_types::ApiHttpMethod::Put => reqwest::Method::PUT,
+            sharesight_types::ApiHttpMethod::Delete => reqwest::Method::DELETE,
+        };
         let resp = client
-            .get(T::url(&self.api_host, parameters).to_string())
+            .request(method, T::url(&self.api_host, parameters).to_string())
             .bearer_auth(self.credentials.access_token())
             .json(parameters)
             .send()

@@ -6,7 +6,7 @@ mod types_prelude;
 pub use auth_types::*;
 pub use codes::*;
 pub use types::*;
-pub use types_prelude::ApiEndpoint;
+pub use types_prelude::{ApiEndpoint, ApiHttpMethod};
 
 #[cfg(test)]
 mod tests {
