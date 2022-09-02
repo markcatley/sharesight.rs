@@ -264,7 +264,8 @@ pub struct CashAccountTransactionCreateCashAccountTransactionSuccess {
     /// The transaction balance (rounded to 2 decimal places).
     pub balance: Float,
     /// ID of the cash account to list transactions for.
-    pub cash_account_id: String,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub cash_account_id: i64,
     /// The transaction foreign_identifier.
     pub foreign_identifier: String,
     /// Whenever the transaction was generated through a trade sync, this is the ID for the holding it belongs to.
@@ -386,7 +387,8 @@ pub struct CashAccountTransactionUpdateCashAccountTransactionSuccess {
     /// The transaction balance (rounded to 2 decimal places).
     pub balance: Float,
     /// ID of the cash account to list transactions for.
-    pub cash_account_id: String,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub cash_account_id: i64,
     /// The transaction foreign_identifier.
     pub foreign_identifier: String,
     /// Whenever the transaction was generated through a trade sync, this is the ID for the holding it belongs to.

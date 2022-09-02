@@ -737,7 +737,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "cash_account_transaction.cash_account_id",
               "description": "<p>ID of the cash account to list transactions for.</p>"
@@ -1135,7 +1135,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "cash_account_transaction.cash_account_id",
               "description": "<p>ID of the cash account to list transactions for.</p>"
