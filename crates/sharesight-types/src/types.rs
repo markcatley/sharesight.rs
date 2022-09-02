@@ -267,13 +267,16 @@ pub struct CashAccountTransactionCreateCashAccountTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub cash_account_id: i64,
     /// The transaction foreign_identifier.
-    pub foreign_identifier: String,
+    #[serde(default)]
+    pub foreign_identifier: Option<String>,
     /// Whenever the transaction was generated through a trade sync, this is the ID for the holding it belongs to.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub holding_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub holding_id: Option<i64>,
     /// Whenever the transaction was generated through a trade sync, this is the ID for the trade it belongs to.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub trade_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub trade_id: Option<i64>,
     /// The transaction type.
     pub cash_account_transaction_type: CashAccountTransactionType,
     /// List of links for this cash account transaction
@@ -390,13 +393,16 @@ pub struct CashAccountTransactionUpdateCashAccountTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub cash_account_id: i64,
     /// The transaction foreign_identifier.
-    pub foreign_identifier: String,
+    #[serde(default)]
+    pub foreign_identifier: Option<String>,
     /// Whenever the transaction was generated through a trade sync, this is the ID for the holding it belongs to.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub holding_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub holding_id: Option<i64>,
     /// Whenever the transaction was generated through a trade sync, this is the ID for the trade it belongs to.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub trade_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub trade_id: Option<i64>,
     /// The transaction type.
     pub cash_account_transaction_type: CashAccountTransactionType,
     /// List of links for this cash account transaction
