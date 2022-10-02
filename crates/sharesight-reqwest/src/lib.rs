@@ -56,7 +56,13 @@ impl Client<'_> {
         if resp.status().is_success() {
             let full = resp.bytes().await?;
 
-            Ok(serde_json::from_slice(&full).map_err(|e| {
+            let slice = if full.is_empty() {
+                b"null".as_slice()
+            } else {
+                &full
+            };
+
+            Ok(serde_json::from_slice(slice).map_err(|e| {
                 if let Ok(s) = std::str::from_utf8(&full) {
                     warn!("Error deserializing json: {:?}\n{}", e, s);
                 } else {
