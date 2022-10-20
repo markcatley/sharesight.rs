@@ -1,4 +1,4 @@
-#[derive(Debug, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, serde::Deserialize, serde::Serialize)]
 pub struct Auth {
     pub access_token: String,
     pub expires_in: u32,
@@ -6,7 +6,7 @@ pub struct Auth {
     pub created_at: i64,
 }
 
-#[derive(Debug, serde::Deserialize, serde::Serialize)]
+#[derive(Clone, Debug, serde::Deserialize, serde::Serialize)]
 pub struct AuthWithDetails {
     #[serde(flatten)]
     pub auth: Auth,

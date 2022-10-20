@@ -1,53 +1,67 @@
-use std::sync::Arc;
+use std::{future::Future, path::PathBuf, pin::Pin, sync::Arc};
 
 use log::warn;
 use serde::de::DeserializeOwned;
-use sharesight_types::ApiEndpoint;
+use sharesight_types::{ApiEndpoint, AuthWithDetails, DEFAULT_API_HOST};
 
-pub struct Client {
+pub struct Client<T> {
     client: reqwest::Client,
     api_host: Arc<String>,
-    credentials: Credentials,
+    auth: T,
 }
 
-enum Credentials {
-    AccessToken(String),
-}
-
-impl Credentials {
-    fn access_token(&self) -> &str {
-        match self {
-            Credentials::AccessToken(t) => t,
-        }
+impl<T> Client<T> {
+    pub fn new_with_auth(auth: T) -> Self {
+        Self::new_with_auth_and_host(auth, DEFAULT_API_HOST.to_string())
     }
-}
 
-impl Client {
-    pub fn new_with_token_and_host(access_token: String, api_host: String) -> Self {
+    pub fn new_with_auth_and_host(auth: T, api_host: String) -> Self {
         Client {
             api_host: Arc::new(api_host),
-            credentials: Credentials::AccessToken(access_token),
+            auth,
             client: reqwest::Client::default(),
         }
     }
+}
 
-    pub async fn execute<'a, T: ApiEndpoint<'a>, U: DeserializeOwned>(
+impl Client<String> {
+    pub fn new_with_token_and_host(access_token: String, api_host: String) -> Self {
+        Self::new_with_auth_and_host(access_token, api_host)
+    }
+}
+
+impl<T: GetToken> Client<T> {
+    pub async fn execute<'a, U: ApiEndpoint<'a>, V: DeserializeOwned>(
         &'a self,
-        parameters: &'a T::Parameters,
-    ) -> Result<U, SharesightReqwestError> {
-        let method = match T::HTTP_METHOD {
+        parameters: &'a U::Parameters,
+    ) -> Result<V, SharesightReqwestError> {
+        let method = match U::HTTP_METHOD {
             sharesight_types::ApiHttpMethod::Get => reqwest::Method::GET,
             sharesight_types::ApiHttpMethod::Post => reqwest::Method::POST,
             sharesight_types::ApiHttpMethod::Put => reqwest::Method::PUT,
             sharesight_types::ApiHttpMethod::Delete => reqwest::Method::DELETE,
         };
+        let url = U::url(&self.api_host, parameters).to_string();
+        let auth_token = self.auth.get_token().await?;
         let resp = self
             .client
-            .request(method, T::url(&self.api_host, parameters).to_string())
-            .bearer_auth(self.credentials.access_token())
+            .request(method.clone(), &url)
+            .bearer_auth(auth_token)
             .json(parameters)
             .send()
             .await?;
+
+        let resp = if resp.status() != 401 {
+            resp
+        } else {
+            let auth_token = self.auth.refresh_token().await?;
+            self.client
+                .request(method, url)
+                .bearer_auth(auth_token)
+                .json(parameters)
+                .send()
+                .await?
+        };
 
         if resp.status().is_success() {
             let full = resp.bytes().await?;
@@ -72,7 +86,7 @@ impl Client {
     }
 }
 
-impl AsRef<reqwest::Client> for Client {
+impl<T> AsRef<reqwest::Client> for Client<T> {
     fn as_ref(&self) -> &reqwest::Client {
         &self.client
     }
@@ -86,4 +100,49 @@ pub enum SharesightReqwestError {
     Reqwest(#[from] reqwest::Error),
     #[error("Deserialize error occurred\n{0:?}")]
     Deserialize(#[from] serde_json::Error),
+    #[error("Failed to initialise from file")]
+    InitialiseFromFile(PathBuf),
+    #[error("Cannot refresh token due to type or expired refresh token")]
+    CannotRefreshToken,
+}
+
+type TokenResult = Result<String, SharesightReqwestError>;
+
+pub trait GetToken: GetTokenClone {
+    fn get_token<'a>(&'a self) -> Pin<Box<dyn Future<Output = TokenResult> + 'a>>;
+
+    fn refresh_token<'a>(&'a self) -> Pin<Box<dyn Future<Output = TokenResult> + 'a>> {
+        Box::pin(async move { Err(SharesightReqwestError::CannotRefreshToken) })
+    }
+}
+
+impl Clone for Box<dyn GetToken> {
+    fn clone(&self) -> Self {
+        self.clone_box()
+    }
+}
+
+pub trait GetTokenClone {
+    fn clone_box(&self) -> Box<dyn GetToken>;
+}
+
+impl<T> GetTokenClone for T
+where
+    T: 'static + GetToken + Clone,
+{
+    fn clone_box(&self) -> Box<dyn GetToken> {
+        Box::new(self.clone())
+    }
+}
+
+impl GetToken for String {
+    fn get_token<'a>(&'a self) -> Pin<Box<dyn Future<Output = TokenResult> + 'a>> {
+        Box::pin(async move { Ok(self.clone()) })
+    }
+}
+
+impl GetToken for AuthWithDetails {
+    fn get_token<'a>(&'a self) -> Pin<Box<dyn Future<Output = TokenResult> + 'a>> {
+        Box::pin(async move { Ok(self.auth.access_token.clone()) })
+    }
 }
