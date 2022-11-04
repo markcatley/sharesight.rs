@@ -1,4 +1,4 @@
-use std::borrow::Cow;
+use std::sync::Arc;
 
 use log::warn;
 use serde::de::DeserializeOwned;
@@ -6,9 +6,9 @@ use sharesight_types::ApiEndpoint;
 
 const DEFAULT_API_HOST: &str = "https://api.sharesight.com";
 
-pub struct Client<'a> {
-    client: Cow<'a, reqwest::Client>,
-    api_host: String,
+pub struct Client {
+    client: reqwest::Client,
+    api_host: Arc<String>,
     credentials: Credentials,
 }
 
@@ -26,12 +26,12 @@ impl Credentials {
     }
 }
 
-impl Client<'_> {
-    pub fn new_with_token_and_host(access_token: String, api_host: String) -> Client<'static> {
+impl Client {
+    pub fn new_with_token_and_host(access_token: String, api_host: String) -> Self {
         Client {
-            api_host,
+            api_host: Arc::new(api_host),
             credentials: Credentials::AccessToken(access_token),
-            client: Cow::Owned(reqwest::Client::default()),
+            client: reqwest::Client::default(),
         }
     }
 
@@ -39,14 +39,14 @@ impl Client<'_> {
         &'a self,
         parameters: &'a T::Parameters,
     ) -> Result<U, SharesightReqwestError> {
-        let client = self.client.as_ref();
         let method = match T::HTTP_METHOD {
             sharesight_types::ApiHttpMethod::Get => reqwest::Method::GET,
             sharesight_types::ApiHttpMethod::Post => reqwest::Method::POST,
             sharesight_types::ApiHttpMethod::Put => reqwest::Method::PUT,
             sharesight_types::ApiHttpMethod::Delete => reqwest::Method::DELETE,
         };
-        let resp = client
+        let resp = self
+            .client
             .request(method, T::url(&self.api_host, parameters).to_string())
             .bearer_auth(self.credentials.access_token())
             .json(parameters)
@@ -76,17 +76,17 @@ impl Client<'_> {
     }
 }
 
-impl AsRef<reqwest::Client> for Client<'_> {
+impl AsRef<reqwest::Client> for Client {
     fn as_ref(&self) -> &reqwest::Client {
-        self.client.as_ref()
+        &self.client
     }
 }
 
-impl Default for Client<'_> {
+impl Default for Client {
     fn default() -> Self {
         Client {
-            client: Cow::Owned(reqwest::Client::new()),
-            api_host: DEFAULT_API_HOST.into(),
+            client: reqwest::Client::new(),
+            api_host: Arc::new(DEFAULT_API_HOST.to_string()),
             credentials: Credentials::None,
         }
     }
