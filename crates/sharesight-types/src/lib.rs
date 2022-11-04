@@ -8,6 +8,8 @@ pub use codes::*;
 pub use types::*;
 pub use types_prelude::{ApiEndpoint, ApiHttpMethod};
 
+pub const DEFAULT_API_HOST: &str = "api.sharesight.com";
+
 #[cfg(test)]
 mod tests {
     #[test]

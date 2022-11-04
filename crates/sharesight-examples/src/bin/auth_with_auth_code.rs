@@ -1,12 +1,12 @@
 use clap::Parser;
-use sharesight_types::{Auth, AuthWithDetails};
+use sharesight_types::{Auth, AuthWithDetails, DEFAULT_API_HOST};
 
 /// Auth with an OAuth2 Authorization Code using the Sharesight API
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
 struct Args {
     /// The host to use to access the API.
-    #[clap(long, default_value = "api.sharesight.com")]
+    #[clap(long, default_value = DEFAULT_API_HOST)]
     api_host: String,
     /// The redirect URI of the API application.
     #[clap(long, default_value = "urn:ietf:wg:oauth:2.0:oob")]

@@ -7,7 +7,7 @@ use sharesight_types::{
     CashAccountTransactionsListCashAccountTransactionsSuccess,
     CashAccountTransactionsListParameters, CashAccountTransactionsListSuccess, CashAccountsList,
     CashAccountsListParameters, CashAccountsListSuccess, Currency, PortfolioList,
-    PortfolioListSuccess,
+    PortfolioListSuccess, DEFAULT_API_HOST,
 };
 
 /// List the portfolios using the Sharesight API
@@ -15,7 +15,7 @@ use sharesight_types::{
 #[clap(author, version, about, long_about = None)]
 struct Args {
     /// The host to use to access the API.
-    #[clap(long, default_value = "api.sharesight.com")]
+    #[clap(long, default_value = DEFAULT_API_HOST)]
     api_host: String,
     /// The name of the portfolio of the cash account.
     portfolio_name: String,
