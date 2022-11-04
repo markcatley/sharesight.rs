@@ -3,7 +3,7 @@ use sharesight_examples::init_logger;
 use sharesight_reqwest::Client;
 use sharesight_types::{
     Currency, Market, PortfolioList, PortfolioListSuccess, TradeDescription, Trades,
-    TradesParameters, TradesSuccess, TradesTradesSuccess,
+    TradesParameters, TradesSuccess, TradesTradesSuccess, DEFAULT_API_HOST,
 };
 
 /// List the portfolios using the Sharesight API
@@ -11,7 +11,7 @@ use sharesight_types::{
 #[clap(author, version, about, long_about = None)]
 struct Args {
     /// The host to use to access the API.
-    #[clap(long, default_value = "api.sharesight.com")]
+    #[clap(long, default_value = DEFAULT_API_HOST)]
     api_host: String,
     /// The name of the portfolio to list.
     portfolio_name: String,

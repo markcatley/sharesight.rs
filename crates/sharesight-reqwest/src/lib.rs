@@ -4,8 +4,6 @@ use log::warn;
 use serde::de::DeserializeOwned;
 use sharesight_types::ApiEndpoint;
 
-const DEFAULT_API_HOST: &str = "https://api.sharesight.com";
-
 pub struct Client {
     client: reqwest::Client,
     api_host: Arc<String>,
@@ -13,14 +11,12 @@ pub struct Client {
 }
 
 enum Credentials {
-    None,
     AccessToken(String),
 }
 
 impl Credentials {
     fn access_token(&self) -> &str {
         match self {
-            Credentials::None => "",
             Credentials::AccessToken(t) => t,
         }
     }
@@ -79,16 +75,6 @@ impl Client {
 impl AsRef<reqwest::Client> for Client {
     fn as_ref(&self) -> &reqwest::Client {
         &self.client
-    }
-}
-
-impl Default for Client {
-    fn default() -> Self {
-        Client {
-            client: reqwest::Client::new(),
-            api_host: Arc::new(DEFAULT_API_HOST.to_string()),
-            credentials: Credentials::None,
-        }
     }
 }
 
