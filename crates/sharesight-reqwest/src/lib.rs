@@ -27,7 +27,7 @@ impl Credentials {
 }
 
 impl Client<'_> {
-    pub fn new_with_token(access_token: String, api_host: String) -> Client<'static> {
+    pub fn new_with_token_and_host(access_token: String, api_host: String) -> Client<'static> {
         Client {
             api_host,
             credentials: Credentials::AccessToken(access_token),

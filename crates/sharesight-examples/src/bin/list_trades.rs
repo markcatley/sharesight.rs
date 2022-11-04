@@ -24,7 +24,7 @@ async fn main() -> anyhow::Result<()> {
     init_logger();
 
     let args = Args::parse();
-    let client = Client::new_with_token(args.access_token, args.api_host);
+    let client = Client::new_with_token_and_host(args.access_token, args.api_host);
     let portfolio_name = args.portfolio_name;
 
     let PortfolioListSuccess { portfolios, .. } = client
