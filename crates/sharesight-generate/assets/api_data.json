@@ -7707,8 +7707,8 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
-              "optional": false,
+              "type": "Integer",
+              "optional": true,
               "field": "payouts.id",
               "description": "<p>The payout ID.</p>"
             },
@@ -7736,7 +7736,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "payouts.ex_date",
               "description": "<p>The payout ex date (format <code>YYYY-MM-DD</code>).</p>"
             },
@@ -7764,21 +7764,21 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.resident_withholding_tax",
               "description": "<p>The payout resident withholding tax amount. Always returned in the portfolio currency.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.non_resident_withholding_tax",
               "description": "<p>The payout non-resident withholding tax amount.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.tax_credit",
               "description": "<p>The payout tax credit amount. Always returned in the portfolio currency.</p>"
             },
@@ -7813,7 +7813,7 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.other_net_fsi",
               "description": "<p>Other net foreign source income.</p>"
             },
@@ -7841,7 +7841,7 @@
             {
               "group": "200 Success",
               "type": "DRP_Trade",
-              "optional": false,
+              "optional": true,
               "field": "payouts.drp_trade_attributes",
               "description": "<p>Parameters when the payout is reinvested.</p>"
             },
@@ -7876,91 +7876,91 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.franked_amount",
               "description": "<p>Franked amount in the payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.unfranked_amount",
               "description": "<p>Unfranked amount in the payout (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "payouts.trust",
               "description": "<p><code>true</code> if this payout is for a trust. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.extra_interest_payment_amount",
               "description": "<p>Extra interest amount in this payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.capital_gains",
               "description": "<p>Capital gain amount in this payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.discounted_capital_gains",
               "description": "<p>Discounted capital gain amount in this payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.interest_payment",
               "description": "<p>Interest payment amount in this payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.foreign_source_income",
               "description": "<p>Amount of foreign income in this payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.deferred_income",
               "description": "<p>Value of deferred income in this payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "payouts.non_assessable",
               "description": "<p><code>true</code> if this payout is not assessed for tax. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.cgt_concession_amount",
               "description": "<p>Value of CGT concession in this payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.amit_decrease_amount",
               "description": "<p>Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is less than the cash distribution you received. This amount is non-assessable and is used to decrease your cost base for cgt purposes (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.amit_increase_amount",
               "description": "<p>Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)</p>"
             },
@@ -8150,8 +8150,8 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
-              "optional": false,
+              "type": "Integer",
+              "optional": true,
               "field": "payouts.id",
               "description": "<p>The payout ID.</p>"
             },
@@ -8200,7 +8200,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "payouts.ex_date",
               "description": "<p>The payout ex date (format <code>YYYY-MM-DD</code>).</p>"
             },
@@ -8221,21 +8221,21 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.resident_withholding_tax",
               "description": "<p>The payout resident withholding tax amount. Always returned in the portfolio currency.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.non_resident_withholding_tax",
               "description": "<p>The payout non-resident withholding tax amount.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.tax_credit",
               "description": "<p>The payout tax credit amount. Always returned in the portfolio currency.</p>"
             },
@@ -8255,7 +8255,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Boolean",
               "optional": false,
               "field": "payouts.non_taxable",
               "description": "<p>If true, payout is non taxable.</p>"
@@ -8270,7 +8270,7 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.other_net_fsi",
               "description": "<p>Other net foreign source income.</p>"
             },
@@ -8291,7 +8291,7 @@
             {
               "group": "200 Success",
               "type": "DRP_Trade",
-              "optional": false,
+              "optional": true,
               "field": "payouts.drp_trade_attributes",
               "description": "<p>Parameters when the payout is reinvested.</p>"
             },
@@ -8326,84 +8326,84 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.franked_amount",
               "description": "<p>Franked amount in the payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.unfranked_amount",
               "description": "<p>Unfranked amount in the payout (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "payouts.trust",
               "description": "<p><code>true</code> if this payout is for a trust. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.extra_interest_payment_amount",
               "description": "<p>Extra interest amount in this payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.capital_gains",
               "description": "<p>Capital gain amount in this payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.discounted_capital_gains",
               "description": "<p>Discounted capital gain amount in this payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.interest_payment",
               "description": "<p>Interest payment amount in this payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.foreign_source_income",
               "description": "<p>Amount of foreign income in this payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.deferred_income",
               "description": "<p>Value of deferred income in this payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "payouts.non_assessable",
               "description": "<p>True if this payout is not assessed for tax. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.amit_decrease_amount",
               "description": "<p>Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is less than the cash distribution you received. This amount is non-assessable and is used to decrease your cost base for cgt purposes (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payouts.amit_increase_amount",
               "description": "<p>Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)</p>"
             },
@@ -8678,7 +8678,7 @@
             {
               "group": "200 Success",
               "type": "Date",
-              "optional": false,
+              "optional": true,
               "field": "payout.ex_date",
               "description": "<p>The payout ex date (format <code>YYYY-MM-DD</code>).</p>"
             },
@@ -8699,21 +8699,21 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payout.resident_withholding_tax",
               "description": "<p>The payout resident withholding tax amount. Always returned in the portfolio currency.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payout.non_resident_withholding_tax",
               "description": "<p>The payout non-resident withholding tax amount.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payout.tax_credit",
               "description": "<p>The payout tax credit amount. Always returned in the portfolio currency.</p>"
             },
@@ -8733,7 +8733,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Boolean",
               "optional": false,
               "field": "payout.non_taxable",
               "description": "<p>If <code>true</code>, payout is non taxable.</p>"
@@ -9021,14 +9021,14 @@
             {
               "group": "Parameter",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payout.franked_amount",
               "description": "<p>Franked amount in the payout. (Australia only)</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payout.unfranked_amount",
               "description": "<p>Unfranked amount in the payout (Australia only)</p>"
             },
@@ -9174,7 +9174,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "payout.ex_date",
               "description": "<p>The payout ex date (format <code>YYYY-MM-DD</code>).</p>"
             },
@@ -9195,21 +9195,21 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payout.resident_withholding_tax",
               "description": "<p>The payout resident withholding tax amount. Always returned in the portfolio currency.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payout.non_resident_withholding_tax",
               "description": "<p>The payout non-resident withholding tax amount.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payout.tax_credit",
               "description": "<p>The payout tax credit amount. Always returned in the portfolio currency.</p>"
             },
@@ -9237,14 +9237,14 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payout.franked_amount",
               "description": "<p>The payout franked amount.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payout.unfranked_amount",
               "description": "<p>The payout unfranked amount.</p>"
             },
@@ -9258,21 +9258,21 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payout.interest_payment",
               "description": "<p>Any payout extra interest amount.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payout.non_discounted_capital_gains",
               "description": "<p>Capital gain amount.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payout.discounted_capital_gains",
               "description": "<p>Discounted capital gain amount.</p>"
             },
@@ -9293,14 +9293,14 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "payout.trust",
               "description": "<p><code>true</code> if payout is for a trust.</p>"
             },
             {
               "group": "200 Success",
               "type": "DRP_Trade",
-              "optional": false,
+              "optional": true,
               "field": "payout.drp_trade_attributes",
               "description": "<p>Parameters when the payout is reinvested.</p>"
             },
@@ -9335,7 +9335,7 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payout.extra_interest_payment_amount",
               "description": "<p>Extra interest amount in this payout. (Australia only)</p>"
             },
@@ -9700,7 +9700,7 @@
             {
               "group": "200 Success",
               "type": "Date",
-              "optional": false,
+              "optional": true,
               "field": "payout.ex_date",
               "description": "<p>The payout ex date (format <code>YYYY-MM-DD</code>).</p>"
             },
@@ -9721,21 +9721,21 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payout.resident_withholding_tax",
               "description": "<p>The payout resident withholding tax amount. Always returned in the portfolio currency.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payout.non_resident_withholding_tax",
               "description": "<p>The payout non-resident withholding tax amount.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "payout.tax_credit",
               "description": "<p>The payout tax credit amount. Always returned in the portfolio currency.</p>"
             },
@@ -9944,7 +9944,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "ex_date",
               "description": "<p>The payout ex date (format <code>YYYY-MM-DD</code>).</p>"
             },
@@ -9965,21 +9965,21 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "resident_withholding_tax",
               "description": "<p>The payout resident withholding tax amount. Always returned in the portfolio currency.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "non_resident_withholding_tax",
               "description": "<p>The payout non-resident withholding tax amount.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "tax_credit",
               "description": "<p>The payout tax credit amount. Always returned in the portfolio currency.</p>"
             },
@@ -10014,7 +10014,7 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "other_net_fsi",
               "description": "<p>Other net foreign source income.</p>"
             },
@@ -10042,7 +10042,7 @@
             {
               "group": "200 Success",
               "type": "DRP_Trade",
-              "optional": false,
+              "optional": true,
               "field": "drp_trade_attributes",
               "description": "<p>Parameters when the payout is reinvested.</p>"
             },
@@ -10077,42 +10077,42 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "franked_amount",
               "description": "<p>Franked amount in the payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "unfranked_amount",
               "description": "<p>Unfranked amount in the payout (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "trust",
               "description": "<p><code>true</code> if this payout is for a trust. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "extra_interest_payment_amount",
               "description": "<p>Extra interest amount in this payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "capital_gains",
               "description": "<p>Capital gain amount in this payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "discounted_capital_gains",
               "description": "<p>Discounted capital gain amount in this payout. (Australia only)</p>"
             },
@@ -10573,7 +10573,7 @@
             {
               "group": "200 Success",
               "type": "Date",
-              "optional": false,
+              "optional": true,
               "field": "ex_date",
               "description": "<p>The payout ex date (format <code>YYYY-MM-DD</code>).</p>"
             },
@@ -10594,21 +10594,21 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "resident_withholding_tax",
               "description": "<p>The payout resident withholding tax amount. Always returned in the portfolio currency.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "non_resident_withholding_tax",
               "description": "<p>The payout non-resident withholding tax amount.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "tax_credit",
               "description": "<p>The payout tax credit amount. Always returned in the portfolio currency.</p>"
             },
@@ -10657,7 +10657,7 @@
             {
               "group": "200 Success",
               "type": "DRP_Trade",
-              "optional": false,
+              "optional": true,
               "field": "drp_trade_attributes",
               "description": "<p>Parameters when the payout is reinvested.</p>"
             },
@@ -10692,42 +10692,42 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "franked_amount",
               "description": "<p>Franked amount in the payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "unfranked_amount",
               "description": "<p>Unfranked amount in the payout (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "trust",
               "description": "<p><code>true</code> if this payout is for a trust. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "extra_interest_payment_amount",
               "description": "<p>Extra interest amount in this payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "capital_gains",
               "description": "<p>Capital gain amount in this payout. (Australia only)</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "discounted_capital_gains",
               "description": "<p>Discounted capital gain amount in this payout. (Australia only)</p>"
             },

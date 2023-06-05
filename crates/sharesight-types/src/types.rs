@@ -1869,7 +1869,9 @@ pub struct ListHoldingPayoutsSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct ListHoldingPayoutsPayoutsSuccess {
     /// The payout ID.
-    pub id: String,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub id: Option<i64>,
     /// Payout company/instrument symbol on the market.
     pub symbol: String,
     /// Market code.
@@ -1878,8 +1880,9 @@ pub struct ListHoldingPayoutsPayoutsSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     /// The payout ex date (format `YYYY-MM-DD`).
-    #[serde_as(as = "DeserializeDate")]
-    pub ex_date: NaiveDate,
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub ex_date: Option<NaiveDate>,
     /// The payout amount.
     pub amount: Float,
     /// The calculated gross amount
@@ -1887,11 +1890,14 @@ pub struct ListHoldingPayoutsPayoutsSuccess {
     /// The payout type: DIV (Dividend), REP (Capital replayment), INT (Interest), or DIS (Distribution)
     pub transaction_description: PayoutDescription,
     /// The payout resident withholding tax amount. Always returned in the portfolio currency.
-    pub resident_withholding_tax: Float,
+    #[serde(default)]
+    pub resident_withholding_tax: Option<Float>,
     /// The payout non-resident withholding tax amount.
-    pub non_resident_withholding_tax: Float,
+    #[serde(default)]
+    pub non_resident_withholding_tax: Option<Float>,
     /// The payout tax credit amount. Always returned in the portfolio currency.
-    pub tax_credit: Float,
+    #[serde(default)]
+    pub tax_credit: Option<Float>,
     /// Currency code of the payout, using 3-letter ISO 4217 code.
     pub currency: Currency,
     /// The payout's exchange rate.
@@ -1901,7 +1907,8 @@ pub struct ListHoldingPayoutsPayoutsSuccess {
     /// Any comments for that payout.
     pub comments: String,
     /// Other net foreign source income.
-    pub other_net_fsi: Float,
+    #[serde(default)]
+    pub other_net_fsi: Option<Float>,
     /// The amount of an LIC dividend that is attributable to an LIC capital gain.
     pub lic_capital_gain: Float,
     /// ID of the company event the given payout is based on (nil if not based on any).
@@ -1910,33 +1917,47 @@ pub struct ListHoldingPayoutsPayoutsSuccess {
     /// The state of the payout, can be any of `"confirmed"`, `"unconfirmed"` or `"rejected"`.
     pub state: String,
     /// Parameters when the payout is reinvested.
-    pub drp_trade_attributes: ListHoldingPayoutsPayoutsDrpTradeAttributesSuccess,
+    #[serde(default)]
+    pub drp_trade_attributes: Option<ListHoldingPayoutsPayoutsDrpTradeAttributesSuccess>,
     /// Franked amount in the payout. (Australia only)
-    pub franked_amount: Float,
+    #[serde(default)]
+    pub franked_amount: Option<Float>,
     /// Unfranked amount in the payout (Australia only)
-    pub unfranked_amount: Float,
+    #[serde(default)]
+    pub unfranked_amount: Option<Float>,
     /// `true` if this payout is for a trust. (Australia only)
-    pub trust: bool,
+    #[serde(default)]
+    pub trust: Option<bool>,
     /// Extra interest amount in this payout. (Australia only)
-    pub extra_interest_payment_amount: Float,
+    #[serde(default)]
+    pub extra_interest_payment_amount: Option<Float>,
     /// Capital gain amount in this payout. (Australia only)
-    pub capital_gains: Float,
+    #[serde(default)]
+    pub capital_gains: Option<Float>,
     /// Discounted capital gain amount in this payout. (Australia only)
-    pub discounted_capital_gains: Float,
+    #[serde(default)]
+    pub discounted_capital_gains: Option<Float>,
     /// Interest payment amount in this payout. (Australia only)
-    pub interest_payment: Float,
+    #[serde(default)]
+    pub interest_payment: Option<Float>,
     /// Amount of foreign income in this payout. (Australia only)
-    pub foreign_source_income: Float,
+    #[serde(default)]
+    pub foreign_source_income: Option<Float>,
     /// Value of deferred income in this payout. (Australia only)
-    pub deferred_income: Float,
+    #[serde(default)]
+    pub deferred_income: Option<Float>,
     /// `true` if this payout is not assessed for tax. (Australia only)
-    pub non_assessable: bool,
+    #[serde(default)]
+    pub non_assessable: Option<bool>,
     /// Value of CGT concession in this payout. (Australia only)
-    pub cgt_concession_amount: Float,
+    #[serde(default)]
+    pub cgt_concession_amount: Option<Float>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is less than the cash distribution you received. This amount is non-assessable and is used to decrease your cost base for cgt purposes (Australia only)
-    pub amit_decrease_amount: Float,
+    #[serde(default)]
+    pub amit_decrease_amount: Option<Float>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
-    pub amit_increase_amount: Float,
+    #[serde(default)]
+    pub amit_increase_amount: Option<Float>,
     /// List of links for this payout
     pub links: ListHoldingPayoutsPayoutsLinksSuccess,
 }
@@ -2028,7 +2049,9 @@ pub struct ListPortfolioPayoutsSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct ListPortfolioPayoutsPayoutsSuccess {
     /// The payout ID.
-    pub id: String,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub id: Option<i64>,
     /// The portfolio ID.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub portfolio_id: i64,
@@ -2046,59 +2069,77 @@ pub struct ListPortfolioPayoutsPayoutsSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     /// The payout ex date (format `YYYY-MM-DD`).
-    #[serde_as(as = "DeserializeDate")]
-    pub ex_date: NaiveDate,
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub ex_date: Option<NaiveDate>,
     /// The payout amount.
     pub amount: Float,
     /// The calculated gross amount
     pub gross_amount: Float,
     /// The payout resident withholding tax amount. Always returned in the portfolio currency.
-    pub resident_withholding_tax: Float,
+    #[serde(default)]
+    pub resident_withholding_tax: Option<Float>,
     /// The payout non-resident withholding tax amount.
-    pub non_resident_withholding_tax: Float,
+    #[serde(default)]
+    pub non_resident_withholding_tax: Option<Float>,
     /// The payout tax credit amount. Always returned in the portfolio currency.
-    pub tax_credit: Float,
+    #[serde(default)]
+    pub tax_credit: Option<Float>,
     /// Currency code of the payout, using 3-letter ISO 4217 code.
     pub currency: Currency,
     /// The payout's exchange rate.
     pub exchange_rate: Float,
     /// If true, payout is non taxable.
-    pub non_taxable: String,
+    pub non_taxable: bool,
     /// Any comments for that payout.
     pub comments: String,
     /// Other net foreign source income.
-    pub other_net_fsi: Float,
+    #[serde(default)]
+    pub other_net_fsi: Option<Float>,
     /// ID of the company event the given payout is based on (nil if not based on any).
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     /// The state of the payout, can be any of `"confirmed"`, `"unconfirmed"` or `"rejected"`.
     pub state: String,
     /// Parameters when the payout is reinvested.
-    pub drp_trade_attributes: ListPortfolioPayoutsPayoutsDrpTradeAttributesSuccess,
+    #[serde(default)]
+    pub drp_trade_attributes: Option<ListPortfolioPayoutsPayoutsDrpTradeAttributesSuccess>,
     /// Franked amount in the payout. (Australia only)
-    pub franked_amount: Float,
+    #[serde(default)]
+    pub franked_amount: Option<Float>,
     /// Unfranked amount in the payout (Australia only)
-    pub unfranked_amount: Float,
+    #[serde(default)]
+    pub unfranked_amount: Option<Float>,
     /// `true` if this payout is for a trust. (Australia only)
-    pub trust: bool,
+    #[serde(default)]
+    pub trust: Option<bool>,
     /// Extra interest amount in this payout. (Australia only)
-    pub extra_interest_payment_amount: Float,
+    #[serde(default)]
+    pub extra_interest_payment_amount: Option<Float>,
     /// Capital gain amount in this payout. (Australia only)
-    pub capital_gains: Float,
+    #[serde(default)]
+    pub capital_gains: Option<Float>,
     /// Discounted capital gain amount in this payout. (Australia only)
-    pub discounted_capital_gains: Float,
+    #[serde(default)]
+    pub discounted_capital_gains: Option<Float>,
     /// Interest payment amount in this payout. (Australia only)
-    pub interest_payment: Float,
+    #[serde(default)]
+    pub interest_payment: Option<Float>,
     /// Amount of foreign income in this payout. (Australia only)
-    pub foreign_source_income: Float,
+    #[serde(default)]
+    pub foreign_source_income: Option<Float>,
     /// Value of deferred income in this payout. (Australia only)
-    pub deferred_income: Float,
+    #[serde(default)]
+    pub deferred_income: Option<Float>,
     /// True if this payout is not assessed for tax. (Australia only)
-    pub non_assessable: bool,
+    #[serde(default)]
+    pub non_assessable: Option<bool>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is less than the cash distribution you received. This amount is non-assessable and is used to decrease your cost base for cgt purposes (Australia only)
-    pub amit_decrease_amount: Float,
+    #[serde(default)]
+    pub amit_decrease_amount: Option<Float>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
-    pub amit_increase_amount: Float,
+    #[serde(default)]
+    pub amit_increase_amount: Option<Float>,
     /// List of links for this payout
     pub links: ListPortfolioPayoutsPayoutsLinksSuccess,
 }
@@ -2221,24 +2262,28 @@ pub struct PayoutConfirmPayoutSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     /// The payout ex date (format `YYYY-MM-DD`).
-    #[serde_as(as = "DeserializeDate")]
-    pub ex_date: NaiveDate,
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub ex_date: Option<NaiveDate>,
     /// The payout amount.
     pub amount: Float,
     /// The calculated gross amount
     pub gross_amount: Float,
     /// The payout resident withholding tax amount. Always returned in the portfolio currency.
-    pub resident_withholding_tax: Float,
+    #[serde(default)]
+    pub resident_withholding_tax: Option<Float>,
     /// The payout non-resident withholding tax amount.
-    pub non_resident_withholding_tax: Float,
+    #[serde(default)]
+    pub non_resident_withholding_tax: Option<Float>,
     /// The payout tax credit amount. Always returned in the portfolio currency.
-    pub tax_credit: Float,
+    #[serde(default)]
+    pub tax_credit: Option<Float>,
     /// Payout currency code, using 3-letter ISO 4217 code.
     pub currency: Currency,
     /// The payout's exchange rate.
     pub exchange_rate: Float,
     /// If `true`, payout is non taxable.
-    pub non_taxable: String,
+    pub non_taxable: bool,
     /// Any comments for that payout.
     pub comments: String,
     /// ID of the company event the given payout is based on (nil if not based on any).
@@ -2329,9 +2374,11 @@ pub struct PayoutCreatePayoutParameters {
     #[serde(default)]
     pub drp_trade_attributes: Option<PayoutCreatePayoutDrpTradeAttributesParameters>,
     /// Franked amount in the payout. (Australia only)
-    pub franked_amount: Float,
+    #[serde(default)]
+    pub franked_amount: Option<Float>,
     /// Unfranked amount in the payout (Australia only)
-    pub unfranked_amount: Float,
+    #[serde(default)]
+    pub unfranked_amount: Option<Float>,
     /// `true` if this payout is for a trust. (Australia only)
     pub trust: bool,
     /// Extra interest amount in this payout. (Australia only)
@@ -2405,18 +2452,22 @@ pub struct PayoutCreatePayoutSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     /// The payout ex date (format `YYYY-MM-DD`).
-    #[serde_as(as = "DeserializeDate")]
-    pub ex_date: NaiveDate,
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub ex_date: Option<NaiveDate>,
     /// The payout amount.
     pub amount: Float,
     /// The calculated gross amount
     pub gross_amount: Float,
     /// The payout resident withholding tax amount. Always returned in the portfolio currency.
-    pub resident_withholding_tax: Float,
+    #[serde(default)]
+    pub resident_withholding_tax: Option<Float>,
     /// The payout non-resident withholding tax amount.
-    pub non_resident_withholding_tax: Float,
+    #[serde(default)]
+    pub non_resident_withholding_tax: Option<Float>,
     /// The payout tax credit amount. Always returned in the portfolio currency.
-    pub tax_credit: Float,
+    #[serde(default)]
+    pub tax_credit: Option<Float>,
     /// Payout currency code, using 3-letter ISO 4217 code.
     pub currency: Currency,
     /// The payout's exchange rate.
@@ -2424,27 +2475,35 @@ pub struct PayoutCreatePayoutSuccess {
     /// If `true`, payout is non taxable.
     pub non_taxable: bool,
     /// The payout franked amount.
-    pub franked_amount: Float,
+    #[serde(default)]
+    pub franked_amount: Option<Float>,
     /// The payout unfranked amount.
-    pub unfranked_amount: Float,
+    #[serde(default)]
+    pub unfranked_amount: Option<Float>,
     /// Any comments for that payout.
     pub comments: String,
     /// Any payout extra interest amount.
-    pub interest_payment: Float,
+    #[serde(default)]
+    pub interest_payment: Option<Float>,
     /// Capital gain amount.
-    pub non_discounted_capital_gains: Float,
+    #[serde(default)]
+    pub non_discounted_capital_gains: Option<Float>,
     /// Discounted capital gain amount.
-    pub discounted_capital_gains: Float,
+    #[serde(default)]
+    pub discounted_capital_gains: Option<Float>,
     /// Any foreign tax income amount.
     pub foreign_tax_income: Float,
     /// Any non-tax assessable amount.
     pub non_assessable: Float,
     /// `true` if payout is for a trust.
-    pub trust: bool,
+    #[serde(default)]
+    pub trust: Option<bool>,
     /// Parameters when the payout is reinvested.
-    pub drp_trade_attributes: PayoutCreatePayoutDrpTradeAttributesSuccess,
+    #[serde(default)]
+    pub drp_trade_attributes: Option<PayoutCreatePayoutDrpTradeAttributesSuccess>,
     /// Extra interest amount in this payout. (Australia only)
-    pub extra_interest_payment_amount: Float,
+    #[serde(default)]
+    pub extra_interest_payment_amount: Option<Float>,
     /// Capital gain amount in this payout. (Australia only)
     pub capital_gains: Float,
     /// Amount of foreign income in this payout. (Australia only)
@@ -2586,18 +2645,22 @@ pub struct PayoutRejectPayoutSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     /// The payout ex date (format `YYYY-MM-DD`).
-    #[serde_as(as = "DeserializeDate")]
-    pub ex_date: NaiveDate,
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub ex_date: Option<NaiveDate>,
     /// The payout amount.
     pub amount: Float,
     /// The calculated gross amount
     pub gross_amount: Float,
     /// The payout resident withholding tax amount. Always returned in the portfolio currency.
-    pub resident_withholding_tax: Float,
+    #[serde(default)]
+    pub resident_withholding_tax: Option<Float>,
     /// The payout non-resident withholding tax amount.
-    pub non_resident_withholding_tax: Float,
+    #[serde(default)]
+    pub non_resident_withholding_tax: Option<Float>,
     /// The payout tax credit amount. Always returned in the portfolio currency.
-    pub tax_credit: Float,
+    #[serde(default)]
+    pub tax_credit: Option<Float>,
     /// Payout currency code, using 3-letter ISO 4217 code.
     pub currency: Currency,
     /// The payout's exchange rate.
@@ -2670,18 +2733,22 @@ pub struct PayoutShowSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     /// The payout ex date (format `YYYY-MM-DD`).
-    #[serde_as(as = "DeserializeDate")]
-    pub ex_date: NaiveDate,
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub ex_date: Option<NaiveDate>,
     /// The payout amount.
     pub amount: Float,
     /// The calculated gross amount
     pub gross_amount: Float,
     /// The payout resident withholding tax amount. Always returned in the portfolio currency.
-    pub resident_withholding_tax: Float,
+    #[serde(default)]
+    pub resident_withholding_tax: Option<Float>,
     /// The payout non-resident withholding tax amount.
-    pub non_resident_withholding_tax: Float,
+    #[serde(default)]
+    pub non_resident_withholding_tax: Option<Float>,
     /// The payout tax credit amount. Always returned in the portfolio currency.
-    pub tax_credit: Float,
+    #[serde(default)]
+    pub tax_credit: Option<Float>,
     /// Payout currency code, using 3-letter ISO 4217 code.
     pub currency: Currency,
     /// The payout's exchange rate.
@@ -2691,7 +2758,8 @@ pub struct PayoutShowSuccess {
     /// Any comments for that payout.
     pub comments: String,
     /// Other net foreign source income.
-    pub other_net_fsi: Float,
+    #[serde(default)]
+    pub other_net_fsi: Option<Float>,
     /// The amount of an LIC dividend that is attributable to an LIC capital gain.
     pub lic_capital_gain: Float,
     /// ID of the company event the given payout is based on (nil if not based on any).
@@ -2700,19 +2768,26 @@ pub struct PayoutShowSuccess {
     /// The state of the payout, can be any of "confirmed", "unconfirmed" or "rejected".
     pub state: String,
     /// Parameters when the payout is reinvested.
-    pub drp_trade_attributes: PayoutShowDrpTradeAttributesSuccess,
+    #[serde(default)]
+    pub drp_trade_attributes: Option<PayoutShowDrpTradeAttributesSuccess>,
     /// Franked amount in the payout. (Australia only)
-    pub franked_amount: Float,
+    #[serde(default)]
+    pub franked_amount: Option<Float>,
     /// Unfranked amount in the payout (Australia only)
-    pub unfranked_amount: Float,
+    #[serde(default)]
+    pub unfranked_amount: Option<Float>,
     /// `true` if this payout is for a trust. (Australia only)
-    pub trust: bool,
+    #[serde(default)]
+    pub trust: Option<bool>,
     /// Extra interest amount in this payout. (Australia only)
-    pub extra_interest_payment_amount: Float,
+    #[serde(default)]
+    pub extra_interest_payment_amount: Option<Float>,
     /// Capital gain amount in this payout. (Australia only)
-    pub capital_gains: Float,
+    #[serde(default)]
+    pub capital_gains: Option<Float>,
     /// Discounted capital gain amount in this payout. (Australia only)
-    pub discounted_capital_gains: Float,
+    #[serde(default)]
+    pub discounted_capital_gains: Option<Float>,
     /// Amount of foreign income in this payout. (Australia only)
     pub foreign_source_income: Float,
     /// `true` if this payout is not assessed for tax. (Australia only)
@@ -2918,18 +2993,22 @@ pub struct PayoutUpdateSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     /// The payout ex date (format `YYYY-MM-DD`).
-    #[serde_as(as = "DeserializeDate")]
-    pub ex_date: NaiveDate,
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub ex_date: Option<NaiveDate>,
     /// The payout amount.
     pub amount: Float,
     /// The calculated gross amount
     pub gross_amount: Float,
     /// The payout resident withholding tax amount. Always returned in the portfolio currency.
-    pub resident_withholding_tax: Float,
+    #[serde(default)]
+    pub resident_withholding_tax: Option<Float>,
     /// The payout non-resident withholding tax amount.
-    pub non_resident_withholding_tax: Float,
+    #[serde(default)]
+    pub non_resident_withholding_tax: Option<Float>,
     /// The payout tax credit amount. Always returned in the portfolio currency.
-    pub tax_credit: Float,
+    #[serde(default)]
+    pub tax_credit: Option<Float>,
     /// Payout currency code, using 3-letter ISO 4217 code.
     pub currency: Currency,
     /// The payout's exchange rate.
@@ -2944,19 +3023,26 @@ pub struct PayoutUpdateSuccess {
     /// The state of the payout, can be any of `"confirmed"`, `"unconfirmed"` or `"rejected"`.
     pub state: String,
     /// Parameters when the payout is reinvested.
-    pub drp_trade_attributes: PayoutUpdateDrpTradeAttributesSuccess,
+    #[serde(default)]
+    pub drp_trade_attributes: Option<PayoutUpdateDrpTradeAttributesSuccess>,
     /// Franked amount in the payout. (Australia only)
-    pub franked_amount: Float,
+    #[serde(default)]
+    pub franked_amount: Option<Float>,
     /// Unfranked amount in the payout (Australia only)
-    pub unfranked_amount: Float,
+    #[serde(default)]
+    pub unfranked_amount: Option<Float>,
     /// `true` if this payout is for a trust. (Australia only)
-    pub trust: bool,
+    #[serde(default)]
+    pub trust: Option<bool>,
     /// Extra interest amount in this payout. (Australia only)
-    pub extra_interest_payment_amount: Float,
+    #[serde(default)]
+    pub extra_interest_payment_amount: Option<Float>,
     /// Capital gain amount in this payout. (Australia only)
-    pub capital_gains: Float,
+    #[serde(default)]
+    pub capital_gains: Option<Float>,
     /// Discounted capital gain amount in this payout. (Australia only)
-    pub discounted_capital_gains: Float,
+    #[serde(default)]
+    pub discounted_capital_gains: Option<Float>,
     /// Amount of foreign income in this payout. (Australia only)
     pub foreign_source_income: Float,
     /// `true` if this payout is not assessed for tax. (Australia only)
