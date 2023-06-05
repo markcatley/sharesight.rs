@@ -1875,9 +1875,11 @@ pub struct ListHoldingPayoutsPayoutsSuccess {
     /// Market code.
     pub market: Market,
     /// The payout date (format `YYYY-MM-DD`).
-    pub paid_on: String,
+    #[serde_as(as = "DeserializeDate")]
+    pub paid_on: NaiveDate,
     /// The payout ex date (format `YYYY-MM-DD`).
-    pub ex_date: String,
+    #[serde_as(as = "DeserializeDate")]
+    pub ex_date: NaiveDate,
     /// The payout amount.
     pub amount: Float,
     /// The calculated gross amount
@@ -2041,9 +2043,11 @@ pub struct ListPortfolioPayoutsPayoutsSuccess {
     /// Market code.
     pub market: Market,
     /// The payout date (format `YYYY-MM-DD`).
-    pub paid_on: String,
+    #[serde_as(as = "DeserializeDate")]
+    pub paid_on: NaiveDate,
     /// The payout ex date (format `YYYY-MM-DD`).
-    pub ex_date: String,
+    #[serde_as(as = "DeserializeDate")]
+    pub ex_date: NaiveDate,
     /// The payout amount.
     pub amount: Float,
     /// The calculated gross amount
@@ -2398,9 +2402,11 @@ pub struct PayoutCreatePayoutSuccess {
     /// Market code.
     pub market: Market,
     /// The payout date (format `YYYY-MM-DD`).
-    pub paid_on: String,
+    #[serde_as(as = "DeserializeDate")]
+    pub paid_on: NaiveDate,
     /// The payout ex date (format `YYYY-MM-DD`).
-    pub ex_date: String,
+    #[serde_as(as = "DeserializeDate")]
+    pub ex_date: NaiveDate,
     /// The payout amount.
     pub amount: Float,
     /// The calculated gross amount
@@ -2661,9 +2667,11 @@ pub struct PayoutShowSuccess {
     /// Market code.
     pub market: Market,
     /// The payout date (format `YYYY-MM-DD`).
-    pub paid_on: String,
+    #[serde_as(as = "DeserializeDate")]
+    pub paid_on: NaiveDate,
     /// The payout ex date (format `YYYY-MM-DD`).
-    pub ex_date: String,
+    #[serde_as(as = "DeserializeDate")]
+    pub ex_date: NaiveDate,
     /// The payout amount.
     pub amount: Float,
     /// The calculated gross amount

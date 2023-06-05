@@ -54,6 +54,7 @@ impl ApiEndpoint {
     pub fn fix(&mut self) {
         self.fix_url_params();
         self.fix_container_params();
+        self.fix_dates();
     }
 
     fn fix_url_params(&mut self) {
@@ -101,6 +102,18 @@ impl ApiEndpoint {
 
         let parameter_fields = &mut self.parameter.fields.parameter;
         parameter_fields.extend(new_fields);
+    }
+
+    fn fix_dates(&mut self) {
+        for field in self.success.fields.fields.iter_mut() {
+            if matches!(field.field_type, FieldType::Scalar(FieldTypeBase::String))
+                && field
+                    .description
+                    .contains("(format <code>YYYY-MM-DD</code>)")
+            {
+                field.field_type = FieldType::Scalar(FieldTypeBase::Date);
+            }
+        }
     }
 }
 
