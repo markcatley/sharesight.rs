@@ -18,7 +18,7 @@ struct Args {
     /// The authorization code of the user to use to access the API.
     authorization_code: String,
     /// A file to write the output to.
-    #[clap(long, short, parse(from_os_str))]
+    #[clap(long, short)]
     file: Option<std::path::PathBuf>,
 }
 

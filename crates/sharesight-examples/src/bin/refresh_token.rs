@@ -6,7 +6,6 @@ use sharesight_types::{Auth, AuthWithDetails};
 #[clap(author, version, about, long_about = None)]
 struct Args {
     /// A file to read and write auth details from and to.
-    #[clap(parse(from_os_str))]
     file: std::path::PathBuf,
 }
 

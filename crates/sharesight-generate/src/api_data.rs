@@ -5,7 +5,7 @@ use serde::{
     de::{IntoDeserializer, Unexpected},
     Deserialize,
 };
-use serde_with::{rust::StringWithSeparator, Separator};
+use serde_with::{formats::Separator, serde_as, StringWithSeparator};
 
 #[derive(Debug, Deserialize)]
 pub struct ApiData {
@@ -242,6 +242,7 @@ pub struct Example {
     pub example_type: ExampleType,
 }
 
+#[serde_as]
 #[derive(Debug, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub struct Field {
@@ -250,7 +251,7 @@ pub struct Field {
     #[serde(rename = "type", default = "FieldType::unit")]
     pub field_type: FieldType,
     pub optional: bool,
-    #[serde(with = "StringWithSeparator::<PeriodSeparator>")]
+    #[serde_as(as = "StringWithSeparator::<PeriodSeparator, String>")]
     pub field: Vec<String>,
     #[allow(dead_code)]
     pub description: String,

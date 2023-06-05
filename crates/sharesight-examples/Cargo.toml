@@ -4,16 +4,16 @@ version = "0.1.0"
 edition = "2018"
 
 [dependencies]
-anyhow = { version = "1.0", features = ["backtrace"] }
-chrono = { version = "0.4.19", features = ["serde"] }
-clap = { version = "3.0.13", features = ["derive"] }
-csv = "1.1.6"
-env_logger = "0.9.0"
+anyhow = { version = "1.0.71", features = ["backtrace"] }
+chrono = { version = "0.4.26", features = ["serde"] }
+clap = { version = "4.3.1", features = ["derive"] }
+csv = "1.2.2"
+env_logger = "0.10.0"
 log = "0.4.14"
-reqwest = { version = "0.11", features = ["json"] }
-rust_decimal = { version = "1.25.0", features = ["serde"] }
-serde = { version = "1.0", features = ["derive"] }
-serde_json = "1.0.78"
+reqwest = { version = "0.11.18", features = ["json"] }
+rust_decimal = { version = "1.26.1", features = ["serde"] }
+serde = { version = "1.0.163", features = ["derive"] }
+serde_json = "1.0.96"
 sharesight-reqwest = { path = "../sharesight-reqwest" }
 sharesight-types = { path = "../sharesight-types" }
-tokio = { version = "1", features = ["full"] }
+tokio = { version = "1.28.2", features = ["full"] }
