@@ -5,7 +5,7 @@ pub use std::fmt;
 pub use chrono::{DateTime, FixedOffset, NaiveDate};
 pub use serde::de::DeserializeOwned;
 pub use serde::{Deserialize, Serialize};
-pub use serde_with::{serde_as, DisplayFromStr, PickFirst};
+pub use serde_with::{serde_as, DefaultOnNull, DisplayFromStr, PickFirst};
 
 pub use crate::codes::*;
 

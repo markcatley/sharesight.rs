@@ -42,7 +42,7 @@ pub struct CashAccountCreateParameters {
 #[derive(Debug, Clone, Serialize)]
 pub struct CashAccountCreateCashAccountParameters {
     /// The new cash account's name.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The new cash account's currency.
     pub currency: Currency,
@@ -61,7 +61,7 @@ pub struct CashAccountCreateCashAccountSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The cash account name.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The cash account currency code.
     pub currency: Currency,
@@ -85,7 +85,7 @@ pub struct CashAccountCreateCashAccountSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct CashAccountCreateCashAccountLinksSuccess {
     /// Url of the portfolio of this cash account
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
 }
 
@@ -168,7 +168,7 @@ pub struct CashAccountShowSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The cash account name.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The cash account currency code.
     pub currency: Currency,
@@ -192,11 +192,11 @@ pub struct CashAccountShowSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct CashAccountShowLinksSuccess {
     /// Url of the portfolio of this cash account
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
     /// Url to the current cash account
     #[serde(rename = "self")]
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub itself: String,
 }
 
@@ -237,7 +237,7 @@ pub struct CashAccountTransactionCreateParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub cash_account_id: i64,
     /// The new transaction description.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub description: String,
     /// The new transaction amount.
     pub amount: Float,
@@ -263,7 +263,7 @@ pub struct CashAccountTransactionCreateCashAccountTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The transaction description.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub description: String,
     /// The transaction date time (format `YYYY-MM-DDThh:mm:ss`, see <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>).
     pub date_time: DateTime<FixedOffset>,
@@ -295,7 +295,7 @@ pub struct CashAccountTransactionCreateCashAccountTransactionSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct CashAccountTransactionCreateCashAccountTransactionLinksSuccess {
     /// Url of the portfolio of this cash account transaction
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
 }
 
@@ -366,7 +366,7 @@ pub struct CashAccountTransactionUpdateParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The transaction description.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub description: String,
     /// The transaction amount.
     pub amount: Float,
@@ -392,7 +392,7 @@ pub struct CashAccountTransactionUpdateCashAccountTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The transaction description.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub description: String,
     /// The transaction date time (format `YYYY-MM-DDThh:mm:ss`, see <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>).
     pub date_time: DateTime<FixedOffset>,
@@ -424,7 +424,7 @@ pub struct CashAccountTransactionUpdateCashAccountTransactionSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct CashAccountTransactionUpdateCashAccountTransactionLinksSuccess {
     /// Url of the portfolio of this cash account transaction
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
 }
 
@@ -529,7 +529,7 @@ pub struct CashAccountTransactionsListCashAccountTransactionsSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct CashAccountTransactionsListCashAccountTransactionsLinksSuccess {
     /// Url of the portfolio of this cash account transaction
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
 }
 
@@ -538,7 +538,7 @@ pub struct CashAccountTransactionsListCashAccountTransactionsLinksSuccess {
 pub struct CashAccountTransactionsListLinksSuccess {
     /// Url to list of cash account transactions
     #[serde(rename = "self")]
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub itself: String,
 }
 
@@ -575,7 +575,7 @@ pub struct CashAccountUpdateParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The cash account's name.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The cash account's currency.
     pub currency: Currency,
@@ -588,7 +588,7 @@ pub struct CashAccountUpdateSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The cash account name.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The cash account currency code.
     pub currency: Currency,
@@ -612,7 +612,7 @@ pub struct CashAccountUpdateSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct CashAccountUpdateLinksSuccess {
     /// Url of the portfolio of this cash account
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
 }
 
@@ -657,7 +657,7 @@ pub struct CashAccountsListCashAccountsSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The cash account name.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The cash account currency code.
     pub currency: Currency,
@@ -681,7 +681,7 @@ pub struct CashAccountsListCashAccountsSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct CashAccountsListCashAccountsLinksSuccess {
     /// Url of the portfolio of this cash account
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
 }
 
@@ -690,7 +690,7 @@ pub struct CashAccountsListCashAccountsLinksSuccess {
 pub struct CashAccountsListLinksSuccess {
     /// Url to list of cash accounts
     #[serde(rename = "self")]
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub itself: String,
 }
 
@@ -764,7 +764,7 @@ pub struct GroupsListGroupsSuccess {
     /// A unique id identifying the custom or regular group.
     pub id: IdOrName,
     /// The name of the group (not reliably unique).
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// True if this is a custom group.
     pub custom: bool,
@@ -820,7 +820,7 @@ pub struct HoldingMergesCreateParameters {
     /// The quantity
     pub quantity: Float,
     /// The instrument symbol for the new holding (buy)
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// The market code for the new holding
     pub market: Market,
@@ -866,12 +866,12 @@ pub struct HoldingMergesCreateHoldingMergeTradesSuccess {
     /// The trade type (BUY, SELL, SPLIT, etc).
     pub transaction_type: TradeDescription,
     /// The trade date.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub transaction_date: String,
     /// The market (ASX, NZX, etc).
     pub market: Market,
     /// The instrument code/symbol.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// Number of shares sold/bought.
     pub quantity: Float,
@@ -884,16 +884,16 @@ pub struct HoldingMergesCreateHoldingMergeTradesSuccess {
     /// The brokerage currency.
     pub brokerage_currency_code: Currency,
     /// The value for the trade as displayed in the 'value' column of the UI. For a merge buy this is the cost of the transaction. The value displayed in the UI for the merge buy is the market value of the cancelled holding at the time of the merge event.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub value: String,
     /// The company event linked to the transaction.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     /// Your unique identifier for this trade, if given
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub unique_identifier: String,
     /// Any comments for that trade.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// Portfolio ID of the trade.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -905,13 +905,13 @@ pub struct HoldingMergesCreateHoldingMergeTradesSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub instrument_id: i64,
     /// The state of the trade, can be any of "confirmed", "unconfirmed" or "rejected".
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
     /// Filename of attachmented file, if present.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub attachment_filename: String,
     /// Id of the attachment, if present. Use the documents endpoint to get a copy of the file.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub attachment_id: String,
 }
 
@@ -1009,12 +1009,12 @@ pub struct HoldingMergesUpdateHoldingMergeTradesSuccess {
     /// The trade type (BUY, SELL, SPLIT, etc).
     pub transaction_type: TradeDescription,
     /// The trade date.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub transaction_date: String,
     /// The market (ASX, NZX, etc).
     pub market: Market,
     /// The instrument code/symbol.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// Number of shares sold/bought.
     pub quantity: Float,
@@ -1027,16 +1027,16 @@ pub struct HoldingMergesUpdateHoldingMergeTradesSuccess {
     /// The brokerage currency.
     pub brokerage_currency_code: Currency,
     /// The value for the trade as displayed in the 'value' column of the UI. For a merge buy this is the cost of the transaction. The value displayed in the UI for the merge buy is the market value of the cancelled holding at the time of the merge event.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub value: String,
     /// The company event linked to the transaction.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     /// Your unique identifier for this trade, if given
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub unique_identifier: String,
     /// Any comments for that trade.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// Portfolio ID of the trade.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -1048,13 +1048,13 @@ pub struct HoldingMergesUpdateHoldingMergeTradesSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub instrument_id: i64,
     /// The state of the trade, can be any of "confirmed", "unconfirmed" or "rejected".
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
     /// Filename of attachmented file, if present.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub attachment_filename: String,
     /// Id of the attachment, if present. Use the documents endpoint to get a copy of the file.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub attachment_id: String,
 }
 
@@ -1088,7 +1088,7 @@ impl<'a> fmt::Display for HoldingTradesUrlDisplay<'a> {
 #[derive(Debug, Clone, Serialize)]
 pub struct HoldingTradesParameters {
     /// The holding id(to show trades for).
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub holding_id: String,
     /// Search for trade with the given unique identifier.
     #[serde(default)]
@@ -1098,7 +1098,7 @@ pub struct HoldingTradesParameters {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct HoldingTradesSuccess {
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub trades: Vec<String>,
     /// The current API Transaction.
     pub api_transaction: HoldingTradesApiTransactionSuccess,
@@ -1108,10 +1108,10 @@ pub struct HoldingTradesSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct HoldingTradesTradesSuccess {
     /// The trade ID. Maybe nil if the trade is based on an adjustment and has not yet been confirmed by the user.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub id: String,
     /// A unique identifier associated with this trade
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub unique_identifier: String,
     /// The trade date (format YYYY-MM-DD).
     #[serde_as(as = "DeserializeDate")]
@@ -1137,7 +1137,7 @@ pub struct HoldingTradesTradesSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     /// Any comments for that trade.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// Portfolio ID of the trade.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -1146,7 +1146,7 @@ pub struct HoldingTradesTradesSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub holding_id: i64,
     /// The state of the trade, can be any of "confirmed", "unconfirmed" or "rejected".
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
     /// The trade type ('BUY','SELL','SPLIT','BONUS','CONSOLD','CANCEL','CAPITAL_RETURN','OPENING_BALANCE','ADJUST_COST_BASE','CAPITAL_CALL').
     pub transaction_type: TradeDescription,
@@ -1154,12 +1154,12 @@ pub struct HoldingTradesTradesSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub instrument_id: i64,
     /// The instrument code/symbol
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// The market code (eg. `ASX`, `NZX`, etc).
     pub market: Market,
     /// The filename of any attachment
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub attachment_filename: String,
     /// The document id of any attachment, for use with the Show Document API (v2)
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -1178,10 +1178,10 @@ pub struct HoldingTradesApiTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub version: i64,
     /// The path executed.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub action: String,
     /// When the transaction was executed.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub timestamp: String,
 }
 
@@ -1219,14 +1219,14 @@ impl<'a> fmt::Display for HoldingTradesRejectedUrlDisplay<'a> {
 #[derive(Debug, Clone, Serialize)]
 pub struct HoldingTradesRejectedParameters {
     /// The holding id(to show trades for).
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub holding_id: String,
 }
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct HoldingTradesRejectedSuccess {
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub trades: Vec<String>,
     /// The current API Transaction.
     pub api_transaction: HoldingTradesRejectedApiTransactionSuccess,
@@ -1236,10 +1236,10 @@ pub struct HoldingTradesRejectedSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct HoldingTradesRejectedTradesSuccess {
     /// The trade ID. Maybe nil if the trade is based on an adjustment and has not yet been confirmed by the user.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub id: String,
     /// A unique identifier associated with this trade
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub unique_identifier: String,
     /// The trade date (format YYYY-MM-DD).
     #[serde_as(as = "DeserializeDate")]
@@ -1265,7 +1265,7 @@ pub struct HoldingTradesRejectedTradesSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     /// Any comments for that trade.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// Portfolio ID of the trade.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -1274,7 +1274,7 @@ pub struct HoldingTradesRejectedTradesSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub holding_id: i64,
     /// The state of the trade, can be any of "confirmed", "unconfirmed" or "rejected".
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
     /// The trade type ('BUY','SELL','SPLIT','BONUS','CONSOLD','CANCEL','CAPITAL_RETURN','OPENING_BALANCE','ADJUST_COST_BASE','CAPITAL_CALL').
     pub transaction_type: TradeDescription,
@@ -1282,12 +1282,12 @@ pub struct HoldingTradesRejectedTradesSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub instrument_id: i64,
     /// The instrument code/symbol
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// The market code (eg. `ASX`, `NZX`, etc).
     pub market: Market,
     /// The filename of any attachment
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub attachment_filename: String,
     /// The document id of any attachment, for use with the Show Document API (v2)
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -1306,10 +1306,10 @@ pub struct HoldingTradesRejectedApiTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub version: i64,
     /// The path executed.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub action: String,
     /// When the transaction was executed.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub timestamp: String,
 }
 
@@ -1333,10 +1333,10 @@ impl<'a> ApiEndpoint<'a> for IdentityByToken {
 #[derive(Debug, Clone, Serialize)]
 pub struct IdentityByTokenParameters {
     /// The ID token as sent by Google
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub id_token: String,
     /// The client id assigned to your application
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub client_id: String,
 }
 
@@ -1344,16 +1344,16 @@ pub struct IdentityByTokenParameters {
 #[derive(Debug, Clone, Deserialize)]
 pub struct IdentityByTokenSuccess {
     /// An access_token to access Sharesight
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub access_token: String,
     /// An OAuth 2.0 refresh token
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub refresh_token: String,
     /// The number of seconds the token will be valid
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub expires_in: i64,
     /// The token type
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub token_type: String,
 }
 
@@ -1377,10 +1377,10 @@ impl<'a> ApiEndpoint<'a> for IdentitySignupByToken {
 #[derive(Debug, Clone, Serialize)]
 pub struct IdentitySignupByTokenParameters {
     /// The ID token as sent by Google
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub id_token: String,
     /// The client id assigned to your application
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub client_id: String,
     /// The country code for the users first portfolio tax residence
     pub country_code: Country,
@@ -1390,16 +1390,16 @@ pub struct IdentitySignupByTokenParameters {
 #[derive(Debug, Clone, Deserialize)]
 pub struct IdentitySignupByTokenSuccess {
     /// An access_token to access Sharesight
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub access_token: String,
     /// An OAuth 2.0 refresh token
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub refresh_token: String,
     /// The number of seconds the token will be valid
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub expires_in: i64,
     /// The token type
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub token_type: String,
 }
 
@@ -1433,12 +1433,12 @@ pub struct ListUserInstrumentsInstrumentsSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The instrument's code (on the associated market).
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub code: String,
     /// The market this instrument is listed on.
     pub market_code: Market,
     /// The instrument name.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The currency this instrument is listed in, or default market currency if nothing specified for the instrument.
     pub currency_code: Currency,
@@ -1456,16 +1456,16 @@ pub struct ListUserInstrumentsInstrumentsSuccess {
     /// The date and time the current price was loaded (format YYYY-MM-DDThh:mm:ss, see <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>).
     pub current_price_updated_at: DateTime<FixedOffset>,
     /// The instrument sector.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub sector_classification_name: String,
     /// The instrument industry.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub industry_classification_name: String,
     /// The instrument security type. [DEPRECATED, use friendly_instrument_description]
     #[serde(default)]
     pub security_type: Option<String>,
     /// A normalised description of the instrument.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub friendly_instrument_description: String,
     /// The instrument registry.
     #[serde(default)]
@@ -1508,7 +1508,7 @@ pub struct MembershipCreateMembershipParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub portfolio_id: i64,
     /// Access level (one of NONE, READ, EDIT, ADMIN, OWNER)
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub access_code: String,
     /// User ID to use for the new membership. You have to provide the user_id or a user hash.
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
@@ -1520,13 +1520,13 @@ pub struct MembershipCreateMembershipParameters {
 #[derive(Debug, Clone, Serialize)]
 pub struct MembershipCreateUserParameters {
     /// The email address of the new user.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub email: String,
     /// The first name of the new user.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub first_name: String,
     /// The last name of the new user.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub last_name: String,
 }
 
@@ -1548,13 +1548,13 @@ pub struct MembershipCreateSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// Access level (one of NONE, READ, EDIT, ADMIN, OWNER)
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub access_code: String,
     /// The portfolio ID.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub portfolio_id: i64,
     /// If present, organisation name associated with this membership.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub organisation_name: String,
     /// If true, this membership is for a Sharesight Pro organisation and the portfolio has been shared to the whole organisation. The user details returned will be those of the organisation's main account, so may differ from the invited email address.
     pub shared_with_organisation: bool,
@@ -1591,13 +1591,13 @@ pub struct MembershipCreateInvitationSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The invitation text.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub text: String,
     /// 'accepted' or 'pending'
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub status: String,
     /// URL used for the invitation. Note that you can append a "redirect_to" parameter to the invitation URL in case you want the user to be redirected to the specified path after the invitation is accepted; ex. https://portfolio.sharesight.com/invitations?code=code&amp;redirect_to=/portfolios/1
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub url: String,
 }
 
@@ -1605,7 +1605,7 @@ pub struct MembershipCreateInvitationSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct MembershipCreateLinksSuccess {
     /// Url of the portfolio of this membership
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
 }
 
@@ -1673,7 +1673,7 @@ pub struct MembershipListSuccess {
     /// List of memberships.
     pub memberships: Vec<MembershipListMembershipsSuccess>,
     /// If present, organisation name associated with this membership.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub organisation_name: String,
     /// If true, this membership is for a Sharesight Pro organisation and the portfolio has been shared to the whole organisation.
     pub shared_with_organisation: bool,
@@ -1688,7 +1688,7 @@ pub struct MembershipListMembershipsSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// Access level (one of NONE, READ, EDIT, ADMIN, OWNER)
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub access_code: String,
     /// The portfolio ID.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -1713,10 +1713,10 @@ pub struct MembershipListMembershipsUserSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The user first name.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub first_name: String,
     /// The user last name.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub last_name: String,
 }
 
@@ -1738,13 +1738,13 @@ pub struct MembershipListMembershipsInvitationSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The invitation text.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub text: String,
     /// URL used for the invitation.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub url: String,
     /// 'accepted' or 'pending'
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub status: String,
 }
 
@@ -1752,7 +1752,7 @@ pub struct MembershipListMembershipsInvitationSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct MembershipListMembershipsLinksSuccess {
     /// Url of the portfolio of this membership
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
 }
 
@@ -1761,7 +1761,7 @@ pub struct MembershipListMembershipsLinksSuccess {
 pub struct MembershipListLinksSuccess {
     /// Url to list of memberships
     #[serde(rename = "self")]
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub itself: String,
 }
 
@@ -1800,7 +1800,7 @@ pub struct MembershipUpdateParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// Access level (one of NONE, READ, EDIT, ADMIN, OWNER)
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub access_code: String,
 }
 
@@ -1811,7 +1811,7 @@ pub struct MembershipUpdateSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// Access level (one of NONE, READ, EDIT, ADMIN, OWNER)
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub access_code: String,
     /// The portfolio ID.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -1836,10 +1836,10 @@ pub struct MembershipUpdateUserSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The user first name.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub first_name: String,
     /// The user last name.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub last_name: String,
 }
 
@@ -1850,15 +1850,15 @@ pub struct MembershipUpdateInvitationSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The invitation text.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub text: String,
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub url: String,
     /// 'accepted' or 'pending'
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub status: String,
     /// URL used for the invitation.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub invitation_path: String,
 }
 
@@ -1866,7 +1866,7 @@ pub struct MembershipUpdateInvitationSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct MembershipUpdateLinksSuccess {
     /// Url of the portfolio of this membership
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
 }
 
@@ -1897,13 +1897,13 @@ pub struct CurrenciesSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct CurrenciesCurrenciesSuccess {
     /// The ISO currency code
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub code: String,
     /// An integer currency id
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub id: String,
     /// The currency description
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub description: String,
     /// The date the currency came into use
     #[serde_as(as = "DeserializeDate")]
@@ -1912,7 +1912,7 @@ pub struct CurrenciesCurrenciesSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub in_use_until: NaiveDate,
     /// The source data feeds with symbol when not ISO and date ranges if applicable
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub source_feeds: String,
 }
 
@@ -1978,7 +1978,7 @@ pub struct ListHoldingPayoutsPayoutsSuccess {
     #[serde(default)]
     pub id: Option<i64>,
     /// Payout company/instrument symbol on the market.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// Market code.
     pub market: Market,
@@ -2011,7 +2011,7 @@ pub struct ListHoldingPayoutsPayoutsSuccess {
     /// If `true`, payout is non taxable.
     pub non_taxable: bool,
     /// Any comments for that payout.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// Other net foreign source income.
     #[serde(default)]
@@ -2022,7 +2022,7 @@ pub struct ListHoldingPayoutsPayoutsSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     /// The state of the payout, can be any of `"confirmed"`, `"unconfirmed"` or `"rejected"`.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
     /// Parameters when the payout is reinvested.
     #[serde(default)]
@@ -2088,7 +2088,7 @@ pub struct ListHoldingPayoutsPayoutsDrpTradeAttributesSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct ListHoldingPayoutsPayoutsLinksSuccess {
     /// Url of the portfolio of this payout
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
 }
 
@@ -2097,7 +2097,7 @@ pub struct ListHoldingPayoutsPayoutsLinksSuccess {
 pub struct ListHoldingPayoutsLinksSuccess {
     /// Url to list of payouts
     #[serde(rename = "self")]
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub itself: String,
 }
 
@@ -2172,7 +2172,7 @@ pub struct ListPortfolioPayoutsPayoutsSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub instrument_id: i64,
     /// Payout company/instrument symbol on the market.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// Market code.
     pub market: Market,
@@ -2203,7 +2203,7 @@ pub struct ListPortfolioPayoutsPayoutsSuccess {
     /// If true, payout is non taxable.
     pub non_taxable: bool,
     /// Any comments for that payout.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// Other net foreign source income.
     #[serde(default)]
@@ -2212,7 +2212,7 @@ pub struct ListPortfolioPayoutsPayoutsSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     /// The state of the payout, can be any of `"confirmed"`, `"unconfirmed"` or `"rejected"`.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
     /// Parameters when the payout is reinvested.
     #[serde(default)]
@@ -2275,7 +2275,7 @@ pub struct ListPortfolioPayoutsPayoutsDrpTradeAttributesSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct ListPortfolioPayoutsPayoutsLinksSuccess {
     /// Url of the portfolio of this payout
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
 }
 
@@ -2284,7 +2284,7 @@ pub struct ListPortfolioPayoutsPayoutsLinksSuccess {
 pub struct ListPortfolioPayoutsLinksSuccess {
     /// Url to list of payouts
     #[serde(rename = "self")]
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub itself: String,
 }
 
@@ -2317,7 +2317,7 @@ pub struct PayoutConfirmPayoutParameters {
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     /// The new state of the payout: `"confirmed"`.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
     /// Parameters when the payout is reinvested.
     #[serde(default)]
@@ -2371,7 +2371,7 @@ pub struct PayoutConfirmPayoutSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub instrument_id: i64,
     /// Payout company/instrument symbol on the market.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// Market code.
     pub market: Market,
@@ -2402,13 +2402,13 @@ pub struct PayoutConfirmPayoutSuccess {
     /// If `true`, payout is non taxable.
     pub non_taxable: bool,
     /// Any comments for that payout.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// ID of the company event the given payout is based on (nil if not based on any).
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     /// The state of the payout, can be any of `"confirmed"`, `"unconfirmed"` or `"rejected"`.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
 }
 
@@ -2444,7 +2444,7 @@ pub struct PayoutCreatePayoutParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub holding_id: i64,
     /// Payout company/instrument symbol on the market. This is not mandatory if holding_id for an existing Holding is specified.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// Market code (like `"NZX"` or `"ASX"`). This is not mandatory if holding_id for an existing Holding is specified.
     pub market: Market,
@@ -2528,10 +2528,10 @@ pub struct PayoutCreatePayoutParameters {
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
     pub amit_increase_amount: Float,
     /// File name for the attachment. This parameter is required if attachment is set.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub file_name: String,
     /// Base64 encoded attachment file to save against the payout.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub file_attachment: String,
 }
 
@@ -2567,7 +2567,7 @@ pub struct PayoutCreatePayoutSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// Payout company/instrument symbol on the market.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// Market code.
     pub market: Market,
@@ -2604,7 +2604,7 @@ pub struct PayoutCreatePayoutSuccess {
     #[serde(default)]
     pub unfranked_amount: Option<Float>,
     /// Any comments for that payout.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// Any payout extra interest amount.
     #[serde(default)]
@@ -2641,10 +2641,10 @@ pub struct PayoutCreatePayoutSuccess {
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
     pub amit_increase_amount: Float,
     /// Filename of payout attachment, if present.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub attachment_filename: String,
     /// Id of payout attachment, if present. Use the attachments endpoint to get a copy of the file.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub attachment_id: String,
     /// List of links for this payout
     pub links: PayoutCreatePayoutLinksSuccess,
@@ -2668,7 +2668,7 @@ pub struct PayoutCreatePayoutDrpTradeAttributesSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PayoutCreatePayoutLinksSuccess {
     /// Url of the portfolio of this payout
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
 }
 
@@ -2739,7 +2739,7 @@ pub struct PayoutRejectParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     /// The new state of the payout: `"rejected"`.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
 }
 
@@ -2766,7 +2766,7 @@ pub struct PayoutRejectPayoutSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub instrument_id: i64,
     /// Payout company/instrument symbol on the market.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// Market code.
     pub market: Market,
@@ -2797,13 +2797,13 @@ pub struct PayoutRejectPayoutSuccess {
     /// If `true`, payout is non taxable.
     pub non_taxable: bool,
     /// Any comments for that payout.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// ID of the company event the given payout is based on (nil if not based on any).
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     /// The state of the payout, can be any of "confirmed", "unconfirmed" or "rejected".
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
 }
 
@@ -2857,7 +2857,7 @@ pub struct PayoutShowSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub instrument_id: i64,
     /// Payout company/instrument symbol on the market.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// Market code.
     pub market: Market,
@@ -2886,10 +2886,10 @@ pub struct PayoutShowSuccess {
     /// The payout's exchange rate.
     pub exchange_rate: Float,
     /// If `true`, payout is non taxable.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub non_taxable: String,
     /// Any comments for that payout.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// Other net foreign source income.
     #[serde(default)]
@@ -2900,7 +2900,7 @@ pub struct PayoutShowSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     /// The state of the payout, can be any of "confirmed", "unconfirmed" or "rejected".
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
     /// Parameters when the payout is reinvested.
     #[serde(default)]
@@ -2936,10 +2936,10 @@ pub struct PayoutShowSuccess {
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
     pub amit_increase_amount: Float,
     /// Filename of payout attachment, if present.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub attachment_filename: String,
     /// Id of payout attachment, if present. Use the attachments endpoint to get a copy of the file.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub attachment_id: String,
     /// List of links for this payout
     pub links: PayoutShowLinksSuccess,
@@ -2964,10 +2964,10 @@ pub struct PayoutShowDrpTradeAttributesSuccess {
 pub struct PayoutShowLinksSuccess {
     /// Url of this payout
     #[serde(rename = "self")]
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub itself: String,
     /// Url of the portfolio of this payout
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
 }
 
@@ -3125,7 +3125,7 @@ pub struct PayoutUpdateSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// Payout company/instrument symbol on the market.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// Market code.
     pub market: Market,
@@ -3154,16 +3154,16 @@ pub struct PayoutUpdateSuccess {
     /// The payout's exchange rate.
     pub exchange_rate: Float,
     /// If true, payout is non taxable.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub non_taxable: String,
     /// Any comments for that payout.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// ID of the company event the given payout is based on (nil if not based on any).
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     /// The state of the payout, can be any of `"confirmed"`, `"unconfirmed"` or `"rejected"`.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
     /// Parameters when the payout is reinvested.
     #[serde(default)]
@@ -3199,10 +3199,10 @@ pub struct PayoutUpdateSuccess {
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
     pub amit_increase_amount: Float,
     /// Filename of payout attachment, if present.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub attachment_filename: String,
     /// Id of payout attachment, if present. Use the attachments endpoint to get a copy of the file.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub attachment_id: String,
     /// List of links for this payout
     pub links: PayoutUpdateLinksSuccess,
@@ -3226,7 +3226,7 @@ pub struct PayoutUpdateDrpTradeAttributesSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PayoutUpdateLinksSuccess {
     /// Url of the portfolio of this payout
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
 }
 
@@ -3250,7 +3250,7 @@ impl<'a> ApiEndpoint<'a> for PortfolioCreate {
 #[derive(Debug, Clone, Serialize)]
 pub struct PortfolioCreateParameters {
     /// The new portfolio's name.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// `true` to enable broker import via Trade Confirmation Emails.
     pub broker_email_api_enabled: bool,
@@ -3258,17 +3258,17 @@ pub struct PortfolioCreateParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub financial_year_end_month_id: i64,
     /// Financial year end MM-DD.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub financial_year_end: String,
     /// Default sale allocation method. See <a href="/api/2/codes#sale_allocation_method">valid methods by country</a>.
     pub default_sale_allocation_method: SaleAllocationMethod,
     /// Interest method calculation: `"simple"` or `"compound"`.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub interest_method: String,
     /// Tax Status (`true`: Trader, `false`: Investor)
     pub trader: bool,
     /// For Canadian portfolios, the type of tax processing (`"non_registered"`, `"rrsp"` or `"rrif"`)
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub tax_entity_type: String,
     /// Disable Automatic Transactions for this portfolio (`true`: disable, `false`: enable)
     #[serde(default)]
@@ -3376,7 +3376,7 @@ pub struct PortfolioListPortfoliosSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The portfolio name.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The default sale allocation method for tax reporting.
     pub default_sale_allocation_method: SaleAllocationMethod,
@@ -3393,16 +3393,16 @@ pub struct PortfolioListPortfoliosSuccess {
     /// `true` if the broker import email is enabled.
     pub broker_email_api_enabled: bool,
     /// Email prefix of the broker import email address.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub broker_email_key: String,
     /// (deprecated) Financial Year end month (`1`: Jan, `2`: Feb, etc.).
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub financial_year_end_month_id: i64,
     /// Financial Year end date MM-DD.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub financial_year_end: String,
     /// Performance Calculation Method
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub interest_method: String,
     /// ISO code of the portfolio country (see <a href="https://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a>)
     pub country_code: Country,
@@ -3412,7 +3412,7 @@ pub struct PortfolioListPortfoliosSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub inception_date: NaiveDate,
     /// Time zone name
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub tz_name: String,
     /// Calculates accrual adjustments against any portfolio cash accounts to allow for unsettled trades and unpaid dividends
     pub apply_cash_account_adjustments: bool,
@@ -3434,7 +3434,7 @@ pub struct PortfolioListPortfoliosSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PortfolioListPortfoliosLinksSuccess {
     /// Url of this portfolio
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
 }
 
@@ -3443,7 +3443,7 @@ pub struct PortfolioListPortfoliosLinksSuccess {
 pub struct PortfolioListLinksSuccess {
     /// Url to list of portfolios
     #[serde(rename = "self")]
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub itself: String,
 }
 
@@ -3487,7 +3487,7 @@ pub struct PortfolioShowSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The portfolio name.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The default sale allocation method for tax reporting.
     pub default_sale_allocation_method: SaleAllocationMethod,
@@ -3501,21 +3501,21 @@ pub struct PortfolioShowSuccess {
     /// Automatic Transactions are disabled (`true`) or enabled (`false`).
     pub disable_automatic_transactions: bool,
     /// For Canadian portfolios, the type of tax processing (`"non_registered"`, `"rrsp"` or `"rrif"`)
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub tax_entity_type: String,
     /// `true` if the broker import email is enabled.
     pub broker_email_api_enabled: bool,
     /// Email prefix of the broker import email address.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub broker_email_key: String,
     /// (deprecated) Financial Year end month (`1`: Jan, `2`: Feb, etc.).
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub financial_year_end_month_id: i64,
     /// Financial Year end date MM-DD.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub financial_year_end: String,
     /// Performance Calculation Method
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub interest_method: String,
     /// ISO code of the portfolio country (see <a href="https://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a>)
     pub country_code: Country,
@@ -3525,7 +3525,7 @@ pub struct PortfolioShowSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub inception_date: NaiveDate,
     /// Time zone name
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub tz_name: String,
     /// Calculates accrual adjustments against any portfolio cash accounts to allow for unsettled trades and unpaid dividends
     pub apply_cash_account_adjustments: bool,
@@ -3549,10 +3549,10 @@ pub struct PortfolioShowSuccess {
 pub struct PortfolioShowLinksSuccess {
     /// Url of this portfolio
     #[serde(rename = "self")]
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub itself: String,
     /// Url of this portfolio (same as self)
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
 }
 
@@ -3589,7 +3589,7 @@ pub struct PortfolioUpdateParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The portfolio's name.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// `true`to enable broker import via Trade Confirmation Emails.
     pub broker_email_api_enabled: bool,
@@ -3597,17 +3597,17 @@ pub struct PortfolioUpdateParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub financial_year_end_month_id: i64,
     /// Financial year end MM-DD.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub financial_year_end: String,
     /// Default sale allocation method. See <a href="/api/2/codes#sale_allocation_method">valid methods by country</a>.
     pub default_sale_allocation_method: SaleAllocationMethod,
     /// Interest method calculation: `"simple"` or `"compound"`.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub interest_method: String,
     /// `true` if trader.
     pub trader: bool,
     /// For Canadian portfolios, the type of tax processing (`"non_registered"`, `"rrsp"` or `"rrif"`)
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub tax_entity_type: String,
     /// `0`: trust, `1`: smsf, `2`: company
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -3640,7 +3640,7 @@ pub struct PortfolioUpdateSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The portfolio name.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The default sale allocation method for tax reporting.
     pub default_sale_allocation_method: SaleAllocationMethod,
@@ -3652,21 +3652,21 @@ pub struct PortfolioUpdateSuccess {
     /// Tax Status (`true`: Trader, `false`: Investor).
     pub trader: bool,
     /// For Canadian portfolios, the type of tax processing (`"non_registered"`, `"rrsp"` or `"rrif"`)
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub tax_entity_type: String,
     /// `true` if the broker import email is enabled.
     pub broker_email_api_enabled: bool,
     /// Email prefix of the broker import email address.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub broker_email_key: String,
     /// (deprecated) Financial Year end month (`1`: Jan, `2`: Feb, etc.).
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub financial_year_end_month_id: i64,
     /// Financial Year end date MM-DD.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub financial_year_end: String,
     /// Performance Calculation Method
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub interest_method: String,
     /// ISO code of the portfolio country (see <a href="https://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a>)
     pub country_code: Country,
@@ -3694,10 +3694,10 @@ pub struct PortfolioUpdateSuccess {
 pub struct PortfolioUpdateLinksSuccess {
     /// Url of this portfolio
     #[serde(rename = "self")]
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub itself: String,
     /// Url of this portfolio (same as self)
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
 }
 
@@ -3801,10 +3801,10 @@ pub struct CapitalGainsDiscountedCapitalGainDistributionsSuccess {
     /// The market symbol
     pub market: Market,
     /// The instrument symbol
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// The name of the instrument
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The capital gain (negative for losses, rounded to 2 decimal places).
     pub gain: Float,
@@ -3819,10 +3819,10 @@ pub struct CapitalGainsNonDiscountedCapitalGainDistributionsSuccess {
     /// The market symbol
     pub market: Market,
     /// The instrument symbol
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// The name of the instrument
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The capital gain (negative for losses, rounded to 2 decimal places).
     pub gain: Float,
@@ -3837,13 +3837,13 @@ pub struct CapitalGainsShortTermParcelsSuccess {
     /// The market symbol
     pub market: Market,
     /// The instrument symbol
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// The name of the instrument
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The allocation method used: see <a href="/api/2/codes#sale_allocation_method">valid methods by country</a>
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub allocation_method: String,
     /// The purchase date for this parcel (format `YYYY-MM-DD`).
     #[serde_as(as = "DeserializeDate")]
@@ -3867,13 +3867,13 @@ pub struct CapitalGainsLongTermParcelsSuccess {
     /// The market symbol
     pub market: Market,
     /// The instrument symbol
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// The name of the instrument
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The allocation method used: see <a href="/api/2/codes#sale_allocation_method">valid methods by country</a>
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub allocation_method: String,
     /// The purchase date for this parcel (format `YYYY-MM-DD`).
     #[serde_as(as = "DeserializeDate")]
@@ -3897,13 +3897,13 @@ pub struct CapitalGainsLossParcelsSuccess {
     /// The market symbol
     pub market: Market,
     /// The instrument symbol
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// The name of the instrument
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The allocation method used: see <a href="/api/2/codes#sale_allocation_method">valid methods by country</a>
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub allocation_method: String,
     /// The purchase date for this parcel (format `YYYY-MM-DD`).
     #[serde_as(as = "DeserializeDate")]
@@ -4005,10 +4005,10 @@ pub struct DiversityGroupsGroupSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct DiversityGroupsGroupElementsSuccess {
     /// The name of this element
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// If a holding, the instrument symbol of this element
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub code: String,
     /// If a holding, the market code of this element
     pub market: Market,
@@ -4089,16 +4089,16 @@ pub struct PerformanceParameters {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PerformanceSuccess {
     /// A unique id identifying this report instance
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub id: String,
     /// The portfolio id
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio_id: String,
     /// Grouping id or name
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub grouping: String,
     /// The id of the custom group, if any, otherwise nil if a built-in group was selected
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub custom_group_id: String,
     /// The total value of the portfolio
     pub value: Float,
@@ -4139,24 +4139,24 @@ pub struct PerformanceSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PerformanceHoldingsSuccess {
     /// The id of this holding
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub id: String,
     /// The Sharesight symbol for the held instrument
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// A unique id identifying the instrument
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub instrument_id: String,
     /// The code for the market the held instrument is listed on
     pub market: Market,
     /// The group value this instrument has been placed in - note that the field name will be the group type
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub _group_type_: String,
     /// The name of the selected grouping for the report
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub grouping: String,
     /// The name of the instrument
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The current value of the holding.
     pub value: Float,
@@ -4184,13 +4184,13 @@ pub struct PerformanceHoldingsSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PerformanceCashAccountsSuccess {
     /// A unique key for each cash account
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub id: String,
     /// The id of the cash account, null for adjustments
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub cash_account_id: String,
     /// The name of the cash account
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The value of the cash account
     pub value: Float,
@@ -4204,7 +4204,7 @@ pub struct PerformanceCashAccountsSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PerformanceSubTotalsSuccess {
     /// The group value - note that the field name will be the group type
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub _group_type_: String,
     /// The total value of the holdings in this group
     pub value: Float,
@@ -4304,13 +4304,13 @@ pub struct UnrealisedCgtShortTermParcelsSuccess {
     /// The market symbol
     pub market: Market,
     /// The instrument symbol
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// The name of the instrument
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The allocation method used: see <a href="/api/2/codes#sale_allocation_method">valid methods by country</a>
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub allocation_method: String,
     /// The purchase date for this parcel (format `YYYY-MM-DD`)
     #[serde_as(as = "DeserializeDate")]
@@ -4331,13 +4331,13 @@ pub struct UnrealisedCgtLongTermParcelsSuccess {
     /// The market symbol
     pub market: Market,
     /// The instrument symbol
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// The name of the instrument
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The allocation method used: see <a href="/api/2/codes#sale_allocation_method">valid methods by country</a>
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub allocation_method: String,
     /// The purchase date for this parcel (format `YYYY-MM-DD`)
     #[serde_as(as = "DeserializeDate")]
@@ -4358,13 +4358,13 @@ pub struct UnrealisedCgtLossesSuccess {
     /// The market symbol
     pub market: Market,
     /// The instrument symbol
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// The name of the instrument
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The allocation method used: see <a href="/api/2/codes#sale_allocation_method">valid methods by country</a>
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub allocation_method: String,
     /// The purchase date for this parcel (format `YYYY-MM-DD`)
     #[serde_as(as = "DeserializeDate")]
@@ -4434,19 +4434,19 @@ pub struct ValuationParameters {
 #[derive(Debug, Clone, Deserialize)]
 pub struct ValuationSuccess {
     /// A unique id identifying this report instance
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub id: String,
     /// Report is as of this date.
     #[serde_as(as = "DeserializeDate")]
     pub balance_date: NaiveDate,
     /// The portfolio id
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio_id: String,
     /// Grouping id or name
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub grouping: String,
     /// The id of the custom group, if any, otherwise nil if a built-in group was selected
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub custom_group_id: String,
     /// The total value of the portfolio
     pub value: Float,
@@ -4462,24 +4462,24 @@ pub struct ValuationSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct ValuationHoldingsSuccess {
     /// The id of this holding
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub id: String,
     /// The Sharesight symbol for the held instrument
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// A unique id identifying the instrument
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub instrument_id: String,
     /// The code for the market the held instrument is listed on
     pub market: Market,
     /// The group value this instrument has been placed in - note that the field name will be the group type
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub _group_type_: String,
     /// The name of the selected grouping for the report
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub grouping: String,
     /// The name of the instrument
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The current value of the holding.
     pub value: Float,
@@ -4491,13 +4491,13 @@ pub struct ValuationHoldingsSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct ValuationCashAccountsSuccess {
     /// A unique key for each cash account
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub id: String,
     /// The id of the cash account, null for adjustments
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub cash_account_id: String,
     /// The name of the cash account
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The value of the cash account
     pub value: Float,
@@ -4511,7 +4511,7 @@ pub struct ValuationCashAccountsSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct ValuationSubTotalsSuccess {
     /// The group value - note that the field name will be the group type
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub _group_type_: String,
     /// The total value of the holdings in this group
     pub value: Float,
@@ -4537,7 +4537,7 @@ impl<'a> ApiEndpoint<'a> for RequestSingleSignOn {
 #[derive(Debug, Clone, Deserialize)]
 pub struct RequestSingleSignOnSuccess {
     /// Single-sign-on link
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub login_url: String,
 }
 
@@ -4570,7 +4570,7 @@ pub struct TradeConfirmParameters {
     #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
     /// The new state of the trade: `"confirmed"`.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
 }
 
@@ -4590,12 +4590,12 @@ pub struct TradeConfirmTradeSuccess {
     /// The trade type (`"BUY"`, `"SELL"`, `"SPLIT"`, etc).
     pub transaction_type: TradeDescription,
     /// The trade date (matches the maturity date for interest instruments, format `YYYY-MM-DD`).
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub transaction_date: String,
     /// The market code (`"ASX"`, `"NZX"`, etc).
     pub market: Market,
     /// The instrument code/symbol.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// Number of shares sold/bought.
     pub quantity: Float,
@@ -4608,10 +4608,10 @@ pub struct TradeConfirmTradeSuccess {
     /// The brokerage currency.
     pub brokerage_currency_code: Currency,
     /// The value for the trade as displayed in the 'value' column of the UI. For a return of capital, this will be the (signed) capital return value. For a cost base adjustment, this will be the value of the adjustment. For an opening balance, this will be the market value. In each case this is in portfolio currency (rounded to 2 decimal places).
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub value: String,
     /// Any comments for that trade.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// Portfolio ID of the trade.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -4626,7 +4626,7 @@ pub struct TradeConfirmTradeSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     /// The state of the trade, can be any of `"confirmed"`, `"unconfirmed"` or `"rejected"`.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
 }
 
@@ -4659,7 +4659,7 @@ pub struct TradeRejectParameters {
     #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
     /// The new state of the trade: `"rejected"`.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
 }
 
@@ -4679,12 +4679,12 @@ pub struct TradeRejectTradeSuccess {
     /// The trade type (`"BUY"`, `"SELL"`, `"SPLIT"`, etc).
     pub transaction_type: TradeDescription,
     /// The trade date (matches the maturity date for interest instruments, format `YYYY-MM-DD`).
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub transaction_date: String,
     /// The market code (`"ASX"`, `"NZX"`, etc).
     pub market: Market,
     /// The instrument code/symbol.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// Number of shares sold/bought.
     pub quantity: Float,
@@ -4697,10 +4697,10 @@ pub struct TradeRejectTradeSuccess {
     /// The brokerage currency.
     pub brokerage_currency_code: Currency,
     /// The value for the trade as displayed in the 'value' column of the UI. For a return of capital, this will be the (signed) capital return value. For a cost base adjustment, this will be the value of the adjustment. For an opening balance, this will be the market value. In each case this is in portfolio currency (rounded to 2 decimal places).
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub value: String,
     /// Any comments for that trade.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// Portfolio ID of the trade.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -4715,7 +4715,7 @@ pub struct TradeRejectTradeSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     /// The state of the trade, can be any of `"confirmed"`, `"unconfirmed"` or `"rejected"`.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
 }
 
@@ -4749,7 +4749,7 @@ impl<'a> fmt::Display for TradesUrlDisplay<'a> {
 #[derive(Debug, Clone, Serialize)]
 pub struct TradesParameters {
     /// The portfolio ID (to show trades for).
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio_id: String,
     /// Show trades from this date on. Defaults to portfolio inception date. Default value: inception_date
     #[serde_as(as = "Option<DeserializeDate>")]
@@ -4810,7 +4810,7 @@ pub struct TradesTradesSuccess {
     #[serde(default)]
     pub company_event_id: Option<i64>,
     /// Any comments for that trade.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// Portfolio ID of the trade.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -4819,7 +4819,7 @@ pub struct TradesTradesSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub holding_id: i64,
     /// The state of the trade, can be any of "confirmed", "unconfirmed" or "rejected".
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
     /// The trade type ('BUY','SELL','SPLIT','BONUS','CONSOLD','CANCEL','CAPITAL_RETURN','OPENING_BALANCE','ADJUST_COST_BASE','CAPITAL_CALL').
     pub transaction_type: TradeDescription,
@@ -4827,7 +4827,7 @@ pub struct TradesTradesSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub instrument_id: i64,
     /// The instrument code/symbol
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// The market code (eg. `ASX`, `NZX`, etc).
     pub market: Market,
@@ -4852,10 +4852,10 @@ pub struct TradesApiTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub version: i64,
     /// The path executed.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub action: String,
     /// When the transaction was executed.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub timestamp: String,
 }
 
@@ -4970,10 +4970,10 @@ pub struct TradesCreateSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct TradesCreateTradeSuccess {
     /// The trade ID. Maybe nil if the trade is based on an adjustment and has not yet been confirmed by the user.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub id: String,
     /// A unique identifier associated with this trade
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub unique_identifier: String,
     /// The trade date (format YYYY-MM-DD).
     #[serde_as(as = "DeserializeDate")]
@@ -4999,7 +4999,7 @@ pub struct TradesCreateTradeSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     /// Any comments for that trade.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// Portfolio ID of the trade.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -5008,7 +5008,7 @@ pub struct TradesCreateTradeSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub holding_id: i64,
     /// The state of the trade, can be any of "confirmed", "unconfirmed" or "rejected".
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
     /// The trade type ('BUY','SELL','SPLIT','BONUS','CONSOLD','CANCEL','CAPITAL_RETURN','OPENING_BALANCE','ADJUST_COST_BASE','CAPITAL_CALL').
     pub transaction_type: TradeDescription,
@@ -5016,12 +5016,12 @@ pub struct TradesCreateTradeSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub instrument_id: i64,
     /// The instrument code/symbol
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// The market code (eg. `ASX`, `NZX`, etc).
     pub market: Market,
     /// The filename of any attachment
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub attachment_filename: String,
     /// The document id of any attachment, for use with the Show Document API (v2)
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -5040,10 +5040,10 @@ pub struct TradesCreateApiTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub version: i64,
     /// The path executed.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub action: String,
     /// When the transaction was executed.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub timestamp: String,
 }
 
@@ -5100,10 +5100,10 @@ pub struct TradesDestroyApiTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub version: i64,
     /// The path executed.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub action: String,
     /// When the transaction was executed.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub timestamp: String,
 }
 
@@ -5137,7 +5137,7 @@ impl<'a> fmt::Display for TradesShowUrlDisplay<'a> {
 #[derive(Debug, Clone, Serialize)]
 pub struct TradesShowParameters {
     /// The trade ID (to show trades for).
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub id: String,
 }
 
@@ -5145,10 +5145,10 @@ pub struct TradesShowParameters {
 #[derive(Debug, Clone, Deserialize)]
 pub struct TradesShowSuccess {
     /// The trade ID. Maybe nil if the trade is based on an adjustment and has not yet been confirmed by the user.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub id: String,
     /// A unique identifier associated with this trade
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub unique_identifier: String,
     /// The trade date (format YYYY-MM-DD).
     #[serde_as(as = "DeserializeDate")]
@@ -5174,7 +5174,7 @@ pub struct TradesShowSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     /// Any comments for that trade.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// Portfolio ID of the trade.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -5183,7 +5183,7 @@ pub struct TradesShowSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub holding_id: i64,
     /// The state of the trade, can be any of "confirmed", "unconfirmed" or "rejected".
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
     /// The trade type ('BUY','SELL','SPLIT','BONUS','CONSOLD','CANCEL','CAPITAL_RETURN','OPENING_BALANCE','ADJUST_COST_BASE','CAPITAL_CALL').
     pub transaction_type: TradeDescription,
@@ -5191,12 +5191,12 @@ pub struct TradesShowSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub instrument_id: i64,
     /// The instrument code/symbol
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// The market code (eg. `ASX`, `NZX`, etc).
     pub market: Market,
     /// The filename of any attachment
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub attachment_filename: String,
     /// The document id of any attachment, for use with the Show Document API (v2)
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -5217,10 +5217,10 @@ pub struct TradesShowApiTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub version: i64,
     /// The path executed.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub action: String,
     /// When the transaction was executed.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub timestamp: String,
 }
 
@@ -5331,10 +5331,10 @@ pub struct TradesUpdateSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct TradesUpdateTradeSuccess {
     /// The trade ID. Maybe nil if the trade is based on an adjustment and has not yet been confirmed by the user.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub id: String,
     /// A unique identifier associated with this trade
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub unique_identifier: String,
     /// The trade date (format YYYY-MM-DD).
     #[serde_as(as = "DeserializeDate")]
@@ -5360,7 +5360,7 @@ pub struct TradesUpdateTradeSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub company_event_id: i64,
     /// Any comments for that trade.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// Portfolio ID of the trade.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -5369,7 +5369,7 @@ pub struct TradesUpdateTradeSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub holding_id: i64,
     /// The state of the trade, can be any of "confirmed", "unconfirmed" or "rejected".
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
     /// The trade type ('BUY','SELL','SPLIT','BONUS','CONSOLD','CANCEL','CAPITAL_RETURN','OPENING_BALANCE','ADJUST_COST_BASE','CAPITAL_CALL').
     pub transaction_type: TradeDescription,
@@ -5377,12 +5377,12 @@ pub struct TradesUpdateTradeSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub instrument_id: i64,
     /// The instrument code/symbol
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// The market code (eg. `ASX`, `NZX`, etc).
     pub market: Market,
     /// The filename of any attachment
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub attachment_filename: String,
     /// The document id of any attachment, for use with the Show Document API (v2)
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -5401,10 +5401,10 @@ pub struct TradesUpdateApiTransactionSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub version: i64,
     /// The path executed.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub action: String,
     /// When the transaction was executed.
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub timestamp: String,
 }
 
@@ -5438,19 +5438,19 @@ pub struct MyUserUserSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The full name of the user
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The first name of the user
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub first_name: String,
     /// The last name of the user
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub last_name: String,
     /// The email address of the user
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub email: String,
     /// The Sharesight plan code of the user
-    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
     pub plan_code: String,
     /// Is the user activated (by confirming email address)
     pub is_activated: bool,
