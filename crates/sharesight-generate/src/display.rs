@@ -225,7 +225,10 @@ impl<'a> fmt::Display for ApiStruct<'a> {
                         }
                     }
 
-                    if parameter.optional {
+                    if parameter.optional
+                        || (parameter.field_type.is_string()
+                            && string_enum_type(field_name, endpoint_name).is_none())
+                    {
                         writeln!(f, "    #[serde(default)]")?;
                     }
 
@@ -258,30 +261,13 @@ impl<'a> fmt::Display for ApiStruct<'a> {
                             write!(f, ">")?;
                         }
                     } else if parameter.field_type.is_string()
-                        && (field_name.ends_with("currency_code")
-                            || field_name.ends_with("currency"))
+                        && string_enum_type(field_name, endpoint_name).is_some()
                     {
-                        write!(f, "Currency")?;
-                    } else if parameter.field_type.is_string() && field_name == "country_code" {
-                        write!(f, "Country")?;
-                    } else if parameter.field_type.is_string()
-                        && (field_name == "market" || field_name == "market_code")
-                    {
-                        write!(f, "Market")?;
-                    } else if parameter.field_type.is_string() && field_name == "transaction_type" {
-                        write!(f, "TradeDescription")?;
-                    } else if parameter.field_type.is_string()
-                        && field_name == "transaction_description"
-                    {
-                        write!(f, "PayoutDescription")?;
-                    } else if parameter.field_type.is_string()
-                        && field_name == "default_sale_allocation_method"
-                    {
-                        write!(f, "SaleAllocationMethod")?;
-                    } else if parameter.field_type.is_string() && field_name == "type_name" {
-                        write!(f, "CashAccountTransactionTypeName")?;
-                    } else if endpoint_name == "GroupsList" && field_name == "id" {
-                        write!(f, "IdOrName")?;
+                        write!(
+                            f,
+                            "{}",
+                            string_enum_type(field_name, endpoint_name).unwrap()
+                        )?;
                     } else {
                         write!(f, "{}", FieldTypeRustTypeNameDisplay(&parameter.field_type))?;
                     }
@@ -301,6 +287,20 @@ impl<'a> fmt::Display for ApiStruct<'a> {
         }
 
         Ok(())
+    }
+}
+
+fn string_enum_type(s: &str, endpoint_name: &str) -> Option<&'static str> {
+    match s {
+        s if s.ends_with("currency_code") || s.ends_with("currency") => Some("Currency"),
+        "country_code" => Some("Country"),
+        "market" | "market_code" => Some("Market"),
+        "transaction_type" => Some("TradeDescription"),
+        "transaction_description" => Some("PayoutDescription"),
+        "default_sale_allocation_method" => Some("SaleAllocationMethod"),
+        "type_name" => Some("CashAccountTransactionTypeName"),
+        "id" if endpoint_name == "GroupsList" => Some("IdOrName"),
+        _ => None,
     }
 }
 
