@@ -2299,7 +2299,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "holding_merge.trades.company_event_id",
               "description": "<p>The company event linked to the transaction.</p>"
             },
@@ -2648,7 +2648,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "holding_merge.trades.company_event_id",
               "description": "<p>The company event linked to the transaction.</p>"
             },
@@ -2997,7 +2997,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "holding_merge.trades.company_event_id",
               "description": "<p>The company event linked to the transaction.</p>"
             },
@@ -3346,7 +3346,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "holding_merge.trades.company_event_id",
               "description": "<p>The company event linked to the transaction.</p>"
             },
@@ -3618,7 +3618,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "trades.company_event_id",
               "description": "<p>The company event linked to the transaction.</p>"
             },
@@ -3897,7 +3897,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "trades.company_event_id",
               "description": "<p>The company event linked to the transaction.</p>"
             },
@@ -4218,7 +4218,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "trades.company_event_id",
               "description": "<p>The company event linked to the transaction.</p>"
             },
@@ -4490,7 +4490,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "trades.company_event_id",
               "description": "<p>The company event linked to the transaction.</p>"
             },
@@ -7827,7 +7827,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "payouts.company_event_id",
               "description": "<p>ID of the company event the given payout is based on (nil if not based on any).</p>"
             },
@@ -8277,7 +8277,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "payouts.company_event_id",
               "description": "<p>ID of the company event the given payout is based on (nil if not based on any).</p>"
             },
@@ -8748,7 +8748,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "payout.company_event_id",
               "description": "<p>ID of the company event the given payout is based on (nil if not based on any).</p>"
             },
@@ -9770,7 +9770,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "payout.company_event_id",
               "description": "<p>ID of the company event the given payout is based on (nil if not based on any).</p>"
             },
@@ -10028,7 +10028,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "company_event_id",
               "description": "<p>ID of the company event the given payout is based on (nil if not based on any).</p>"
             },
@@ -10643,7 +10643,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "company_event_id",
               "description": "<p>ID of the company event the given payout is based on (nil if not based on any).</p>"
             },
@@ -17270,7 +17270,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "trade.company_event_id",
               "description": "<p>ID of the company event the given trade is based on (nil if not based on any).</p>"
             },
@@ -17533,7 +17533,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "trade.company_event_id",
               "description": "<p>ID of the company event the given trade is based on (nil if not based on any).</p>"
             },
@@ -17763,7 +17763,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "trades.company_event_id",
               "description": "<p>The company event linked to the transaction.</p>"
             },
@@ -18482,7 +18482,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "trade.company_event_id",
               "description": "<p>The company event linked to the transaction.</p>"
             },
@@ -18915,7 +18915,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "trade.company_event_id",
               "description": "<p>The company event linked to the transaction.</p>"
             },
@@ -19554,7 +19554,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "company_event_id",
               "description": "<p>The company event linked to the transaction.</p>"
             },
@@ -19829,7 +19829,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "company_event_id",
               "description": "<p>The company event linked to the transaction.</p>"
             },
@@ -20246,7 +20246,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "trade.company_event_id",
               "description": "<p>The company event linked to the transaction.</p>"
             },
@@ -20651,7 +20651,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "trade.company_event_id",
               "description": "<p>The company event linked to the transaction.</p>"
             },

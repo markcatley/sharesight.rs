@@ -66,7 +66,7 @@ async fn main() -> anyhow::Result<()> {
             non_taxable: bool,
             comments: String,
             other_net_fsi: Option<f64>,
-            company_event_id: i64,
+            company_event_id: Option<i64>,
             state: String,
             franked_amount: Option<f64>,
             unfranked_amount: Option<f64>,

@@ -887,8 +887,9 @@ pub struct HoldingMergesCreateHoldingMergeTradesSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub value: String,
     /// The company event linked to the transaction.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub company_event_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub company_event_id: Option<i64>,
     /// Your unique identifier for this trade, if given
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub unique_identifier: String,
@@ -1030,8 +1031,9 @@ pub struct HoldingMergesUpdateHoldingMergeTradesSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub value: String,
     /// The company event linked to the transaction.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub company_event_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub company_event_id: Option<i64>,
     /// Your unique identifier for this trade, if given
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub unique_identifier: String,
@@ -1134,8 +1136,9 @@ pub struct HoldingTradesTradesSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     /// The company event linked to the transaction.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub company_event_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub company_event_id: Option<i64>,
     /// Any comments for that trade.
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
@@ -1262,8 +1265,9 @@ pub struct HoldingTradesRejectedTradesSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     /// The company event linked to the transaction.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub company_event_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub company_event_id: Option<i64>,
     /// Any comments for that trade.
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
@@ -2019,8 +2023,9 @@ pub struct ListHoldingPayoutsPayoutsSuccess {
     /// The amount of an LIC dividend that is attributable to an LIC capital gain.
     pub lic_capital_gain: Float,
     /// ID of the company event the given payout is based on (nil if not based on any).
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub company_event_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub company_event_id: Option<i64>,
     /// The state of the payout, can be any of `"confirmed"`, `"unconfirmed"` or `"rejected"`.
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
@@ -2209,8 +2214,9 @@ pub struct ListPortfolioPayoutsPayoutsSuccess {
     #[serde(default)]
     pub other_net_fsi: Option<Float>,
     /// ID of the company event the given payout is based on (nil if not based on any).
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub company_event_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub company_event_id: Option<i64>,
     /// The state of the payout, can be any of `"confirmed"`, `"unconfirmed"` or `"rejected"`.
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
@@ -2405,8 +2411,9 @@ pub struct PayoutConfirmPayoutSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// ID of the company event the given payout is based on (nil if not based on any).
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub company_event_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub company_event_id: Option<i64>,
     /// The state of the payout, can be any of `"confirmed"`, `"unconfirmed"` or `"rejected"`.
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
@@ -2800,8 +2807,9 @@ pub struct PayoutRejectPayoutSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// ID of the company event the given payout is based on (nil if not based on any).
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub company_event_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub company_event_id: Option<i64>,
     /// The state of the payout, can be any of "confirmed", "unconfirmed" or "rejected".
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
@@ -2897,8 +2905,9 @@ pub struct PayoutShowSuccess {
     /// The amount of an LIC dividend that is attributable to an LIC capital gain.
     pub lic_capital_gain: Float,
     /// ID of the company event the given payout is based on (nil if not based on any).
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub company_event_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub company_event_id: Option<i64>,
     /// The state of the payout, can be any of "confirmed", "unconfirmed" or "rejected".
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
@@ -3160,8 +3169,9 @@ pub struct PayoutUpdateSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
     /// ID of the company event the given payout is based on (nil if not based on any).
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub company_event_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub company_event_id: Option<i64>,
     /// The state of the payout, can be any of `"confirmed"`, `"unconfirmed"` or `"rejected"`.
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
@@ -4623,8 +4633,9 @@ pub struct TradeConfirmTradeSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub instrument_id: i64,
     /// ID of the company event the given trade is based on (nil if not based on any).
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub company_event_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub company_event_id: Option<i64>,
     /// The state of the trade, can be any of `"confirmed"`, `"unconfirmed"` or `"rejected"`.
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
@@ -4712,8 +4723,9 @@ pub struct TradeRejectTradeSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub instrument_id: i64,
     /// ID of the company event the given trade is based on (nil if not based on any).
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub company_event_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub company_event_id: Option<i64>,
     /// The state of the trade, can be any of `"confirmed"`, `"unconfirmed"` or `"rejected"`.
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
@@ -4996,8 +5008,9 @@ pub struct TradesCreateTradeSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     /// The company event linked to the transaction.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub company_event_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub company_event_id: Option<i64>,
     /// Any comments for that trade.
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
@@ -5171,8 +5184,9 @@ pub struct TradesShowSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     /// The company event linked to the transaction.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub company_event_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub company_event_id: Option<i64>,
     /// Any comments for that trade.
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
@@ -5357,8 +5371,9 @@ pub struct TradesUpdateTradeSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     /// The company event linked to the transaction.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub company_event_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub company_event_id: Option<i64>,
     /// Any comments for that trade.
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
