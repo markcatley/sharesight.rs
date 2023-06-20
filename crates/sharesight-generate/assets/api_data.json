@@ -7869,7 +7869,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "payouts.drp_trade_attributes.source_adjustment_id",
               "description": "<p>ID of any source adjustment for the reinvested amount.</p>"
             },
@@ -8319,7 +8319,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "payouts.drp_trade_attributes.source_adjustment_id",
               "description": "<p>ID of any source adjustment for the reinvested amount.</p>"
             },
@@ -9328,7 +9328,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "payout.drp_trade_attributes.source_adjustment_id",
               "description": "<p>ID of any source adjustment for the reinvested amount.</p>"
             },
@@ -10070,7 +10070,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "drp_trade_attributes.source_adjustment_id",
               "description": "<p>ID of any source adjustment for the reinvested amount.</p>"
             },
@@ -10685,7 +10685,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "drp_trade_attributes.source_adjustment_id",
               "description": "<p>ID of any source adjustment for the reinvested amount.</p>"
             },

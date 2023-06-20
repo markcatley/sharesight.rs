@@ -2085,8 +2085,9 @@ pub struct ListHoldingPayoutsPayoutsDrpTradeAttributesSuccess {
     /// Price per reinvested unit.
     pub price: Float,
     /// ID of any source adjustment for the reinvested amount.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub source_adjustment_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub source_adjustment_id: Option<i64>,
 }
 
 #[serde_as]
@@ -2273,8 +2274,9 @@ pub struct ListPortfolioPayoutsPayoutsDrpTradeAttributesSuccess {
     /// Price per reinvested unit.
     pub price: Float,
     /// ID of any source adjustment for the reinvested amount.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub source_adjustment_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub source_adjustment_id: Option<i64>,
 }
 
 #[serde_as]
@@ -2667,8 +2669,9 @@ pub struct PayoutCreatePayoutDrpTradeAttributesSuccess {
     /// Price per reinvested unit.
     pub price: Float,
     /// ID of any source adjustment for the reinvested amount.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub source_adjustment_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub source_adjustment_id: Option<i64>,
 }
 
 #[serde_as]
@@ -2964,8 +2967,9 @@ pub struct PayoutShowDrpTradeAttributesSuccess {
     /// Price per reinvested unit.
     pub price: Float,
     /// ID of any source adjustment for the reinvested amount.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub source_adjustment_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub source_adjustment_id: Option<i64>,
 }
 
 #[serde_as]
@@ -3228,8 +3232,9 @@ pub struct PayoutUpdateDrpTradeAttributesSuccess {
     /// Price per reinvested unit.
     pub price: Float,
     /// ID of any source adjustment for the reinvested amount.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub source_adjustment_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub source_adjustment_id: Option<i64>,
 }
 
 #[serde_as]
