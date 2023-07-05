@@ -6002,14 +6002,14 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "instruments.current_price",
               "description": "<p>The current price for this instrument displayed on it's currency.</p>"
             },
             {
               "group": "200 Success",
               "type": "DateTime",
-              "optional": false,
+              "optional": true,
               "field": "instruments.current_price_updated_at",
               "description": "<p>The date and time the current price was loaded (format YYYY-MM-DDThh:mm:ss, see <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO 8601</a>).</p>"
             },
@@ -6228,14 +6228,14 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "instruments.current_price",
               "description": "<p>The current price for this instrument displayed on it's currency.</p>"
             },
             {
               "group": "200 Success",
               "type": "DateTime",
-              "optional": false,
+              "optional": true,
               "field": "instruments.current_price_updated_at",
               "description": "<p>The date and time the current price was loaded (format YYYY-MM-DDThh:mm:ss, see <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO 8601</a>).</p>"
             },

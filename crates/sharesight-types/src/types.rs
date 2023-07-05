@@ -1456,9 +1456,11 @@ pub struct ListUserInstrumentsInstrumentsSuccess {
     #[serde(default)]
     pub eps: Option<Float>,
     /// The current price for this instrument displayed on it's currency.
-    pub current_price: Float,
+    #[serde(default)]
+    pub current_price: Option<Float>,
     /// The date and time the current price was loaded (format YYYY-MM-DDThh:mm:ss, see <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>).
-    pub current_price_updated_at: DateTime<FixedOffset>,
+    #[serde(default)]
+    pub current_price_updated_at: Option<DateTime<FixedOffset>>,
     /// The instrument sector.
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub sector_classification_name: String,
