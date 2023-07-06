@@ -938,12 +938,10 @@ pub struct HoldingMergesCreateHoldingMergeTradesSuccess {
     pub state: String,
     /// Filename of attachmented file, if present.
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub attachment_filename: String,
+    pub attachment_filename: Option<String>,
     /// Id of the attachment, if present. Use the documents endpoint to get a copy of the file.
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub attachment_id: String,
+    pub attachment_id: Option<String>,
 }
 
 /// Update a holding merge.
@@ -1090,12 +1088,10 @@ pub struct HoldingMergesUpdateHoldingMergeTradesSuccess {
     pub state: String,
     /// Filename of attachmented file, if present.
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub attachment_filename: String,
+    pub attachment_filename: Option<String>,
     /// Id of the attachment, if present. Use the documents endpoint to get a copy of the file.
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub attachment_id: String,
+    pub attachment_id: Option<String>,
 }
 
 /// Returns trade transactions for a holding.
@@ -1208,11 +1204,11 @@ pub struct HoldingTradesTradesSuccess {
     pub market: Market,
     /// The filename of any attachment
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub attachment_filename: String,
+    pub attachment_filename: Option<String>,
     /// The document id of any attachment, for use with the Show Document API (v2)
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub attachment_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub attachment_id: Option<i64>,
     /// Returns 'true' if trade is confirmed.  DEPRECATED: Use the state field to determine 'confirmed' vs. 'rejected' vs. 'unconfirmed' instead.
     pub confirmed: bool,
 }
@@ -1347,11 +1343,11 @@ pub struct HoldingTradesRejectedTradesSuccess {
     pub market: Market,
     /// The filename of any attachment
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub attachment_filename: String,
+    pub attachment_filename: Option<String>,
     /// The document id of any attachment, for use with the Show Document API (v2)
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub attachment_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub attachment_id: Option<i64>,
     /// Returns 'true' if trade is confirmed.  DEPRECATED: Use the state field to determine 'confirmed' vs. 'rejected' vs. 'unconfirmed' instead.
     pub confirmed: bool,
 }
@@ -2568,17 +2564,19 @@ pub struct PayoutCreateParameters {
 #[derive(Debug, Clone, Serialize)]
 pub struct PayoutCreatePayoutParameters {
     /// Portfolio ID to create the payout for. This needs to be specified together with market and symbol, unless you specify a holding_id (for an existing Holding).
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub portfolio_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub portfolio_id: Option<i64>,
     /// Holding ID to create the trade for. If you include this, you do not need to specify portfolio_id, market and symbol parameters.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub holding_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub holding_id: Option<i64>,
     /// Payout company/instrument symbol on the market. This is not mandatory if holding_id for an existing Holding is specified.
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub symbol: String,
+    pub symbol: Option<String>,
     /// Market code (like `"NZX"` or `"ASX"`). This is not mandatory if holding_id for an existing Holding is specified.
-    pub market: Market,
+    #[serde(default)]
+    pub market: Option<Market>,
     /// The date of the payout (format `YYYY-MM-DD`).
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
@@ -2660,12 +2658,10 @@ pub struct PayoutCreatePayoutParameters {
     pub amit_increase_amount: Float,
     /// File name for the attachment. This parameter is required if attachment is set.
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub file_name: String,
+    pub file_name: Option<String>,
     /// Base64 encoded attachment file to save against the payout.
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub file_attachment: String,
+    pub file_attachment: Option<String>,
 }
 
 #[serde_as]
@@ -2697,8 +2693,18 @@ pub struct PayoutCreateSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PayoutCreatePayoutSuccess {
     /// The payout ID.
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub id: Option<i64>,
+    /// The portfolio ID.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub id: i64,
+    pub portfolio_id: i64,
+    /// The holding ID.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub holding_id: i64,
+    /// The instrument ID.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub instrument_id: i64,
     /// Payout company/instrument symbol on the market.
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -2725,64 +2731,72 @@ pub struct PayoutCreatePayoutSuccess {
     /// The payout tax credit amount. Always returned in the portfolio currency.
     #[serde(default)]
     pub tax_credit: Option<Float>,
-    /// Payout currency code, using 3-letter ISO 4217 code.
+    /// Currency code of the payout, using 3-letter ISO 4217 code.
     pub currency: Currency,
     /// The payout's exchange rate.
     pub exchange_rate: Float,
-    /// If `true`, payout is non taxable.
+    /// If true, payout is non taxable.
     pub non_taxable: bool,
-    /// The payout franked amount.
-    #[serde(default)]
-    pub franked_amount: Option<Float>,
-    /// The payout unfranked amount.
-    #[serde(default)]
-    pub unfranked_amount: Option<Float>,
     /// Any comments for that payout.
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub comments: String,
-    /// Any payout extra interest amount.
+    /// Other net foreign source income.
     #[serde(default)]
-    pub interest_payment: Option<Float>,
-    /// Capital gain amount.
+    pub other_net_fsi: Option<Float>,
+    /// ID of the company event the given payout is based on (nil if not based on any).
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
-    pub non_discounted_capital_gains: Option<Float>,
-    /// Discounted capital gain amount.
+    pub company_event_id: Option<i64>,
+    /// The state of the payout, can be any of `"confirmed"`, `"unconfirmed"` or `"rejected"`.
     #[serde(default)]
-    pub discounted_capital_gains: Option<Float>,
-    /// Any foreign tax income amount.
-    pub foreign_tax_income: Float,
-    /// Any non-tax assessable amount.
-    pub non_assessable: Float,
-    /// `true` if payout is for a trust.
-    #[serde(default)]
-    pub trust: Option<bool>,
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub state: String,
     /// Parameters when the payout is reinvested.
     #[serde(default)]
     pub drp_trade_attributes: Option<PayoutCreatePayoutDrpTradeAttributesSuccess>,
+    /// Franked amount in the payout. (Australia only)
+    #[serde(default)]
+    pub franked_amount: Option<Float>,
+    /// Unfranked amount in the payout (Australia only)
+    #[serde(default)]
+    pub unfranked_amount: Option<Float>,
+    /// `true` if this payout is for a trust. (Australia only)
+    #[serde(default)]
+    pub trust: Option<bool>,
     /// Extra interest amount in this payout. (Australia only)
     #[serde(default)]
     pub extra_interest_payment_amount: Option<Float>,
     /// Capital gain amount in this payout. (Australia only)
-    pub capital_gains: Float,
+    #[serde(default)]
+    pub capital_gains: Option<Float>,
+    /// Discounted capital gain amount in this payout. (Australia only)
+    #[serde(default)]
+    pub discounted_capital_gains: Option<Float>,
+    /// Interest payment amount in this payout. (Australia only)
+    #[serde(default)]
+    pub interest_payment: Option<Float>,
     /// Amount of foreign income in this payout. (Australia only)
-    pub foreign_source_income: Float,
+    #[serde(default)]
+    pub foreign_source_income: Option<Float>,
     /// Value of deferred income in this payout. (Australia only)
-    pub deferred_income: Float,
-    /// Value of CGT concession in this payout. (Australia only)
-    pub cgt_concession_amount: Float,
+    #[serde(default)]
+    pub deferred_income: Option<Float>,
+    /// True if this payout is not assessed for tax. (Australia only)
+    #[serde(default)]
+    pub non_assessable: Option<bool>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is less than the cash distribution you received. This amount is non-assessable and is used to decrease your cost base for cgt purposes (Australia only)
-    pub amit_decrease_amount: Float,
+    #[serde(default)]
+    pub amit_decrease_amount: Option<Float>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
-    pub amit_increase_amount: Float,
+    #[serde(default)]
+    pub amit_increase_amount: Option<Float>,
     /// Filename of payout attachment, if present.
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub attachment_filename: String,
+    pub attachment_filename: Option<String>,
     /// Id of payout attachment, if present. Use the attachments endpoint to get a copy of the file.
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub attachment_id: String,
+    pub attachment_id: Option<String>,
     /// List of links for this payout
     pub links: PayoutCreatePayoutLinksSuccess,
 }
@@ -2790,7 +2804,7 @@ pub struct PayoutCreatePayoutSuccess {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct PayoutCreatePayoutDrpTradeAttributesSuccess {
-    /// `true` for a reinvested payout.
+    /// True for a reinvested payout.
     pub dividend_reinvested: bool,
     /// How many units are reinvested.
     pub quantity: Float,
@@ -3086,12 +3100,10 @@ pub struct PayoutShowSuccess {
     pub amit_increase_amount: Float,
     /// Filename of payout attachment, if present.
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub attachment_filename: String,
+    pub attachment_filename: Option<String>,
     /// Id of payout attachment, if present. Use the attachments endpoint to get a copy of the file.
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub attachment_id: String,
+    pub attachment_id: Option<String>,
     /// List of links for this payout
     pub links: PayoutShowLinksSuccess,
 }
@@ -3245,13 +3257,17 @@ pub struct PayoutUpdatePayoutParameters {
     #[serde(default)]
     pub non_assessable: Option<bool>,
     /// Value of deferred income in this payout. (Australia only)
-    pub deferred_income: Float,
+    #[serde(default)]
+    pub deferred_income: Option<Float>,
     /// Value of CGT concession in this payout. (Australia only)
-    pub cgt_concession_amount: Float,
+    #[serde(default)]
+    pub cgt_concession_amount: Option<Float>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is less than the cash distribution you received. This amount is non-assessable and is used to decrease your cost base for cgt purposes (Australia only)
-    pub amit_decrease_amount: Float,
+    #[serde(default)]
+    pub amit_decrease_amount: Option<Float>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
-    pub amit_increase_amount: Float,
+    #[serde(default)]
+    pub amit_increase_amount: Option<Float>,
 }
 
 #[serde_as]
@@ -3359,12 +3375,10 @@ pub struct PayoutUpdateSuccess {
     pub amit_increase_amount: Float,
     /// Filename of payout attachment, if present.
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub attachment_filename: String,
+    pub attachment_filename: Option<String>,
     /// Id of payout attachment, if present. Use the attachments endpoint to get a copy of the file.
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub attachment_id: String,
+    pub attachment_id: Option<String>,
     /// List of links for this payout
     pub links: PayoutUpdateLinksSuccess,
 }
@@ -5294,11 +5308,11 @@ pub struct TradesCreateTradeSuccess {
     pub market: Market,
     /// The filename of any attachment
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub attachment_filename: String,
+    pub attachment_filename: Option<String>,
     /// The document id of any attachment, for use with the Show Document API (v2)
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub attachment_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub attachment_id: Option<i64>,
     /// Returns 'true' if trade is confirmed.  DEPRECATED: Use the state field to determine 'confirmed' vs. 'rejected' vs. 'unconfirmed' instead.
     pub confirmed: bool,
 }
@@ -5481,11 +5495,11 @@ pub struct TradesShowSuccess {
     pub market: Market,
     /// The filename of any attachment
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub attachment_filename: String,
+    pub attachment_filename: Option<String>,
     /// The document id of any attachment, for use with the Show Document API (v2)
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub attachment_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub attachment_id: Option<i64>,
     /// Returns 'true' if trade is confirmed.  DEPRECATED: Use the state field to determine 'confirmed' vs. 'rejected' vs. 'unconfirmed' instead.
     pub confirmed: bool,
     /// The current API Transaction.
@@ -5676,11 +5690,11 @@ pub struct TradesUpdateTradeSuccess {
     pub market: Market,
     /// The filename of any attachment
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub attachment_filename: String,
+    pub attachment_filename: Option<String>,
     /// The document id of any attachment, for use with the Show Document API (v2)
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub attachment_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub attachment_id: Option<i64>,
     /// Returns 'true' if trade is confirmed.  DEPRECATED: Use the state field to determine 'confirmed' vs. 'rejected' vs. 'unconfirmed' instead.
     pub confirmed: bool,
 }
