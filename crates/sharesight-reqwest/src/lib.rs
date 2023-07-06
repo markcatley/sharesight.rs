@@ -67,7 +67,11 @@ impl Client {
                 e
             })?)
         } else {
-            Err(SharesightReqwestError::Http(resp))
+            Err(SharesightReqwestError::Http(
+                resp.url().clone(),
+                resp.status(),
+                resp.text().await?,
+            ))
         }
     }
 }
@@ -80,8 +84,8 @@ impl AsRef<reqwest::Client> for Client {
 
 #[derive(Debug, thiserror::Error)]
 pub enum SharesightReqwestError {
-    #[error("Http request returned non-success status code\n{0:?}")]
-    Http(reqwest::Response),
+    #[error("Http request returned non-success status code\n{0} {1}\n{2}")]
+    Http(reqwest::Url, reqwest::StatusCode, String),
     #[error("Http error occurred\n{0:?}")]
     Reqwest(#[from] reqwest::Error),
     #[error("Deserialize error occurred\n{0:?}")]
