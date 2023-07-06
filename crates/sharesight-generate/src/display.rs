@@ -230,6 +230,7 @@ impl<'a> fmt::Display for ApiStruct<'a> {
                     } else if parameter.field_type.is_string()
                         && string_enum_type(field_name, endpoint_name).is_none()
                     {
+                        writeln!(f, "    #[serde(default)]")?;
                         writeln!(f, "    #[serde_as(deserialize_as = \"DefaultOnNull\")]")?;
                     }
 
