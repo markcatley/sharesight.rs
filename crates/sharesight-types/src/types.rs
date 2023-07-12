@@ -3045,9 +3045,7 @@ pub struct PayoutShowSuccess {
     /// The payout's exchange rate.
     pub exchange_rate: Float,
     /// If `true`, payout is non taxable.
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub non_taxable: String,
+    pub non_taxable: bool,
     /// Any comments for that payout.
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -3177,9 +3175,8 @@ pub struct PayoutUpdateParameters {
 #[derive(Debug, Clone, Serialize)]
 pub struct PayoutUpdatePayoutParameters {
     /// The date of the payout (format `YYYY-MM-DD`).
-    #[serde_as(as = "Option<DeserializeDate>")]
-    #[serde(default)]
-    pub paid_on: Option<NaiveDate>,
+    #[serde_as(as = "DeserializeDate")]
+    pub paid_on: NaiveDate,
     /// The ex date for the payout (format `YYYY-MM-DD`).
     #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
@@ -3325,9 +3322,7 @@ pub struct PayoutUpdateSuccess {
     /// The payout's exchange rate.
     pub exchange_rate: Float,
     /// If true, payout is non taxable.
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub non_taxable: String,
+    pub non_taxable: bool,
     /// Any comments for that payout.
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]

@@ -10020,7 +10020,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Boolean",
               "optional": false,
               "field": "non_taxable",
               "description": "<p>If <code>true</code>, payout is non taxable.</p>"
@@ -10329,7 +10329,7 @@
             {
               "group": "Parameter",
               "type": "Date",
-              "optional": true,
+              "optional": false,
               "field": "payout.paid_on",
               "description": "<p>The date of the payout (format <code>YYYY-MM-DD</code>).</p>"
             },
@@ -10649,7 +10649,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Boolean",
               "optional": false,
               "field": "non_taxable",
               "description": "<p>If true, payout is non taxable.</p>"
