@@ -2629,7 +2629,8 @@ pub struct PayoutCreatePayoutParameters {
     #[serde(default)]
     pub unfranked_amount: Option<Float>,
     /// `true` if this payout is for a trust. (Australia only)
-    pub trust: bool,
+    #[serde(default)]
+    pub trust: Option<bool>,
     /// Extra interest amount in this payout. (Australia only)
     #[serde(default)]
     pub extra_interest_payment_amount: Option<Float>,
@@ -2649,13 +2650,17 @@ pub struct PayoutCreatePayoutParameters {
     #[serde(default)]
     pub non_assessable: Option<bool>,
     /// Value of deferred income in this payout. (Australia only)
-    pub deferred_income: Float,
+    #[serde(default)]
+    pub deferred_income: Option<Float>,
     /// Value of CGT concession in this payout. (Australia only)
-    pub cgt_concession_amount: Float,
+    #[serde(default)]
+    pub cgt_concession_amount: Option<Float>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is less than the cash distribution you received. This amount is non-assessable and is used to decrease your cost base for cgt purposes (Australia only)
-    pub amit_decrease_amount: Float,
+    #[serde(default)]
+    pub amit_decrease_amount: Option<Float>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
-    pub amit_increase_amount: Float,
+    #[serde(default)]
+    pub amit_increase_amount: Option<Float>,
     /// File name for the attachment. This parameter is required if attachment is set.
     #[serde(default)]
     pub file_name: Option<String>,
@@ -3085,17 +3090,23 @@ pub struct PayoutShowSuccess {
     #[serde(default)]
     pub discounted_capital_gains: Option<Float>,
     /// Amount of foreign income in this payout. (Australia only)
-    pub foreign_source_income: Float,
+    #[serde(default)]
+    pub foreign_source_income: Option<Float>,
     /// `true` if this payout is not assessed for tax. (Australia only)
-    pub non_assessable: bool,
+    #[serde(default)]
+    pub non_assessable: Option<bool>,
     /// Value of deferred income in this payout. (Australia only)
-    pub deferred_income: Float,
+    #[serde(default)]
+    pub deferred_income: Option<Float>,
     /// Value of CGT concession in this payout. (Australia only)
-    pub cgt_concession_amount: Float,
+    #[serde(default)]
+    pub cgt_concession_amount: Option<Float>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is less than the cash distribution you received. This amount is non-assessable and is used to decrease your cost base for cgt purposes (Australia only)
-    pub amit_decrease_amount: Float,
+    #[serde(default)]
+    pub amit_decrease_amount: Option<Float>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
-    pub amit_increase_amount: Float,
+    #[serde(default)]
+    pub amit_increase_amount: Option<Float>,
     /// Filename of payout attachment, if present.
     #[serde(default)]
     pub attachment_filename: Option<String>,
@@ -3357,17 +3368,23 @@ pub struct PayoutUpdateSuccess {
     #[serde(default)]
     pub discounted_capital_gains: Option<Float>,
     /// Amount of foreign income in this payout. (Australia only)
-    pub foreign_source_income: Float,
+    #[serde(default)]
+    pub foreign_source_income: Option<Float>,
     /// `true` if this payout is not assessed for tax. (Australia only)
-    pub non_assessable: bool,
+    #[serde(default)]
+    pub non_assessable: Option<bool>,
     /// Value of deferred income in this payout. (Australia only)
-    pub deferred_income: Float,
+    #[serde(default)]
+    pub deferred_income: Option<Float>,
     /// Value of CGT concession in this payout. (Australia only)
-    pub cgt_concession_amount: Float,
+    #[serde(default)]
+    pub cgt_concession_amount: Option<Float>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is less than the cash distribution you received. This amount is non-assessable and is used to decrease your cost base for cgt purposes (Australia only)
-    pub amit_decrease_amount: Float,
+    #[serde(default)]
+    pub amit_decrease_amount: Option<Float>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
-    pub amit_increase_amount: Float,
+    #[serde(default)]
+    pub amit_increase_amount: Option<Float>,
     /// Filename of payout attachment, if present.
     #[serde(default)]
     pub attachment_filename: Option<String>,
