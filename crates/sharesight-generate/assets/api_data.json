@@ -14867,7 +14867,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "portfolio_id",
               "description": "<p>The portfolio id</p>"
@@ -14965,10 +14965,10 @@
             },
             {
               "group": "200 Success",
-              "type": "Date",
+              "type": "Boolean",
               "optional": false,
               "field": "include_sales",
-              "description": "<p>Include sales (format <code>YYYY-MM-DD</code>)</p>"
+              "description": "<p>Include sales</p>"
             },
             {
               "group": "200 Success",
@@ -14979,7 +14979,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "holdings.id",
               "description": "<p>The id of this holding</p>"
@@ -14993,7 +14993,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "holdings.instrument_id",
               "description": "<p>A unique id identifying the instrument</p>"
@@ -16754,7 +16754,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "portfolio_id",
               "description": "<p>The portfolio id</p>"
@@ -16789,7 +16789,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "holdings.id",
               "description": "<p>The id of this holding</p>"
@@ -16803,7 +16803,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "holdings.instrument_id",
               "description": "<p>A unique id identifying the instrument</p>"
