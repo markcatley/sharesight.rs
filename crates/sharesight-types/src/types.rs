@@ -4327,9 +4327,8 @@ pub struct PerformanceSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub id: String,
     /// The portfolio id
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub portfolio_id: String,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub portfolio_id: i64,
     /// Grouping id or name
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -4362,9 +4361,8 @@ pub struct PerformanceSuccess {
     /// End date (format `YYYY-MM-DD`)
     #[serde_as(as = "DeserializeDate")]
     pub end_date: NaiveDate,
-    /// Include sales (format `YYYY-MM-DD`)
-    #[serde_as(as = "DeserializeDate")]
-    pub include_sales: NaiveDate,
+    /// Include sales
+    pub include_sales: bool,
     /// List of holdings.
     pub holdings: Vec<PerformanceHoldingsSuccess>,
     /// List of cash accounts. This includes Unsettled Trades and Unpaid Payout Adjustments.
@@ -4377,17 +4375,15 @@ pub struct PerformanceSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PerformanceHoldingsSuccess {
     /// The id of this holding
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub id: String,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
     /// The Sharesight symbol for the held instrument
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// A unique id identifying the instrument
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub instrument_id: String,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub instrument_id: i64,
     /// The code for the market the held instrument is listed on
     pub market: Market,
     /// The group value this instrument has been placed in - note that the field name will be the group type
@@ -4698,9 +4694,8 @@ pub struct ValuationSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub balance_date: NaiveDate,
     /// The portfolio id
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub portfolio_id: String,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub portfolio_id: i64,
     /// Grouping id or name
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -4723,17 +4718,15 @@ pub struct ValuationSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct ValuationHoldingsSuccess {
     /// The id of this holding
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub id: String,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
     /// The Sharesight symbol for the held instrument
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// A unique id identifying the instrument
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub instrument_id: String,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub instrument_id: i64,
     /// The code for the market the held instrument is listed on
     pub market: Market,
     /// The group value this instrument has been placed in - note that the field name will be the group type
