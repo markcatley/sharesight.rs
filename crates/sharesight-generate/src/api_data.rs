@@ -81,7 +81,7 @@ impl ApiEndpoint {
         let mut new_fields = Vec::new();
 
         for field in parameter_fields {
-            if let Some(field) = field.field.get(0) {
+            if let Some(field) = field.field.first() {
                 if !parameter_fields
                     .iter()
                     .any(|f| matches!(&f.field[..], [name] if name == field))
