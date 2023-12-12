@@ -1,7 +1,7 @@
 use serde::{Deserialize, Serialize};
 
 #[allow(clippy::upper_case_acronyms)]
-#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Deserialize, Serialize)]
 pub enum Market {
     /// New Zealand Stock Exchange
     NZX,
@@ -52,6 +52,9 @@ pub enum Market {
     NSE,
     /// Foreign Exchange Currency
     FX,
+    /// Crypto Exchange
+    #[serde(rename = "CRYPTO")]
+    Crypto,
     /// Canadian Fund
     FundCA,
     /// NYSE American (AMEX)
@@ -106,7 +109,7 @@ pub enum Market {
     FundUS,
 }
 
-#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum TradeDescription {
     /// Buy
@@ -135,7 +138,7 @@ pub enum TradeDescription {
     CapitalCall,
 }
 
-#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Deserialize, Serialize)]
 pub enum PayoutDescription {
     /// Dividend
     #[serde(rename = "DIV")]
@@ -151,7 +154,7 @@ pub enum PayoutDescription {
     Distribution,
 }
 
-#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Deserialize, Serialize)]
 pub enum Country {
     /// Afghanistan
     #[serde(rename = "AF")]
@@ -951,7 +954,7 @@ pub enum Country {
 }
 
 #[allow(clippy::upper_case_acronyms)]
-#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Deserialize, Serialize)]
 pub enum Currency {
     /// Afghani
     AFN,
@@ -982,7 +985,8 @@ pub enum Currency {
     /// Bermudian Dollar
     BMD,
     /// Bitcoin
-    XBT,
+    #[serde(alias = "XBT")]
+    BTC,
     /// Bitshares
     BTS,
     /// Bolivar
@@ -1283,7 +1287,7 @@ pub enum Currency {
     PLN,
 }
 
-#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Deserialize, Serialize)]
 pub enum SaleAllocationMethod {
     /// Average Cost
     #[serde(rename = "average")]
@@ -1308,7 +1312,7 @@ pub enum SaleAllocationMethod {
     MinimiseCgt,
 }
 
-#[derive(Clone, Copy, Debug, Deserialize, Serialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
 pub enum CashAccountTransactionTypeName {
     #[serde(rename = "OPENING BALANCE")]
@@ -1320,7 +1324,24 @@ pub enum CashAccountTransactionTypeName {
     FeeReimbursement,
 }
 
-#[derive(Clone, Copy, Debug, Deserialize)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Deserialize)]
 pub struct CashAccountTransactionType {
     pub name: CashAccountTransactionTypeName,
+}
+
+#[cfg(test)]
+mod test {
+    use serde::de::value;
+
+    use super::*;
+
+    type StrDeserializer<'a> = value::StrDeserializer<'a, value::Error>;
+
+    #[test]
+    fn test_deserialize_btc_currency() {
+        assert_eq!(
+            Currency::BTC,
+            Currency::deserialize(StrDeserializer::new("BTC")).unwrap(),
+        );
+    }
 }
