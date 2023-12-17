@@ -6425,7 +6425,7 @@
               "type": "String",
               "optional": false,
               "field": "membership.access_code",
-              "description": "<p>Access level (one of NONE, READ, EDIT, ADMIN, OWNER)</p>"
+              "description": "<p>Access level (one of NONE, READ, EDIT, ADMIN)</p>"
             },
             {
               "group": "Parameter",
@@ -6514,7 +6514,7 @@
               "type": "String",
               "optional": false,
               "field": "access_code",
-              "description": "<p>Access level (one of NONE, READ, EDIT, ADMIN, OWNER)</p>"
+              "description": "<p>Access level (one of NONE, READ, EDIT, ADMIN)</p>"
             },
             {
               "group": "200 Success",
@@ -6563,7 +6563,14 @@
               "type": "Integer",
               "optional": false,
               "field": "user.last_name",
-              "description": "<p>The user's last name'.</p>"
+              "description": "<p>The user's last name.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Integer",
+              "optional": false,
+              "field": "user.email",
+              "description": "<p>The user's email.</p>"
             },
             {
               "group": "200 Success",
@@ -6883,6 +6890,13 @@
             },
             {
               "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "memberships.user.email",
+              "description": "<p>The user email.</p>"
+            },
+            {
+              "group": "200 Success",
               "type": "Boolean",
               "optional": false,
               "field": "memberships.alerts_enabled",
@@ -7130,14 +7144,14 @@
               "type": "String",
               "optional": false,
               "field": "access_code",
-              "description": "<p>Access level (one of NONE, READ, EDIT, ADMIN, OWNER)</p>"
+              "description": "<p>Access level (one of NONE, READ, EDIT, ADMIN)</p>"
             }
           ]
         },
         "examples": [
           {
             "title": "Request Body Example",
-            "content": "{\n  \"id\": 7,\n  \"access_code\": \"READ\"\n}",
+            "content": "{\n  \"access_code\": \"READ\"\n}",
             "type": "json"
           }
         ]
@@ -7157,7 +7171,7 @@
               "type": "String",
               "optional": false,
               "field": "access_code",
-              "description": "<p>Access level (one of NONE, READ, EDIT, ADMIN, OWNER)</p>"
+              "description": "<p>Access level (one of NONE, READ, EDIT, ADMIN)</p>"
             },
             {
               "group": "200 Success",
@@ -7193,6 +7207,13 @@
               "optional": false,
               "field": "user.last_name",
               "description": "<p>The user last name.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "user.email",
+              "description": "<p>The user email.</p>"
             },
             {
               "group": "200 Success",
@@ -7938,10 +7959,10 @@
             },
             {
               "group": "200 Success",
-              "type": "Boolean",
+              "type": "Float",
               "optional": true,
               "field": "payouts.non_assessable",
-              "description": "<p><code>true</code> if this payout is not assessed for tax. (Australia only)</p>"
+              "description": "<p>Any non-tax assessable amount.</p>"
             },
             {
               "group": "200 Success",
@@ -8388,10 +8409,10 @@
             },
             {
               "group": "200 Success",
-              "type": "Boolean",
+              "type": "Float",
               "optional": true,
               "field": "payouts.non_assessable",
-              "description": "<p>True if this payout is not assessed for tax. (Australia only)</p>"
+              "description": "<p>Any non-tax assessable amount.</p>"
             },
             {
               "group": "200 Success",
@@ -9076,10 +9097,10 @@
             },
             {
               "group": "Parameter",
-              "type": "Boolean",
+              "type": "Float",
               "optional": true,
               "field": "payout.non_assessable",
-              "description": "<p><code>true</code> if this payout is not assessed for tax. (Australia only)</p>"
+              "description": "<p>Any non-tax assessable amount.</p>"
             },
             {
               "group": "Parameter",
@@ -10146,10 +10167,10 @@
             },
             {
               "group": "200 Success",
-              "type": "Boolean",
+              "type": "Float",
               "optional": true,
               "field": "non_assessable",
-              "description": "<p><code>true</code> if this payout is not assessed for tax. (Australia only)</p>"
+              "description": "<p>Any non-tax assessable amount.</p>"
             },
             {
               "group": "200 Success",
@@ -10524,10 +10545,10 @@
             },
             {
               "group": "Parameter",
-              "type": "Boolean",
+              "type": "Float",
               "optional": true,
               "field": "payout.non_assessable",
-              "description": "<p><code>true</code> if this payout is not assessed for tax. (Australia only)</p>"
+              "description": "<p>Any non-tax assessable amount.</p>"
             },
             {
               "group": "Parameter",
@@ -10761,10 +10782,10 @@
             },
             {
               "group": "200 Success",
-              "type": "Boolean",
+              "type": "Float",
               "optional": true,
               "field": "non_assessable",
-              "description": "<p><code>true</code> if this payout is not assessed for tax. (Australia only)</p>"
+              "description": "<p>Any non-tax assessable amount.</p>"
             },
             {
               "group": "200 Success",
@@ -10878,7 +10899,7 @@
       }
     },
     {
-      "type": "post",
+      "type": "POST",
       "url": "/portfolios.json",
       "title": "Create Portfolio",
       "name": "PortfolioCreate",
@@ -10924,123 +10945,338 @@
           "Parameter": [
             {
               "group": "Parameter",
+              "type": "Object",
+              "optional": false,
+              "field": "portfolio",
+              "description": ""
+            },
+            {
+              "group": "Parameter",
               "type": "String",
               "optional": false,
-              "field": "name",
+              "field": "portfolio.name",
               "description": "<p>The new portfolio's name.</p>"
             },
             {
               "group": "Parameter",
               "type": "Boolean",
               "optional": false,
-              "field": "broker_email_api_enabled",
+              "field": "portfolio.broker_email_api_enabled",
               "description": "<p><code>true</code> to enable broker import via Trade Confirmation Emails.</p>"
             },
             {
               "group": "Parameter",
               "type": "Integer",
               "optional": false,
-              "field": "financial_year_end_month_id",
+              "field": "portfolio.financial_year_end_month_id",
               "description": "<p>(deprecated) Financial year end month (<code>1</code> for January, ..., <code>12</code> for December).</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": false,
-              "field": "financial_year_end",
+              "field": "portfolio.financial_year_end",
               "description": "<p>Financial year end MM-DD.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": false,
-              "field": "default_sale_allocation_method",
+              "field": "portfolio.default_sale_allocation_method",
               "description": "<p>Default sale allocation method. See <a href=\"/api/2/codes#sale_allocation_method\">valid methods by country</a>.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": false,
-              "field": "interest_method",
+              "field": "portfolio.interest_method",
               "description": "<p>Interest method calculation: <code>&quot;simple&quot;</code> or <code>&quot;compound&quot;</code>.</p>"
             },
             {
               "group": "Parameter",
               "type": "Boolean",
               "optional": false,
-              "field": "trader",
+              "field": "portfolio.trader",
               "description": "<p>Tax Status (<code>true</code>: Trader, <code>false</code>: Investor)</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": false,
-              "field": "tax_entity_type",
+              "field": "portfolio.tax_entity_type",
               "description": "<p>For Canadian portfolios, the type of tax processing (<code>&quot;non_registered&quot;</code>, <code>&quot;rrsp&quot;</code> or <code>&quot;rrif&quot;</code>)</p>"
             },
             {
               "group": "Parameter",
               "type": "Boolean",
               "optional": true,
-              "field": "disable_automatic_transactions",
-              "defaultValue": "false",
+              "field": "portfolio.disable_automatic_transactions",
               "description": "<p>Disable Automatic Transactions for this portfolio (<code>true</code>: disable, <code>false</code>: enable)</p>"
             },
             {
               "group": "Parameter",
               "type": "Integer",
               "optional": false,
-              "field": "cg_discount_id",
-              "description": "<p><code>0</code>: trust, <code>1</code>: smsf, <code>2</code>: company</p>"
+              "field": "portfolio.cg_discount_id",
+              "description": "<p><code>1</code>: Individuals / Trust, <code>2</code>: Self Managed Super Fund, <code>3</code>: Company. Defaults to Individuals / Trust for AU portfolios.</p>"
             },
             {
               "group": "Parameter",
               "type": "Float",
               "optional": false,
-              "field": "rwtr_rate",
+              "field": "portfolio.rwtr_rate",
               "description": "<p>New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as <code>33.1</code>).</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": true,
-              "field": "country_code",
+              "field": "portfolio.country_code",
               "description": "<p>ISO code of the portfolio country (see <a href=\"https://en.wikipedia.org/wiki/ISO_3166-1\">ISO 3166-1</a>). Defaults to the portfolio owner's default country.</p>"
             },
             {
               "group": "Parameter",
               "type": "Boolean",
               "optional": true,
-              "field": "apply_cash_account_adjustments",
+              "field": "portfolio.apply_cash_account_adjustments",
               "description": "<p><code>true</code> in order to calculate accrual adjustments against any portfolio cash accounts to allow for unsettled trades and unpaid dividends</p>"
             },
             {
               "group": "Parameter",
               "type": "Integer",
               "optional": true,
-              "field": "buy_trade_settlement_delay",
+              "field": "portfolio.buy_trade_settlement_delay",
               "description": "<p>Specifies the number of working days between the buy trade date and settlement in the cash account</p>"
             },
             {
               "group": "Parameter",
               "type": "Integer",
               "optional": true,
-              "field": "sell_trade_settlement_delay",
+              "field": "portfolio.sell_trade_settlement_delay",
               "description": "<p>Specifies the number of working days between the sell trade date and settlement in the cash account</p>"
             },
             {
               "group": "Parameter",
               "type": "Boolean",
               "optional": true,
-              "field": "account_for_delayed_cash_transactions",
+              "field": "portfolio.account_for_delayed_cash_transactions",
               "description": "<p><code>true</code> in order to account for the fact that bank statement data is delayed by a day due to overnight processing</p>"
+            },
+            {
+              "group": "Parameter",
+              "type": "String",
+              "optional": true,
+              "field": "portfolio.external_identifier",
+              "description": "<p>Typically used by professionals to identify the tax entity owner of the portfolio</p>"
             }
           ]
         },
         "examples": [
           {
             "title": "Request Body Example",
-            "content": "{\n  \"portfolio\":{\n    \"name\":\"My new Portfolio\",\n    \"broker_email_api_enabled\":true,\n    \"financial_year_end_month_id\":3,\n    \"default_sale_allocation_method\":\"fifo\",\n    \"interest_method\":\"simple\",\n    \"trader\":false,\n    \"disable_automatic_transactions\":false,\n    \"cg_discount_id\":1,\n    \"rwtr_rate\":\"33\",\n    \"country_code\":\"MX\",\n    \"apply_cash_account_adjustments\":true,\n    \"buy_trade_settlement_delay\":2,\n    \"sell_trade_settlement_delay\":2,\n    \"account_for_delayed_cash_transactions\":true,\n    \"trade_sync_cash_account_id\": 34345,\n  }\n}",
+            "content": "{\n  \"portfolio\": {\n    \"name\": \"My new Portfolio\",\n    \"broker_email_api_enabled\": true,\n    \"financial_year_end_month_id\": 3,\n    \"default_sale_allocation_method\": \"fifo\",\n    \"interest_method\": \"simple\",\n    \"trader\": false,\n    \"disable_automatic_transactions\": false,\n    \"cg_discount_id\": 1,\n    \"rwtr_rate\": \"33\",\n    \"country_code\": \"MX\",\n    \"apply_cash_account_adjustments\": true,\n    \"buy_trade_settlement_delay\": 2,\n    \"sell_trade_settlement_delay\": 2,\n    \"account_for_delayed_cash_transactions\": true\n  }\n}",
+            "type": "json"
+          }
+        ]
+      },
+      "success": {
+        "fields": {
+          "200 Success": [
+            {
+              "group": "200 Success",
+              "type": "Integer",
+              "optional": false,
+              "field": "id",
+              "description": "<p>The portfolio ID.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "name",
+              "description": "<p>The portfolio name.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "default_sale_allocation_method",
+              "description": "<p>The default sale allocation method for tax reporting.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "cg_discount",
+              "description": "<p>Discount for Capital Gains Tax.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Float",
+              "optional": false,
+              "field": "rwtr_rate",
+              "description": "<p>New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as <code>33.1</code>).</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Boolean",
+              "optional": false,
+              "field": "trader",
+              "description": "<p>Tax Status (<code>true</code>: Trade, <code>false</code>: Investor). Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Boolean",
+              "optional": false,
+              "field": "disable_automatic_transactions",
+              "description": "<p>Automatic Transactions are disabled (<code>true</code>) or enabled (<code>false</code>).</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "tax_entity_type",
+              "description": "<p>For Canadian portfolios, the type of tax processing (<code>&quot;non_registered&quot;</code>, <code>&quot;rrsp&quot;</code> or <code>&quot;rrif&quot;</code>). Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Boolean",
+              "optional": false,
+              "field": "broker_email_api_enabled",
+              "description": "<p><code>true</code> if the broker import email is enabled. Present for portfolio admins</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "broker_email_key",
+              "description": "<p>Email prefix of the broker import email address. Present for portfolio admins</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Integer",
+              "optional": false,
+              "field": "financial_year_end_month_id",
+              "description": "<p>(deprecated) Financial Year end month (<code>1</code>: Jan, <code>2</code>: Feb, etc.).</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "financial_year_end",
+              "description": "<p>Financial Year end date MM-DD.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "interest_method",
+              "description": "<p>Performance Calculation Method</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "country_code",
+              "description": "<p>ISO code of the portfolio country (see <a href=\"https://en.wikipedia.org/wiki/ISO_3166-1\">ISO 3166-1</a>)</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "currency_code",
+              "description": "<p>ISO code of the portfolio currency (see <a href=\"https://en.wikipedia.org/wiki/ISO_4217\">ISO 4217</a>)</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "inception_date",
+              "description": "<p>Portfolio's inception date (first trade record). Format: dd mmm yyyy</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "tz_name",
+              "description": "<p>Time zone name</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Boolean",
+              "optional": false,
+              "field": "apply_cash_account_adjustments",
+              "description": "<p>Calculates accrual adjustments against any portfolio cash accounts to allow for unsettled trades and unpaid dividends</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Integer",
+              "optional": false,
+              "field": "buy_trade_settlement_delay",
+              "description": "<p>Specifies the number of working days between the buy trade date and settlement in the cash account. Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Integer",
+              "optional": false,
+              "field": "sell_trade_settlement_delay",
+              "description": "<p>Specifies the number of working days between the sell trade date and settlement in the cash account. Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Boolean",
+              "optional": false,
+              "field": "account_for_delayed_cash_transactions",
+              "description": "<p>Accounts for the fact that bank statement data is delayed by a day due to overnight processing</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Integer",
+              "optional": false,
+              "field": "trade_sync_cash_account_id",
+              "description": "<p>All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account. Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Integer",
+              "optional": false,
+              "field": "payout_sync_cash_account_id",
+              "description": "<p>All payouts will generate a corresponding deposit in the selected 'payout' account. Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "external_identifier",
+              "description": "<p>Typically used by professionals to identify the tax entity owner of the portfolio</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Object",
+              "optional": false,
+              "field": "links",
+              "description": "<p>List of links for this portfolio</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "links.portfolio",
+              "description": "<p>Url of this portfolio</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "links.self",
+              "description": "<p>Url of this portfolio</p>"
+            }
+          ]
+        },
+        "examples": [
+          {
+            "title": "Response Example",
+            "content": "{\n  \"id\": 799669676,\n  \"name\": \"Owned Portfolio\",\n  \"default_sale_allocation_method\": \"fifo\",\n  \"cg_discount\": \"Individuals / Trust\",\n  \"rwtr_rate\": 33.0,\n  \"trader\": null,\n  \"disable_automatic_transactions\": false,\n  \"tax_entity_type\": null,\n  \"broker_email_api_enabled\": false,\n  \"broker_email_key\": null,\n  \"financial_year_end_month_id\": 3,\n  \"financial_year_end\": \"03-31\",\n  \"interest_method\": \"simple\",\n  \"country_code\": \"NZ\",\n  \"currency_code\": \"NZD\",\n  \"inception_date\": \"01 Jan 2009\",\n  \"tz_name\": \"Wellington\",\n  \"apply_cash_account_adjustments\": true,\n  \"buy_trade_settlement_delay\": 2,\n  \"sell_trade_settlement_delay\": 2,\n  \"account_for_delayed_cash_transactions\": true,\n  \"trade_sync_cash_account_id\": null,\n  \"payout_sync_cash_account_id\": null,\n  \"links\": {\n    \"portfolio\": \"https://api.sharesight.com/api/v2/portfolios/799669676\",\n    \"self\": \"https://api.sharesight.com/api/v2/portfolios/799669676\"\n  }\n}",
             "type": "json"
           }
         ]
@@ -11053,7 +11289,14 @@
               "type": "Integer",
               "optional": false,
               "field": "error",
-              "description": "<p>Internal error code</p>"
+              "description": "<p>Internal error code.</p>"
+            },
+            {
+              "group": "400 Bad Request",
+              "type": "String",
+              "optional": false,
+              "field": "reason",
+              "description": "<p>Detailed error message what went wrong.</p>"
             },
             {
               "group": "400 Bad Request",
@@ -11061,22 +11304,15 @@
               "optional": false,
               "field": "transaction_id",
               "description": "<p>Unique identifier for this API transaction.</p>"
-            },
-            {
-              "group": "400 Bad Request",
-              "type": "Integer",
-              "optional": false,
-              "field": "reason",
-              "description": "<p>Detailed error message what went wrong.</p>"
             }
           ],
           "422 Unprocessable Entity": [
             {
               "group": "422 Unprocessable Entity",
-              "type": "Hash",
+              "type": "Object",
               "optional": false,
               "field": "errors",
-              "description": "<p>Hash of fields with error messages.</p>"
+              "description": "<p>Object of fields with error messages.</p>"
             }
           ],
           "401 Unauthorized": [
@@ -11106,31 +11342,19 @@
               "description": "<p>The OAuth access token is not authorized.</p>"
             }
           ]
-        },
-        "examples": [
-          {
-            "title": "Response Example when Forbidden",
-            "content": "{\n  \"error\": 2004,\n  \"transaction_id\": 980191019,\n  \"reason\": \"You cannot add any more portfolios\"\n}",
-            "type": "json"
-          },
-          {
-            "title": "Response Example with missing end_date",
-            "content": "{\n  \"errors\": {\n    \"name\":[\n      \"needs to be between 3 and 100 characters long\"\n    ]\n  }\n}",
-            "type": "json"
-          }
-        ]
+        }
       },
-      "filename": "apidoc/docs/v2/m0/create_portfolio.rb",
+      "filename": "apidoc/docs/v2/m0/generated/show_portfolios_create.rb",
       "groupTitle": "User_API_Portfolios"
     },
     {
-      "type": "delete",
-      "url": "/portfolios/:id.json",
+      "type": "DELETE",
+      "url": "/portfolios/{id}.json",
       "title": "Delete Portfolio",
       "name": "PortfolioDelete",
       "group": "User_API_Portfolios",
       "version": "2.0.0",
-      "description": "<p>Delete an existing user portfolio.</p>",
+      "description": "<p>Delete an existing user portfolio</p>",
       "header": {
         "fields": {
           "Content-Type": [
@@ -11165,19 +11389,6 @@
           }
         ]
       },
-      "parameter": {
-        "fields": {
-          "Parameter": [
-            {
-              "group": "Parameter",
-              "type": "Integer",
-              "optional": false,
-              "field": "id",
-              "description": "<p>ID of the portfolio to delete.</p>"
-            }
-          ]
-        }
-      },
       "success": {
         "fields": {
           "204 No Content": [
@@ -11188,31 +11399,38 @@
               "description": "<p>The portfolio was successfully deleted.</p>"
             }
           ]
-        }
+        },
+        "examples": [
+          {
+            "title": "(204) status",
+            "content": "204: No Content",
+            "type": "json"
+          }
+        ]
       },
       "error": {
         "fields": {
-          "400 Bad Request": [
+          "404 Not Found": [
             {
-              "group": "400 Bad Request",
+              "group": "404 Not Found",
               "type": "Integer",
               "optional": false,
               "field": "error",
-              "description": "<p>Internal error code</p>"
+              "description": "<p>Internal error code.</p>"
             },
             {
-              "group": "400 Bad Request",
+              "group": "404 Not Found",
+              "type": "String",
+              "optional": false,
+              "field": "reason",
+              "description": "<p>Detailed error message what went wrong.</p>"
+            },
+            {
+              "group": "404 Not Found",
               "type": "Integer",
               "optional": false,
               "field": "transaction_id",
               "description": "<p>Unique identifier for this API transaction.</p>"
-            },
-            {
-              "group": "400 Bad Request",
-              "type": "Integer",
-              "optional": false,
-              "field": "reason",
-              "description": "<p>Detailed error message what went wrong.</p>"
             }
           ],
           "401 Unauthorized": [
@@ -11242,35 +11460,62 @@
               "description": "<p>The OAuth access token is not authorized.</p>"
             }
           ]
-        },
-        "examples": [
-          {
-            "title": "Response Example if the portfolio cannot be found",
-            "content": "{\n  \"error\": 2003,\n  \"transaction_id\": 980191019,\n  \"reason\": \"Portfolio not found\"\n}",
-            "type": "json"
-          }
-        ]
+        }
       },
-      "filename": "apidoc/docs/v2/m0/delete_portfolio.rb",
+      "filename": "apidoc/docs/v2/m0/generated/show_portfolios_destroy.rb",
       "groupTitle": "User_API_Portfolios"
     },
     {
-      "type": "get",
+      "type": "GET",
       "url": "/portfolios.json",
       "title": "List Portfolios",
       "name": "PortfolioList",
       "group": "User_API_Portfolios",
       "version": "2.0.0",
-      "description": "<p>Returns list of portfolios for the user.</p> <p>If the user owns the portfolio, all the info related to it will be displayed. Otherwise only basic info is returned.</p>",
+      "description": "<p>Returns list of portfolios for the user. If the user owns the portfolio, all the info related to it will be displayed. Otherwise only basic info is returned.</p>",
+      "header": {
+        "fields": {
+          "Content-Type": [
+            {
+              "group": "Content-Type",
+              "type": "String",
+              "optional": false,
+              "field": "Content-Type",
+              "description": "<p>The request body content-type (<code>application/json</code>)</p>"
+            }
+          ],
+          "Authorization": [
+            {
+              "group": "Authorization",
+              "type": "String",
+              "optional": false,
+              "field": "Authorization",
+              "description": "<p>The access token as <code>Bearer {access_token}</code></p>"
+            }
+          ]
+        },
+        "examples": [
+          {
+            "title": "Header Example Content-Type",
+            "content": "\"Content-Type\": \"application/json\"",
+            "type": "json"
+          },
+          {
+            "title": "Header Example Authorization",
+            "content": "\"Authorization\": \"Bearer e8b9...8c9f\"",
+            "type": "json"
+          }
+        ]
+      },
       "success": {
         "fields": {
           "200 Success": [
             {
               "group": "200 Success",
-              "type": "Portfolio[]",
+              "type": "Array[]",
               "optional": false,
               "field": "portfolios",
-              "description": "<p>List of portfolios.</p>"
+              "description": ""
             },
             {
               "group": "200 Success",
@@ -11312,7 +11557,7 @@
               "type": "Boolean",
               "optional": true,
               "field": "portfolios.trader",
-              "description": "<p>Tax Status (<code>true</code>: Trade, <code>false</code>: Investor).</p>"
+              "description": "<p>Tax Status (<code>true</code>: Trade, <code>false</code>: Investor). Can be <code>null</code>.</p>"
             },
             {
               "group": "200 Success",
@@ -11323,17 +11568,24 @@
             },
             {
               "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "portfolios.tax_entity_type",
+              "description": "<p>For Canadian portfolios, the type of tax processing (<code>&quot;non_registered&quot;</code>, <code>&quot;rrsp&quot;</code> or <code>&quot;rrif&quot;</code>). Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "200 Success",
               "type": "Boolean",
               "optional": false,
               "field": "portfolios.broker_email_api_enabled",
-              "description": "<p><code>true</code> if the broker import email is enabled.</p>"
+              "description": "<p><code>true</code> if the broker import email is enabled. Present for portfolio admins</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
               "field": "portfolios.broker_email_key",
-              "description": "<p>Email prefix of the broker import email address.</p>"
+              "description": "<p>Email prefix of the broker import email address. Present for portfolio admins</p>"
             },
             {
               "group": "200 Success",
@@ -11372,10 +11624,10 @@
             },
             {
               "group": "200 Success",
-              "type": "Date",
+              "type": "String",
               "optional": false,
               "field": "portfolios.inception_date",
-              "description": "<p>Portfolio's inception date (first trade record)</p>"
+              "description": "<p>Portfolio's inception date (first trade record). Format: dd mmm yyyy</p>"
             },
             {
               "group": "200 Success",
@@ -11396,14 +11648,14 @@
               "type": "Integer",
               "optional": true,
               "field": "portfolios.buy_trade_settlement_delay",
-              "description": "<p>Specifies the number of working days between the buy trade date and settlement in the cash account</p>"
+              "description": "<p>Specifies the number of working days between the buy trade date and settlement in the cash account. Can be <code>null</code>.</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
               "optional": true,
               "field": "portfolios.sell_trade_settlement_delay",
-              "description": "<p>Specifies the number of working days between the sell trade date and settlement in the cash account</p>"
+              "description": "<p>Specifies the number of working days between the sell trade date and settlement in the cash account. Can be <code>null</code>.</p>"
             },
             {
               "group": "200 Success",
@@ -11416,12 +11668,26 @@
               "group": "200 Success",
               "type": "Integer",
               "optional": true,
-              "field": "trade_sync_cash_account_id",
-              "description": "<p>All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account.</p>"
+              "field": "portfolios.trade_sync_cash_account_id",
+              "description": "<p>All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account. Can be <code>null</code>.</p>"
             },
             {
               "group": "200 Success",
-              "type": "Hash",
+              "type": "Integer",
+              "optional": true,
+              "field": "portfolios.payout_sync_cash_account_id",
+              "description": "<p>All payouts will generate a corresponding deposit in the selected 'payout' account. Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "portfolios.external_identifier",
+              "description": "<p>Typically used by professionals to identify the tax entity owner of the portfolio</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Object",
               "optional": false,
               "field": "portfolios.links",
               "description": "<p>List of links for this portfolio</p>"
@@ -11435,7 +11701,14 @@
             },
             {
               "group": "200 Success",
-              "type": "Hash",
+              "type": "String",
+              "optional": false,
+              "field": "portfolios.links.self",
+              "description": "<p>Url of this portfolio</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Object",
               "optional": false,
               "field": "links",
               "description": "<p>List of links for this resource</p>"
@@ -11452,33 +11725,13 @@
         "examples": [
           {
             "title": "Response Example",
-            "content": "{\n  \"portfolios\":[\n    {\n      \"id\":798669676,\n      \"name\":\"Owned Portfolio\",\n      \"default_sale_allocation_method\":\"fifo\",\n      \"cg_discount\":\"Individuals / Trust\",\n      \"rwtr_rate\":33.0,\n      \"trader\":null,\n      \"disable_automatic_transactions\":false,\n      \"broker_email_api_enabled\":false,\n      \"broker_email_key\":null,\n      \"financial_year_end_month_id\":3,\n      \"interest_method\":\"simple\",\n      \"country_code\":\"NZ\",\n      \"currency_code\":\"NZD\"\n      \"inception_date\":\"01 Jan 2009\",\n      \"tz_name\":\"Wellington\",\n      \"apply_cash_account_adjustments\":true,\n      \"buy_trade_settlement_delay\":2,\n      \"sell_trade_settlement_delay\":2,\n      \"account_for_delayed_cash_transactions\":true,\n      \"trade_sync_cash_account_id\": 34345,\n      \"links\":{\n        \"portfolio\":\"https://api.sharesight.com/api/v2/portfolios/798669676\"\n      }\n    },{\n      \"id\":4,\n      \"name\":\"Shared Portfolio\",\n      \"default_sale_allocation_method\":\"fifo\"\n      \"links\":{\n        \"portfolio\":\"https://api.sharesight.com/api/v2/portfolios/4\"\n      }\n    }\n  ],\n  \"links\":{\n    \"self\":\"https://api.sharesight.com/api/v2/portfolios\"\n  }\n}",
+            "content": "{\n  \"portfolios\": [\n    {\n      \"id\": 799669676,\n      \"name\": \"Owned Portfolio\",\n      \"default_sale_allocation_method\": \"fifo\",\n      \"cg_discount\": \"Individuals / Trust\",\n      \"rwtr_rate\": 33.0,\n      \"trader\": null,\n      \"disable_automatic_transactions\": false,\n      \"tax_entity_type\": null,\n      \"broker_email_api_enabled\": false,\n      \"broker_email_key\": null,\n      \"financial_year_end_month_id\": 3,\n      \"financial_year_end\": \"03-31\",\n      \"interest_method\": \"simple\",\n      \"country_code\": \"NZ\",\n      \"currency_code\": \"NZD\",\n      \"inception_date\": \"01 Jan 2009\",\n      \"tz_name\": \"Wellington\",\n      \"apply_cash_account_adjustments\": true,\n      \"buy_trade_settlement_delay\": 2,\n      \"sell_trade_settlement_delay\": 2,\n      \"account_for_delayed_cash_transactions\": true,\n      \"trade_sync_cash_account_id\": null,\n      \"payout_sync_cash_account_id\": null,\n      \"links\": {\n        \"portfolio\": \"https://api.sharesight.com/api/v2/portfolios/799669676\",\n        \"self\": \"https://api.sharesight.com/api/v2/portfolios/799669676\"\n      }\n    }\n  ],\n  \"links\": {\n    \"self\": \"https://api.sharesight.com/api/v2/portfolios\"\n  }\n}",
             "type": "json"
           }
         ]
       },
-      "filename": "apidoc/docs/v2/m0/list_portfolios.rb",
+      "filename": "apidoc/docs/v2/m0/generated/show_portfolios.rb",
       "groupTitle": "User_API_Portfolios",
-      "header": {
-        "fields": {
-          "Authorization": [
-            {
-              "group": "Authorization",
-              "type": "String",
-              "optional": false,
-              "field": "Authorization",
-              "description": "<p>The access token as <code>Bearer {access_token}</code></p>"
-            }
-          ]
-        },
-        "examples": [
-          {
-            "title": "Header Example Authorization",
-            "content": "\"Authorization\": \"Bearer e8b9...8c9f\"",
-            "type": "json"
-          }
-        ]
-      },
       "error": {
         "fields": {
           "401 Unauthorized": [
@@ -11512,13 +11765,369 @@
       }
     },
     {
-      "type": "get",
-      "url": "/portfolios/:id.json",
+      "type": "GET",
+      "url": "/portfolios/{id}.json",
+      "title": "Show Portfolio",
+      "name": "PortfolioShow",
+      "group": "User_API_Portfolios",
+      "version": "2.1.0",
+      "description": "<p>Returns a single portfolio with settings for the user.</p>",
+      "header": {
+        "fields": {
+          "Content-Type": [
+            {
+              "group": "Content-Type",
+              "type": "String",
+              "optional": false,
+              "field": "Content-Type",
+              "description": "<p>The request body content-type (<code>application/json</code>)</p>"
+            }
+          ],
+          "Authorization": [
+            {
+              "group": "Authorization",
+              "type": "String",
+              "optional": false,
+              "field": "Authorization",
+              "description": "<p>The access token as <code>Bearer {access_token}</code></p>"
+            }
+          ]
+        },
+        "examples": [
+          {
+            "title": "Header Example Content-Type",
+            "content": "\"Content-Type\": \"application/json\"",
+            "type": "json"
+          },
+          {
+            "title": "Header Example Authorization",
+            "content": "\"Authorization\": \"Bearer e8b9...8c9f\"",
+            "type": "json"
+          }
+        ]
+      },
+      "success": {
+        "fields": {
+          "200 Success": [
+            {
+              "group": "200 Success",
+              "type": "Object",
+              "optional": false,
+              "field": "portfolio",
+              "description": ""
+            },
+            {
+              "group": "200 Success",
+              "type": "Integer",
+              "optional": false,
+              "field": "portfolio.id",
+              "description": "<p>The portfolio ID.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "portfolio.name",
+              "description": "<p>The portfolio name.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "portfolio.default_sale_allocation_method",
+              "description": "<p>The default sale allocation method for tax reporting.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "portfolio.cg_discount",
+              "description": "<p>Discount for Capital Gains Tax.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Float",
+              "optional": false,
+              "field": "portfolio.rwtr_rate",
+              "description": "<p>New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as <code>33.1</code>).</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Boolean",
+              "optional": false,
+              "field": "portfolio.trader",
+              "description": "<p>Tax Status (<code>true</code>: Trade, <code>false</code>: Investor). Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Boolean",
+              "optional": false,
+              "field": "portfolio.disable_automatic_transactions",
+              "description": "<p>Automatic Transactions are disabled (<code>true</code>) or enabled (<code>false</code>).</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "portfolio.tax_entity_type",
+              "description": "<p>For Canadian portfolios, the type of tax processing (<code>&quot;non_registered&quot;</code>, <code>&quot;rrsp&quot;</code> or <code>&quot;rrif&quot;</code>). Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Boolean",
+              "optional": false,
+              "field": "portfolio.broker_email_api_enabled",
+              "description": "<p><code>true</code> if the broker import email is enabled. Present for portfolio admins</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "portfolio.broker_email_key",
+              "description": "<p>Email prefix of the broker import email address. Present for portfolio admins</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Integer",
+              "optional": false,
+              "field": "portfolio.financial_year_end_month_id",
+              "description": "<p>(deprecated) Financial Year end month (<code>1</code>: Jan, <code>2</code>: Feb, etc.).</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "portfolio.financial_year_end",
+              "description": "<p>Financial Year end date MM-DD.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "portfolio.interest_method",
+              "description": "<p>Performance Calculation Method</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "portfolio.country_code",
+              "description": "<p>ISO code of the portfolio country (see <a href=\"https://en.wikipedia.org/wiki/ISO_3166-1\">ISO 3166-1</a>)</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "portfolio.currency_code",
+              "description": "<p>ISO code of the portfolio currency (see <a href=\"https://en.wikipedia.org/wiki/ISO_4217\">ISO 4217</a>)</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "portfolio.inception_date",
+              "description": "<p>Portfolio's inception date (first trade record). Format: dd mmm yyyy</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "portfolio.tz_name",
+              "description": "<p>Time zone name</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Boolean",
+              "optional": false,
+              "field": "portfolio.apply_cash_account_adjustments",
+              "description": "<p>Calculates accrual adjustments against any portfolio cash accounts to allow for unsettled trades and unpaid dividends</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Integer",
+              "optional": false,
+              "field": "portfolio.buy_trade_settlement_delay",
+              "description": "<p>Specifies the number of working days between the buy trade date and settlement in the cash account. Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Integer",
+              "optional": false,
+              "field": "portfolio.sell_trade_settlement_delay",
+              "description": "<p>Specifies the number of working days between the sell trade date and settlement in the cash account. Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Boolean",
+              "optional": false,
+              "field": "portfolio.account_for_delayed_cash_transactions",
+              "description": "<p>Accounts for the fact that bank statement data is delayed by a day due to overnight processing</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Integer",
+              "optional": false,
+              "field": "portfolio.trade_sync_cash_account_id",
+              "description": "<p>All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account. Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Integer",
+              "optional": false,
+              "field": "portfolio.payout_sync_cash_account_id",
+              "description": "<p>All payouts will generate a corresponding deposit in the selected 'payout' account. Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "portfolio.external_identifier",
+              "description": "<p>Typically used by professionals to identify the tax entity owner of the portfolio</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Object",
+              "optional": false,
+              "field": "portfolio.links",
+              "description": "<p>List of links for this portfolio</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "portfolio.links.portfolio",
+              "description": "<p>Url of this portfolio</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "portfolio.links.self",
+              "description": "<p>Url of this portfolio</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Object",
+              "optional": false,
+              "field": "links",
+              "description": "<p>List of links for this resource</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "links.self",
+              "description": "<p>Url of this portfolio</p>"
+            }
+          ]
+        },
+        "examples": [
+          {
+            "title": "Response Example",
+            "content": "{\n  \"portfolio\": {\n    \"id\": 799669676,\n    \"name\": \"Owned Portfolio\",\n    \"default_sale_allocation_method\": \"fifo\",\n    \"cg_discount\": \"Individuals / Trust\",\n    \"rwtr_rate\": 33.0,\n    \"trader\": null,\n    \"disable_automatic_transactions\": false,\n    \"tax_entity_type\": null,\n    \"broker_email_api_enabled\": false,\n    \"broker_email_key\": null,\n    \"financial_year_end_month_id\": 3,\n    \"financial_year_end\": \"03-31\",\n    \"interest_method\": \"simple\",\n    \"country_code\": \"NZ\",\n    \"currency_code\": \"NZD\",\n    \"inception_date\": \"01 Jan 2009\",\n    \"tz_name\": \"Wellington\",\n    \"apply_cash_account_adjustments\": true,\n    \"buy_trade_settlement_delay\": 2,\n    \"sell_trade_settlement_delay\": 2,\n    \"account_for_delayed_cash_transactions\": true,\n    \"trade_sync_cash_account_id\": null,\n    \"payout_sync_cash_account_id\": null,\n    \"links\": {\n      \"portfolio\": \"https://api.sharesight.com/api/v2/portfolios/799669676\",\n      \"self\": \"https://api.sharesight.com/api/v2/portfolios/799669676\"\n    }\n  },\n  \"links\": {\n    \"self\": \"https://api.sharesight.com/api/v2/portfolios/799669676\"\n  }\n}",
+            "type": "json"
+          }
+        ]
+      },
+      "error": {
+        "fields": {
+          "404 Not Found": [
+            {
+              "group": "404 Not Found",
+              "type": "Integer",
+              "optional": false,
+              "field": "error",
+              "description": "<p>Internal error code.</p>"
+            },
+            {
+              "group": "404 Not Found",
+              "type": "String",
+              "optional": false,
+              "field": "reason",
+              "description": "<p>Detailed error message what went wrong.</p>"
+            },
+            {
+              "group": "404 Not Found",
+              "type": "Integer",
+              "optional": false,
+              "field": "transaction_id",
+              "description": "<p>Unique identifier for this API transaction.</p>"
+            }
+          ],
+          "401 Unauthorized": [
+            {
+              "group": "401 Unauthorized",
+              "type": "String",
+              "optional": false,
+              "field": "Reason",
+              "description": "<p>The OAuth signature can't be verified.</p>"
+            }
+          ],
+          "403 Forbidden": [
+            {
+              "group": "403 Forbidden",
+              "type": "String",
+              "optional": false,
+              "field": "Reason",
+              "description": "<p>The OAuth access token has been revoked.</p>"
+            }
+          ],
+          "412 Precondition Failed": [
+            {
+              "group": "412 Precondition Failed",
+              "type": "String",
+              "optional": false,
+              "field": "Reason",
+              "description": "<p>The OAuth access token is not authorized.</p>"
+            }
+          ]
+        }
+      },
+      "filename": "apidoc/docs/v2/m1/generated/show_portfolios_show.rb",
+      "groupTitle": "User_API_Portfolios"
+    },
+    {
+      "type": "GET",
+      "url": "/portfolios/{id}.json",
       "title": "Show Portfolio",
       "name": "PortfolioShow",
       "group": "User_API_Portfolios",
       "version": "2.0.0",
       "description": "<p>Returns a single portfolio with settings for the user.</p>",
+      "header": {
+        "fields": {
+          "Content-Type": [
+            {
+              "group": "Content-Type",
+              "type": "String",
+              "optional": false,
+              "field": "Content-Type",
+              "description": "<p>The request body content-type (<code>application/json</code>)</p>"
+            }
+          ],
+          "Authorization": [
+            {
+              "group": "Authorization",
+              "type": "String",
+              "optional": false,
+              "field": "Authorization",
+              "description": "<p>The access token as <code>Bearer {access_token}</code></p>"
+            }
+          ]
+        },
+        "examples": [
+          {
+            "title": "Header Example Content-Type",
+            "content": "\"Content-Type\": \"application/json\"",
+            "type": "json"
+          },
+          {
+            "title": "Header Example Authorization",
+            "content": "\"Authorization\": \"Bearer e8b9...8c9f\"",
+            "type": "json"
+          }
+        ]
+      },
       "success": {
         "fields": {
           "200 Success": [
@@ -11562,7 +12171,7 @@
               "type": "Boolean",
               "optional": false,
               "field": "trader",
-              "description": "<p>Tax Status (<code>true</code>: Trade, <code>false</code>: Investor).</p>"
+              "description": "<p>Tax Status (<code>true</code>: Trade, <code>false</code>: Investor). Can be <code>null</code>.</p>"
             },
             {
               "group": "200 Success",
@@ -11576,21 +12185,21 @@
               "type": "String",
               "optional": false,
               "field": "tax_entity_type",
-              "description": "<p>For Canadian portfolios, the type of tax processing (<code>&quot;non_registered&quot;</code>, <code>&quot;rrsp&quot;</code> or <code>&quot;rrif&quot;</code>)</p>"
+              "description": "<p>For Canadian portfolios, the type of tax processing (<code>&quot;non_registered&quot;</code>, <code>&quot;rrsp&quot;</code> or <code>&quot;rrif&quot;</code>). Can be <code>null</code>.</p>"
             },
             {
               "group": "200 Success",
               "type": "Boolean",
               "optional": false,
               "field": "broker_email_api_enabled",
-              "description": "<p><code>true</code> if the broker import email is enabled.</p>"
+              "description": "<p><code>true</code> if the broker import email is enabled. Present for portfolio admins</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
               "field": "broker_email_key",
-              "description": "<p>Email prefix of the broker import email address.</p>"
+              "description": "<p>Email prefix of the broker import email address. Present for portfolio admins</p>"
             },
             {
               "group": "200 Success",
@@ -11629,10 +12238,10 @@
             },
             {
               "group": "200 Success",
-              "type": "Date",
+              "type": "String",
               "optional": false,
               "field": "inception_date",
-              "description": "<p>The portfolio's inception date (first trade record)</p>"
+              "description": "<p>Portfolio's inception date (first trade record). Format: dd mmm yyyy</p>"
             },
             {
               "group": "200 Success",
@@ -11653,14 +12262,14 @@
               "type": "Integer",
               "optional": false,
               "field": "buy_trade_settlement_delay",
-              "description": "<p>Specifies the number of working days between the buy trade date and settlement in the cash account</p>"
+              "description": "<p>Specifies the number of working days between the buy trade date and settlement in the cash account. Can be <code>null</code>.</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
               "optional": false,
               "field": "sell_trade_settlement_delay",
-              "description": "<p>Specifies the number of working days between the sell trade date and settlement in the cash account</p>"
+              "description": "<p>Specifies the number of working days between the sell trade date and settlement in the cash account. Can be <code>null</code>.</p>"
             },
             {
               "group": "200 Success",
@@ -11674,14 +12283,35 @@
               "type": "Integer",
               "optional": false,
               "field": "trade_sync_cash_account_id",
-              "description": "<p>All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account.</p>"
+              "description": "<p>All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account. Can be <code>null</code>.</p>"
             },
             {
               "group": "200 Success",
-              "type": "Hash",
+              "type": "Integer",
+              "optional": false,
+              "field": "payout_sync_cash_account_id",
+              "description": "<p>All payouts will generate a corresponding deposit in the selected 'payout' account. Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "external_identifier",
+              "description": "<p>Typically used by professionals to identify the tax entity owner of the portfolio</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Object",
               "optional": false,
               "field": "links",
-              "description": "<p>List of links for this resource</p>"
+              "description": "<p>List of links for this portfolio</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "links.portfolio",
+              "description": "<p>Url of this portfolio</p>"
             },
             {
               "group": "200 Success",
@@ -11689,48 +12319,72 @@
               "optional": false,
               "field": "links.self",
               "description": "<p>Url of this portfolio</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "String",
-              "optional": false,
-              "field": "links.portfolio",
-              "description": "<p>Url of this portfolio (same as self)</p>"
             }
           ]
         },
         "examples": [
           {
             "title": "Response Example",
-            "content": "{\n  \"id\":798669676,\n  \"name\":\"Owned Portfolio\",\n  \"default_sale_allocation_method\":\"fifo\",\n  \"cg_discount\":\"Individuals / Trust\",\n  \"rwtr_rate\":33.0,\n  \"trader\":null,\n  \"disable_automatic_transactions\":false,\n  \"broker_email_api_enabled\":false,\n  \"broker_email_key\":null,\n  \"financial_year_end_month_id\":3,\n  \"financial_year_end\": \"03-31\",\n  \"interest_method\":\"simple\",\n  \"country_code\":\"NZ\",\n  \"currency_code\":\"NZD\",\n  \"inception_date\":\"01 Jan 2009\",\n  \"tz_name\":\"Wellington\",\n  \"apply_cash_account_adjustments\":true,\n  \"buy_trade_settlement_delay\":2,\n  \"sell_trade_settlement_delay\":2,\n  \"account_for_delayed_cash_transactions\":true,\n  \"trade_sync_cash_account_id\": 34345,\n  \"links\":{\n    \"self\":\"https://api.sharesight.com/api/v2/portfolios/798669676\",\n    \"portfolio\":\"https://api.sharesight.com/api/v2/portfolios/798669676\"\n  }\n}",
-            "type": "json"
-          }
-        ]
-      },
-      "filename": "apidoc/docs/v2/m0/show_portfolio.rb",
-      "groupTitle": "User_API_Portfolios",
-      "header": {
-        "fields": {
-          "Authorization": [
-            {
-              "group": "Authorization",
-              "type": "String",
-              "optional": false,
-              "field": "Authorization",
-              "description": "<p>The access token as <code>Bearer {access_token}</code></p>"
-            }
-          ]
-        },
-        "examples": [
-          {
-            "title": "Header Example Authorization",
-            "content": "\"Authorization\": \"Bearer e8b9...8c9f\"",
+            "content": "{\n  \"id\": 799669676,\n  \"name\": \"Owned Portfolio\",\n  \"default_sale_allocation_method\": \"fifo\",\n  \"cg_discount\": \"Individuals / Trust\",\n  \"rwtr_rate\": 33.0,\n  \"trader\": null,\n  \"disable_automatic_transactions\": false,\n  \"tax_entity_type\": null,\n  \"broker_email_api_enabled\": false,\n  \"broker_email_key\": null,\n  \"financial_year_end_month_id\": 3,\n  \"financial_year_end\": \"03-31\",\n  \"interest_method\": \"simple\",\n  \"country_code\": \"NZ\",\n  \"currency_code\": \"NZD\",\n  \"inception_date\": \"01 Jan 2009\",\n  \"tz_name\": \"Wellington\",\n  \"apply_cash_account_adjustments\": true,\n  \"buy_trade_settlement_delay\": 2,\n  \"sell_trade_settlement_delay\": 2,\n  \"account_for_delayed_cash_transactions\": true,\n  \"trade_sync_cash_account_id\": null,\n  \"payout_sync_cash_account_id\": null,\n  \"links\": {\n    \"portfolio\": \"https://api.sharesight.com/api/v2/portfolios/799669676\",\n    \"self\": \"https://api.sharesight.com/api/v2/portfolios/799669676\"\n  }\n}",
             "type": "json"
           }
         ]
       },
       "error": {
         "fields": {
+          "403 Forbidden": [
+            {
+              "group": "403 Forbidden",
+              "type": "Integer",
+              "optional": false,
+              "field": "error",
+              "description": "<p>Internal error code.</p>"
+            },
+            {
+              "group": "403 Forbidden",
+              "type": "String",
+              "optional": false,
+              "field": "reason",
+              "description": "<p>Detailed error message what went wrong.</p>"
+            },
+            {
+              "group": "403 Forbidden",
+              "type": "Integer",
+              "optional": false,
+              "field": "transaction_id",
+              "description": "<p>Unique identifier for this API transaction.</p>"
+            },
+            {
+              "group": "403 Forbidden",
+              "type": "String",
+              "optional": false,
+              "field": "Reason",
+              "description": "<p>The OAuth access token has been revoked.</p>"
+            }
+          ],
+          "404 Not Found": [
+            {
+              "group": "404 Not Found",
+              "type": "Integer",
+              "optional": false,
+              "field": "error",
+              "description": "<p>Internal error code.</p>"
+            },
+            {
+              "group": "404 Not Found",
+              "type": "String",
+              "optional": false,
+              "field": "reason",
+              "description": "<p>Detailed error message what went wrong.</p>"
+            },
+            {
+              "group": "404 Not Found",
+              "type": "Integer",
+              "optional": false,
+              "field": "transaction_id",
+              "description": "<p>Unique identifier for this API transaction.</p>"
+            }
+          ],
           "401 Unauthorized": [
             {
               "group": "401 Unauthorized",
@@ -11738,15 +12392,6 @@
               "optional": false,
               "field": "Reason",
               "description": "<p>The OAuth signature can't be verified.</p>"
-            }
-          ],
-          "403 Forbidden": [
-            {
-              "group": "403 Forbidden",
-              "type": "String",
-              "optional": false,
-              "field": "Reason",
-              "description": "<p>The OAuth access token has been revoked.</p>"
             }
           ],
           "412 Precondition Failed": [
@@ -11759,11 +12404,13 @@
             }
           ]
         }
-      }
+      },
+      "filename": "apidoc/docs/v2/m0/generated/show_portfolios_show.rb",
+      "groupTitle": "User_API_Portfolios"
     },
     {
-      "type": "put",
-      "url": "/portfolios/:id.json",
+      "type": "PUT",
+      "url": "/portfolios/{id}.json",
       "title": "Update Portfolio",
       "name": "PortfolioUpdate",
       "group": "User_API_Portfolios",
@@ -11808,122 +12455,150 @@
           "Parameter": [
             {
               "group": "Parameter",
-              "type": "Integer",
+              "type": "Object",
               "optional": false,
-              "field": "id",
-              "description": "<p>The portfolio ID.</p>"
+              "field": "portfolio",
+              "description": ""
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": false,
-              "field": "name",
-              "description": "<p>The portfolio's name.</p>"
+              "field": "portfolio.name",
+              "description": "<p>The new portfolio's name.</p>"
             },
             {
               "group": "Parameter",
               "type": "Boolean",
               "optional": false,
-              "field": "broker_email_api_enabled",
-              "description": "<p><code>true</code>to enable broker import via Trade Confirmation Emails.</p>"
+              "field": "portfolio.broker_email_api_enabled",
+              "description": "<p><code>true</code> to enable broker import via Trade Confirmation Emails.</p>"
             },
             {
               "group": "Parameter",
               "type": "Integer",
               "optional": false,
-              "field": "financial_year_end_month_id",
+              "field": "portfolio.financial_year_end_month_id",
               "description": "<p>(deprecated) Financial year end month (<code>1</code> for January, ..., <code>12</code> for December).</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": false,
-              "field": "financial_year_end",
+              "field": "portfolio.financial_year_end",
               "description": "<p>Financial year end MM-DD.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": false,
-              "field": "default_sale_allocation_method",
+              "field": "portfolio.default_sale_allocation_method",
               "description": "<p>Default sale allocation method. See <a href=\"/api/2/codes#sale_allocation_method\">valid methods by country</a>.</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": false,
-              "field": "interest_method",
+              "field": "portfolio.interest_method",
               "description": "<p>Interest method calculation: <code>&quot;simple&quot;</code> or <code>&quot;compound&quot;</code>.</p>"
             },
             {
               "group": "Parameter",
               "type": "Boolean",
               "optional": false,
-              "field": "trader",
-              "description": "<p><code>true</code> if trader.</p>"
+              "field": "portfolio.trader",
+              "description": "<p>Tax Status (<code>true</code>: Trader, <code>false</code>: Investor)</p>"
             },
             {
               "group": "Parameter",
               "type": "String",
               "optional": false,
-              "field": "tax_entity_type",
+              "field": "portfolio.tax_entity_type",
               "description": "<p>For Canadian portfolios, the type of tax processing (<code>&quot;non_registered&quot;</code>, <code>&quot;rrsp&quot;</code> or <code>&quot;rrif&quot;</code>)</p>"
-            },
-            {
-              "group": "Parameter",
-              "type": "Integer",
-              "optional": false,
-              "field": "cg_discount_id",
-              "description": "<p><code>0</code>: trust, <code>1</code>: smsf, <code>2</code>: company</p>"
-            },
-            {
-              "group": "Parameter",
-              "type": "Float",
-              "optional": false,
-              "field": "rwtr_rate",
-              "description": "<p>New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as <code>33.1</code>).</p>"
             },
             {
               "group": "Parameter",
               "type": "Boolean",
               "optional": true,
-              "field": "apply_cash_account_adjustments",
+              "field": "portfolio.disable_automatic_transactions",
+              "description": "<p>Disable Automatic Transactions for this portfolio (<code>true</code>: disable, <code>false</code>: enable)</p>"
+            },
+            {
+              "group": "Parameter",
+              "type": "Integer",
+              "optional": false,
+              "field": "portfolio.cg_discount_id",
+              "description": "<p><code>1</code>: Individuals / Trust, <code>2</code>: Self Managed Super Fund, <code>3</code>: Company. Defaults to Individuals / Trust for AU portfolios.</p>"
+            },
+            {
+              "group": "Parameter",
+              "type": "Float",
+              "optional": false,
+              "field": "portfolio.rwtr_rate",
+              "description": "<p>New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as <code>33.1</code>).</p>"
+            },
+            {
+              "group": "Parameter",
+              "type": "String",
+              "optional": true,
+              "field": "portfolio.country_code",
+              "description": "<p>ISO code of the portfolio country (see <a href=\"https://en.wikipedia.org/wiki/ISO_3166-1\">ISO 3166-1</a>). Defaults to the portfolio owner's default country.</p>"
+            },
+            {
+              "group": "Parameter",
+              "type": "Boolean",
+              "optional": true,
+              "field": "portfolio.apply_cash_account_adjustments",
               "description": "<p><code>true</code> in order to calculate accrual adjustments against any portfolio cash accounts to allow for unsettled trades and unpaid dividends</p>"
             },
             {
               "group": "Parameter",
               "type": "Integer",
               "optional": true,
-              "field": "buy_trade_settlement_delay",
+              "field": "portfolio.buy_trade_settlement_delay",
               "description": "<p>Specifies the number of working days between the buy trade date and settlement in the cash account</p>"
             },
             {
               "group": "Parameter",
               "type": "Integer",
               "optional": true,
-              "field": "sell_trade_settlement_delay",
+              "field": "portfolio.sell_trade_settlement_delay",
               "description": "<p>Specifies the number of working days between the sell trade date and settlement in the cash account</p>"
             },
             {
               "group": "Parameter",
               "type": "Boolean",
               "optional": true,
-              "field": "account_for_delayed_cash_transactions",
+              "field": "portfolio.account_for_delayed_cash_transactions",
               "description": "<p><code>true</code> in order to account for the fact that bank statement data is delayed by a day due to overnight processing</p>"
             },
             {
               "group": "Parameter",
               "type": "Integer",
-              "optional": false,
-              "field": "trade_sync_cash_account_id",
-              "description": "<p>All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account. You can only select a trading cash account if it has the same currency as the portfolio currency</p>"
+              "optional": true,
+              "field": "portfolio.trade_sync_cash_account_id",
+              "description": "<p>All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account. You can only select a trading cash account if it has the same currency as the portfolio currency.</p>"
+            },
+            {
+              "group": "Parameter",
+              "type": "Integer",
+              "optional": true,
+              "field": "portfolio.payout_sync_cash_account_id",
+              "description": "<p>All payouts will generate a corresponding deposit in the selected 'payout' account. Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "Parameter",
+              "type": "String",
+              "optional": true,
+              "field": "portfolio.external_identifier",
+              "description": "<p>Typically used by professionals to identify the tax entity owner of the portfolio</p>"
             }
           ]
         },
         "examples": [
           {
             "title": "Request Body Example",
-            "content": "{\n  \"portfolio\":{\n    \"name\":\"My Portfolio\",\n    \"broker_email_api_enabled\":true,\n    \"financial_year_end\": \"03-31\",\n    \"default_sale_allocation_method\":\"fifo\",\n    \"interest_method\":\"simple\",\n    \"trader\":false,\n    \"cg_discount_id\":1,\n    \"rwtr_rate\":\"33\",\n    \"apply_cash_account_adjustments\":true,\n    \"buy_trade_settlement_delay\":2,\n    \"sell_trade_settlement_delay\":2,\n    \"account_for_delayed_cash_transactions\":true\n  }\n}",
+            "content": "{\n  \"portfolio\": {\n    \"name\": \"My new Portfolio\",\n    \"broker_email_api_enabled\": true,\n    \"financial_year_end_month_id\": 3,\n    \"default_sale_allocation_method\": \"fifo\",\n    \"interest_method\": \"simple\",\n    \"trader\": false,\n    \"disable_automatic_transactions\": false,\n    \"cg_discount_id\": 1,\n    \"rwtr_rate\": \"33\",\n    \"country_code\": \"MX\",\n    \"apply_cash_account_adjustments\": true,\n    \"buy_trade_settlement_delay\": 2,\n    \"sell_trade_settlement_delay\": 2,\n    \"account_for_delayed_cash_transactions\": true\n  }\n}",
             "type": "json"
           }
         ]
@@ -11971,28 +12646,35 @@
               "type": "Boolean",
               "optional": false,
               "field": "trader",
-              "description": "<p>Tax Status (<code>true</code>: Trader, <code>false</code>: Investor).</p>"
+              "description": "<p>Tax Status (<code>true</code>: Trade, <code>false</code>: Investor). Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Boolean",
+              "optional": false,
+              "field": "disable_automatic_transactions",
+              "description": "<p>Automatic Transactions are disabled (<code>true</code>) or enabled (<code>false</code>).</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
               "field": "tax_entity_type",
-              "description": "<p>For Canadian portfolios, the type of tax processing (<code>&quot;non_registered&quot;</code>, <code>&quot;rrsp&quot;</code> or <code>&quot;rrif&quot;</code>)</p>"
+              "description": "<p>For Canadian portfolios, the type of tax processing (<code>&quot;non_registered&quot;</code>, <code>&quot;rrsp&quot;</code> or <code>&quot;rrif&quot;</code>). Can be <code>null</code>.</p>"
             },
             {
               "group": "200 Success",
               "type": "Boolean",
               "optional": false,
               "field": "broker_email_api_enabled",
-              "description": "<p><code>true</code> if the broker import email is enabled.</p>"
+              "description": "<p><code>true</code> if the broker import email is enabled. Present for portfolio admins</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
               "field": "broker_email_key",
-              "description": "<p>Email prefix of the broker import email address.</p>"
+              "description": "<p>Email prefix of the broker import email address. Present for portfolio admins</p>"
             },
             {
               "group": "200 Success",
@@ -12031,6 +12713,20 @@
             },
             {
               "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "inception_date",
+              "description": "<p>Portfolio's inception date (first trade record). Format: dd mmm yyyy</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "tz_name",
+              "description": "<p>Time zone name</p>"
+            },
+            {
+              "group": "200 Success",
               "type": "Boolean",
               "optional": false,
               "field": "apply_cash_account_adjustments",
@@ -12041,14 +12737,14 @@
               "type": "Integer",
               "optional": false,
               "field": "buy_trade_settlement_delay",
-              "description": "<p>Specifies the number of working days between the buy trade date and settlement in the cash account</p>"
+              "description": "<p>Specifies the number of working days between the buy trade date and settlement in the cash account. Can be <code>null</code>.</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
               "optional": false,
               "field": "sell_trade_settlement_delay",
-              "description": "<p>Specifies the number of working days between the sell trade date and settlement in the cash account</p>"
+              "description": "<p>Specifies the number of working days between the sell trade date and settlement in the cash account. Can be <code>null</code>.</p>"
             },
             {
               "group": "200 Success",
@@ -12062,14 +12758,35 @@
               "type": "Integer",
               "optional": false,
               "field": "trade_sync_cash_account_id",
-              "description": "<p>All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account.</p>"
+              "description": "<p>All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account. Can be <code>null</code>.</p>"
             },
             {
               "group": "200 Success",
-              "type": "Hash",
+              "type": "Integer",
+              "optional": false,
+              "field": "payout_sync_cash_account_id",
+              "description": "<p>All payouts will generate a corresponding deposit in the selected 'payout' account. Can be <code>null</code>.</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "external_identifier",
+              "description": "<p>Typically used by professionals to identify the tax entity owner of the portfolio</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "Object",
               "optional": false,
               "field": "links",
-              "description": "<p>List of links for this resource</p>"
+              "description": "<p>List of links for this portfolio</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "links.portfolio",
+              "description": "<p>Url of this portfolio</p>"
             },
             {
               "group": "200 Success",
@@ -12077,20 +12794,13 @@
               "optional": false,
               "field": "links.self",
               "description": "<p>Url of this portfolio</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "String",
-              "optional": false,
-              "field": "links.portfolio",
-              "description": "<p>Url of this portfolio (same as self)</p>"
             }
           ]
         },
         "examples": [
           {
             "title": "Response Example",
-            "content": "{\n  \"id\":798669676,\n  \"name\":\"Owned Portfolio\",\n  \"default_sale_allocation_method\":\"fifo\",\n  \"cg_discount\":\"Individuals / Trust\",\n  \"rwtr_rate\":33.0,\n  \"trader\":null,\n  \"broker_email_api_enabled\":false,\n  \"broker_email_key\":null,\n  \"financial_year_end_month_id\":3,\n  \"financial_year_end\": \"03-31\",\n  \"interest_method\":\"simple\",\n  \"country_code\":\"NZ\",\n  \"currency_code\":\"NZD\",\n  \"apply_cash_account_adjustments\":true,\n  \"buy_trade_settlement_delay\":2,\n  \"sell_trade_settlement_delay\":2,\n  \"account_for_delayed_cash_transactions\":true,\n  \"trade_sync_cash_account_id\": 34345,\n  \"links\":{\n    \"self\":\"https://api.sharesight.com/api/v2/portfolios/798669676\",\n    \"portfolio\":\"https://api.sharesight.com/api/v2/portfolios/798669676\"\n  }\n}",
+            "content": "{\n  \"id\": 799669676,\n  \"name\": \"Owned Portfolio\",\n  \"default_sale_allocation_method\": \"fifo\",\n  \"cg_discount\": \"Individuals / Trust\",\n  \"rwtr_rate\": 33.0,\n  \"trader\": null,\n  \"disable_automatic_transactions\": false,\n  \"tax_entity_type\": null,\n  \"broker_email_api_enabled\": false,\n  \"broker_email_key\": null,\n  \"financial_year_end_month_id\": 3,\n  \"financial_year_end\": \"03-31\",\n  \"interest_method\": \"simple\",\n  \"country_code\": \"NZ\",\n  \"currency_code\": \"NZD\",\n  \"inception_date\": \"01 Jan 2009\",\n  \"tz_name\": \"Wellington\",\n  \"apply_cash_account_adjustments\": true,\n  \"buy_trade_settlement_delay\": 2,\n  \"sell_trade_settlement_delay\": 2,\n  \"account_for_delayed_cash_transactions\": true,\n  \"trade_sync_cash_account_id\": null,\n  \"payout_sync_cash_account_id\": null,\n  \"links\": {\n    \"portfolio\": \"https://api.sharesight.com/api/v2/portfolios/799669676\",\n    \"self\": \"https://api.sharesight.com/api/v2/portfolios/799669676\"\n  }\n}",
             "type": "json"
           }
         ]
@@ -12103,7 +12813,14 @@
               "type": "Integer",
               "optional": false,
               "field": "error",
-              "description": "<p>Internal error code</p>"
+              "description": "<p>Internal error code.</p>"
+            },
+            {
+              "group": "400 Bad Request",
+              "type": "String",
+              "optional": false,
+              "field": "reason",
+              "description": "<p>Detailed error message what went wrong.</p>"
             },
             {
               "group": "400 Bad Request",
@@ -12111,22 +12828,68 @@
               "optional": false,
               "field": "transaction_id",
               "description": "<p>Unique identifier for this API transaction.</p>"
+            }
+          ],
+          "403 Forbidden": [
+            {
+              "group": "403 Forbidden",
+              "type": "Integer",
+              "optional": false,
+              "field": "error",
+              "description": "<p>Internal error code.</p>"
             },
             {
-              "group": "400 Bad Request",
-              "type": "Integer",
+              "group": "403 Forbidden",
+              "type": "String",
               "optional": false,
               "field": "reason",
               "description": "<p>Detailed error message what went wrong.</p>"
+            },
+            {
+              "group": "403 Forbidden",
+              "type": "Integer",
+              "optional": false,
+              "field": "transaction_id",
+              "description": "<p>Unique identifier for this API transaction.</p>"
+            },
+            {
+              "group": "403 Forbidden",
+              "type": "String",
+              "optional": false,
+              "field": "Reason",
+              "description": "<p>The OAuth access token has been revoked.</p>"
+            }
+          ],
+          "404 Not Found": [
+            {
+              "group": "404 Not Found",
+              "type": "Integer",
+              "optional": false,
+              "field": "error",
+              "description": "<p>Internal error code.</p>"
+            },
+            {
+              "group": "404 Not Found",
+              "type": "String",
+              "optional": false,
+              "field": "reason",
+              "description": "<p>Detailed error message what went wrong.</p>"
+            },
+            {
+              "group": "404 Not Found",
+              "type": "Integer",
+              "optional": false,
+              "field": "transaction_id",
+              "description": "<p>Unique identifier for this API transaction.</p>"
             }
           ],
           "422 Unprocessable Entity": [
             {
               "group": "422 Unprocessable Entity",
-              "type": "Hash",
+              "type": "Object",
               "optional": false,
               "field": "errors",
-              "description": "<p>Hash of fields with error messages.</p>"
+              "description": "<p>Object of fields with error messages.</p>"
             }
           ],
           "401 Unauthorized": [
@@ -12138,15 +12901,6 @@
               "description": "<p>The OAuth signature can't be verified.</p>"
             }
           ],
-          "403 Forbidden": [
-            {
-              "group": "403 Forbidden",
-              "type": "String",
-              "optional": false,
-              "field": "Reason",
-              "description": "<p>The OAuth access token has been revoked.</p>"
-            }
-          ],
           "412 Precondition Failed": [
             {
               "group": "412 Precondition Failed",
@@ -12156,21 +12910,9 @@
               "description": "<p>The OAuth access token is not authorized.</p>"
             }
           ]
-        },
-        "examples": [
-          {
-            "title": "Response Example when Forbidden",
-            "content": "{\n  \"error\": 2004,\n  \"transaction_id\": 980191019,\n  \"reason\": \"You cannot add any more portfolios\"\n}",
-            "type": "json"
-          },
-          {
-            "title": "Response Example with missing end_date",
-            "content": "{\n  \"errors\": {\n    \"name\":[\n      \"needs to be between 3 and 100 characters long\"\n    ]\n  }\n}",
-            "type": "json"
-          }
-        ]
+        }
       },
-      "filename": "apidoc/docs/v2/m0/update_portfolio.rb",
+      "filename": "apidoc/docs/v2/m0/generated/show_portfolios_update.rb",
       "groupTitle": "User_API_Portfolios"
     },
     {
@@ -20999,13 +21741,27 @@
               "optional": false,
               "field": "user.is_expired",
               "description": "<p>Has the user account expired</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "user.signed_up_at",
+              "description": "<p>The date the user signed up to Sharesight in ISO8601 format (YYYY-MM-DDT00:00:00.000Z)</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "user.signup_via_your_integration",
+              "description": "<p>True if the user signed up for Sharesight via your application</p>"
             }
           ]
         },
         "examples": [
           {
             "title": "Response Example",
-            "content": "{\n  \"user\": {\n    \"id\": 234124,\n    \"name\": \"Joe Bloggs\",\n    \"first_name\": \"Joe\",\n    \"last_name\": \"Bloggs\",\n    \"email\": \"joe.bloggs@gmail.com\",\n    \"plan_code\": \"expert2\",\n    \"is_activated\": true,\n    \"is_free\": false,\n    \"is_beta\": true,\n    \"is_guest\": false,\n    \"is_staff\": false,\n    \"is_professional\": false,\n    \"is_cancelled\": false,\n    \"is_expired\": false\n  }\n}",
+            "content": "{\n  \"user\": {\n    \"id\": 234124,\n    \"name\": \"Joe Bloggs\",\n    \"first_name\": \"Joe\",\n    \"last_name\": \"Bloggs\",\n    \"email\": \"joe.bloggs@gmail.com\",\n    \"plan_code\": \"expert2\",\n    \"is_activated\": true,\n    \"is_free\": false,\n    \"is_beta\": true,\n    \"is_guest\": false,\n    \"is_staff\": false,\n    \"is_professional\": false,\n    \"is_cancelled\": false,\n    \"is_expired\": false,\n    \"signed_up_at\": \"2021-08-14T22:52:16Z\",\n    \"signup_via_your_integration\": false\n  }\n}",
             "type": "json"
           }
         ]
@@ -21211,13 +21967,27 @@
               "optional": false,
               "field": "user.is_expired",
               "description": "<p>Has the user account expired</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "user.signed_up_at",
+              "description": "<p>The date the user signed up to Sharesight in ISO8601 format (YYYY-MM-DDT00:00:00.000Z)</p>"
+            },
+            {
+              "group": "200 Success",
+              "type": "String",
+              "optional": false,
+              "field": "user.signup_via_your_integration",
+              "description": "<p>True if the user signed up for Sharesight via your application</p>"
             }
           ]
         },
         "examples": [
           {
             "title": "Response Example",
-            "content": "{\n  \"user\": {\n    \"id\": 234124,\n    \"name\": \"Joe Bloggs\",\n    \"first_name\": \"Joe\",\n    \"last_name\": \"Bloggs\",\n    \"email\": \"joe.bloggs@gmail.com\",\n    \"plan_code\": \"expert2\",\n    \"is_activated\": true,\n    \"is_free\": false,\n    \"is_beta\": true,\n    \"is_guest\": false,\n    \"is_staff\": false,\n    \"is_professional\": false,\n    \"is_cancelled\": false,\n    \"is_expired\": false\n  }\n}",
+            "content": "{\n  \"user\": {\n    \"id\": 234124,\n    \"name\": \"Joe Bloggs\",\n    \"first_name\": \"Joe\",\n    \"last_name\": \"Bloggs\",\n    \"email\": \"joe.bloggs@gmail.com\",\n    \"plan_code\": \"expert2\",\n    \"is_activated\": true,\n    \"is_free\": false,\n    \"is_beta\": true,\n    \"is_guest\": false,\n    \"is_staff\": false,\n    \"is_professional\": false,\n    \"is_cancelled\": false,\n    \"is_expired\": false,\n    \"signed_up_at\": \"2021-08-14T22:52:16Z\",\n    \"signup_via_your_integration\": false\n  }\n}",
             "type": "json"
           }
         ]

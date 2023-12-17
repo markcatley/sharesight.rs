@@ -1582,7 +1582,7 @@ pub struct MembershipCreateMembershipParameters {
     /// Portfolio ID to create the membership for.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub portfolio_id: i64,
-    /// Access level (one of NONE, READ, EDIT, ADMIN, OWNER)
+    /// Access level (one of NONE, READ, EDIT, ADMIN)
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub access_code: String,
@@ -1626,7 +1626,7 @@ pub struct MembershipCreateSuccess {
     /// The membership ID.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
-    /// Access level (one of NONE, READ, EDIT, ADMIN, OWNER)
+    /// Access level (one of NONE, READ, EDIT, ADMIN)
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub access_code: String,
@@ -1660,9 +1660,12 @@ pub struct MembershipCreateUserSuccess {
     /// The user's first name.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub first_name: i64,
-    /// The user's last name'.
+    /// The user's last name.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub last_name: i64,
+    /// The user's email.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub email: i64,
 }
 
 #[serde_as]
@@ -1807,6 +1810,10 @@ pub struct MembershipListMembershipsUserSuccess {
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub last_name: String,
+    /// The user email.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub email: String,
 }
 
 #[serde_as]
@@ -1893,7 +1900,7 @@ pub struct MembershipUpdateParameters {
     /// ID of the membership to update.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
-    /// Access level (one of NONE, READ, EDIT, ADMIN, OWNER)
+    /// Access level (one of NONE, READ, EDIT, ADMIN)
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub access_code: String,
@@ -1905,7 +1912,7 @@ pub struct MembershipUpdateSuccess {
     /// The membership ID.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
-    /// Access level (one of NONE, READ, EDIT, ADMIN, OWNER)
+    /// Access level (one of NONE, READ, EDIT, ADMIN)
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub access_code: String,
@@ -1939,6 +1946,10 @@ pub struct MembershipUpdateUserSuccess {
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub last_name: String,
+    /// The user email.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub email: String,
 }
 
 #[serde_as]
@@ -2165,9 +2176,9 @@ pub struct ListHoldingPayoutsPayoutsSuccess {
     /// Value of deferred income in this payout. (Australia only)
     #[serde(default)]
     pub deferred_income: Option<Float>,
-    /// `true` if this payout is not assessed for tax. (Australia only)
+    /// Any non-tax assessable amount.
     #[serde(default)]
-    pub non_assessable: Option<bool>,
+    pub non_assessable: Option<Float>,
     /// Value of CGT concession in this payout. (Australia only)
     #[serde(default)]
     pub cgt_concession_amount: Option<Float>,
@@ -2362,9 +2373,9 @@ pub struct ListPortfolioPayoutsPayoutsSuccess {
     /// Value of deferred income in this payout. (Australia only)
     #[serde(default)]
     pub deferred_income: Option<Float>,
-    /// True if this payout is not assessed for tax. (Australia only)
+    /// Any non-tax assessable amount.
     #[serde(default)]
-    pub non_assessable: Option<bool>,
+    pub non_assessable: Option<Float>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is less than the cash distribution you received. This amount is non-assessable and is used to decrease your cost base for cgt purposes (Australia only)
     #[serde(default)]
     pub amit_decrease_amount: Option<Float>,
@@ -2646,9 +2657,9 @@ pub struct PayoutCreatePayoutParameters {
     /// The amount of an LIC dividend that is attributable to an LIC capital gain. (Australia only)
     #[serde(default)]
     pub lic_capital_gain: Option<Float>,
-    /// `true` if this payout is not assessed for tax. (Australia only)
+    /// Any non-tax assessable amount.
     #[serde(default)]
-    pub non_assessable: Option<bool>,
+    pub non_assessable: Option<Float>,
     /// Value of deferred income in this payout. (Australia only)
     #[serde(default)]
     pub deferred_income: Option<Float>,
@@ -3092,9 +3103,9 @@ pub struct PayoutShowSuccess {
     /// Amount of foreign income in this payout. (Australia only)
     #[serde(default)]
     pub foreign_source_income: Option<Float>,
-    /// `true` if this payout is not assessed for tax. (Australia only)
+    /// Any non-tax assessable amount.
     #[serde(default)]
-    pub non_assessable: Option<bool>,
+    pub non_assessable: Option<Float>,
     /// Value of deferred income in this payout. (Australia only)
     #[serde(default)]
     pub deferred_income: Option<Float>,
@@ -3261,9 +3272,9 @@ pub struct PayoutUpdatePayoutParameters {
     /// The amount of an LIC dividend that is attributable to an LIC capital gain. (Australia only)
     #[serde(default)]
     pub lic_capital_gain: Option<Float>,
-    /// `true` if this payout is not assessed for tax. (Australia only)
+    /// Any non-tax assessable amount.
     #[serde(default)]
-    pub non_assessable: Option<bool>,
+    pub non_assessable: Option<Float>,
     /// Value of deferred income in this payout. (Australia only)
     #[serde(default)]
     pub deferred_income: Option<Float>,
@@ -3370,9 +3381,9 @@ pub struct PayoutUpdateSuccess {
     /// Amount of foreign income in this payout. (Australia only)
     #[serde(default)]
     pub foreign_source_income: Option<Float>,
-    /// `true` if this payout is not assessed for tax. (Australia only)
+    /// Any non-tax assessable amount.
     #[serde(default)]
-    pub non_assessable: Option<bool>,
+    pub non_assessable: Option<Float>,
     /// Value of deferred income in this payout. (Australia only)
     #[serde(default)]
     pub deferred_income: Option<Float>,
@@ -3428,7 +3439,7 @@ impl<'a> ApiEndpoint<'a> for PortfolioCreate {
 
     type UrlDisplay = &'static str;
     type Parameters = PortfolioCreateParameters;
-    type Success = ();
+    type Success = PortfolioCreateSuccess;
 
     fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
         "/portfolios.json"
@@ -3438,6 +3449,12 @@ impl<'a> ApiEndpoint<'a> for PortfolioCreate {
 #[serde_as]
 #[derive(Debug, Clone, Serialize)]
 pub struct PortfolioCreateParameters {
+    pub portfolio: PortfolioCreatePortfolioParameters,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct PortfolioCreatePortfolioParameters {
     /// The new portfolio's name.
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -3466,7 +3483,7 @@ pub struct PortfolioCreateParameters {
     /// Disable Automatic Transactions for this portfolio (`true`: disable, `false`: enable)
     #[serde(default)]
     pub disable_automatic_transactions: Option<bool>,
-    /// `0`: trust, `1`: smsf, `2`: company
+    /// `1`: Individuals / Trust, `2`: Self Managed Super Fund, `3`: Company. Defaults to Individuals / Trust for AU portfolios.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub cg_discount_id: i64,
     /// New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as `33.1`).
@@ -3488,40 +3505,118 @@ pub struct PortfolioCreateParameters {
     /// `true` in order to account for the fact that bank statement data is delayed by a day due to overnight processing
     #[serde(default)]
     pub account_for_delayed_cash_transactions: Option<bool>,
-}
-
-/// Delete an existing user portfolio.
-pub struct PortfolioDelete;
-
-impl<'a> ApiEndpoint<'a> for PortfolioDelete {
-    const URL_PATH: &'static str = "/portfolios/:id.json";
-    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
-
-    type UrlDisplay = PortfolioDeleteUrlDisplay<'a>;
-    type Parameters = PortfolioDeleteParameters;
-    type Success = PortfolioDeleteSuccess;
-
-    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        PortfolioDeleteUrlDisplay(parameters)
-    }
-}
-
-pub struct PortfolioDeleteUrlDisplay<'a>(&'a PortfolioDeleteParameters);
-
-impl<'a> fmt::Display for PortfolioDeleteUrlDisplay<'a> {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let parameters = self.0;
-
-        write!(f, "/portfolios/{}.json", parameters.id)
-    }
+    /// Typically used by professionals to identify the tax entity owner of the portfolio
+    #[serde(default)]
+    pub external_identifier: Option<String>,
 }
 
 #[serde_as]
-#[derive(Debug, Clone, Serialize)]
-pub struct PortfolioDeleteParameters {
-    /// ID of the portfolio to delete.
+#[derive(Debug, Clone, Deserialize)]
+pub struct PortfolioCreateSuccess {
+    /// The portfolio ID.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
+    /// The portfolio name.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// The default sale allocation method for tax reporting.
+    pub default_sale_allocation_method: SaleAllocationMethod,
+    /// Discount for Capital Gains Tax.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub cg_discount: String,
+    /// New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as `33.1`).
+    pub rwtr_rate: Float,
+    /// Tax Status (`true`: Trade, `false`: Investor). Can be `null`.
+    pub trader: bool,
+    /// Automatic Transactions are disabled (`true`) or enabled (`false`).
+    pub disable_automatic_transactions: bool,
+    /// For Canadian portfolios, the type of tax processing (`"non_registered"`, `"rrsp"` or `"rrif"`). Can be `null`.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tax_entity_type: String,
+    /// `true` if the broker import email is enabled. Present for portfolio admins
+    pub broker_email_api_enabled: bool,
+    /// Email prefix of the broker import email address. Present for portfolio admins
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub broker_email_key: String,
+    /// (deprecated) Financial Year end month (`1`: Jan, `2`: Feb, etc.).
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub financial_year_end_month_id: i64,
+    /// Financial Year end date MM-DD.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub financial_year_end: String,
+    /// Performance Calculation Method
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub interest_method: String,
+    /// ISO code of the portfolio country (see <a href="https://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a>)
+    pub country_code: Country,
+    /// ISO code of the portfolio currency (see <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a>)
+    pub currency_code: Currency,
+    /// Portfolio's inception date (first trade record). Format: dd mmm yyyy
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub inception_date: String,
+    /// Time zone name
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tz_name: String,
+    /// Calculates accrual adjustments against any portfolio cash accounts to allow for unsettled trades and unpaid dividends
+    pub apply_cash_account_adjustments: bool,
+    /// Specifies the number of working days between the buy trade date and settlement in the cash account. Can be `null`.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub buy_trade_settlement_delay: i64,
+    /// Specifies the number of working days between the sell trade date and settlement in the cash account. Can be `null`.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub sell_trade_settlement_delay: i64,
+    /// Accounts for the fact that bank statement data is delayed by a day due to overnight processing
+    pub account_for_delayed_cash_transactions: bool,
+    /// All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account. Can be `null`.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub trade_sync_cash_account_id: i64,
+    /// All payouts will generate a corresponding deposit in the selected 'payout' account. Can be `null`.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub payout_sync_cash_account_id: i64,
+    /// Typically used by professionals to identify the tax entity owner of the portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub external_identifier: String,
+    /// List of links for this portfolio
+    pub links: PortfolioCreateLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PortfolioCreateLinksSuccess {
+    /// Url of this portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub portfolio: String,
+    /// Url of this portfolio
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
+}
+
+/// Delete an existing user portfolio
+pub struct PortfolioDelete;
+
+impl<'a> ApiEndpoint<'a> for PortfolioDelete {
+    const URL_PATH: &'static str = "/portfolios/{id}.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
+
+    type UrlDisplay = &'static str;
+    type Parameters = ();
+    type Success = PortfolioDeleteSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/portfolios/{id}.json"
+    }
 }
 
 #[serde_as]
@@ -3531,9 +3626,7 @@ pub struct PortfolioDeleteSuccess {
     pub status: (),
 }
 
-/// Returns list of portfolios for the user.
-///
-/// If the user owns the portfolio, all the info related to it will be displayed. Otherwise only basic info is returned.
+/// Returns list of portfolios for the user. If the user owns the portfolio, all the info related to it will be displayed. Otherwise only basic info is returned.
 pub struct PortfolioList;
 
 impl<'a> ApiEndpoint<'a> for PortfolioList {
@@ -3552,12 +3645,7 @@ impl<'a> ApiEndpoint<'a> for PortfolioList {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct PortfolioListSuccess {
-    /// List of portfolios.
     pub portfolios: Vec<PortfolioListPortfoliosSuccess>,
-    /// All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account.
-    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
-    #[serde(default)]
-    pub trade_sync_cash_account_id: Option<i64>,
     /// List of links for this resource
     pub links: PortfolioListLinksSuccess,
 }
@@ -3579,14 +3667,18 @@ pub struct PortfolioListPortfoliosSuccess {
     pub cg_discount: Option<String>,
     /// New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as `33.1`).
     pub rwtr_rate: Float,
-    /// Tax Status (`true`: Trade, `false`: Investor).
+    /// Tax Status (`true`: Trade, `false`: Investor). Can be `null`.
     #[serde(default)]
     pub trader: Option<bool>,
     /// Automatic Transactions are disabled (`true`) or enabled (`false`).
     pub disable_automatic_transactions: bool,
-    /// `true` if the broker import email is enabled.
+    /// For Canadian portfolios, the type of tax processing (`"non_registered"`, `"rrsp"` or `"rrif"`). Can be `null`.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tax_entity_type: String,
+    /// `true` if the broker import email is enabled. Present for portfolio admins
     pub broker_email_api_enabled: bool,
-    /// Email prefix of the broker import email address.
+    /// Email prefix of the broker import email address. Present for portfolio admins
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub broker_email_key: String,
@@ -3605,25 +3697,38 @@ pub struct PortfolioListPortfoliosSuccess {
     pub country_code: Country,
     /// ISO code of the portfolio currency (see <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a>)
     pub currency_code: Currency,
-    /// Portfolio's inception date (first trade record)
-    #[serde_as(as = "DeserializeDate")]
-    pub inception_date: NaiveDate,
+    /// Portfolio's inception date (first trade record). Format: dd mmm yyyy
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub inception_date: String,
     /// Time zone name
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub tz_name: String,
     /// Calculates accrual adjustments against any portfolio cash accounts to allow for unsettled trades and unpaid dividends
     pub apply_cash_account_adjustments: bool,
-    /// Specifies the number of working days between the buy trade date and settlement in the cash account
+    /// Specifies the number of working days between the buy trade date and settlement in the cash account. Can be `null`.
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
     pub buy_trade_settlement_delay: Option<i64>,
-    /// Specifies the number of working days between the sell trade date and settlement in the cash account
+    /// Specifies the number of working days between the sell trade date and settlement in the cash account. Can be `null`.
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
     pub sell_trade_settlement_delay: Option<i64>,
     /// Accounts for the fact that bank statement data is delayed by a day due to overnight processing
     pub account_for_delayed_cash_transactions: bool,
+    /// All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account. Can be `null`.
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub trade_sync_cash_account_id: Option<i64>,
+    /// All payouts will generate a corresponding deposit in the selected 'payout' account. Can be `null`.
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub payout_sync_cash_account_id: Option<i64>,
+    /// Typically used by professionals to identify the tax entity owner of the portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub external_identifier: String,
     /// List of links for this portfolio
     pub links: PortfolioListPortfoliosLinksSuccess,
 }
@@ -3635,6 +3740,11 @@ pub struct PortfolioListPortfoliosLinksSuccess {
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub portfolio: String,
+    /// Url of this portfolio
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
 }
 
 #[serde_as]
@@ -3651,33 +3761,16 @@ pub struct PortfolioListLinksSuccess {
 pub struct PortfolioShow;
 
 impl<'a> ApiEndpoint<'a> for PortfolioShow {
-    const URL_PATH: &'static str = "/portfolios/:id.json";
+    const URL_PATH: &'static str = "/portfolios/{id}.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
 
-    type UrlDisplay = PortfolioShowUrlDisplay<'a>;
-    type Parameters = PortfolioShowParameters;
+    type UrlDisplay = &'static str;
+    type Parameters = ();
     type Success = PortfolioShowSuccess;
 
-    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        PortfolioShowUrlDisplay(parameters)
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/portfolios/{id}.json"
     }
-}
-
-pub struct PortfolioShowUrlDisplay<'a>(&'a PortfolioShowParameters);
-
-impl<'a> fmt::Display for PortfolioShowUrlDisplay<'a> {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let parameters = self.0;
-
-        write!(f, "/portfolios/{}.json", parameters.id)
-    }
-}
-
-#[serde_as]
-#[derive(Debug, Clone, Serialize)]
-pub struct PortfolioShowParameters {
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub id: i64,
 }
 
 #[serde_as]
@@ -3697,17 +3790,17 @@ pub struct PortfolioShowSuccess {
     pub cg_discount: Option<String>,
     /// New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as `33.1`).
     pub rwtr_rate: Float,
-    /// Tax Status (`true`: Trade, `false`: Investor).
+    /// Tax Status (`true`: Trade, `false`: Investor). Can be `null`.
     pub trader: bool,
     /// Automatic Transactions are disabled (`true`) or enabled (`false`).
     pub disable_automatic_transactions: bool,
-    /// For Canadian portfolios, the type of tax processing (`"non_registered"`, `"rrsp"` or `"rrif"`)
+    /// For Canadian portfolios, the type of tax processing (`"non_registered"`, `"rrsp"` or `"rrif"`). Can be `null`.
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub tax_entity_type: String,
-    /// `true` if the broker import email is enabled.
+    /// `true` if the broker import email is enabled. Present for portfolio admins
     pub broker_email_api_enabled: bool,
-    /// Email prefix of the broker import email address.
+    /// Email prefix of the broker import email address. Present for portfolio admins
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub broker_email_key: String,
@@ -3726,27 +3819,35 @@ pub struct PortfolioShowSuccess {
     pub country_code: Country,
     /// ISO code of the portfolio currency (see <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a>)
     pub currency_code: Currency,
-    /// The portfolio's inception date (first trade record)
-    #[serde_as(as = "DeserializeDate")]
-    pub inception_date: NaiveDate,
+    /// Portfolio's inception date (first trade record). Format: dd mmm yyyy
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub inception_date: String,
     /// Time zone name
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub tz_name: String,
     /// Calculates accrual adjustments against any portfolio cash accounts to allow for unsettled trades and unpaid dividends
     pub apply_cash_account_adjustments: bool,
-    /// Specifies the number of working days between the buy trade date and settlement in the cash account
+    /// Specifies the number of working days between the buy trade date and settlement in the cash account. Can be `null`.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub buy_trade_settlement_delay: i64,
-    /// Specifies the number of working days between the sell trade date and settlement in the cash account
+    /// Specifies the number of working days between the sell trade date and settlement in the cash account. Can be `null`.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub sell_trade_settlement_delay: i64,
     /// Accounts for the fact that bank statement data is delayed by a day due to overnight processing
     pub account_for_delayed_cash_transactions: bool,
-    /// All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account.
+    /// All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account. Can be `null`.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub trade_sync_cash_account_id: i64,
-    /// List of links for this resource
+    /// All payouts will generate a corresponding deposit in the selected 'payout' account. Can be `null`.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub payout_sync_cash_account_id: i64,
+    /// Typically used by professionals to identify the tax entity owner of the portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub external_identifier: String,
+    /// List of links for this portfolio
     pub links: PortfolioShowLinksSuccess,
 }
 
@@ -3754,53 +3855,46 @@ pub struct PortfolioShowSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PortfolioShowLinksSuccess {
     /// Url of this portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub portfolio: String,
+    /// Url of this portfolio
     #[serde(rename = "self")]
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub itself: String,
-    /// Url of this portfolio (same as self)
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub portfolio: String,
 }
 
 /// Update an existing portfolio for the user.
 pub struct PortfolioUpdate;
 
 impl<'a> ApiEndpoint<'a> for PortfolioUpdate {
-    const URL_PATH: &'static str = "/portfolios/:id.json";
+    const URL_PATH: &'static str = "/portfolios/{id}.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
 
-    type UrlDisplay = PortfolioUpdateUrlDisplay<'a>;
+    type UrlDisplay = &'static str;
     type Parameters = PortfolioUpdateParameters;
     type Success = PortfolioUpdateSuccess;
 
-    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        PortfolioUpdateUrlDisplay(parameters)
-    }
-}
-
-pub struct PortfolioUpdateUrlDisplay<'a>(&'a PortfolioUpdateParameters);
-
-impl<'a> fmt::Display for PortfolioUpdateUrlDisplay<'a> {
-    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let parameters = self.0;
-
-        write!(f, "/portfolios/{}.json", parameters.id)
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/portfolios/{id}.json"
     }
 }
 
 #[serde_as]
 #[derive(Debug, Clone, Serialize)]
 pub struct PortfolioUpdateParameters {
-    /// The portfolio ID.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub id: i64,
-    /// The portfolio's name.
+    pub portfolio: PortfolioUpdatePortfolioParameters,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct PortfolioUpdatePortfolioParameters {
+    /// The new portfolio's name.
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
-    /// `true`to enable broker import via Trade Confirmation Emails.
+    /// `true` to enable broker import via Trade Confirmation Emails.
     pub broker_email_api_enabled: bool,
     /// (deprecated) Financial year end month (`1` for January, ..., `12` for December).
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
@@ -3815,17 +3909,23 @@ pub struct PortfolioUpdateParameters {
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub interest_method: String,
-    /// `true` if trader.
+    /// Tax Status (`true`: Trader, `false`: Investor)
     pub trader: bool,
     /// For Canadian portfolios, the type of tax processing (`"non_registered"`, `"rrsp"` or `"rrif"`)
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub tax_entity_type: String,
-    /// `0`: trust, `1`: smsf, `2`: company
+    /// Disable Automatic Transactions for this portfolio (`true`: disable, `false`: enable)
+    #[serde(default)]
+    pub disable_automatic_transactions: Option<bool>,
+    /// `1`: Individuals / Trust, `2`: Self Managed Super Fund, `3`: Company. Defaults to Individuals / Trust for AU portfolios.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub cg_discount_id: i64,
     /// New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as `33.1`).
     pub rwtr_rate: Float,
+    /// ISO code of the portfolio country (see <a href="https://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a>). Defaults to the portfolio owner's default country.
+    #[serde(default)]
+    pub country_code: Option<Country>,
     /// `true` in order to calculate accrual adjustments against any portfolio cash accounts to allow for unsettled trades and unpaid dividends
     #[serde(default)]
     pub apply_cash_account_adjustments: Option<bool>,
@@ -3840,9 +3940,17 @@ pub struct PortfolioUpdateParameters {
     /// `true` in order to account for the fact that bank statement data is delayed by a day due to overnight processing
     #[serde(default)]
     pub account_for_delayed_cash_transactions: Option<bool>,
-    /// All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account. You can only select a trading cash account if it has the same currency as the portfolio currency
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub trade_sync_cash_account_id: i64,
+    /// All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account. You can only select a trading cash account if it has the same currency as the portfolio currency.
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub trade_sync_cash_account_id: Option<i64>,
+    /// All payouts will generate a corresponding deposit in the selected 'payout' account. Can be `null`.
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub payout_sync_cash_account_id: Option<i64>,
+    /// Typically used by professionals to identify the tax entity owner of the portfolio
+    #[serde(default)]
+    pub external_identifier: Option<String>,
 }
 
 #[serde_as]
@@ -3862,15 +3970,17 @@ pub struct PortfolioUpdateSuccess {
     pub cg_discount: Option<String>,
     /// New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as `33.1`).
     pub rwtr_rate: Float,
-    /// Tax Status (`true`: Trader, `false`: Investor).
+    /// Tax Status (`true`: Trade, `false`: Investor). Can be `null`.
     pub trader: bool,
-    /// For Canadian portfolios, the type of tax processing (`"non_registered"`, `"rrsp"` or `"rrif"`)
+    /// Automatic Transactions are disabled (`true`) or enabled (`false`).
+    pub disable_automatic_transactions: bool,
+    /// For Canadian portfolios, the type of tax processing (`"non_registered"`, `"rrsp"` or `"rrif"`). Can be `null`.
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub tax_entity_type: String,
-    /// `true` if the broker import email is enabled.
+    /// `true` if the broker import email is enabled. Present for portfolio admins
     pub broker_email_api_enabled: bool,
-    /// Email prefix of the broker import email address.
+    /// Email prefix of the broker import email address. Present for portfolio admins
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub broker_email_key: String,
@@ -3889,20 +3999,35 @@ pub struct PortfolioUpdateSuccess {
     pub country_code: Country,
     /// ISO code of the portfolio currency (see <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a>)
     pub currency_code: Currency,
+    /// Portfolio's inception date (first trade record). Format: dd mmm yyyy
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub inception_date: String,
+    /// Time zone name
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tz_name: String,
     /// Calculates accrual adjustments against any portfolio cash accounts to allow for unsettled trades and unpaid dividends
     pub apply_cash_account_adjustments: bool,
-    /// Specifies the number of working days between the buy trade date and settlement in the cash account
+    /// Specifies the number of working days between the buy trade date and settlement in the cash account. Can be `null`.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub buy_trade_settlement_delay: i64,
-    /// Specifies the number of working days between the sell trade date and settlement in the cash account
+    /// Specifies the number of working days between the sell trade date and settlement in the cash account. Can be `null`.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub sell_trade_settlement_delay: i64,
     /// Accounts for the fact that bank statement data is delayed by a day due to overnight processing
     pub account_for_delayed_cash_transactions: bool,
-    /// All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account.
+    /// All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account. Can be `null`.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub trade_sync_cash_account_id: i64,
-    /// List of links for this resource
+    /// All payouts will generate a corresponding deposit in the selected 'payout' account. Can be `null`.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub payout_sync_cash_account_id: i64,
+    /// Typically used by professionals to identify the tax entity owner of the portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub external_identifier: String,
+    /// List of links for this portfolio
     pub links: PortfolioUpdateLinksSuccess,
 }
 
@@ -3910,14 +4035,14 @@ pub struct PortfolioUpdateSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct PortfolioUpdateLinksSuccess {
     /// Url of this portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub portfolio: String,
+    /// Url of this portfolio
     #[serde(rename = "self")]
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub itself: String,
-    /// Url of this portfolio (same as self)
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub portfolio: String,
 }
 
 /// Return a report on capital gains tax (for Australian portfolios only)
@@ -5788,4 +5913,12 @@ pub struct MyUserUserSuccess {
     pub is_cancelled: bool,
     /// Has the user account expired
     pub is_expired: bool,
+    /// The date the user signed up to Sharesight in ISO8601 format (YYYY-MM-DDT00:00:00.000Z)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub signed_up_at: String,
+    /// True if the user signed up for Sharesight via your application
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub signup_via_your_integration: String,
 }

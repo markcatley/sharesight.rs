@@ -77,7 +77,7 @@ async fn main() -> anyhow::Result<()> {
             interest_payment: Option<f64>,
             foreign_source_income: Option<f64>,
             deferred_income: Option<f64>,
-            non_assessable: Option<bool>,
+            non_assessable: Option<f64>,
             amit_decrease_amount: Option<f64>,
             amit_increase_amount: Option<f64>,
         }
