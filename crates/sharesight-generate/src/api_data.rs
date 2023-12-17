@@ -105,7 +105,7 @@ impl ApiEndpoint {
     }
 
     fn fix_dates(&mut self) {
-        for field in self.success.fields.fields.iter_mut() {
+        for field in self.success.all_fields_iter_mut() {
             if matches!(field.field_type, FieldType::Scalar(FieldTypeBase::String))
                 && field
                     .description
@@ -144,6 +144,8 @@ pub enum Method {
     Put,
     #[serde(alias = "SHOW")]
     Show,
+    #[serde(alias = "PATCH")]
+    Patch,
 }
 
 impl Method {
@@ -153,6 +155,7 @@ impl Method {
             Method::Get | Method::Show => "Get",
             Method::Post => "Post",
             Method::Put => "Put",
+            Method::Patch => "Patch",
         }
     }
 }
@@ -180,34 +183,40 @@ pub struct ApiParameterFields {
 #[derive(Debug, Default, Deserialize)]
 #[serde(rename_all = "camelCase", default)]
 pub struct ApiSuccess {
-    pub fields: ApiSuccessField,
+    pub fields: ApiSuccessFields,
     pub examples: Vec<Example>,
 }
 
-#[derive(Debug, Default)]
-pub struct ApiSuccessField {
-    #[allow(dead_code)]
-    pub status: ApiHttpStatus,
-    pub fields: Vec<Field>,
+impl ApiSuccess {
+    pub fn all_fields_iter_mut(&mut self) -> impl Iterator<Item = &mut Field> {
+        self.fields
+            .success
+            .iter_mut()
+            .chain(self.fields.no_content.iter_mut())
+            .flat_map(|fields| fields.iter_mut())
+    }
+
+    pub fn is_empty(&self) -> bool {
+        self.api_fields().is_empty()
+    }
+
+    pub fn api_fields(&self) -> &[Field] {
+        self.fields
+            .success
+            .as_ref()
+            .or(self.fields.no_content.as_ref())
+            .map(|fs| &fs[..])
+            .unwrap_or(&[])
+    }
 }
 
-impl<'de> Deserialize<'de> for ApiSuccessField {
-    fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
-    where
-        D: serde::Deserializer<'de>,
-    {
-        use serde::de::Error;
-
-        let map = HashMap::<ApiHttpStatus, Vec<Field>>::deserialize(deserializer)?;
-
-        if map.len() != 1 {
-            return Err(D::Error::invalid_length(map.len(), &"1"));
-        }
-
-        let (status, fields) = map.into_iter().next().unwrap();
-
-        Ok(ApiSuccessField { status, fields })
-    }
+#[derive(Debug, Default, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct ApiSuccessFields {
+    #[serde(rename = "200 Success")]
+    pub success: Option<Vec<Field>>,
+    #[serde(rename = "204 No Content")]
+    pub no_content: Option<Vec<Field>>,
 }
 
 #[derive(Debug, Default, Deserialize)]
@@ -328,7 +337,8 @@ pub enum FieldTypeBase {
     Hash,
     Integer,
     Date,
-    Float,
+    #[serde(alias = "Float")]
+    Number,
     DateTime,
     #[serde(rename = "")]
     Unit,

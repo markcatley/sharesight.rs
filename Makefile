@@ -1,5 +1,5 @@
 generate:
-	cargo run --bin sharesight-generate -- crates/sharesight-generate/assets/api_data.json crates/sharesight-types/src/types.rs
+	cargo run --bin sharesight-generate -- crates/sharesight-types/src/types.rs crates/sharesight-generate/assets/api_data_*.json
 	cargo fmt
 	cargo clippy
 
