@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 
 use indexmap::IndexMap;
+use semver::Version;
 use serde::{
     de::{IntoDeserializer, Unexpected},
     Deserialize,
@@ -23,7 +24,7 @@ pub struct ApiEndpoint {
     pub name: String,
     #[allow(dead_code)]
     pub group: String,
-    pub version: String,
+    pub version: Version,
     #[allow(dead_code)]
     pub description: String,
     #[allow(dead_code)]
@@ -316,7 +317,7 @@ impl<'de> Deserialize<'de> for FieldType {
     {
         let field_type = String::deserialize(deserializer)?;
 
-        if field_type == "[]" {
+        if field_type == "[]" || field_type == "Array" || field_type == "Array[]" {
             Ok(FieldType::Array(FieldTypeBase::Hash))
         } else if field_type.ends_with("[]") {
             Ok(FieldType::Array(FieldTypeBase::deserialize(
@@ -333,7 +334,6 @@ impl<'de> Deserialize<'de> for FieldType {
 #[derive(Debug, Deserialize)]
 pub enum FieldTypeBase {
     String,
-    #[serde(alias = "Array")]
     Hash,
     Integer,
     Date,

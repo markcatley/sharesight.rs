@@ -166,7 +166,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "connection_consumer.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -180,7 +180,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -543,7 +543,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "connection_consumers.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -557,7 +557,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -786,7 +786,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "connection_consumers.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -800,7 +800,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -1038,7 +1038,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "connection_consumers.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -1052,7 +1052,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -1322,7 +1322,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "connection_consumer.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -1336,7 +1336,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -1566,7 +1566,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -1934,7 +1934,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -2144,7 +2144,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -2402,7 +2402,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -2590,7 +2590,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -2769,7 +2769,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -2939,7 +2939,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -3199,7 +3199,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -3415,7 +3415,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -3615,7 +3615,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -3912,7 +3912,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -4144,7 +4144,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -4378,7 +4378,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -4589,7 +4589,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -4851,7 +4851,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -5065,7 +5065,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -5353,7 +5353,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -5592,7 +5592,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -5931,7 +5931,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "custom_investment.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -6036,7 +6036,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -6213,7 +6213,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -6447,7 +6447,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "custom_investments.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -6552,7 +6552,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -6771,7 +6771,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "custom_investment.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -6876,7 +6876,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -7180,7 +7180,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "custom_investment.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -7285,7 +7285,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -7520,7 +7520,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -7688,7 +7688,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -7891,7 +7891,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -8431,7 +8431,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -9090,7 +9090,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -9908,7 +9908,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -10069,7 +10069,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": ""
             }
@@ -10391,7 +10391,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "holdings.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -10496,7 +10496,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -10909,7 +10909,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "holding.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -11021,7 +11021,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -11652,7 +11652,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -11861,7 +11861,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -12693,7 +12693,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -13297,7 +13297,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -13562,7 +13562,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "imports.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -13660,7 +13660,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -13920,7 +13920,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -14299,7 +14299,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -14679,7 +14679,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -14916,7 +14916,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -15155,7 +15155,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -15443,7 +15443,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -15652,7 +15652,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -15915,7 +15915,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -17258,7 +17258,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -17435,7 +17435,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -18246,7 +18246,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -19067,7 +19067,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -20426,7 +20426,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": ""
             },
@@ -20636,7 +20636,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "connection_consumers.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -20650,7 +20650,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -20999,7 +20999,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "holdings.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -21027,7 +21027,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -21236,7 +21236,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -21341,7 +21341,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "portfolio.trader",
               "description": "<p>For NZ portfolios, true if the owner is taxed as a trader</p>"
             },
@@ -21362,21 +21362,21 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "portfolio.trade_sync_cash_account_id",
               "description": "<p>All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "portfolio.payout_sync_cash_account_id",
               "description": "<p>All payouts will generate a corresponding deposit in the selected 'payout' account</p>"
             },
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -21571,7 +21571,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -21592,7 +21592,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.holding_id",
               "description": "<p>The id of the holding in this portfolio</p>"
             },
@@ -21662,7 +21662,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.user_id",
               "description": "<p>The unique identifier of the portfolio owner</p>"
             },
@@ -21683,7 +21683,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.trader",
               "description": "<p>For NZ portfolios, true if the owner is taxed as a trader</p>"
             },
@@ -21704,21 +21704,21 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.trade_sync_cash_account_id",
               "description": "<p>All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.payout_sync_cash_account_id",
               "description": "<p>All payouts will generate a corresponding deposit in the selected 'payout' account</p>"
             },
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -21983,7 +21983,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -22346,7 +22346,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -22746,7 +22746,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -23188,7 +23188,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "holdings.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -23391,7 +23391,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "cash_accounts.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -23405,7 +23405,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -24031,7 +24031,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "report.holdings.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -24444,7 +24444,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "report.combined_holdings.portfolios.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -24626,7 +24626,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "report.cash_accounts.portfolio.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -24661,7 +24661,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -24960,7 +24960,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "performance_index_chart.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -25002,7 +25002,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -25242,7 +25242,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -25474,7 +25474,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -26278,7 +26278,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -26448,7 +26448,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": ""
             }
@@ -27030,7 +27030,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -27643,7 +27643,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": ""
             },
@@ -28421,7 +28421,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": ""
             },
@@ -28583,7 +28583,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -29435,7 +29435,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -30817,7 +30817,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -31051,7 +31051,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -31310,7 +31310,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
