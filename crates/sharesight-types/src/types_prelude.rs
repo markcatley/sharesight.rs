@@ -10,11 +10,11 @@ pub use serde_with::{serde_as, DefaultOnNull, DisplayFromStr, PickFirst};
 pub use crate::codes::*;
 
 #[cfg(all(feature = "rust_decimal", not(feature = "bigdecimal")))]
-pub type Float = rust_decimal::Decimal;
+pub type Number = rust_decimal::Decimal;
 #[cfg(all(feature = "bigdecimal", not(feature = "bigdecimal")))]
-pub type Float = bigdecimal::BigDecimal;
+pub type Number = bigdecimal::BigDecimal;
 #[cfg(all(not(feature = "bigdecimal"), not(feature = "rust_decimal")))]
-pub type Float = f64;
+pub type Number = f64;
 #[cfg(all(feature = "rust_decimal", feature = "bigdecimal"))]
 compile_error!(
     "sharesight: Features rust_decimal and bigdecimal are mutually exclusive. Pick one."

@@ -76,9 +76,9 @@ pub struct CashAccountCreateCashAccountSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub date: NaiveDate,
     /// The cash account balance on a given date (rounded to 2 decimal places).
-    pub balance: Float,
+    pub balance: Number,
     /// The cash account balance converted into the portfolios currency (rounded to 2 decimal places).
-    pub balance_in_portfolio_currency: Float,
+    pub balance_in_portfolio_currency: Number,
     /// List of links for this cash account
     pub links: CashAccountCreateCashAccountLinksSuccess,
 }
@@ -185,9 +185,9 @@ pub struct CashAccountShowSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub date: NaiveDate,
     /// The cash account balance on a given date (rounded to 2 decimal places).
-    pub balance: Float,
+    pub balance: Number,
     /// The cash account balance converted into the portfolios currency (rounded to 2 decimal places).
-    pub balance_in_portfolio_currency: Float,
+    pub balance_in_portfolio_currency: Number,
     /// List of links for this cash account
     pub links: CashAccountShowLinksSuccess,
 }
@@ -247,7 +247,7 @@ pub struct CashAccountTransactionCreateParameters {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub description: String,
     /// The new transaction amount.
-    pub amount: Float,
+    pub amount: Number,
     /// Transaction types may be any string. For example: `"OPENING BALANCE"`, `"DEPOSIT"`, `"WITHDRAWAL"`, `"INTEREST_PAYMENT"`, `"FEE"`, `"FEE_REIMBURSEMENT"`. The transaction type `"OPENING BALANCE"` has a rule to create an opening balance transaction, the others are all treated the same.
     pub type_name: CashAccountTransactionTypeName,
     /// The new transaction date and time (format `YYYY-MM-DDThh:mm:ss`, see <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>).
@@ -276,9 +276,9 @@ pub struct CashAccountTransactionCreateCashAccountTransactionSuccess {
     /// The transaction date time (format `YYYY-MM-DDThh:mm:ss`, see <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>).
     pub date_time: DateTime<FixedOffset>,
     /// The transaction amount (rounded to 2 decimal places).
-    pub amount: Float,
+    pub amount: Number,
     /// The transaction balance (rounded to 2 decimal places).
-    pub balance: Float,
+    pub balance: Number,
     /// ID of the cash account to list transactions for.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub cash_account_id: i64,
@@ -379,7 +379,7 @@ pub struct CashAccountTransactionUpdateParameters {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub description: String,
     /// The transaction amount.
-    pub amount: Float,
+    pub amount: Number,
     /// Transaction types may be any string. For example: `"OPENING BALANCE"`, `"DEPOSIT"`, `"WITHDRAWAL"`, `"INTEREST_PAYMENT"`, `"FEE"`, `"FEE_REIMBURSEMENT"`. The transaction type `"OPENING BALANCE"` has a rule to create an opening balance transaction, the others are all treated the same.
     pub type_name: CashAccountTransactionTypeName,
     /// The transaction date and time (format `YYYY-MM-DDThh:mm:ss`, see <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>).
@@ -408,9 +408,9 @@ pub struct CashAccountTransactionUpdateCashAccountTransactionSuccess {
     /// The transaction date time (format `YYYY-MM-DDThh:mm:ss`, see <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>).
     pub date_time: DateTime<FixedOffset>,
     /// The transaction amount (rounded to 2 decimal places).
-    pub amount: Float,
+    pub amount: Number,
     /// The transaction balance (rounded to 2 decimal places).
-    pub balance: Float,
+    pub balance: Number,
     /// ID of the cash account to list transactions for.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub cash_account_id: i64,
@@ -510,9 +510,9 @@ pub struct CashAccountTransactionsListCashAccountTransactionsSuccess {
     /// The transaction date and time.
     pub date_time: DateTime<FixedOffset>,
     /// The transaction amount (rounded to 2 decimal places).
-    pub amount: Float,
+    pub amount: Number,
     /// The transaction balance (rounded to 2 decimal places).
-    pub balance: Float,
+    pub balance: Number,
     /// ID of the cash account to list transactions for.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub cash_account_id: i64,
@@ -617,9 +617,9 @@ pub struct CashAccountUpdateSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub date: NaiveDate,
     /// The cash account balance on a given date (rounded to 2 decimal places).
-    pub balance: Float,
+    pub balance: Number,
     /// The cash account balance converted into the portfolios currency (rounded to 2 decimal places).
-    pub balance_in_portfolio_currency: Float,
+    pub balance_in_portfolio_currency: Number,
     /// List of links for this cash account
     pub links: CashAccountUpdateLinksSuccess,
 }
@@ -688,9 +688,9 @@ pub struct CashAccountsListCashAccountsSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub date: NaiveDate,
     /// The cash account balance on a given date (rounded to 2 decimal places).
-    pub balance: Float,
+    pub balance: Number,
     /// The cash account balance converted into the portfolios currency (rounded to 2 decimal places).
-    pub balance_in_portfolio_currency: Float,
+    pub balance_in_portfolio_currency: Number,
     /// List of links for this cash account
     pub links: CashAccountsListCashAccountsLinksSuccess,
 }
@@ -839,7 +839,7 @@ pub struct HoldingMergesCreateParameters {
     #[serde_as(as = "DeserializeDate")]
     pub merge_date: NaiveDate,
     /// The quantity
-    pub quantity: Float,
+    pub quantity: Number,
     /// The instrument symbol for the new holding (buy)
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -848,7 +848,7 @@ pub struct HoldingMergesCreateParameters {
     pub market: Market,
     /// The cancelled price
     #[serde(default)]
-    pub cancelled_price: Option<Float>,
+    pub cancelled_price: Option<Number>,
     /// Your comments against the trade
     #[serde(default)]
     pub comments: Option<String>,
@@ -898,13 +898,13 @@ pub struct HoldingMergesCreateHoldingMergeTradesSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// Number of shares sold/bought.
-    pub quantity: Float,
+    pub quantity: Number,
     /// Price paid/received.
-    pub price: Float,
+    pub price: Number,
     /// The transfer's exchange rate.
-    pub exchange_rate: Float,
+    pub exchange_rate: Number,
     /// The transfer's brokerage.
-    pub brokerage: Float,
+    pub brokerage: Number,
     /// The brokerage currency.
     pub brokerage_currency_code: Currency,
     /// The value for the trade as displayed in the 'value' column of the UI. For a merge buy this is the cost of the transaction. The value displayed in the UI for the merge buy is the market value of the cancelled holding at the time of the merge event.
@@ -989,7 +989,7 @@ pub struct HoldingMergesUpdateParameters {
     pub merge_date: Option<NaiveDate>,
     /// The quantity
     #[serde(default)]
-    pub quantity: Option<Float>,
+    pub quantity: Option<Number>,
     /// The instrument symbol for the new holding (buy)
     #[serde(default)]
     pub symbol: Option<String>,
@@ -998,7 +998,7 @@ pub struct HoldingMergesUpdateParameters {
     pub market: Option<Market>,
     /// The cancelled price
     #[serde(default)]
-    pub cancelled_price: Option<Float>,
+    pub cancelled_price: Option<Number>,
     /// Your comments against the trade
     #[serde(default)]
     pub comments: Option<String>,
@@ -1048,13 +1048,13 @@ pub struct HoldingMergesUpdateHoldingMergeTradesSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// Number of shares sold/bought.
-    pub quantity: Float,
+    pub quantity: Number,
     /// Price paid/received.
-    pub price: Float,
+    pub price: Number,
     /// The transfer's exchange rate.
-    pub exchange_rate: Float,
+    pub exchange_rate: Number,
     /// The transfer's brokerage.
-    pub brokerage: Float,
+    pub brokerage: Number,
     /// The brokerage currency.
     pub brokerage_currency_code: Currency,
     /// The value for the trade as displayed in the 'value' column of the UI. For a merge buy this is the cost of the transaction. The value displayed in the UI for the merge buy is the market value of the cancelled holding at the time of the merge event.
@@ -1157,19 +1157,19 @@ pub struct HoldingTradesTradesSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
     /// Number of shares sold/bought.
-    pub quantity: Float,
+    pub quantity: Number,
     /// Price paid/received.
-    pub price: Float,
+    pub price: Number,
     /// For an opening balance, the cost base of the trade. Always returned in the portfolio currency
-    pub cost_base: Float,
+    pub cost_base: Number,
     /// The trade's exchange rate as portfolio currency / instrument currency.
-    pub exchange_rate: Float,
+    pub exchange_rate: Number,
     /// The trade's brokerage.
-    pub brokerage: Float,
+    pub brokerage: Number,
     /// The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.
     pub brokerage_currency_code: Currency,
     /// The value for the trade as displayed in the 'value' column of the UI. For a return of capital, this will be the (signed) capital return value. For a capital call, this will be the (positive) capital return value. For a cost base adjustment, this will be the value of the adjustment. For an opening balance, this will be the market value: the market price x quantity at the opening balance date In each case this is in portfolio currency (rounded to 2 decimal places).
-    pub value: Float,
+    pub value: Number,
     /// For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
@@ -1296,19 +1296,19 @@ pub struct HoldingTradesRejectedTradesSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
     /// Number of shares sold/bought.
-    pub quantity: Float,
+    pub quantity: Number,
     /// Price paid/received.
-    pub price: Float,
+    pub price: Number,
     /// For an opening balance, the cost base of the trade. Always returned in the portfolio currency
-    pub cost_base: Float,
+    pub cost_base: Number,
     /// The trade's exchange rate as portfolio currency / instrument currency.
-    pub exchange_rate: Float,
+    pub exchange_rate: Number,
     /// The trade's brokerage.
-    pub brokerage: Float,
+    pub brokerage: Number,
     /// The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.
     pub brokerage_currency_code: Currency,
     /// The value for the trade as displayed in the 'value' column of the UI. For a return of capital, this will be the (signed) capital return value. For a capital call, this will be the (positive) capital return value. For a cost base adjustment, this will be the value of the adjustment. For an opening balance, this will be the market value: the market price x quantity at the opening balance date In each case this is in portfolio currency (rounded to 2 decimal places).
-    pub value: Float,
+    pub value: Number,
     /// For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
@@ -1514,16 +1514,16 @@ pub struct ListUserInstrumentsInstrumentsSuccess {
     pub currency_code: Currency,
     /// The price-earnings ratio for this instrument.
     #[serde(default)]
-    pub pe_ratio: Option<Float>,
+    pub pe_ratio: Option<Number>,
     /// The net tangible assets for this instrument displayed on it's currency.
     #[serde(default)]
-    pub nta: Option<Float>,
+    pub nta: Option<Number>,
     /// The earnings per share for this instrument displayed on it's currency.
     #[serde(default)]
-    pub eps: Option<Float>,
+    pub eps: Option<Number>,
     /// The current price for this instrument displayed on it's currency.
     #[serde(default)]
-    pub current_price: Option<Float>,
+    pub current_price: Option<Number>,
     /// The date and time the current price was loaded (format YYYY-MM-DDThh:mm:ss, see <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>).
     #[serde(default)]
     pub current_price_updated_at: Option<DateTime<FixedOffset>>,
@@ -2109,24 +2109,24 @@ pub struct ListHoldingPayoutsPayoutsSuccess {
     #[serde(default)]
     pub ex_date: Option<NaiveDate>,
     /// The payout amount.
-    pub amount: Float,
+    pub amount: Number,
     /// The calculated gross amount
-    pub gross_amount: Float,
+    pub gross_amount: Number,
     /// The payout type: DIV (Dividend), REP (Capital replayment), INT (Interest), or DIS (Distribution)
     pub transaction_description: PayoutDescription,
     /// The payout resident withholding tax amount. Always returned in the portfolio currency.
     #[serde(default)]
-    pub resident_withholding_tax: Option<Float>,
+    pub resident_withholding_tax: Option<Number>,
     /// The payout non-resident withholding tax amount.
     #[serde(default)]
-    pub non_resident_withholding_tax: Option<Float>,
+    pub non_resident_withholding_tax: Option<Number>,
     /// The payout tax credit amount. Always returned in the portfolio currency.
     #[serde(default)]
-    pub tax_credit: Option<Float>,
+    pub tax_credit: Option<Number>,
     /// Currency code of the payout, using 3-letter ISO 4217 code.
     pub currency: Currency,
     /// The payout's exchange rate.
-    pub exchange_rate: Float,
+    pub exchange_rate: Number,
     /// If `true`, payout is non taxable.
     pub non_taxable: bool,
     /// Any comments for that payout.
@@ -2135,9 +2135,9 @@ pub struct ListHoldingPayoutsPayoutsSuccess {
     pub comments: String,
     /// Other net foreign source income.
     #[serde(default)]
-    pub other_net_fsi: Option<Float>,
+    pub other_net_fsi: Option<Number>,
     /// The amount of an LIC dividend that is attributable to an LIC capital gain.
-    pub lic_capital_gain: Float,
+    pub lic_capital_gain: Number,
     /// ID of the company event the given payout is based on (nil if not based on any).
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
@@ -2151,43 +2151,43 @@ pub struct ListHoldingPayoutsPayoutsSuccess {
     pub drp_trade_attributes: Option<ListHoldingPayoutsPayoutsDrpTradeAttributesSuccess>,
     /// Franked amount in the payout. (Australia only)
     #[serde(default)]
-    pub franked_amount: Option<Float>,
+    pub franked_amount: Option<Number>,
     /// Unfranked amount in the payout (Australia only)
     #[serde(default)]
-    pub unfranked_amount: Option<Float>,
+    pub unfranked_amount: Option<Number>,
     /// `true` if this payout is for a trust. (Australia only)
     #[serde(default)]
     pub trust: Option<bool>,
     /// Extra interest amount in this payout. (Australia only)
     #[serde(default)]
-    pub extra_interest_payment_amount: Option<Float>,
+    pub extra_interest_payment_amount: Option<Number>,
     /// Capital gain amount in this payout. (Australia only)
     #[serde(default)]
-    pub capital_gains: Option<Float>,
+    pub capital_gains: Option<Number>,
     /// Discounted capital gain amount in this payout. (Australia only)
     #[serde(default)]
-    pub discounted_capital_gains: Option<Float>,
+    pub discounted_capital_gains: Option<Number>,
     /// Interest payment amount in this payout. (Australia only)
     #[serde(default)]
-    pub interest_payment: Option<Float>,
+    pub interest_payment: Option<Number>,
     /// Amount of foreign income in this payout. (Australia only)
     #[serde(default)]
-    pub foreign_source_income: Option<Float>,
+    pub foreign_source_income: Option<Number>,
     /// Value of deferred income in this payout. (Australia only)
     #[serde(default)]
-    pub deferred_income: Option<Float>,
+    pub deferred_income: Option<Number>,
     /// Any non-tax assessable amount.
     #[serde(default)]
-    pub non_assessable: Option<Float>,
+    pub non_assessable: Option<Number>,
     /// Value of CGT concession in this payout. (Australia only)
     #[serde(default)]
-    pub cgt_concession_amount: Option<Float>,
+    pub cgt_concession_amount: Option<Number>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is less than the cash distribution you received. This amount is non-assessable and is used to decrease your cost base for cgt purposes (Australia only)
     #[serde(default)]
-    pub amit_decrease_amount: Option<Float>,
+    pub amit_decrease_amount: Option<Number>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
     #[serde(default)]
-    pub amit_increase_amount: Option<Float>,
+    pub amit_increase_amount: Option<Number>,
     /// List of links for this payout
     pub links: ListHoldingPayoutsPayoutsLinksSuccess,
 }
@@ -2198,9 +2198,9 @@ pub struct ListHoldingPayoutsPayoutsDrpTradeAttributesSuccess {
     /// `true` for a reinvested payout.
     pub dividend_reinvested: bool,
     /// How many units are reinvested.
-    pub quantity: Float,
+    pub quantity: Number,
     /// Price per reinvested unit.
-    pub price: Float,
+    pub price: Number,
     /// ID of any source adjustment for the reinvested amount.
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
@@ -2310,22 +2310,22 @@ pub struct ListPortfolioPayoutsPayoutsSuccess {
     #[serde(default)]
     pub ex_date: Option<NaiveDate>,
     /// The payout amount.
-    pub amount: Float,
+    pub amount: Number,
     /// The calculated gross amount
-    pub gross_amount: Float,
+    pub gross_amount: Number,
     /// The payout resident withholding tax amount. Always returned in the portfolio currency.
     #[serde(default)]
-    pub resident_withholding_tax: Option<Float>,
+    pub resident_withholding_tax: Option<Number>,
     /// The payout non-resident withholding tax amount.
     #[serde(default)]
-    pub non_resident_withholding_tax: Option<Float>,
+    pub non_resident_withholding_tax: Option<Number>,
     /// The payout tax credit amount. Always returned in the portfolio currency.
     #[serde(default)]
-    pub tax_credit: Option<Float>,
+    pub tax_credit: Option<Number>,
     /// Currency code of the payout, using 3-letter ISO 4217 code.
     pub currency: Currency,
     /// The payout's exchange rate.
-    pub exchange_rate: Float,
+    pub exchange_rate: Number,
     /// If true, payout is non taxable.
     pub non_taxable: bool,
     /// Any comments for that payout.
@@ -2334,7 +2334,7 @@ pub struct ListPortfolioPayoutsPayoutsSuccess {
     pub comments: String,
     /// Other net foreign source income.
     #[serde(default)]
-    pub other_net_fsi: Option<Float>,
+    pub other_net_fsi: Option<Number>,
     /// ID of the company event the given payout is based on (nil if not based on any).
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
@@ -2348,40 +2348,40 @@ pub struct ListPortfolioPayoutsPayoutsSuccess {
     pub drp_trade_attributes: Option<ListPortfolioPayoutsPayoutsDrpTradeAttributesSuccess>,
     /// Franked amount in the payout. (Australia only)
     #[serde(default)]
-    pub franked_amount: Option<Float>,
+    pub franked_amount: Option<Number>,
     /// Unfranked amount in the payout (Australia only)
     #[serde(default)]
-    pub unfranked_amount: Option<Float>,
+    pub unfranked_amount: Option<Number>,
     /// `true` if this payout is for a trust. (Australia only)
     #[serde(default)]
     pub trust: Option<bool>,
     /// Extra interest amount in this payout. (Australia only)
     #[serde(default)]
-    pub extra_interest_payment_amount: Option<Float>,
+    pub extra_interest_payment_amount: Option<Number>,
     /// Capital gain amount in this payout. (Australia only)
     #[serde(default)]
-    pub capital_gains: Option<Float>,
+    pub capital_gains: Option<Number>,
     /// Discounted capital gain amount in this payout. (Australia only)
     #[serde(default)]
-    pub discounted_capital_gains: Option<Float>,
+    pub discounted_capital_gains: Option<Number>,
     /// Interest payment amount in this payout. (Australia only)
     #[serde(default)]
-    pub interest_payment: Option<Float>,
+    pub interest_payment: Option<Number>,
     /// Amount of foreign income in this payout. (Australia only)
     #[serde(default)]
-    pub foreign_source_income: Option<Float>,
+    pub foreign_source_income: Option<Number>,
     /// Value of deferred income in this payout. (Australia only)
     #[serde(default)]
-    pub deferred_income: Option<Float>,
+    pub deferred_income: Option<Number>,
     /// Any non-tax assessable amount.
     #[serde(default)]
-    pub non_assessable: Option<Float>,
+    pub non_assessable: Option<Number>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is less than the cash distribution you received. This amount is non-assessable and is used to decrease your cost base for cgt purposes (Australia only)
     #[serde(default)]
-    pub amit_decrease_amount: Option<Float>,
+    pub amit_decrease_amount: Option<Number>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
     #[serde(default)]
-    pub amit_increase_amount: Option<Float>,
+    pub amit_increase_amount: Option<Number>,
     /// List of links for this payout
     pub links: ListPortfolioPayoutsPayoutsLinksSuccess,
 }
@@ -2392,9 +2392,9 @@ pub struct ListPortfolioPayoutsPayoutsDrpTradeAttributesSuccess {
     /// True for a reinvested payout.
     pub dividend_reinvested: bool,
     /// How many units are reinvested.
-    pub quantity: Float,
+    pub quantity: Number,
     /// Price per reinvested unit.
-    pub price: Float,
+    pub price: Number,
     /// ID of any source adjustment for the reinvested amount.
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
@@ -2465,10 +2465,10 @@ pub struct PayoutConfirmPayoutDrpTradeAttributesParameters {
     pub dividend_reinvested: Option<bool>,
     /// How many units are reinvested.
     #[serde(default)]
-    pub quantity: Option<Float>,
+    pub quantity: Option<Number>,
     /// Price per reinvested unit.
     #[serde(default)]
-    pub price: Option<Float>,
+    pub price: Option<Number>,
     /// ID of any source adjustment for the reinvested amount (same as `company_event_id`).
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
@@ -2517,22 +2517,22 @@ pub struct PayoutConfirmPayoutSuccess {
     #[serde(default)]
     pub ex_date: Option<NaiveDate>,
     /// The payout amount.
-    pub amount: Float,
+    pub amount: Number,
     /// The calculated gross amount
-    pub gross_amount: Float,
+    pub gross_amount: Number,
     /// The payout resident withholding tax amount. Always returned in the portfolio currency.
     #[serde(default)]
-    pub resident_withholding_tax: Option<Float>,
+    pub resident_withholding_tax: Option<Number>,
     /// The payout non-resident withholding tax amount.
     #[serde(default)]
-    pub non_resident_withholding_tax: Option<Float>,
+    pub non_resident_withholding_tax: Option<Number>,
     /// The payout tax credit amount. Always returned in the portfolio currency.
     #[serde(default)]
-    pub tax_credit: Option<Float>,
+    pub tax_credit: Option<Number>,
     /// Payout currency code, using 3-letter ISO 4217 code.
     pub currency: Currency,
     /// The payout's exchange rate.
-    pub exchange_rate: Float,
+    pub exchange_rate: Number,
     /// If `true`, payout is non taxable.
     pub non_taxable: bool,
     /// Any comments for that payout.
@@ -2592,7 +2592,7 @@ pub struct PayoutCreatePayoutParameters {
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
     /// Payout amount.
-    pub amount: Float,
+    pub amount: Number,
     /// Code for the payout currency_code, using 3-letter ISO 4217 code.
     pub currency_code: Currency,
     /// The ex date for the payout (format `YYYY-MM-DD`).
@@ -2601,16 +2601,16 @@ pub struct PayoutCreatePayoutParameters {
     pub goes_ex_on: Option<NaiveDate>,
     /// Resident withholding tax for the payout.
     #[serde(default)]
-    pub resident_withholding_tax: Option<Float>,
+    pub resident_withholding_tax: Option<Number>,
     /// Non-resident withholding tax for the payout
     #[serde(default)]
-    pub non_resident_withholding_tax: Option<Float>,
+    pub non_resident_withholding_tax: Option<Number>,
     /// Tax credit for the payout.
     #[serde(default)]
-    pub tax_credit: Option<Float>,
+    pub tax_credit: Option<Number>,
     /// Exchange rate for other currency payout.
     #[serde(default)]
-    pub exchange_rate: Option<Float>,
+    pub exchange_rate: Option<Number>,
     /// The ID of any adjustment.
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
@@ -2629,49 +2629,49 @@ pub struct PayoutCreatePayoutParameters {
     pub send_to_xero: Option<bool>,
     /// Banked amount for this payout.
     #[serde(default)]
-    pub banked_amount: Option<Float>,
+    pub banked_amount: Option<Number>,
     /// Parameters when the payout is reinvested.
     #[serde(default)]
     pub drp_trade_attributes: Option<PayoutCreatePayoutDrpTradeAttributesParameters>,
     /// Franked amount in the payout. (Australia only)
     #[serde(default)]
-    pub franked_amount: Option<Float>,
+    pub franked_amount: Option<Number>,
     /// Unfranked amount in the payout (Australia only)
     #[serde(default)]
-    pub unfranked_amount: Option<Float>,
+    pub unfranked_amount: Option<Number>,
     /// `true` if this payout is for a trust. (Australia only)
     #[serde(default)]
     pub trust: Option<bool>,
     /// Extra interest amount in this payout. (Australia only)
     #[serde(default)]
-    pub extra_interest_payment_amount: Option<Float>,
+    pub extra_interest_payment_amount: Option<Number>,
     /// Capital gain amount in this payout. (Australia only)
     #[serde(default)]
-    pub capital_gains: Option<Float>,
+    pub capital_gains: Option<Number>,
     /// Discounted capital gain amount in this payout. (Australia only)
     #[serde(default)]
-    pub discounted_capital_gains: Option<Float>,
+    pub discounted_capital_gains: Option<Number>,
     /// Amount of foreign income in this payout. (Australia only)
     #[serde(default)]
-    pub foreign_source_income: Option<Float>,
+    pub foreign_source_income: Option<Number>,
     /// The amount of an LIC dividend that is attributable to an LIC capital gain. (Australia only)
     #[serde(default)]
-    pub lic_capital_gain: Option<Float>,
+    pub lic_capital_gain: Option<Number>,
     /// Any non-tax assessable amount.
     #[serde(default)]
-    pub non_assessable: Option<Float>,
+    pub non_assessable: Option<Number>,
     /// Value of deferred income in this payout. (Australia only)
     #[serde(default)]
-    pub deferred_income: Option<Float>,
+    pub deferred_income: Option<Number>,
     /// Value of CGT concession in this payout. (Australia only)
     #[serde(default)]
-    pub cgt_concession_amount: Option<Float>,
+    pub cgt_concession_amount: Option<Number>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is less than the cash distribution you received. This amount is non-assessable and is used to decrease your cost base for cgt purposes (Australia only)
     #[serde(default)]
-    pub amit_decrease_amount: Option<Float>,
+    pub amit_decrease_amount: Option<Number>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
     #[serde(default)]
-    pub amit_increase_amount: Option<Float>,
+    pub amit_increase_amount: Option<Number>,
     /// File name for the attachment. This parameter is required if attachment is set.
     #[serde(default)]
     pub file_name: Option<String>,
@@ -2688,10 +2688,10 @@ pub struct PayoutCreatePayoutDrpTradeAttributesParameters {
     pub dividend_reinvested: Option<bool>,
     /// How many units are reinvested.
     #[serde(default)]
-    pub quantity: Option<Float>,
+    pub quantity: Option<Number>,
     /// Price per reinvested unit.
     #[serde(default)]
-    pub price: Option<Float>,
+    pub price: Option<Number>,
     /// ID of any source adjustment for the reinvested amount.
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
@@ -2735,22 +2735,22 @@ pub struct PayoutCreatePayoutSuccess {
     #[serde(default)]
     pub ex_date: Option<NaiveDate>,
     /// The payout amount.
-    pub amount: Float,
+    pub amount: Number,
     /// The calculated gross amount
-    pub gross_amount: Float,
+    pub gross_amount: Number,
     /// The payout resident withholding tax amount. Always returned in the portfolio currency.
     #[serde(default)]
-    pub resident_withholding_tax: Option<Float>,
+    pub resident_withholding_tax: Option<Number>,
     /// The payout non-resident withholding tax amount.
     #[serde(default)]
-    pub non_resident_withholding_tax: Option<Float>,
+    pub non_resident_withholding_tax: Option<Number>,
     /// The payout tax credit amount. Always returned in the portfolio currency.
     #[serde(default)]
-    pub tax_credit: Option<Float>,
+    pub tax_credit: Option<Number>,
     /// Currency code of the payout, using 3-letter ISO 4217 code.
     pub currency: Currency,
     /// The payout's exchange rate.
-    pub exchange_rate: Float,
+    pub exchange_rate: Number,
     /// If true, payout is non taxable.
     pub non_taxable: bool,
     /// Any comments for that payout.
@@ -2759,7 +2759,7 @@ pub struct PayoutCreatePayoutSuccess {
     pub comments: String,
     /// Other net foreign source income.
     #[serde(default)]
-    pub other_net_fsi: Option<Float>,
+    pub other_net_fsi: Option<Number>,
     /// ID of the company event the given payout is based on (nil if not based on any).
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
@@ -2773,40 +2773,40 @@ pub struct PayoutCreatePayoutSuccess {
     pub drp_trade_attributes: Option<PayoutCreatePayoutDrpTradeAttributesSuccess>,
     /// Franked amount in the payout. (Australia only)
     #[serde(default)]
-    pub franked_amount: Option<Float>,
+    pub franked_amount: Option<Number>,
     /// Unfranked amount in the payout (Australia only)
     #[serde(default)]
-    pub unfranked_amount: Option<Float>,
+    pub unfranked_amount: Option<Number>,
     /// `true` if this payout is for a trust. (Australia only)
     #[serde(default)]
     pub trust: Option<bool>,
     /// Extra interest amount in this payout. (Australia only)
     #[serde(default)]
-    pub extra_interest_payment_amount: Option<Float>,
+    pub extra_interest_payment_amount: Option<Number>,
     /// Capital gain amount in this payout. (Australia only)
     #[serde(default)]
-    pub capital_gains: Option<Float>,
+    pub capital_gains: Option<Number>,
     /// Discounted capital gain amount in this payout. (Australia only)
     #[serde(default)]
-    pub discounted_capital_gains: Option<Float>,
+    pub discounted_capital_gains: Option<Number>,
     /// Interest payment amount in this payout. (Australia only)
     #[serde(default)]
-    pub interest_payment: Option<Float>,
+    pub interest_payment: Option<Number>,
     /// Amount of foreign income in this payout. (Australia only)
     #[serde(default)]
-    pub foreign_source_income: Option<Float>,
+    pub foreign_source_income: Option<Number>,
     /// Value of deferred income in this payout. (Australia only)
     #[serde(default)]
-    pub deferred_income: Option<Float>,
+    pub deferred_income: Option<Number>,
     /// True if this payout is not assessed for tax. (Australia only)
     #[serde(default)]
     pub non_assessable: Option<bool>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is less than the cash distribution you received. This amount is non-assessable and is used to decrease your cost base for cgt purposes (Australia only)
     #[serde(default)]
-    pub amit_decrease_amount: Option<Float>,
+    pub amit_decrease_amount: Option<Number>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
     #[serde(default)]
-    pub amit_increase_amount: Option<Float>,
+    pub amit_increase_amount: Option<Number>,
     /// Filename of payout attachment, if present.
     #[serde(default)]
     pub attachment_filename: Option<String>,
@@ -2823,9 +2823,9 @@ pub struct PayoutCreatePayoutDrpTradeAttributesSuccess {
     /// True for a reinvested payout.
     pub dividend_reinvested: bool,
     /// How many units are reinvested.
-    pub quantity: Float,
+    pub quantity: Number,
     /// Price per reinvested unit.
-    pub price: Float,
+    pub price: Number,
     /// ID of any source adjustment for the reinvested amount.
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
@@ -2949,22 +2949,22 @@ pub struct PayoutRejectPayoutSuccess {
     #[serde(default)]
     pub ex_date: Option<NaiveDate>,
     /// The payout amount.
-    pub amount: Float,
+    pub amount: Number,
     /// The calculated gross amount
-    pub gross_amount: Float,
+    pub gross_amount: Number,
     /// The payout resident withholding tax amount. Always returned in the portfolio currency.
     #[serde(default)]
-    pub resident_withholding_tax: Option<Float>,
+    pub resident_withholding_tax: Option<Number>,
     /// The payout non-resident withholding tax amount.
     #[serde(default)]
-    pub non_resident_withholding_tax: Option<Float>,
+    pub non_resident_withholding_tax: Option<Number>,
     /// The payout tax credit amount. Always returned in the portfolio currency.
     #[serde(default)]
-    pub tax_credit: Option<Float>,
+    pub tax_credit: Option<Number>,
     /// Payout currency code, using 3-letter ISO 4217 code.
     pub currency: Currency,
     /// The payout's exchange rate.
-    pub exchange_rate: Float,
+    pub exchange_rate: Number,
     /// If `true`, payout is non taxable.
     pub non_taxable: bool,
     /// Any comments for that payout.
@@ -3044,22 +3044,22 @@ pub struct PayoutShowSuccess {
     #[serde(default)]
     pub ex_date: Option<NaiveDate>,
     /// The payout amount.
-    pub amount: Float,
+    pub amount: Number,
     /// The calculated gross amount
-    pub gross_amount: Float,
+    pub gross_amount: Number,
     /// The payout resident withholding tax amount. Always returned in the portfolio currency.
     #[serde(default)]
-    pub resident_withholding_tax: Option<Float>,
+    pub resident_withholding_tax: Option<Number>,
     /// The payout non-resident withholding tax amount.
     #[serde(default)]
-    pub non_resident_withholding_tax: Option<Float>,
+    pub non_resident_withholding_tax: Option<Number>,
     /// The payout tax credit amount. Always returned in the portfolio currency.
     #[serde(default)]
-    pub tax_credit: Option<Float>,
+    pub tax_credit: Option<Number>,
     /// Payout currency code, using 3-letter ISO 4217 code.
     pub currency: Currency,
     /// The payout's exchange rate.
-    pub exchange_rate: Float,
+    pub exchange_rate: Number,
     /// If `true`, payout is non taxable.
     pub non_taxable: bool,
     /// Any comments for that payout.
@@ -3068,9 +3068,9 @@ pub struct PayoutShowSuccess {
     pub comments: String,
     /// Other net foreign source income.
     #[serde(default)]
-    pub other_net_fsi: Option<Float>,
+    pub other_net_fsi: Option<Number>,
     /// The amount of an LIC dividend that is attributable to an LIC capital gain.
-    pub lic_capital_gain: Float,
+    pub lic_capital_gain: Number,
     /// ID of the company event the given payout is based on (nil if not based on any).
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
@@ -3084,40 +3084,40 @@ pub struct PayoutShowSuccess {
     pub drp_trade_attributes: Option<PayoutShowDrpTradeAttributesSuccess>,
     /// Franked amount in the payout. (Australia only)
     #[serde(default)]
-    pub franked_amount: Option<Float>,
+    pub franked_amount: Option<Number>,
     /// Unfranked amount in the payout (Australia only)
     #[serde(default)]
-    pub unfranked_amount: Option<Float>,
+    pub unfranked_amount: Option<Number>,
     /// `true` if this payout is for a trust. (Australia only)
     #[serde(default)]
     pub trust: Option<bool>,
     /// Extra interest amount in this payout. (Australia only)
     #[serde(default)]
-    pub extra_interest_payment_amount: Option<Float>,
+    pub extra_interest_payment_amount: Option<Number>,
     /// Capital gain amount in this payout. (Australia only)
     #[serde(default)]
-    pub capital_gains: Option<Float>,
+    pub capital_gains: Option<Number>,
     /// Discounted capital gain amount in this payout. (Australia only)
     #[serde(default)]
-    pub discounted_capital_gains: Option<Float>,
+    pub discounted_capital_gains: Option<Number>,
     /// Amount of foreign income in this payout. (Australia only)
     #[serde(default)]
-    pub foreign_source_income: Option<Float>,
+    pub foreign_source_income: Option<Number>,
     /// Any non-tax assessable amount.
     #[serde(default)]
-    pub non_assessable: Option<Float>,
+    pub non_assessable: Option<Number>,
     /// Value of deferred income in this payout. (Australia only)
     #[serde(default)]
-    pub deferred_income: Option<Float>,
+    pub deferred_income: Option<Number>,
     /// Value of CGT concession in this payout. (Australia only)
     #[serde(default)]
-    pub cgt_concession_amount: Option<Float>,
+    pub cgt_concession_amount: Option<Number>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is less than the cash distribution you received. This amount is non-assessable and is used to decrease your cost base for cgt purposes (Australia only)
     #[serde(default)]
-    pub amit_decrease_amount: Option<Float>,
+    pub amit_decrease_amount: Option<Number>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
     #[serde(default)]
-    pub amit_increase_amount: Option<Float>,
+    pub amit_increase_amount: Option<Number>,
     /// Filename of payout attachment, if present.
     #[serde(default)]
     pub attachment_filename: Option<String>,
@@ -3134,9 +3134,9 @@ pub struct PayoutShowDrpTradeAttributesSuccess {
     /// `true` for a reinvested payout.
     pub dividend_reinvested: bool,
     /// How many units are reinvested.
-    pub quantity: Float,
+    pub quantity: Number,
     /// Price per reinvested unit.
-    pub price: Float,
+    pub price: Number,
     /// ID of any source adjustment for the reinvested amount.
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
@@ -3205,19 +3205,19 @@ pub struct PayoutUpdatePayoutParameters {
     pub goes_ex_on: Option<NaiveDate>,
     /// Resident withholding tax for the payout.
     #[serde(default)]
-    pub resident_withholding_tax: Option<Float>,
+    pub resident_withholding_tax: Option<Number>,
     /// Non-resident withholding tax for the payout
     #[serde(default)]
-    pub non_resident_withholding_tax: Option<Float>,
+    pub non_resident_withholding_tax: Option<Number>,
     /// Tax credit for the payout.
     #[serde(default)]
-    pub tax_credit: Option<Float>,
+    pub tax_credit: Option<Number>,
     /// Exchange rate for other currency payout.
     #[serde(default)]
-    pub exchange_rate: Option<Float>,
+    pub exchange_rate: Option<Number>,
     /// Payout amount. (All except Australia)
     #[serde(default)]
-    pub amount: Option<Float>,
+    pub amount: Option<Number>,
     /// The ID of any adjustment.
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
@@ -3240,7 +3240,7 @@ pub struct PayoutUpdatePayoutParameters {
     pub send_to_xero: Option<bool>,
     /// Banked amount for this payout.
     #[serde(default)]
-    pub banked_amount: Option<Float>,
+    pub banked_amount: Option<Number>,
     /// ID of any source adjustment.
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
@@ -3250,43 +3250,43 @@ pub struct PayoutUpdatePayoutParameters {
     pub drp_trade_attributes: Option<PayoutUpdatePayoutDrpTradeAttributesParameters>,
     /// [Franked amount in the payout] (Australia only)
     #[serde(default)]
-    pub franked_amount: Option<Float>,
+    pub franked_amount: Option<Number>,
     /// Unfranked amount in the payout (Australia only)
     #[serde(default)]
-    pub unfranked_amount: Option<Float>,
+    pub unfranked_amount: Option<Number>,
     /// `true` if this payout is for a trust. (Australia only)
     #[serde(default)]
     pub trust: Option<bool>,
     /// Extra interest amount in this payout. (Australia only)
     #[serde(default)]
-    pub extra_interest_payment_amount: Option<Float>,
+    pub extra_interest_payment_amount: Option<Number>,
     /// Capital gain amount in this payout. (Australia only)
     #[serde(default)]
-    pub capital_gains: Option<Float>,
+    pub capital_gains: Option<Number>,
     /// Discounted capital gain amount in this payout. (Australia only)
     #[serde(default)]
-    pub discounted_capital_gains: Option<Float>,
+    pub discounted_capital_gains: Option<Number>,
     /// Amount of foreign income in this payout. (Australia only)
     #[serde(default)]
-    pub foreign_source_income: Option<Float>,
+    pub foreign_source_income: Option<Number>,
     /// The amount of an LIC dividend that is attributable to an LIC capital gain. (Australia only)
     #[serde(default)]
-    pub lic_capital_gain: Option<Float>,
+    pub lic_capital_gain: Option<Number>,
     /// Any non-tax assessable amount.
     #[serde(default)]
-    pub non_assessable: Option<Float>,
+    pub non_assessable: Option<Number>,
     /// Value of deferred income in this payout. (Australia only)
     #[serde(default)]
-    pub deferred_income: Option<Float>,
+    pub deferred_income: Option<Number>,
     /// Value of CGT concession in this payout. (Australia only)
     #[serde(default)]
-    pub cgt_concession_amount: Option<Float>,
+    pub cgt_concession_amount: Option<Number>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is less than the cash distribution you received. This amount is non-assessable and is used to decrease your cost base for cgt purposes (Australia only)
     #[serde(default)]
-    pub amit_decrease_amount: Option<Float>,
+    pub amit_decrease_amount: Option<Number>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
     #[serde(default)]
-    pub amit_increase_amount: Option<Float>,
+    pub amit_increase_amount: Option<Number>,
 }
 
 #[serde_as]
@@ -3297,10 +3297,10 @@ pub struct PayoutUpdatePayoutDrpTradeAttributesParameters {
     pub dividend_reinvested: Option<bool>,
     /// How many units are reinvested.
     #[serde(default)]
-    pub quantity: Option<Float>,
+    pub quantity: Option<Number>,
     /// Price per reinvested unit.
     #[serde(default)]
-    pub price: Option<Float>,
+    pub price: Option<Number>,
     /// ID of any source adjustment for the reinvested amount.
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
@@ -3327,22 +3327,22 @@ pub struct PayoutUpdateSuccess {
     #[serde(default)]
     pub ex_date: Option<NaiveDate>,
     /// The payout amount.
-    pub amount: Float,
+    pub amount: Number,
     /// The calculated gross amount
-    pub gross_amount: Float,
+    pub gross_amount: Number,
     /// The payout resident withholding tax amount. Always returned in the portfolio currency.
     #[serde(default)]
-    pub resident_withholding_tax: Option<Float>,
+    pub resident_withholding_tax: Option<Number>,
     /// The payout non-resident withholding tax amount.
     #[serde(default)]
-    pub non_resident_withholding_tax: Option<Float>,
+    pub non_resident_withholding_tax: Option<Number>,
     /// The payout tax credit amount. Always returned in the portfolio currency.
     #[serde(default)]
-    pub tax_credit: Option<Float>,
+    pub tax_credit: Option<Number>,
     /// Payout currency code, using 3-letter ISO 4217 code.
     pub currency: Currency,
     /// The payout's exchange rate.
-    pub exchange_rate: Float,
+    pub exchange_rate: Number,
     /// If true, payout is non taxable.
     pub non_taxable: bool,
     /// Any comments for that payout.
@@ -3362,40 +3362,40 @@ pub struct PayoutUpdateSuccess {
     pub drp_trade_attributes: Option<PayoutUpdateDrpTradeAttributesSuccess>,
     /// Franked amount in the payout. (Australia only)
     #[serde(default)]
-    pub franked_amount: Option<Float>,
+    pub franked_amount: Option<Number>,
     /// Unfranked amount in the payout (Australia only)
     #[serde(default)]
-    pub unfranked_amount: Option<Float>,
+    pub unfranked_amount: Option<Number>,
     /// `true` if this payout is for a trust. (Australia only)
     #[serde(default)]
     pub trust: Option<bool>,
     /// Extra interest amount in this payout. (Australia only)
     #[serde(default)]
-    pub extra_interest_payment_amount: Option<Float>,
+    pub extra_interest_payment_amount: Option<Number>,
     /// Capital gain amount in this payout. (Australia only)
     #[serde(default)]
-    pub capital_gains: Option<Float>,
+    pub capital_gains: Option<Number>,
     /// Discounted capital gain amount in this payout. (Australia only)
     #[serde(default)]
-    pub discounted_capital_gains: Option<Float>,
+    pub discounted_capital_gains: Option<Number>,
     /// Amount of foreign income in this payout. (Australia only)
     #[serde(default)]
-    pub foreign_source_income: Option<Float>,
+    pub foreign_source_income: Option<Number>,
     /// Any non-tax assessable amount.
     #[serde(default)]
-    pub non_assessable: Option<Float>,
+    pub non_assessable: Option<Number>,
     /// Value of deferred income in this payout. (Australia only)
     #[serde(default)]
-    pub deferred_income: Option<Float>,
+    pub deferred_income: Option<Number>,
     /// Value of CGT concession in this payout. (Australia only)
     #[serde(default)]
-    pub cgt_concession_amount: Option<Float>,
+    pub cgt_concession_amount: Option<Number>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is less than the cash distribution you received. This amount is non-assessable and is used to decrease your cost base for cgt purposes (Australia only)
     #[serde(default)]
-    pub amit_decrease_amount: Option<Float>,
+    pub amit_decrease_amount: Option<Number>,
     /// Relevant for attribution managed investment trusts (AMIT) when the taxable income attributed to you is more than the cash distribution you received. This amount is non-assessable and is used to increase your cost base for cgt purposes (Australia only)
     #[serde(default)]
-    pub amit_increase_amount: Option<Float>,
+    pub amit_increase_amount: Option<Number>,
     /// Filename of payout attachment, if present.
     #[serde(default)]
     pub attachment_filename: Option<String>,
@@ -3412,9 +3412,9 @@ pub struct PayoutUpdateDrpTradeAttributesSuccess {
     /// `true` for a reinvested payout.
     pub dividend_reinvested: bool,
     /// How many units are reinvested.
-    pub quantity: Float,
+    pub quantity: Number,
     /// Price per reinvested unit.
-    pub price: Float,
+    pub price: Number,
     /// ID of any source adjustment for the reinvested amount.
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
@@ -3487,7 +3487,7 @@ pub struct PortfolioCreatePortfolioParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub cg_discount_id: i64,
     /// New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as `33.1`).
-    pub rwtr_rate: Float,
+    pub rwtr_rate: Number,
     /// ISO code of the portfolio country (see <a href="https://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a>). Defaults to the portfolio owner's default country.
     #[serde(default)]
     pub country_code: Option<Country>,
@@ -3527,7 +3527,7 @@ pub struct PortfolioCreateSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub cg_discount: String,
     /// New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as `33.1`).
-    pub rwtr_rate: Float,
+    pub rwtr_rate: Number,
     /// Tax Status (`true`: Trade, `false`: Investor). Can be `null`.
     pub trader: bool,
     /// Automatic Transactions are disabled (`true`) or enabled (`false`).
@@ -3666,7 +3666,7 @@ pub struct PortfolioListPortfoliosSuccess {
     #[serde(default)]
     pub cg_discount: Option<String>,
     /// New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as `33.1`).
-    pub rwtr_rate: Float,
+    pub rwtr_rate: Number,
     /// Tax Status (`true`: Trade, `false`: Investor). Can be `null`.
     #[serde(default)]
     pub trader: Option<bool>,
@@ -3789,7 +3789,7 @@ pub struct PortfolioShowSuccess {
     #[serde(default)]
     pub cg_discount: Option<String>,
     /// New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as `33.1`).
-    pub rwtr_rate: Float,
+    pub rwtr_rate: Number,
     /// Tax Status (`true`: Trade, `false`: Investor). Can be `null`.
     pub trader: bool,
     /// Automatic Transactions are disabled (`true`) or enabled (`false`).
@@ -3922,7 +3922,7 @@ pub struct PortfolioUpdatePortfolioParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub cg_discount_id: i64,
     /// New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as `33.1`).
-    pub rwtr_rate: Float,
+    pub rwtr_rate: Number,
     /// ISO code of the portfolio country (see <a href="https://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a>). Defaults to the portfolio owner's default country.
     #[serde(default)]
     pub country_code: Option<Country>,
@@ -3969,7 +3969,7 @@ pub struct PortfolioUpdateSuccess {
     #[serde(default)]
     pub cg_discount: Option<String>,
     /// New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as `33.1`).
-    pub rwtr_rate: Float,
+    pub rwtr_rate: Number,
     /// Tax Status (`true`: Trade, `false`: Investor). Can be `null`.
     pub trader: bool,
     /// Automatic Transactions are disabled (`true`) or enabled (`false`).
@@ -4095,27 +4095,27 @@ pub struct CapitalGainsParameters {
 #[derive(Debug, Clone, Deserialize)]
 pub struct CapitalGainsSuccess {
     /// The total of short term gains (less than one year, rounded to 2 decimal places).
-    pub short_term_gains: Float,
+    pub short_term_gains: Number,
     /// The total of long term gains (over one year, rounded to 2 decimal places).
-    pub long_term_gains: Float,
+    pub long_term_gains: Number,
     /// The total of losses (rounded to 2 decimal places).
-    pub losses: Float,
+    pub losses: Number,
     /// The total of short term capital losses available to be offset (rounded to 2 decimal places).
-    pub short_term_losses: Float,
+    pub short_term_losses: Number,
     /// The total of capital losses available to be offset after deducting short term losses (rounded to 2 decimal places).
-    pub long_term_losses: Float,
+    pub long_term_losses: Number,
     /// The total of discounted capital gain distributions (grossed up, rounded to 2 decimal places).
-    pub total_discounted_capital_gain_distributions: Float,
+    pub total_discounted_capital_gain_distributions: Number,
     /// The total of non discounted capital gain distributions (rounded to 2 decimal places).
-    pub total_non_discounted_capital_gain_distributions: Float,
+    pub total_non_discounted_capital_gain_distributions: Number,
     /// The rate of CGT concession on long term gains applied (rounded to 2 decimal places).
-    pub cgt_concession_rate: Float,
+    pub cgt_concession_rate: Number,
     /// The amount of the CGT concession applied (rounded to 2 decimal places).
-    pub cgt_concession_amount: Float,
+    pub cgt_concession_amount: Number,
     /// The market value of the portfolio (rounded to 2 decimal places).
-    pub market_value: Float,
+    pub market_value: Number,
     /// The gain (or loss, if negative, rounded to 2 decimal places).
-    pub tax_gain_loss: Float,
+    pub tax_gain_loss: Number,
     /// Discounted capital gain distributions
     pub discounted_capital_gain_distributions:
         Vec<CapitalGainsDiscountedCapitalGainDistributionsSuccess>,
@@ -4153,7 +4153,7 @@ pub struct CapitalGainsDiscountedCapitalGainDistributionsSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The capital gain (negative for losses, rounded to 2 decimal places).
-    pub gain: Float,
+    pub gain: Number,
     /// The date the gain is calculated for (format `YYYY-MM-DD`)
     #[serde_as(as = "DeserializeDate")]
     pub gain_date: NaiveDate,
@@ -4173,7 +4173,7 @@ pub struct CapitalGainsNonDiscountedCapitalGainDistributionsSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The capital gain (negative for losses, rounded to 2 decimal places).
-    pub gain: Float,
+    pub gain: Number,
     /// The date the gain is calculated for (format `YYYY-MM-DD`)
     #[serde_as(as = "DeserializeDate")]
     pub gain_date: NaiveDate,
@@ -4200,13 +4200,13 @@ pub struct CapitalGainsShortTermParcelsSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
     /// The quantity of stock held
-    pub quantity: Float,
+    pub quantity: Number,
     /// The adjusted total cost of the parcel (rounded to 2 decimal places).
-    pub cost_base: Float,
+    pub cost_base: Number,
     /// The market value of the parcel at the balance date (rounded to 2 decimal places).
-    pub market_value: Float,
+    pub market_value: Number,
     /// The capital gain (negative for losses, rounded to 2 decimal places).
-    pub gain: Float,
+    pub gain: Number,
     /// The date the gain is calculated for (format `YYYY-MM-DD`)
     #[serde_as(as = "DeserializeDate")]
     pub gain_date: NaiveDate,
@@ -4233,13 +4233,13 @@ pub struct CapitalGainsLongTermParcelsSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
     /// The quantity of stock held
-    pub quantity: Float,
+    pub quantity: Number,
     /// The adjusted total cost of the parcel (rounded to 2 decimal places).
-    pub cost_base: Float,
+    pub cost_base: Number,
     /// The market value of the parcel at the balance date (rounded to 2 decimal places).
-    pub market_value: Float,
+    pub market_value: Number,
     /// The capital gain (negative for losses, rounded to 2 decimal places).
-    pub gain: Float,
+    pub gain: Number,
     /// The date the gain is calculated for (format `YYYY-MM-DD`)
     #[serde_as(as = "DeserializeDate")]
     pub gain_date: NaiveDate,
@@ -4266,13 +4266,13 @@ pub struct CapitalGainsLossParcelsSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
     /// The quantity of stock held
-    pub quantity: Float,
+    pub quantity: Number,
     /// The adjusted total cost of the parcel (rounded to 2 decimal places).
-    pub cost_base: Float,
+    pub cost_base: Number,
     /// The market value of the parcel at the balance date (rounded to 2 decimal places).
-    pub market_value: Float,
+    pub market_value: Number,
     /// The capital gain (negative for losses, rounded to 2 decimal places).
-    pub gain: Float,
+    pub gain: Number,
     /// The date the gain is calculated for (format `YYYY-MM-DD`)
     #[serde_as(as = "DeserializeDate")]
     pub gain_date: NaiveDate,
@@ -4332,9 +4332,9 @@ pub struct DiversitySuccess {
     /// Each group in the report, keyed by the group name
     pub groups: Vec<DiversityGroupsSuccess>,
     /// The total percentage across the portfolio (always 100%)
-    pub percentage: Float,
+    pub percentage: Number,
     /// The total value of the portfolio (rounded to 2 decimal places).
-    pub value: Float,
+    pub value: Number,
     /// The date this report was generated for (format `YYYY-MM-DD`).
     #[serde_as(as = "DeserializeDate")]
     pub date: NaiveDate,
@@ -4353,9 +4353,9 @@ pub struct DiversityGroupsGroupSuccess {
     /// A holding or cash account
     pub elements: Vec<DiversityGroupsGroupElementsSuccess>,
     /// The percentage of the portfolio in this group (rounded to 2 decimal places). For example, 33% comes as `33.0`.
-    pub percentage: Float,
+    pub percentage: Number,
     /// The value of the portfolio components in this group (rounded to 2 decimal places).
-    pub value: Float,
+    pub value: Number,
 }
 
 #[serde_as]
@@ -4372,9 +4372,9 @@ pub struct DiversityGroupsGroupElementsSuccess {
     /// If a holding, the market code of this element
     pub market: Market,
     /// The percentage of the portfolio this element represents (rounded to 2 decimal places). For example, 33% comes as `33.0`.
-    pub percentage: Float,
+    pub percentage: Number,
     /// The value of the holding or cash account (rounded to 2 decimal places).
-    pub value: Float,
+    pub value: Number,
 }
 
 /// Retrieves the Performance Report for the underlying portfolio.
@@ -4463,23 +4463,23 @@ pub struct PerformanceSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub custom_group_id: String,
     /// The total value of the portfolio
-    pub value: Float,
+    pub value: Number,
     /// Capital Gain<sup>1</sup> (rounded to 2 decimal places).
-    pub capital_gain: Float,
+    pub capital_gain: Number,
     /// Capital Gain (percentage, rounded to 2 decimal places, 33% as `33.0`)<sup>1</sup>
-    pub capital_gain_percent: Float,
+    pub capital_gain_percent: Number,
     /// Payout Gain<sup>1</sup> (rounded to 2 decimal places).
-    pub payout_gain: Float,
+    pub payout_gain: Number,
     /// Payout Gain (percentage, rounded to 2 decimal places, 33% as `33.0`)<sup>1</sup>
-    pub payout_gain_percent: Float,
+    pub payout_gain_percent: Number,
     /// Currency Gain<sup>1</sup> (rounded to 2 decimal places).
-    pub currency_gain: Float,
+    pub currency_gain: Number,
     /// Currency Gain (percentage, rounded to 2 decimal places, 33% as `33.0`)<sup>1</sup>
-    pub currency_gain_percent: Float,
+    pub currency_gain_percent: Number,
     /// Total Gain<sup>1</sup> (rounded to 2 decimal places).
-    pub total_gain: Float,
+    pub total_gain: Number,
     /// Total Gain (percentage, rounded to 2 decimal places, 33% as ``33.0``)<sup>1</sup>
-    pub total_gain_percent: Float,
+    pub total_gain_percent: Number,
     /// Start date (format `YYYY-MM-DD`)
     #[serde_as(as = "DeserializeDate")]
     pub start_date: NaiveDate,
@@ -4524,25 +4524,25 @@ pub struct PerformanceHoldingsSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The current value of the holding.
-    pub value: Float,
+    pub value: Number,
     /// The quantity of shares or other instruments in the holding
-    pub quantity: Float,
+    pub quantity: Number,
     /// Capital Gain<sup>1</sup> on the holding (rounded to 2 decimal places).
-    pub capital_gain: Float,
+    pub capital_gain: Number,
     /// Capital Gain (percentage, rounded to 2 decimal places, 33% as `33.0`)<sup>1</sup> on the holding
-    pub capital_gain_percent: Float,
+    pub capital_gain_percent: Number,
     /// Payout Gain<sup>1</sup> on the holding (rounded to 2 decimal places).
-    pub payout_gain: Float,
+    pub payout_gain: Number,
     /// Payout Gain (percentage, rounded to 2 decimal places, 33% as `33.0`)<sup>1</sup> on the holding
-    pub payout_gain_percent: Float,
+    pub payout_gain_percent: Number,
     /// Currency Gain<sup>1</sup> on the holding (rounded to 2 decimal places).
-    pub currency_gain: Float,
+    pub currency_gain: Number,
     /// Currency Gain (percentage, rounded to 2 decimal places, 33% as `33.0`)<sup>1</sup> on the holding
-    pub currency_gain_percent: Float,
+    pub currency_gain_percent: Number,
     /// Total Gain<sup>1</sup> on the holding (rounded to 2 decimal places).
-    pub total_gain: Float,
+    pub total_gain: Number,
     /// Total Gain (percentage, rounded to 2 decimal places, 33% as `33.0`)<sup>1</sup> on the holding
-    pub total_gain_percent: Float,
+    pub total_gain_percent: Number,
 }
 
 #[serde_as]
@@ -4561,7 +4561,7 @@ pub struct PerformanceCashAccountsSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The value of the cash account
-    pub value: Float,
+    pub value: Number,
     /// The currency symbol (e.g. AU$) of the cash account
     pub currency: Currency,
     /// The ISO currency code (e.g. AUD) of the portfolio
@@ -4576,23 +4576,23 @@ pub struct PerformanceSubTotalsSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub _group_type_: String,
     /// The total value of the holdings in this group
-    pub value: Float,
+    pub value: Number,
     /// Capital Gain<sup>1</sup> on the holdings in this group (rounded to 2 decimal places).
-    pub capital_gain: Float,
+    pub capital_gain: Number,
     /// Capital Gain (percentage, rounded to 2 decimal places, 33% as `33.0`)<sup>1</sup>
-    pub capital_gain_percent: Float,
+    pub capital_gain_percent: Number,
     /// Payout Gain<sup>1</sup> on the holdings in this group (rounded to 2 decimal places).
-    pub payout_gain: Float,
+    pub payout_gain: Number,
     /// Payout Gain (percentage, rounded to 2 decimal places, 33% as `33.0`)<sup>1</sup> on the holdings in this group
-    pub payout_gain_percent: Float,
+    pub payout_gain_percent: Number,
     /// Currency Gain<sup>1</sup> on the holdings in this group (rounded to 2 decimal places).
-    pub currency_gain: Float,
+    pub currency_gain: Number,
     /// Currency Gain (percentage, rounded to 2 decimal places, 33% as `33.0`)<sup>1</sup> on the holdings in this group
-    pub currency_gain_percent: Float,
+    pub currency_gain_percent: Number,
     /// Total Gain<sup>1</sup> on the holdings in this group (rounded to 2 decimal places).
-    pub total_gain: Float,
+    pub total_gain: Number,
     /// Total Gain (percentage, rounded to 2 decimal places, 33% as `33.0`)<sup>1</sup> on the holdings in this group
-    pub total_gain_percent: Float,
+    pub total_gain_percent: Number,
 }
 
 /// Return a report on unrealised capital gains tax (for Australian portfolios only)
@@ -4640,19 +4640,19 @@ pub struct UnrealisedCgtParameters {
 #[derive(Debug, Clone, Deserialize)]
 pub struct UnrealisedCgtSuccess {
     /// The total of unrealized short term gains (less than one year, rounded to 2 decimal places).
-    pub unrealised_short_term_gains: Float,
+    pub unrealised_short_term_gains: Number,
     /// The total of unrealized long term gains (over one year, rounded to 2 decimal places).
-    pub unrealised_long_term_gains: Float,
+    pub unrealised_long_term_gains: Number,
     /// The total of unrealised lossses (rounded to 2 decimal places).
-    pub unrealised_losses: Float,
+    pub unrealised_losses: Number,
     /// The rate of CGT concession on long term gains applied (rounded to 2 decimal places).
-    pub cgt_concession_rate: Float,
+    pub cgt_concession_rate: Number,
     /// The amount of the CGT concession applied (rounded to 2 decimal places).
-    pub unrealised_cgt_concession_amount: Float,
+    pub unrealised_cgt_concession_amount: Number,
     /// The market value of the portfolio (rounded to 2 decimal places).
-    pub market_value: Float,
+    pub market_value: Number,
     /// The unrealised gain (or loss, if negative, rounded to 2 decimal places).
-    pub unrealised_tax_gain_loss: Float,
+    pub unrealised_tax_gain_loss: Number,
     /// Stock parcels (separated by date) held for less than one year and subject to tax without concession
     pub short_term_parcels: Vec<UnrealisedCgtShortTermParcelsSuccess>,
     /// Stock parcels (separated by date)  held for over a year and eligible for tax concession
@@ -4688,13 +4688,13 @@ pub struct UnrealisedCgtShortTermParcelsSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
     /// The quantity of stock held
-    pub quantity: Float,
+    pub quantity: Number,
     /// The adjusted total cost of the parcel (rounded to 2 decimal places).
-    pub cost_base: Float,
+    pub cost_base: Number,
     /// The market value of the parcel at the balance date (rounded to 2 decimal places).
-    pub market_value: Float,
+    pub market_value: Number,
     /// The unrealised capital gain (negative for losses, rounded to 2 decimal places).
-    pub unrealised_gain: Float,
+    pub unrealised_gain: Number,
 }
 
 #[serde_as]
@@ -4718,13 +4718,13 @@ pub struct UnrealisedCgtLongTermParcelsSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
     /// The quantity of stock held
-    pub quantity: Float,
+    pub quantity: Number,
     /// The adjusted total cost of the parcel (rounded to 2 decimal places).
-    pub cost_base: Float,
+    pub cost_base: Number,
     /// The market value of the parcel at the balance date (rounded to 2 decimal places).
-    pub market_value: Float,
+    pub market_value: Number,
     /// The unrealised capital gain (negative for losses, rounded to 2 decimal places).
-    pub unrealised_gain: Float,
+    pub unrealised_gain: Number,
 }
 
 #[serde_as]
@@ -4748,13 +4748,13 @@ pub struct UnrealisedCgtLossesSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub purchase_date: NaiveDate,
     /// The quantity of stock held
-    pub quantity: Float,
+    pub quantity: Number,
     /// The adjusted total cost of the parcel (rounded to 2 decimal places).
-    pub cost_base: Float,
+    pub cost_base: Number,
     /// The market value of the parcel at the balance date (rounded to 2 decimal places).
-    pub market_value: Float,
+    pub market_value: Number,
     /// The unrealised capital gain (negative for losses, rounded to 2 decimal places).
-    pub unrealised_gain: Float,
+    pub unrealised_gain: Number,
 }
 
 /// Retrieves the Valuation Report for the underlying portfolio.
@@ -4830,7 +4830,7 @@ pub struct ValuationSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub custom_group_id: String,
     /// The total value of the portfolio
-    pub value: Float,
+    pub value: Number,
     /// List of holdings.
     pub holdings: Vec<ValuationHoldingsSuccess>,
     /// List of cash accounts. This includes Unsettled Trades and Unpaid Payout Adjustments.
@@ -4867,9 +4867,9 @@ pub struct ValuationHoldingsSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The current value of the holding.
-    pub value: Float,
+    pub value: Number,
     /// The quantity of shares or other instruments in the holding
-    pub quantity: Float,
+    pub quantity: Number,
 }
 
 #[serde_as]
@@ -4888,7 +4888,7 @@ pub struct ValuationCashAccountsSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
     /// The value of the cash account
-    pub value: Float,
+    pub value: Number,
     /// The currency symbol (e.g. AU$) of the cash account
     pub currency: Currency,
     /// The ISO currency code (e.g. AUD) of the portfolio
@@ -4903,7 +4903,7 @@ pub struct ValuationSubTotalsSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub _group_type_: String,
     /// The total value of the holdings in this group
-    pub value: Float,
+    pub value: Number,
 }
 
 /// Single sign on authorisation. The single sign-on operation returns a URL that will allow the user to login to their Sharesight account without the need to enter their email address and password. The URL is valid for one minute. A single sign-on link or button in your application should be implemented so that the user click initiates this API call and then the URL returned is launched in the user’s browser. A "redirect_to" parameter can be appended to the login url. After successfully been logged in, the user will be then redirected to the specified redirect_to path; example: https://api.sharesight.com/users/sign_in?signon-token=token&amp;redirect_to=/portfolios/1
@@ -4991,13 +4991,13 @@ pub struct TradeConfirmTradeSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// Number of shares sold/bought.
-    pub quantity: Float,
+    pub quantity: Number,
     /// Price paid/received.
-    pub price: Float,
+    pub price: Number,
     /// The transfer's exchange rate.
-    pub exchange_rate: Float,
+    pub exchange_rate: Number,
     /// The transfer's brokerage.
-    pub brokerage: Float,
+    pub brokerage: Number,
     /// The brokerage currency.
     pub brokerage_currency_code: Currency,
     /// The value for the trade as displayed in the 'value' column of the UI. For a return of capital, this will be the (signed) capital return value. For a cost base adjustment, this will be the value of the adjustment. For an opening balance, this will be the market value. In each case this is in portfolio currency (rounded to 2 decimal places).
@@ -5087,13 +5087,13 @@ pub struct TradeRejectTradeSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// Number of shares sold/bought.
-    pub quantity: Float,
+    pub quantity: Number,
     /// Price paid/received.
-    pub price: Float,
+    pub price: Number,
     /// The transfer's exchange rate.
-    pub exchange_rate: Float,
+    pub exchange_rate: Number,
     /// The transfer's brokerage.
-    pub brokerage: Float,
+    pub brokerage: Number,
     /// The brokerage currency.
     pub brokerage_currency_code: Currency,
     /// The value for the trade as displayed in the 'value' column of the UI. For a return of capital, this will be the (signed) capital return value. For a cost base adjustment, this will be the value of the adjustment. For an opening balance, this will be the market value. In each case this is in portfolio currency (rounded to 2 decimal places).
@@ -5191,21 +5191,21 @@ pub struct TradesTradesSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
     /// Number of shares sold/bought.
-    pub quantity: Float,
+    pub quantity: Number,
     /// Price paid/received.
-    pub price: Float,
+    pub price: Number,
     /// For an opening balance, the cost base of the trade. Always returned in the portfolio currency
     #[serde(default)]
-    pub cost_base: Option<Float>,
+    pub cost_base: Option<Number>,
     /// The trade's exchange rate as portfolio currency / instrument currency.
-    pub exchange_rate: Float,
+    pub exchange_rate: Number,
     /// The trade's brokerage.
-    pub brokerage: Float,
+    pub brokerage: Number,
     /// The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.
     #[serde(default)]
     pub brokerage_currency_code: Option<Currency>,
     /// The value for the trade as displayed in the 'value' column of the UI. For a return of capital, this will be the (signed) capital return value. For a capital call, this will be the (positive) capital return value. For a cost base adjustment, this will be the value of the adjustment. For an opening balance, this will be the market value: the market price x quantity at the opening balance date In each case this is in portfolio currency (rounded to 2 decimal places).
-    pub value: Float,
+    pub value: Number,
     /// For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date
     #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
@@ -5316,28 +5316,28 @@ pub struct TradesCreateTradeParameters {
     pub transaction_date: Option<String>,
     /// Number of units in the transaction. Must be a whole number unless the market allows fractional quantities to be traded.
     #[serde(default)]
-    pub quantity: Option<Float>,
+    pub quantity: Option<Number>,
     /// Currency value per unit.
     #[serde(default)]
-    pub price: Option<Float>,
+    pub price: Option<Number>,
     /// For an opening balance, the cost base of the trade.
     #[serde(default)]
-    pub cost_base: Option<Float>,
+    pub cost_base: Option<Number>,
     /// The exchange rate used for the transaction as portfolio currency / instrument currency.
     #[serde(default)]
-    pub exchange_rate: Option<Float>,
+    pub exchange_rate: Option<Number>,
     /// The brokerage fee (currency value).
     #[serde(default)]
-    pub brokerage: Option<Float>,
+    pub brokerage: Option<Number>,
     /// The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.
     #[serde(default)]
     pub brokerage_currency_code: Option<Currency>,
     /// When transaction_type "ADJUST_COST_BASE" was chosen, this is the required value
     #[serde(default)]
-    pub adjust_cost_base_value: Option<Float>,
+    pub adjust_cost_base_value: Option<Number>,
     /// When transaction_type "CAPITAL_RETURN" or "CAPITAL_CALL" is chosen, this is the required value
     #[serde(default)]
-    pub capital_return_value: Option<Float>,
+    pub capital_return_value: Option<Number>,
     /// When transaction_type "CAPITAL_RETURN" or "CAPITAL_CALL" is chosen, this is the paid on date
     #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
@@ -5391,19 +5391,19 @@ pub struct TradesCreateTradeSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
     /// Number of shares sold/bought.
-    pub quantity: Float,
+    pub quantity: Number,
     /// Price paid/received.
-    pub price: Float,
+    pub price: Number,
     /// For an opening balance, the cost base of the trade. Always returned in the portfolio currency
-    pub cost_base: Float,
+    pub cost_base: Number,
     /// The trade's exchange rate as portfolio currency / instrument currency.
-    pub exchange_rate: Float,
+    pub exchange_rate: Number,
     /// The trade's brokerage.
-    pub brokerage: Float,
+    pub brokerage: Number,
     /// The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.
     pub brokerage_currency_code: Currency,
     /// The value for the trade as displayed in the 'value' column of the UI. For a return of capital, this will be the (signed) capital return value. For a capital call, this will be the (positive) capital return value. For a cost base adjustment, this will be the value of the adjustment. For an opening balance, this will be the market value: the market price x quantity at the opening balance date In each case this is in portfolio currency (rounded to 2 decimal places).
-    pub value: Float,
+    pub value: Number,
     /// For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
@@ -5578,19 +5578,19 @@ pub struct TradesShowSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
     /// Number of shares sold/bought.
-    pub quantity: Float,
+    pub quantity: Number,
     /// Price paid/received.
-    pub price: Float,
+    pub price: Number,
     /// For an opening balance, the cost base of the trade. Always returned in the portfolio currency
-    pub cost_base: Float,
+    pub cost_base: Number,
     /// The trade's exchange rate as portfolio currency / instrument currency.
-    pub exchange_rate: Float,
+    pub exchange_rate: Number,
     /// The trade's brokerage.
-    pub brokerage: Float,
+    pub brokerage: Number,
     /// The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.
     pub brokerage_currency_code: Currency,
     /// The value for the trade as displayed in the 'value' column of the UI. For a return of capital, this will be the (signed) capital return value. For a capital call, this will be the (positive) capital return value. For a cost base adjustment, this will be the value of the adjustment. For an opening balance, this will be the market value: the market price x quantity at the opening balance date In each case this is in portfolio currency (rounded to 2 decimal places).
-    pub value: Float,
+    pub value: Number,
     /// For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,
@@ -5698,28 +5698,28 @@ pub struct TradesUpdateTradeParameters {
     pub transaction_date: Option<String>,
     /// Number of units in the transaction. Must be a whole number unless the market allows fractional quantities to be traded.
     #[serde(default)]
-    pub quantity: Option<Float>,
+    pub quantity: Option<Number>,
     /// Currency value per unit.
     #[serde(default)]
-    pub price: Option<Float>,
+    pub price: Option<Number>,
     /// For an opening balance, the cost base of the trade.
     #[serde(default)]
-    pub cost_base: Option<Float>,
+    pub cost_base: Option<Number>,
     /// The exchange rate used for the transaction as portfolio currency / instrument currency.
     #[serde(default)]
-    pub exchange_rate: Option<Float>,
+    pub exchange_rate: Option<Number>,
     /// The brokerage fee (currency value).
     #[serde(default)]
-    pub brokerage: Option<Float>,
+    pub brokerage: Option<Number>,
     /// The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.
     #[serde(default)]
     pub brokerage_currency_code: Option<Currency>,
     /// When transaction_type "ADJUST_COST_BASE" was chosen, this is the required value
     #[serde(default)]
-    pub adjust_cost_base_value: Option<Float>,
+    pub adjust_cost_base_value: Option<Number>,
     /// When transaction_type "CAPITAL_RETURN" or "CAPITAL_CALL" is chosen, this is the required value
     #[serde(default)]
-    pub capital_return_value: Option<Float>,
+    pub capital_return_value: Option<Number>,
     /// When transaction_type "CAPITAL_RETURN" or "CAPITAL_CALL" is chosen, this is the paid on date
     #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
@@ -5773,19 +5773,19 @@ pub struct TradesUpdateTradeSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
     /// Number of shares sold/bought.
-    pub quantity: Float,
+    pub quantity: Number,
     /// Price paid/received.
-    pub price: Float,
+    pub price: Number,
     /// For an opening balance, the cost base of the trade. Always returned in the portfolio currency
-    pub cost_base: Float,
+    pub cost_base: Number,
     /// The trade's exchange rate as portfolio currency / instrument currency.
-    pub exchange_rate: Float,
+    pub exchange_rate: Number,
     /// The trade's brokerage.
-    pub brokerage: Float,
+    pub brokerage: Number,
     /// The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.
     pub brokerage_currency_code: Currency,
     /// The value for the trade as displayed in the 'value' column of the UI. For a return of capital, this will be the (signed) capital return value. For a capital call, this will be the (positive) capital return value. For a cost base adjustment, this will be the value of the adjustment. For an opening balance, this will be the market value: the market price x quantity at the opening balance date In each case this is in portfolio currency (rounded to 2 decimal places).
-    pub value: Float,
+    pub value: Number,
     /// For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date
     #[serde_as(as = "DeserializeDate")]
     pub paid_on: NaiveDate,

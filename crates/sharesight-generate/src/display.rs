@@ -68,7 +68,7 @@ impl<'a> fmt::Display for ApiEndpointStruct<'a> {
             write!(f, "{}Parameters", endpoint_name)?;
         }
         writeln!(f, ";")?;
-        if data.success.fields.fields.is_empty() {
+        if data.success.is_empty() {
             writeln!(f, "    type Success = ();")?;
         } else {
             writeln!(f, "    type Success = {}Success;", endpoint_name)?;
@@ -125,7 +125,7 @@ impl<'a> fmt::Display for ApiEndpointStruct<'a> {
         }
         writeln!(f)?;
 
-        let success_fields = group_fields_by_prefix(&data.success.fields.fields);
+        let success_fields = group_fields_by_prefix(data.success.api_fields());
 
         writeln!(f, "{}", ApiStruct::success(&endpoint_name, &success_fields))?;
         writeln!(f)?;
@@ -330,7 +330,7 @@ impl<'a> fmt::Display for FieldTypeBaseRustTypeNameDisplay<'a> {
             FieldTypeBase::Hash => unreachable!(),
             FieldTypeBase::Integer => write!(f, "i64"),
             FieldTypeBase::Date => write!(f, "NaiveDate"),
-            FieldTypeBase::Float => write!(f, "Float"),
+            FieldTypeBase::Number => write!(f, "Number"),
             FieldTypeBase::DateTime => write!(f, "DateTime<FixedOffset>"),
             FieldTypeBase::Unit => write!(f, "()"),
             FieldTypeBase::File => write!(f, "()"),
