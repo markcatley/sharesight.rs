@@ -5,6 +5,8 @@ use sharesight_types::{Auth, AuthWithDetails};
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
 struct Args {
+    #[clap(long, short)]
+    token_only: bool,
     /// A file to read and write auth details from and to.
     file: std::path::PathBuf,
 }
@@ -30,20 +32,24 @@ async fn main() -> anyhow::Result<()> {
     if resp.status().is_success() {
         let auth = resp.json::<Auth>().await?;
 
-        println!("Access token: {}", auth.access_token);
-        if let Some(refresh_token) = &auth.refresh_token {
-            println!("Refresh token: {}", refresh_token);
+        if args.token_only {
+            print!("{}", auth.access_token);
+        } else {
+            println!("Access token: {}", auth.access_token);
+            if let Some(refresh_token) = &auth.refresh_token {
+                println!("Refresh token: {}", refresh_token);
+            }
+            println!("Expires in: {}s", auth.expires_in);
+            println!("Created at: {}", auth.created_at);
         }
-        println!("Expires in: {}s", auth.expires_in);
-        println!("Created at: {}", auth.created_at);
 
         let file = std::fs::File::create(&args.file)?;
         let auth = AuthWithDetails { auth, ..auth_arg };
 
         serde_json::to_writer_pretty(file, &auth)?;
     } else {
-        println!("{:?}", resp);
-        println!("{}", resp.text().await?);
+        eprintln!("{:?}", resp);
+        eprintln!("{}", resp.text().await?);
 
         std::process::exit(-1);
     }
