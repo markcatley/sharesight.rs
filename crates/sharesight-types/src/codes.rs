@@ -1285,6 +1285,8 @@ pub enum Currency {
     ZWD,
     /// Zloty
     PLN,
+    // Tether (USDT)
+    USDT,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Deserialize, Serialize)]
