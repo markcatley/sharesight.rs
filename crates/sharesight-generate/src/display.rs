@@ -55,6 +55,11 @@ impl<'a> fmt::Display for ApiEndpointStruct<'a> {
             "    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::{};",
             data.method.api_http_method()
         )?;
+        writeln!(
+            f,
+            "    const API_VERSION: &'static str = \"{}\";",
+            data.version
+        )?;
         writeln!(f)?;
         if params.is_empty() {
             writeln!(f, "    type UrlDisplay = &'static str;")?;
@@ -198,6 +203,8 @@ impl<'a> fmt::Display for ApiStruct<'a> {
 
                     if field_name == "self" {
                         writeln!(f, "    #[serde(rename = \"self\")]")?;
+                    } else if field_name == "type" {
+                        writeln!(f, "    #[serde(rename = \"type\")]")?;
                     }
 
                     if matches!(
@@ -239,6 +246,8 @@ impl<'a> fmt::Display for ApiStruct<'a> {
                         "    pub {}: ",
                         if field_name == "self" {
                             "itself"
+                        } else if field_name == "type" {
+                            "kind"
                         } else {
                             field_name
                         }

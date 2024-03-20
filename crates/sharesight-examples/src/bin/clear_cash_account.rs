@@ -6,7 +6,8 @@ use sharesight_types::{
     CashAccountTransactionDelete, CashAccountTransactionDeleteParameters,
     CashAccountTransactionsList, CashAccountTransactionsListParameters,
     CashAccountTransactionsListSuccess, CashAccountsList, CashAccountsListParameters,
-    CashAccountsListSuccess, PortfolioList, PortfolioListSuccess, DEFAULT_API_HOST,
+    CashAccountsListSuccess, PortfolioList, PortfolioListParameters, PortfolioListSuccess,
+    DEFAULT_API_HOST,
 };
 
 /// List the portfolios using the Sharesight API
@@ -33,8 +34,12 @@ async fn main() -> anyhow::Result<()> {
     let portfolio_name = args.portfolio_name;
     let cash_account_name = args.cash_account_name;
 
+    let portfolio_params = PortfolioListParameters {
+        consolidated: Some(true),
+        instrument_id: None,
+    };
     let PortfolioListSuccess { portfolios, .. } = client
-        .execute::<PortfolioList, PortfolioListSuccess>(&())
+        .execute::<PortfolioList, PortfolioListSuccess>(&portfolio_params)
         .await?;
 
     let portfolio = portfolios.iter().find(|p| p.name == portfolio_name);

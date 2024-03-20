@@ -5,7 +5,7 @@ use sharesight_reqwest::Client;
 use sharesight_types::{
     Currency, ListPortfolioPayouts, ListPortfolioPayoutsParameters,
     ListPortfolioPayoutsPayoutsSuccess, ListPortfolioPayoutsSuccess, Market, PortfolioList,
-    PortfolioListSuccess, DEFAULT_API_HOST,
+    PortfolioListParameters, PortfolioListSuccess, DEFAULT_API_HOST,
 };
 
 /// List the portfolios using the Sharesight API
@@ -29,8 +29,12 @@ async fn main() -> anyhow::Result<()> {
     let client = Client::new_with_token_and_host(args.access_token, args.api_host);
     let portfolio_name = args.portfolio_name;
 
+    let portfolio_params = PortfolioListParameters {
+        consolidated: Some(true),
+        instrument_id: None,
+    };
     let PortfolioListSuccess { portfolios, .. } = client
-        .execute::<PortfolioList, PortfolioListSuccess>(&())
+        .execute::<PortfolioList, PortfolioListSuccess>(&portfolio_params)
         .await?;
 
     let portfolio = portfolios.iter().find(|p| p.name == portfolio_name);

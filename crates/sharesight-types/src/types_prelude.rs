@@ -25,11 +25,13 @@ pub enum ApiHttpMethod {
     Post,
     Put,
     Delete,
+    Patch,
 }
 
 pub trait ApiEndpoint<'a> {
     const URL_PATH: &'static str;
     const HTTP_METHOD: ApiHttpMethod;
+    const API_VERSION: &'static str;
 
     type UrlDisplay: 'a + fmt::Display;
     type Parameters: Serialize;

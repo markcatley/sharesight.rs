@@ -40,6 +40,7 @@ impl Client {
             sharesight_types::ApiHttpMethod::Post => reqwest::Method::POST,
             sharesight_types::ApiHttpMethod::Put => reqwest::Method::PUT,
             sharesight_types::ApiHttpMethod::Delete => reqwest::Method::DELETE,
+            sharesight_types::ApiHttpMethod::Patch => reqwest::Method::PATCH,
         };
         let resp = self
             .client

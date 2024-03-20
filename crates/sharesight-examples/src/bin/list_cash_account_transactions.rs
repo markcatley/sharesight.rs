@@ -1,5 +1,6 @@
 use chrono::{DateTime, FixedOffset};
 use clap::Parser;
+use log::error;
 use sharesight_examples::init_logger;
 use sharesight_reqwest::Client;
 use sharesight_types::{
@@ -7,7 +8,7 @@ use sharesight_types::{
     CashAccountTransactionsListCashAccountTransactionsSuccess,
     CashAccountTransactionsListParameters, CashAccountTransactionsListSuccess, CashAccountsList,
     CashAccountsListParameters, CashAccountsListSuccess, Currency, PortfolioList,
-    PortfolioListSuccess, DEFAULT_API_HOST,
+    PortfolioListParameters, PortfolioListSuccess, DEFAULT_API_HOST,
 };
 
 /// List the portfolios using the Sharesight API
@@ -34,7 +35,13 @@ async fn main() -> anyhow::Result<()> {
     let portfolio_name = args.portfolio_name;
     let cash_account_name = args.cash_account_name;
 
-    let PortfolioListSuccess { portfolios, .. } = client.execute::<PortfolioList, _>(&()).await?;
+    let portfolio_params = PortfolioListParameters {
+        consolidated: Some(true),
+        instrument_id: None,
+    };
+    let PortfolioListSuccess { portfolios, .. } = client
+        .execute::<PortfolioList, _>(&portfolio_params)
+        .await?;
 
     let portfolio = portfolios.iter().find(|p| p.name == portfolio_name);
 
@@ -117,6 +124,12 @@ async fn main() -> anyhow::Result<()> {
                     cash_account_transaction_type,
                 })?;
             }
+        } else {
+            error!(
+                "Could not find cash account {} options are {:?}",
+                cash_account_name,
+                cash_accounts.iter().map(|c| &c.name).collect::<Vec<_>>()
+            )
         }
     }
 

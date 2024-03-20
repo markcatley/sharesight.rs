@@ -2,8 +2,8 @@ use clap::Parser;
 use sharesight_examples::init_logger;
 use sharesight_reqwest::Client;
 use sharesight_types::{
-    Performance, PerformanceParameters, PerformanceSuccess, PortfolioList, PortfolioListSuccess,
-    DEFAULT_API_HOST,
+    Performance, PerformanceParameters, PerformanceSuccess, PortfolioList, PortfolioListParameters,
+    PortfolioListSuccess, DEFAULT_API_HOST,
 };
 
 /// Generate a 'performance' report using the sharesight API
@@ -27,8 +27,12 @@ async fn main() -> anyhow::Result<()> {
     let client = Client::new_with_token_and_host(args.access_token, args.api_host);
     let portfolio_name = args.portfolio_name;
 
+    let portfolio_params = PortfolioListParameters {
+        consolidated: Some(true),
+        instrument_id: None,
+    };
     let PortfolioListSuccess { portfolios, .. } = client
-        .execute::<PortfolioList, PortfolioListSuccess>(&())
+        .execute::<PortfolioList, PortfolioListSuccess>(&portfolio_params)
         .await?;
 
     let portfolio = portfolios.iter().find(|p| p.name == portfolio_name);

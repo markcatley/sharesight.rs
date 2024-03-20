@@ -8,6 +8,7 @@ use clap::Parser;
 use display::ApiEndpointStruct;
 use indexmap::IndexMap;
 use log::info;
+use semver::Version;
 
 /// Generate sharesight types from the swagger manifest
 #[derive(Debug, Parser)]
@@ -41,10 +42,18 @@ fn main() -> anyhow::Result<()> {
     writeln!(f, "use crate::types_prelude::*;")?;
     writeln!(f)?;
 
-    let mut by_name_and_version = IndexMap::<String, BTreeMap<String, ApiEndpoint>>::new();
+    let mut by_name_and_version = IndexMap::<String, BTreeMap<Version, ApiEndpoint>>::new();
 
     for mut api_endpoint in api_endpoints {
         api_endpoint.fix();
+
+        if !api_endpoint.version.pre.is_empty() {
+            info!(
+                "Ignoring pre-release endpoint {} {}",
+                api_endpoint.name, api_endpoint.version
+            );
+            continue;
+        }
 
         let by_version = by_name_and_version
             .entry(api_endpoint.name.clone())
@@ -54,7 +63,9 @@ fn main() -> anyhow::Result<()> {
 
     for api_endpoint in by_name_and_version
         .values_mut()
-        .filter_map(|v| v.remove("2.0.0"))
+        .filter(|v| v.contains_key(&Version::parse("2.0.0").unwrap()))
+        .filter_map(|v| v.pop_last())
+        .map(|(_, v)| v)
     {
         if let Some(ref only) = opt.only {
             if !only.iter().any(|name| name == &api_endpoint.name) {

@@ -2,7 +2,7 @@ use clap::Parser;
 use sharesight_examples::init_logger;
 use sharesight_reqwest::Client;
 use sharesight_types::{
-    Currency, Market, PortfolioList, PortfolioListSuccess, TradeDescription, Trades,
+    Currency, PortfolioList, PortfolioListParameters, PortfolioListSuccess, Trades,
     TradesParameters, TradesSuccess, TradesTradesSuccess, DEFAULT_API_HOST,
 };
 
@@ -27,8 +27,12 @@ async fn main() -> anyhow::Result<()> {
     let client = Client::new_with_token_and_host(args.access_token, args.api_host);
     let portfolio_name = args.portfolio_name;
 
+    let params = PortfolioListParameters {
+        consolidated: Some(true),
+        instrument_id: None,
+    };
     let PortfolioListSuccess { portfolios, .. } = client
-        .execute::<PortfolioList, PortfolioListSuccess>(&())
+        .execute::<PortfolioList, PortfolioListSuccess>(&params)
         .await?;
 
     let portfolio = portfolios.iter().find(|p| p.name == portfolio_name);
@@ -62,13 +66,6 @@ async fn main() -> anyhow::Result<()> {
             pub portfolio_id: i64,
             pub holding_id: i64,
             pub state: String,
-            pub transaction_type: TradeDescription,
-            pub instrument_id: i64,
-            pub symbol: String,
-            pub market: Market,
-            pub attachment_filename: Option<String>,
-            pub attachment_id: Option<i64>,
-            pub confirmed: bool,
         }
 
         let mut wtr = csv::Writer::from_writer(std::io::stdout());
@@ -91,13 +88,6 @@ async fn main() -> anyhow::Result<()> {
                 portfolio_id,
                 holding_id,
                 state,
-                transaction_type,
-                instrument_id,
-                symbol,
-                market,
-                attachment_filename,
-                attachment_id,
-                confirmed,
             } = trade;
             wtr.serialize(TradesRecord {
                 id,
@@ -116,13 +106,6 @@ async fn main() -> anyhow::Result<()> {
                 portfolio_id,
                 holding_id,
                 state,
-                transaction_type,
-                instrument_id,
-                symbol,
-                market,
-                attachment_filename,
-                attachment_id,
-                confirmed,
             })?;
         }
     } else {

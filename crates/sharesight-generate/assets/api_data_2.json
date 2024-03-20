@@ -3540,15 +3540,15 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
-              "optional": false,
+              "type": "Integer",
+              "optional": true,
               "field": "trades.id",
               "description": "<p>The trade ID. Maybe nil if the trade is based on an adjustment and has not yet been confirmed by the user.</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.unique_identifier",
               "description": "<p>A unique identifier associated with this trade</p>"
             },
@@ -3576,7 +3576,7 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "trades.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -3597,7 +3597,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.</p>"
             },
@@ -3611,7 +3611,7 @@
             {
               "group": "200 Success",
               "type": "Date",
-              "optional": false,
+              "optional": true,
               "field": "trades.paid_on",
               "description": "<p>For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date</p>"
             },
@@ -6051,7 +6051,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "instruments.country_code",
               "description": "<p>The ISO code of the instrument country.</p>"
             }
@@ -14828,612 +14828,374 @@
           "200 Success": [
             {
               "group": "200 Success",
-              "type": "PortfolioPerformance",
-              "optional": false,
-              "field": "portfolio_performance",
-              "description": "<p>Performance information on the portfolio</p>"
-            },
-            {
-              "group": "200 Success",
               "type": "String",
               "optional": false,
-              "field": "portfolio_performance.id",
+              "field": "id",
               "description": "<p>A unique id identifying this report instance</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
-              "field": "portfolio_performance.portfolio_id",
+              "field": "portfolio_id",
               "description": "<p>The portfolio id</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
-              "field": "portfolio_performance.grouping",
+              "field": "grouping",
               "description": "<p>Grouping id or name</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
-              "field": "portfolio_performance.custom_group_id",
+              "field": "custom_group_id",
               "description": "<p>The id of the custom group, if any, otherwise nil if a built-in group was selected</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance.value",
+              "field": "value",
               "description": "<p>The total value of the portfolio</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance.capital_gain",
+              "field": "capital_gain",
               "description": "<p>Capital Gain<sup>1</sup> (rounded to 2 decimal places).</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance.capital_gain_percent",
+              "field": "capital_gain_percent",
               "description": "<p>Capital Gain (percentage, rounded to 2 decimal places, 33% as <code>33.0</code>)<sup>1</sup></p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance.payout_gain",
+              "field": "payout_gain",
               "description": "<p>Payout Gain<sup>1</sup> (rounded to 2 decimal places).</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance.payout_gain_percent",
+              "field": "payout_gain_percent",
               "description": "<p>Payout Gain (percentage, rounded to 2 decimal places, 33% as <code>33.0</code>)<sup>1</sup></p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance.currency_gain",
+              "field": "currency_gain",
               "description": "<p>Currency Gain<sup>1</sup> (rounded to 2 decimal places).</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance.currency_gain_percent",
+              "field": "currency_gain_percent",
               "description": "<p>Currency Gain (percentage, rounded to 2 decimal places, 33% as <code>33.0</code>)<sup>1</sup></p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance.total_gain",
+              "field": "total_gain",
               "description": "<p>Total Gain<sup>1</sup> (rounded to 2 decimal places).</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance.total_gain_percent",
+              "field": "total_gain_percent",
               "description": "<p>Total Gain (percentage, rounded to 2 decimal places, 33% as <code><code>33.0</code></code>)<sup>1</sup></p>"
             },
             {
               "group": "200 Success",
               "type": "Date",
               "optional": false,
-              "field": "portfolio_performance.start_date",
+              "field": "start_date",
               "description": "<p>Start date (format <code>YYYY-MM-DD</code>)</p>"
             },
             {
               "group": "200 Success",
               "type": "Date",
               "optional": false,
-              "field": "portfolio_performance.end_date",
+              "field": "end_date",
               "description": "<p>End date (format <code>YYYY-MM-DD</code>)</p>"
             },
             {
               "group": "200 Success",
-              "type": "Date",
+              "type": "Boolean",
               "optional": false,
-              "field": "portfolio_performance.include_sales",
-              "description": "<p>Include sales (format <code>YYYY-MM-DD</code>)</p>"
+              "field": "include_sales",
+              "description": "<p>Include sales</p>"
             },
             {
               "group": "200 Success",
               "type": "Holding[]",
               "optional": false,
-              "field": "portfolio_performance_holdings",
+              "field": "holdings",
               "description": "<p>List of holdings.</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
-              "field": "portfolio_performance_holdings.id",
+              "field": "holdings.id",
               "description": "<p>The id of this holding</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
-              "field": "portfolio_performance_holdings.portfolio_performance_id",
-              "description": "<p>A unique id identifying this report instance</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "String",
-              "optional": false,
-              "field": "portfolio_performance_holdings.symbol",
+              "field": "holdings.symbol",
               "description": "<p>The Sharesight symbol for the held instrument</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
-              "field": "portfolio_performance_holdings.instrument_id",
+              "field": "holdings.instrument_id",
               "description": "<p>A unique id identifying the instrument</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
-              "field": "portfolio_performance_holdings.market_code",
+              "field": "holdings.market",
               "description": "<p>The code for the market the held instrument is listed on</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
-              "field": "portfolio_performance_holdings.group_type",
+              "field": "holdings.group_type",
               "description": "<p>The group type for this instrument - identifies the sideloaded object type to look up the group id</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
-              "field": "portfolio_performance_holdings.group_id",
+              "optional": true,
+              "field": "holdings.group_id",
               "description": "<p>The group id for this instrument</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
-              "field": "portfolio_performance_holdings.name",
+              "field": "holdings.name",
               "description": "<p>The name of the instrument</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_holdings.value",
+              "field": "holdings.value",
               "description": "<p>The current value of the holding.</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_holdings.quantity",
+              "field": "holdings.quantity",
               "description": "<p>The quantity of shares or other instruments in the holding</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_holdings.instrument_price",
-              "description": "<p>The instrument price in its defined currency</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "Float",
-              "optional": false,
-              "field": "portfolio_performance_holdings.capital_gain",
+              "field": "holdings.capital_gain",
               "description": "<p>Capital Gain<sup>1</sup> on the holding (rounded to 2 decimal places).</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_holdings.capital_gain_percent",
+              "field": "holdings.capital_gain_percent",
               "description": "<p>Capital Gain (percentage, rounded to 2 decimal places, 33% as <code>33.0</code>)<sup>1</sup> on the holding</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_holdings.payout_gain",
+              "field": "holdings.payout_gain",
               "description": "<p>Payout Gain<sup>1</sup> on the holding (rounded to 2 decimal places).</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_holdings.payout_gain_percent",
+              "field": "holdings.payout_gain_percent",
               "description": "<p>Payout Gain (percentage, rounded to 2 decimal places, 33% as <code>33.0</code>)<sup>1</sup> on the holding</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_holdings.currency_gain",
+              "field": "holdings.currency_gain",
               "description": "<p>Currency Gain<sup>1</sup> on the holding (rounded to 2 decimal places).</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_holdings.currency_gain_percent",
+              "field": "holdings.currency_gain_percent",
               "description": "<p>Currency Gain (percentage, rounded to 2 decimal places, 33% as <code>33.0</code>)<sup>1</sup> on the holding</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_holdings.total_gain",
+              "field": "holdings.total_gain",
               "description": "<p>Total Gain<sup>1</sup> on the holding (rounded to 2 decimal places).</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_holdings.total_gain_percent",
+              "field": "holdings.total_gain_percent",
               "description": "<p>Total Gain (percentage, rounded to 2 decimal places, 33% as <code>33.0</code>)<sup>1</sup> on the holding</p>"
             },
             {
               "group": "200 Success",
               "type": "CashAccount[]",
               "optional": false,
-              "field": "portfolio_performance_cash_accounts",
+              "field": "cash_accounts",
               "description": "<p>List of cash accounts. This includes Unsettled Trades and Unpaid Payout Adjustments.</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
-              "field": "portfolio_performance_cash_accounts.portfolio_performance_id",
+              "field": "cash_accounts.portfolio_performance_id",
               "description": "<p>A unique id identifying this report instance</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
-              "field": "portfolio_performance_cash_accounts.id",
+              "field": "cash_accounts.id",
               "description": "<p>A unique key for each cash account</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
-              "field": "portfolio_performance_cash_accounts.cash_account_id",
+              "field": "cash_accounts.cash_account_id",
               "description": "<p>The id of the cash account, null for adjustments</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
-              "field": "portfolio_performance_cash_accounts.name",
+              "field": "cash_accounts.name",
               "description": "<p>The name of the cash account</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_cash_accounts.value",
+              "field": "cash_accounts.value",
               "description": "<p>The value of the cash account</p>"
             },
             {
               "group": "200 Success",
               "type": "SubTotal[]",
               "optional": false,
-              "field": "portfolio_performance_sub_totals",
+              "field": "sub_totals",
               "description": "<p>List of sub-totals for each group.</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
-              "field": "portfolio_performance_sub_totals.portfolio_performance_id",
+              "field": "sub_totals.portfolio_performance_id",
               "description": "<p>A unique id identifying this report instance</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_sub_totals.value",
+              "field": "sub_totals.value",
               "description": "<p>The total value of the holdings in this group</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
               "optional": false,
-              "field": "portfolio_performance_sub_totals.group_type",
+              "field": "sub_totals.group_type",
               "description": "<p>The group type - identifies the sideloaded object type to look up the group id</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
-              "field": "portfolio_performance_sub_totals.group_id",
+              "optional": true,
+              "field": "sub_totals.group_id",
               "description": "<p>The group id</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_sub_totals.capital_gain",
+              "field": "sub_totals.capital_gain",
               "description": "<p>Capital Gain<sup>1</sup> on the holdings in this group (rounded to 2 decimal places).</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_sub_totals.capital_gain_percent",
+              "field": "sub_totals.capital_gain_percent",
               "description": "<p>Capital Gain (percentage, rounded to 2 decimal places, 33% as <code>33.0</code>)<sup>1</sup></p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_sub_totals.payout_gain",
+              "field": "sub_totals.payout_gain",
               "description": "<p>Payout Gain<sup>1</sup> on the holdings in this group (rounded to 2 decimal places).</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_sub_totals.payout_gain_percent",
+              "field": "sub_totals.payout_gain_percent",
               "description": "<p>Payout Gain (percentage, rounded to 2 decimal places, 33% as <code>33.0</code>)<sup>1</sup> on the holdings in this group</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_sub_totals.currency_gain",
+              "field": "sub_totals.currency_gain",
               "description": "<p>Currency Gain<sup>1</sup> on the holdings in this group (rounded to 2 decimal places).</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_sub_totals.currency_gain_percent",
+              "field": "sub_totals.currency_gain_percent",
               "description": "<p>Currency Gain (percentage, rounded to 2 decimal places, 33% as <code>33.0</code>)<sup>1</sup> on the holdings in this group</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_sub_totals.total_gain",
+              "field": "sub_totals.total_gain",
               "description": "<p>Total Gain<sup>1</sup> on the holdings in this group (rounded to 2 decimal places).</p>"
             },
             {
               "group": "200 Success",
               "type": "Float",
               "optional": false,
-              "field": "portfolio_performance_sub_totals.total_gain_percent",
+              "field": "sub_totals.total_gain_percent",
               "description": "<p>Total Gain (percentage, rounded to 2 decimal places, 33% as <code>33.0</code>)<sup>1</sup> on the holdings in this group</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "SubTotal",
-              "optional": false,
-              "field": "portfolio_performance_cash_account_sub_total",
-              "description": "<p>Sub-total for all cash accounts.</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "String",
-              "optional": false,
-              "field": "portfolio_performance_cash_account_sub_total.portfolio_performance_id",
-              "description": "<p>A unique id identifying this report instance</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "Float",
-              "optional": false,
-              "field": "portfolio_performance_cash_account_sub_total.value",
-              "description": "<p>The total value of the cash accounts and adjustments, in the portfolio currency (rounded to 2 decimal places).</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "CustomGroup",
-              "optional": false,
-              "field": "custom_group",
-              "description": "<p>The custom group used for this report, if selected</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "Integer",
-              "optional": false,
-              "field": "custom_group.id",
-              "description": "<p>The unique id of the custom group - matches custom_group_id when a custom group is selected</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "String",
-              "optional": false,
-              "field": "custom_group.name",
-              "description": "<p>The name of the custom group</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "Market[]",
-              "optional": false,
-              "field": "markets",
-              "description": "<p>The markets used for this report, if selected</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "Integer",
-              "optional": false,
-              "field": "markets.id",
-              "description": "<p>The id of the market - matches group_id when group_type=market</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "String",
-              "optional": false,
-              "field": "markets.code",
-              "description": "<p>The code of the market</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "String",
-              "optional": false,
-              "field": "markets.description",
-              "description": "<p>The description of the market</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "Integer",
-              "optional": false,
-              "field": "markets.country_id",
-              "description": "<p>The country id of the market</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "String",
-              "optional": false,
-              "field": "markets.tz",
-              "description": "<p>The timezone of the market</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "IndustryClassification[]",
-              "optional": false,
-              "field": "industry_classifications",
-              "description": "<p>The industry classifications used for this report, if selected</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "Integer",
-              "optional": false,
-              "field": "industry_classifications.id",
-              "description": "<p>The id of the industry classification - matches group_id when group_type=industry_classification</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "String",
-              "optional": false,
-              "field": "industry_classifications.name",
-              "description": "<p>The name of the industry</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "SectorClassification[]",
-              "optional": false,
-              "field": "sector_classifications",
-              "description": "<p>The sector classifications used for this report, if selected</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "Integer",
-              "optional": false,
-              "field": "sector_classifications.id",
-              "description": "<p>The id of the sector classification - matches group_id when group_type=sector_classification</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "String",
-              "optional": false,
-              "field": "sector_classifications.name",
-              "description": "<p>The name of the sector</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "InvestmentType[]",
-              "optional": false,
-              "field": "investment_types",
-              "description": "<p>The investment types used for this report, if selected</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "Integer",
-              "optional": false,
-              "field": "investment_types.id",
-              "description": "<p>The id of the investment type - matches group_id when group_type=investment_type</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "String",
-              "optional": false,
-              "field": "investment_types.label",
-              "description": "<p>The label of the investment type to show in reports</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "Boolean",
-              "optional": false,
-              "field": "investment_types.not_classified",
-              "description": "<p>True if the investment type was not classified</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "Country[]",
-              "optional": false,
-              "field": "countries",
-              "description": "<p>The countries used for this report, if selected</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "Integer",
-              "optional": false,
-              "field": "countries.id",
-              "description": "<p>The id of the country - matches group_id when group_type=country</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "String",
-              "optional": false,
-              "field": "countries.code",
-              "description": "<p>The code of the country</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "String",
-              "optional": false,
-              "field": "countries.name",
-              "description": "<p>The name of the country</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "CustomGroupCategory[]",
-              "optional": false,
-              "field": "custom_group_categories",
-              "description": "<p>The custom group categories used for this report, if selected</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "Integer",
-              "optional": false,
-              "field": "custom_group_categories.id",
-              "description": "<p>The id of the custom group category - matches group_id when group_type=custom_group_category</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "String",
-              "optional": false,
-              "field": "custom_group_categories.name",
-              "description": "<p>The name of the custom group category</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "String",
-              "optional": false,
-              "field": "custom_group_categories.custom_group_id",
-              "description": "<p>The id of the custom group</p>"
-            },
-            {
-              "group": "200 Success",
-              "type": "String",
-              "optional": false,
-              "field": "custom_group_categories.ordering",
-              "description": "<p>The order this custom group appears in</p>"
             }
           ]
         },
@@ -18448,15 +18210,15 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
-              "optional": false,
+              "type": "Integer",
+              "optional": true,
               "field": "trades.id",
               "description": "<p>The trade ID. Maybe nil if the trade is based on an adjustment and has not yet been confirmed by the user.</p>"
             },
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.unique_identifier",
               "description": "<p>A unique identifier associated with this trade</p>"
             },
@@ -18484,7 +18246,7 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "trades.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -18505,7 +18267,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.</p>"
             },
@@ -18519,7 +18281,7 @@
             {
               "group": "200 Success",
               "type": "Date",
-              "optional": false,
+              "optional": true,
               "field": "trades.paid_on",
               "description": "<p>For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date</p>"
             },
