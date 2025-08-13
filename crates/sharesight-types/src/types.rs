@@ -2443,11 +2443,13 @@ pub struct PayoutConfirmPayoutParameters {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub holding_id: i64,
     /// ID used to identify the company event the unconfirmed payout is based on.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub company_event_id: i64,
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub company_event_id: Option<i64>,
     /// Date used to identify the payout based on a payment date of an interest payment (format `YYYY-MM-DD`).
-    #[serde_as(as = "DeserializeDate")]
-    pub paid_on: NaiveDate,
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub paid_on: Option<NaiveDate>,
     /// The new state of the payout: `"confirmed"`.
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]

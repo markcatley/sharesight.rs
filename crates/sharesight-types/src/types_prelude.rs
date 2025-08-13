@@ -76,6 +76,7 @@ impl<T: serde::Serialize> SerializeAs<T> for DeserializeDate {
 }
 
 #[derive(Debug, serde::Deserialize, serde::Serialize)]
+#[allow(dead_code)]
 pub struct Auth {
     access_token: String,
     expires_in: u32,
@@ -84,6 +85,7 @@ pub struct Auth {
 }
 
 #[derive(Debug, serde::Deserialize, serde::Serialize)]
+#[allow(dead_code)]
 pub struct AuthWithHost {
     #[serde(flatten)]
     auth: Auth,
