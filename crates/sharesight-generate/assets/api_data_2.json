@@ -8564,14 +8564,14 @@
             {
               "group": "Parameter",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "payout.company_event_id",
               "description": "<p>ID used to identify the company event the unconfirmed payout is based on.</p>"
             },
             {
               "group": "Parameter",
               "type": "Date",
-              "optional": false,
+              "optional": true,
               "field": "payout.paid_on",
               "description": "<p>Date used to identify the payout based on a payment date of an interest payment (format <code>YYYY-MM-DD</code>).</p>"
             },

@@ -38,7 +38,7 @@ impl<'a> fmt::Display for ApiEndpointStruct<'a> {
                     .split('.')
                     .nth(1)
                     .map(|ext| format!(".{}", ext))
-                    .unwrap_or_else(String::new);
+                    .unwrap_or_default();
                 if s.starts_with(':') {
                     format!("{{}}{}", extension)
                 } else {
