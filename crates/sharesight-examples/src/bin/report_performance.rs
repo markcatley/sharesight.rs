@@ -5,7 +5,8 @@ use clap::Parser;
 use sharesight_examples::init_logger;
 use sharesight_reqwest::Client;
 use sharesight_types::{
-    PerformanceShow, PerformanceShowParameters, PerformanceShowSuccess, DEFAULT_API_HOST,
+    GroupsList, GroupsListGroupsSuccess, GroupsListSuccess, PerformanceShow,
+    PerformanceShowParameters, PerformanceShowSuccess, DEFAULT_API_HOST,
 };
 
 /// Generate a 'performance' report using the sharesight API
@@ -20,6 +21,11 @@ struct Args {
     /// Lookback period in years
     #[clap(short, default_value = "5")]
     look_back_period_in_years: NonZeroU32,
+<<<<<<< HEAD
+=======
+    #[clap(short)]
+    group: Option<String>,
+>>>>>>> 3bb01fc (feat: enhancements to report performance)
     /// The access token to use the api.
     access_token: String,
 }
@@ -31,14 +37,27 @@ async fn main() -> anyhow::Result<()> {
     let args = Args::parse();
     let client = Client::new_with_token_and_host(args.access_token, args.api_host);
     let portfolio_name = args.portfolio_name;
+    let group_name = args.group;
     let look_back_period_in_years = args.look_back_period_in_years.get() as i32;
 
     let portfolios = client.build_portfolio_index().await?;
+    let groups = client.execute::<GroupsList, GroupsListSuccess>(&()).await?;
 
     let portfolio = portfolios.find(&portfolio_name).unwrap_or_else(|| {
         portfolios.log_error_for(&portfolio_name);
         std::process::exit(0);
     });
+    let group = group_name.map(|group_name| {
+        groups
+            .find_group(&group_name)
+            .unwrap_or_else(|| std::process::exit(0))
+    });
+    let custom_group_id = group.and_then(|g| g.id.id());
+    let grouping = if custom_group_id.is_some() {
+        Some("custom_group".to_string())
+    } else {
+        group.and_then(|g| g.id.name())
+    };
 
     let today = Utc::now().date_naive();
     let inception_on = portfolio.inception_date;
@@ -56,8 +75,13 @@ async fn main() -> anyhow::Result<()> {
             portfolio_id: portfolio.id,
             consolidated: portfolio.consolidated,
             include_sales: Some(true),
+<<<<<<< HEAD
             grouping: None,
             custom_group_id: None,
+=======
+            grouping: grouping.clone(),
+            custom_group_id,
+>>>>>>> 3bb01fc (feat: enhancements to report performance)
             include_limited: None,
             report_combined: None,
             labels: None,
@@ -125,5 +149,42 @@ impl DateExt for NaiveDate {
         let (year, month, day) = (self.year() + years, self.month(), self.day());
 
         NaiveDate::from_ymd_opt(year, month, day).unwrap()
+    }
+}
+
+trait GroupsListSuccessExt {
+    fn find_group<'a>(&'a self, group_name: &str) -> Option<&'a GroupsListGroupsSuccess>;
+}
+
+impl GroupsListSuccessExt for GroupsListSuccess {
+    fn find_group<'a>(&'a self, group_name: &str) -> Option<&'a GroupsListGroupsSuccess> {
+        let group = self.groups.iter().find(|p| p.name == group_name);
+
+        if let Some(group) = group {
+            Some(group)
+        } else {
+            eprint!("Unknown group: {}, ", group_name);
+
+            let mut names = self.groups.iter().map(|p| p.name.as_str());
+
+            match (names.next(), names.next_back()) {
+                (Some(name_start), Some(name_end)) => {
+                    eprint!("the group are: {}", name_start);
+                    for name in names {
+                        eprint!(", {}", name);
+                    }
+                    eprintln!(" or {}", name_end);
+                }
+                (Some(name), None) => {
+                    eprintln!("the only portfolio is: {}", name);
+                }
+                (None, None) => {
+                    eprintln!("there are no portfolios");
+                }
+                _ => unreachable!(),
+            }
+
+            None
+        }
     }
 }

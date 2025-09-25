@@ -2235,7 +2235,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "holding_merge.trades.transaction_date",
               "description": "<p>The trade date.</p>"
@@ -2584,7 +2584,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "holding_merge.trades.transaction_date",
               "description": "<p>The trade date.</p>"
@@ -2933,7 +2933,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "holding_merge.trades.transaction_date",
               "description": "<p>The trade date.</p>"
@@ -3282,7 +3282,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "holding_merge.trades.transaction_date",
               "description": "<p>The trade date.</p>"
@@ -7749,14 +7749,14 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payouts.paid_on",
               "description": "<p>The payout date (format <code>YYYY-MM-DD</code>).</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "payouts.ex_date",
               "description": "<p>The payout ex date (format <code>YYYY-MM-DD</code>).</p>"
@@ -8213,14 +8213,14 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payouts.paid_on",
               "description": "<p>The payout date (format <code>YYYY-MM-DD</code>).</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "payouts.ex_date",
               "description": "<p>The payout ex date (format <code>YYYY-MM-DD</code>).</p>"
@@ -9208,14 +9208,14 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.paid_on",
               "description": "<p>The payout date (format <code>YYYY-MM-DD</code>).</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "payout.ex_date",
               "description": "<p>The payout ex date (format <code>YYYY-MM-DD</code>).</p>"
@@ -9978,14 +9978,14 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "paid_on",
               "description": "<p>The payout date (format <code>YYYY-MM-DD</code>).</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "ex_date",
               "description": "<p>The payout ex date (format <code>YYYY-MM-DD</code>).</p>"
@@ -11189,7 +11189,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "inception_date",
               "description": "<p>Portfolio's inception date (first trade record). Format: dd mmm yyyy</p>"
@@ -11624,7 +11624,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "portfolios.inception_date",
               "description": "<p>Portfolio's inception date (first trade record). Format: dd mmm yyyy</p>"
@@ -11923,7 +11923,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "portfolio.inception_date",
               "description": "<p>Portfolio's inception date (first trade record). Format: dd mmm yyyy</p>"
@@ -12238,7 +12238,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "inception_date",
               "description": "<p>Portfolio's inception date (first trade record). Format: dd mmm yyyy</p>"
@@ -12713,7 +12713,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "inception_date",
               "description": "<p>Portfolio's inception date (first trade record). Format: dd mmm yyyy</p>"
@@ -14101,7 +14101,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "portfolio_diversity.custom_group_id",
               "description": "<p>The id of the custom group, if any, otherwise nil if a built-in group was selected</p>"
@@ -14409,7 +14409,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "custom_group_categories.custom_group_id",
               "description": "<p>The id of the custom group</p>"
@@ -14856,7 +14856,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "portfolio_performance.custom_group_id",
               "description": "<p>The id of the custom group, if any, otherwise nil if a built-in group was selected</p>"
@@ -15423,7 +15423,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "custom_group_categories.custom_group_id",
               "description": "<p>The id of the custom group</p>"
@@ -15623,7 +15623,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "custom_group_id",
               "description": "<p>The id of the custom group, if any, otherwise nil if a built-in group was selected</p>"
@@ -16954,7 +16954,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "portfolio_valuation.custom_group_id",
               "description": "<p>The id of the custom group, if any, otherwise nil if a built-in group was selected</p>"
@@ -17311,7 +17311,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "custom_group_categories.custom_group_id",
               "description": "<p>The id of the custom group</p>"
@@ -17510,7 +17510,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "custom_group_id",
               "description": "<p>The id of the custom group, if any, otherwise nil if a built-in group was selected</p>"
@@ -17941,7 +17941,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trade.transaction_date",
               "description": "<p>The trade date (matches the maturity date for interest instruments, format <code>YYYY-MM-DD</code>).</p>"
@@ -18204,7 +18204,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trade.transaction_date",
               "description": "<p>The trade date (matches the maturity date for interest instruments, format <code>YYYY-MM-DD</code>).</p>"
@@ -19063,7 +19063,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "trade.transaction_date",
               "description": "<p>The transaction or trade date (format YYYY-MM-DD).</p>"
@@ -19454,7 +19454,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "trade.transaction_date",
               "description": "<p>The transaction or trade date (format YYYY-MM-DD).</p>"
@@ -20827,7 +20827,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "trade.transaction_date",
               "description": "<p>The transaction or trade date (format YYYY-MM-DD).</p>"
@@ -21190,7 +21190,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "trade.transaction_date",
               "description": "<p>The transaction or trade date (format YYYY-MM-DD).</p>"
@@ -21744,7 +21744,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "DateTime",
               "optional": false,
               "field": "user.signed_up_at",
               "description": "<p>The date the user signed up to Sharesight in ISO8601 format (YYYY-MM-DDT00:00:00.000Z)</p>"
@@ -21970,7 +21970,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "DateTime",
               "optional": false,
               "field": "user.signed_up_at",
               "description": "<p>The date the user signed up to Sharesight in ISO8601 format (YYYY-MM-DDT00:00:00.000Z)</p>"

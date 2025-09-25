@@ -918,9 +918,8 @@ pub struct HoldingMergesCreateHoldingMergeTradesSuccess {
     /// The trade type (BUY, SELL, SPLIT, etc).
     pub transaction_type: TradeDescription,
     /// The trade date.
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub transaction_date: String,
+    #[serde_as(as = "DeserializeDate")]
+    pub transaction_date: NaiveDate,
     /// The market (ASX, NZX, etc).
     pub market: Market,
     /// The instrument code/symbol.
@@ -1075,9 +1074,8 @@ pub struct HoldingMergesUpdateHoldingMergeTradesSuccess {
     /// The trade type (BUY, SELL, SPLIT, etc).
     pub transaction_type: TradeDescription,
     /// The trade date.
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub transaction_date: String,
+    #[serde_as(as = "DeserializeDate")]
+    pub transaction_date: NaiveDate,
     /// The market (ASX, NZX, etc).
     pub market: Market,
     /// The instrument code/symbol.
@@ -3797,9 +3795,8 @@ pub struct PortfolioCreateSuccess {
     /// ISO code of the portfolio currency (see <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a>)
     pub currency_code: Currency,
     /// Portfolio's inception date (first trade record). Format: dd mmm yyyy
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub inception_date: String,
+    #[serde_as(as = "DeserializeDate")]
+    pub inception_date: NaiveDate,
     /// Time zone name
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -4116,9 +4113,8 @@ pub struct PortfolioShowSuccess {
     /// ISO code of the portfolio currency (see <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a>)
     pub currency_code: Currency,
     /// Portfolio's inception date (first trade record). Format: dd mmm yyyy
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub inception_date: String,
+    #[serde_as(as = "DeserializeDate")]
+    pub inception_date: NaiveDate,
     /// Time zone name
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -4311,9 +4307,8 @@ pub struct PortfolioUpdateSuccess {
     /// ISO code of the portfolio currency (see <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a>)
     pub currency_code: Currency,
     /// Portfolio's inception date (first trade record). Format: dd mmm yyyy
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub inception_date: String,
+    #[serde_as(as = "DeserializeDate")]
+    pub inception_date: NaiveDate,
     /// Time zone name
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -4804,9 +4799,8 @@ pub struct PerformanceSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub grouping: String,
     /// The id of the custom group, if any, otherwise nil if a built-in group was selected
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub custom_group_id: String,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub custom_group_id: i64,
     /// The total value of the portfolio
     #[serde_as(as = "DeserializeNumber")]
     pub value: Number,
@@ -5221,9 +5215,8 @@ pub struct ValuationSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub grouping: String,
     /// The id of the custom group, if any, otherwise nil if a built-in group was selected
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub custom_group_id: String,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub custom_group_id: i64,
     /// The total value of the portfolio
     #[serde_as(as = "DeserializeNumber")]
     pub value: Number,
@@ -5383,9 +5376,8 @@ pub struct TradeConfirmTradeSuccess {
     /// The trade type (`"BUY"`, `"SELL"`, `"SPLIT"`, etc).
     pub transaction_type: TradeDescription,
     /// The trade date (matches the maturity date for interest instruments, format `YYYY-MM-DD`).
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub transaction_date: String,
+    #[serde_as(as = "DeserializeDate")]
+    pub transaction_date: NaiveDate,
     /// The market code (`"ASX"`, `"NZX"`, etc).
     pub market: Market,
     /// The instrument code/symbol.
@@ -5484,9 +5476,8 @@ pub struct TradeRejectTradeSuccess {
     /// The trade type (`"BUY"`, `"SELL"`, `"SPLIT"`, etc).
     pub transaction_type: TradeDescription,
     /// The trade date (matches the maturity date for interest instruments, format `YYYY-MM-DD`).
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub transaction_date: String,
+    #[serde_as(as = "DeserializeDate")]
+    pub transaction_date: NaiveDate,
     /// The market code (`"ASX"`, `"NZX"`, etc).
     pub market: Market,
     /// The instrument code/symbol.
@@ -5731,8 +5722,9 @@ pub struct TradesCreateTradeParameters {
     #[serde(default)]
     pub state: Option<String>,
     /// The transaction or trade date (format YYYY-MM-DD).
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
-    pub transaction_date: Option<String>,
+    pub transaction_date: Option<NaiveDate>,
     /// Number of units in the transaction. Must be a whole number unless the market allows fractional quantities to be traded.
     #[serde_as(as = "Option<DeserializeNumber>")]
     #[serde(default)]
@@ -6136,8 +6128,9 @@ pub struct TradesUpdateParameters {
 #[derive(Debug, Clone, Serialize)]
 pub struct TradesUpdateTradeParameters {
     /// The transaction or trade date (format YYYY-MM-DD).
+    #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
-    pub transaction_date: Option<String>,
+    pub transaction_date: Option<NaiveDate>,
     /// Number of units in the transaction. Must be a whole number unless the market allows fractional quantities to be traded.
     #[serde_as(as = "Option<DeserializeNumber>")]
     #[serde(default)]
@@ -6371,9 +6364,7 @@ pub struct MyUserUserSuccess {
     /// Has the user account expired
     pub is_expired: bool,
     /// The date the user signed up to Sharesight in ISO8601 format (YYYY-MM-DDT00:00:00.000Z)
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub signed_up_at: String,
+    pub signed_up_at: DateTime<FixedOffset>,
     /// True if the user signed up for Sharesight via your application
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]

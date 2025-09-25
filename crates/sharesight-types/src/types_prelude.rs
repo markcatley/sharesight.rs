@@ -177,6 +177,22 @@ pub enum IdOrName {
     Name(String),
 }
 
+impl IdOrName {
+    pub fn id(&self) -> Option<i64> {
+        match self {
+            IdOrName::Id(id) => Some(*id),
+            IdOrName::Name(_) => None,
+        }
+    }
+
+    pub fn name(&self) -> Option<String> {
+        match self {
+            IdOrName::Name(name) => Some(name.to_string()),
+            IdOrName::Id(_) => None,
+        }
+    }
+}
+
 #[cfg(test)]
 mod id_or_name_tests {
     use super::IdOrName;
