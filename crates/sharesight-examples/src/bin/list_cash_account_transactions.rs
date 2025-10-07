@@ -6,7 +6,7 @@ use sharesight_types::{
     CashAccountTransactionType, CashAccountTransactionTypeName, CashAccountTransactionsList,
     CashAccountTransactionsListCashAccountTransactionsSuccess,
     CashAccountTransactionsListParameters, CashAccountTransactionsListSuccess, CashAccountsList,
-    CashAccountsListParameters, CashAccountsListSuccess, Currency, PortfolioList,
+    CashAccountsListParameters, CashAccountsListSuccess, Currency, Number, PortfolioList,
     PortfolioListSuccess, DEFAULT_API_HOST,
 };
 
@@ -91,8 +91,8 @@ async fn main() -> anyhow::Result<()> {
                     pub portfolio_id: i64,
                     pub date_time: DateTime<FixedOffset>,
                     pub currency: Currency,
-                    pub amount: f64,
-                    pub balance: f64,
+                    pub amount: Number,
+                    pub balance: Number,
                     pub cash_account_id: i64,
                     pub foreign_identifier: Option<String>,
                     pub holding_id: Option<i64>,

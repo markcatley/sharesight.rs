@@ -45,6 +45,18 @@ jobs:
           command: clippy
           args: -- -D warnings
 
+      - name: cargo clippy --features rust_decimal
+        uses: actions-rs/cargo@v1
+        with:
+          command: clippy
+          args: --features rust_decimal -- -D warnings
+
+      - name: cargo clippy --features bigdecimal
+        uses: actions-rs/cargo@v1
+        with:
+          command: clippy
+          args: --features rust_decimal -- -D warnings
+
       - name: Check Generated file
         run: |
           make generate
