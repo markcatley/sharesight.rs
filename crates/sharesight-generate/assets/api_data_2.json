@@ -2285,7 +2285,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "holding_merge.trades.brokerage_currency_code",
               "description": "<p>The brokerage currency.</p>"
             },
@@ -2306,7 +2306,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "holding_merge.trades.unique_identifier",
               "description": "<p>Your unique identifier for this trade, if given</p>"
             },
@@ -2634,7 +2634,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "holding_merge.trades.brokerage_currency_code",
               "description": "<p>The brokerage currency.</p>"
             },
@@ -2655,7 +2655,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "holding_merge.trades.unique_identifier",
               "description": "<p>Your unique identifier for this trade, if given</p>"
             },
@@ -2983,7 +2983,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "holding_merge.trades.brokerage_currency_code",
               "description": "<p>The brokerage currency.</p>"
             },
@@ -3004,7 +3004,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "holding_merge.trades.unique_identifier",
               "description": "<p>Your unique identifier for this trade, if given</p>"
             },
@@ -3332,7 +3332,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "holding_merge.trades.brokerage_currency_code",
               "description": "<p>The brokerage currency.</p>"
             },
@@ -3353,7 +3353,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "holding_merge.trades.unique_identifier",
               "description": "<p>Your unique identifier for this trade, if given</p>"
             },
@@ -3548,7 +3548,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.unique_identifier",
               "description": "<p>A unique identifier associated with this trade</p>"
             },
@@ -3576,7 +3576,7 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "trades.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -3597,7 +3597,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.</p>"
             },
@@ -3611,7 +3611,7 @@
             {
               "group": "200 Success",
               "type": "Date",
-              "optional": false,
+              "optional": true,
               "field": "trades.paid_on",
               "description": "<p>For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date</p>"
             },
@@ -3827,7 +3827,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.unique_identifier",
               "description": "<p>A unique identifier associated with this trade</p>"
             },
@@ -3855,7 +3855,7 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "trades.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -3876,7 +3876,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.</p>"
             },
@@ -3890,7 +3890,7 @@
             {
               "group": "200 Success",
               "type": "Date",
-              "optional": false,
+              "optional": true,
               "field": "trades.paid_on",
               "description": "<p>For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date</p>"
             },
@@ -4148,7 +4148,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.unique_identifier",
               "description": "<p>A unique identifier associated with this trade</p>"
             },
@@ -4176,7 +4176,7 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "trades.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -4197,7 +4197,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.</p>"
             },
@@ -4211,7 +4211,7 @@
             {
               "group": "200 Success",
               "type": "Date",
-              "optional": false,
+              "optional": true,
               "field": "trades.paid_on",
               "description": "<p>For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date</p>"
             },
@@ -4420,7 +4420,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.unique_identifier",
               "description": "<p>A unique identifier associated with this trade</p>"
             },
@@ -4448,7 +4448,7 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "trades.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -4469,7 +4469,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.</p>"
             },
@@ -4483,7 +4483,7 @@
             {
               "group": "200 Success",
               "type": "Date",
-              "optional": false,
+              "optional": true,
               "field": "trades.paid_on",
               "description": "<p>For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date</p>"
             },
@@ -14228,7 +14228,7 @@
             {
               "group": "200 Success",
               "type": "CustomGroup",
-              "optional": false,
+              "optional": true,
               "field": "custom_group",
               "description": "<p>The custom group used for this report, if selected</p>"
             },
@@ -14277,7 +14277,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "markets.country_id",
               "description": "<p>The country id of the market</p>"
             },
@@ -14291,7 +14291,7 @@
             {
               "group": "200 Success",
               "type": "IndustryClassification[]",
-              "optional": false,
+              "optional": true,
               "field": "industry_classifications",
               "description": "<p>The industry classifications used for this report, if selected</p>"
             },
@@ -14312,7 +14312,7 @@
             {
               "group": "200 Success",
               "type": "SectorClassification[]",
-              "optional": false,
+              "optional": true,
               "field": "sector_classifications",
               "description": "<p>The sector classifications used for this report, if selected</p>"
             },
@@ -14333,7 +14333,7 @@
             {
               "group": "200 Success",
               "type": "InvestmentType[]",
-              "optional": false,
+              "optional": true,
               "field": "investment_types",
               "description": "<p>The investment types used for this report, if selected</p>"
             },
@@ -14361,7 +14361,7 @@
             {
               "group": "200 Success",
               "type": "Country[]",
-              "optional": false,
+              "optional": true,
               "field": "countries",
               "description": "<p>The countries used for this report, if selected</p>"
             },
@@ -14389,7 +14389,7 @@
             {
               "group": "200 Success",
               "type": "CustomGroupCategory[]",
-              "optional": false,
+              "optional": true,
               "field": "custom_group_categories",
               "description": "<p>The custom group categories used for this report, if selected</p>"
             },
@@ -14842,7 +14842,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "portfolio_performance.portfolio_id",
               "description": "<p>The portfolio id</p>"
@@ -14940,7 +14940,7 @@
             },
             {
               "group": "200 Success",
-              "type": "Date",
+              "type": "Boolean",
               "optional": false,
               "field": "portfolio_performance.include_sales",
               "description": "<p>Include sales (format <code>YYYY-MM-DD</code>)</p>"
@@ -14954,7 +14954,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "portfolio_performance_holdings.id",
               "description": "<p>The id of this holding</p>"
@@ -14975,7 +14975,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "portfolio_performance_holdings.instrument_id",
               "description": "<p>A unique id identifying the instrument</p>"
@@ -15108,7 +15108,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "portfolio_performance_cash_accounts.cash_account_id",
               "description": "<p>The id of the cash account, null for adjustments</p>"
@@ -15242,7 +15242,7 @@
             {
               "group": "200 Success",
               "type": "CustomGroup",
-              "optional": false,
+              "optional": true,
               "field": "custom_group",
               "description": "<p>The custom group used for this report, if selected</p>"
             },
@@ -15291,7 +15291,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "markets.country_id",
               "description": "<p>The country id of the market</p>"
             },
@@ -15305,7 +15305,7 @@
             {
               "group": "200 Success",
               "type": "IndustryClassification[]",
-              "optional": false,
+              "optional": true,
               "field": "industry_classifications",
               "description": "<p>The industry classifications used for this report, if selected</p>"
             },
@@ -15326,7 +15326,7 @@
             {
               "group": "200 Success",
               "type": "SectorClassification[]",
-              "optional": false,
+              "optional": true,
               "field": "sector_classifications",
               "description": "<p>The sector classifications used for this report, if selected</p>"
             },
@@ -15347,7 +15347,7 @@
             {
               "group": "200 Success",
               "type": "InvestmentType[]",
-              "optional": false,
+              "optional": true,
               "field": "investment_types",
               "description": "<p>The investment types used for this report, if selected</p>"
             },
@@ -15375,7 +15375,7 @@
             {
               "group": "200 Success",
               "type": "Country[]",
-              "optional": false,
+              "optional": true,
               "field": "countries",
               "description": "<p>The countries used for this report, if selected</p>"
             },
@@ -15403,7 +15403,7 @@
             {
               "group": "200 Success",
               "type": "CustomGroupCategory[]",
-              "optional": false,
+              "optional": true,
               "field": "custom_group_categories",
               "description": "<p>The custom group categories used for this report, if selected</p>"
             },
@@ -17130,7 +17130,7 @@
             {
               "group": "200 Success",
               "type": "CustomGroup",
-              "optional": false,
+              "optional": true,
               "field": "custom_group",
               "description": "<p>The custom group used for this report, if selected</p>"
             },
@@ -17179,7 +17179,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "markets.country_id",
               "description": "<p>The country id of the market</p>"
             },
@@ -17193,7 +17193,7 @@
             {
               "group": "200 Success",
               "type": "IndustryClassification[]",
-              "optional": false,
+              "optional": true,
               "field": "industry_classifications",
               "description": "<p>The industry classifications used for this report, if selected</p>"
             },
@@ -17214,7 +17214,7 @@
             {
               "group": "200 Success",
               "type": "SectorClassification[]",
-              "optional": false,
+              "optional": true,
               "field": "sector_classifications",
               "description": "<p>The sector classifications used for this report, if selected</p>"
             },
@@ -17235,7 +17235,7 @@
             {
               "group": "200 Success",
               "type": "InvestmentType[]",
-              "optional": false,
+              "optional": true,
               "field": "investment_types",
               "description": "<p>The investment types used for this report, if selected</p>"
             },
@@ -17263,7 +17263,7 @@
             {
               "group": "200 Success",
               "type": "Country[]",
-              "optional": false,
+              "optional": true,
               "field": "countries",
               "description": "<p>The countries used for this report, if selected</p>"
             },
@@ -17291,7 +17291,7 @@
             {
               "group": "200 Success",
               "type": "CustomGroupCategory[]",
-              "optional": false,
+              "optional": true,
               "field": "custom_group_categories",
               "description": "<p>The custom group categories used for this report, if selected</p>"
             },
@@ -18448,7 +18448,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "trades.id",
               "description": "<p>The trade ID. Maybe nil if the trade is based on an adjustment and has not yet been confirmed by the user.</p>"
@@ -18456,7 +18456,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.unique_identifier",
               "description": "<p>A unique identifier associated with this trade</p>"
             },
@@ -18484,7 +18484,7 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "trades.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -18505,7 +18505,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.</p>"
             },
@@ -18519,7 +18519,7 @@
             {
               "group": "200 Success",
               "type": "Date",
-              "optional": false,
+              "optional": true,
               "field": "trades.paid_on",
               "description": "<p>For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date</p>"
             },
@@ -20275,7 +20275,7 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -20550,7 +20550,7 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -20967,7 +20967,7 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "trade.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -21372,7 +21372,7 @@
             {
               "group": "200 Success",
               "type": "Float",
-              "optional": false,
+              "optional": true,
               "field": "trade.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },

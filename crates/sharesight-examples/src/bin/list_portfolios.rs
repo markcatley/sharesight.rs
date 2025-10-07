@@ -1,7 +1,9 @@
 use clap::Parser;
 use sharesight_examples::init_logger;
 use sharesight_reqwest::Client;
-use sharesight_types::{PortfolioList, PortfolioListSuccess, DEFAULT_API_HOST};
+use sharesight_types::{
+    PortfolioList, PortfolioListParameters, PortfolioListSuccess, DEFAULT_API_HOST,
+};
 
 /// List the portfolios using the Sharesight API
 #[derive(Parser, Debug)]
@@ -21,8 +23,12 @@ async fn main() -> anyhow::Result<()> {
     let args = Args::parse();
     let client = Client::new_with_token_and_host(args.access_token, args.api_host);
 
+    let parameters = PortfolioListParameters {
+        consolidated: Some(true),
+        instrument_id: None,
+    };
     let result = client
-        .execute::<PortfolioList, PortfolioListSuccess>(&())
+        .execute::<PortfolioList, PortfolioListSuccess>(&parameters)
         .await?;
 
     println!("{:#?}", result);

@@ -5,8 +5,7 @@ use sharesight_reqwest::Client;
 use sharesight_types::{
     CashAccountTransactionDelete, CashAccountTransactionDeleteParameters,
     CashAccountTransactionsList, CashAccountTransactionsListParameters,
-    CashAccountTransactionsListSuccess, CashAccountsList, CashAccountsListParameters,
-    CashAccountsListSuccess, PortfolioList, PortfolioListSuccess, DEFAULT_API_HOST,
+    CashAccountTransactionsListSuccess, DEFAULT_API_HOST,
 };
 
 /// List the portfolios using the Sharesight API
@@ -33,91 +32,40 @@ async fn main() -> anyhow::Result<()> {
     let portfolio_name = args.portfolio_name;
     let cash_account_name = args.cash_account_name;
 
-    let PortfolioListSuccess { portfolios, .. } = client
-        .execute::<PortfolioList, PortfolioListSuccess>(&())
+    let portfolios = client.build_portfolio_index().await?;
+    let portfolio = portfolios.find(&portfolio_name).unwrap_or_else(|| {
+        portfolios.log_error_for(&portfolio_name);
+        std::process::exit(0)
+    });
+
+    let cash_accounts = client.build_cash_account_index(portfolio).await?;
+    let cash_account = cash_accounts.find(&cash_account_name).unwrap_or_else(|| {
+        cash_accounts.log_error_for(&cash_account_name);
+        std::process::exit(0)
+    });
+
+    let transactions_params = CashAccountTransactionsListParameters {
+        cash_account_id: cash_account.id,
+        from: None,
+        to: None,
+        description: None,
+        foreign_identifier: None,
+    };
+    let CashAccountTransactionsListSuccess {
+        cash_account_transactions,
+        ..
+    } = client
+        .execute::<CashAccountTransactionsList, _>(&transactions_params)
         .await?;
 
-    let portfolio = portfolios.iter().find(|p| p.name == portfolio_name);
+    for transaction in cash_account_transactions.into_iter() {
+        info!("Deleting cash account transaction: {:?}", transaction);
 
-    if let Some(portfolio) = portfolio {
-        let account_params = CashAccountsListParameters { date: None };
+        let parameters = CashAccountTransactionDeleteParameters { id: transaction.id };
 
-        let CashAccountsListSuccess { cash_accounts, .. } = client
-            .execute::<CashAccountsList, _>(&account_params)
+        client
+            .execute::<CashAccountTransactionDelete, ()>(&parameters)
             .await?;
-        let cash_accounts = cash_accounts
-            .into_iter()
-            .filter(|a| a.portfolio_id == portfolio.id)
-            .collect::<Vec<_>>();
-        let cash_account = cash_accounts.iter().find(|a| a.name == cash_account_name);
-
-        if let Some(cash_account) = cash_account {
-            let transactions_params = CashAccountTransactionsListParameters {
-                cash_account_id: cash_account.id,
-                from: None,
-                to: None,
-                description: None,
-                foreign_identifier: None,
-            };
-            let CashAccountTransactionsListSuccess {
-                cash_account_transactions,
-                ..
-            } = client
-                .execute::<CashAccountTransactionsList, _>(&transactions_params)
-                .await?;
-
-            for transaction in cash_account_transactions.into_iter() {
-                info!("Deleting cash account transaction: {:?}", transaction);
-
-                let parameters = CashAccountTransactionDeleteParameters { id: transaction.id };
-
-                client
-                    .execute::<CashAccountTransactionDelete, ()>(&parameters)
-                    .await?;
-            }
-        } else {
-            eprint!("Unknown cash account: {}, ", cash_account_name);
-
-            let mut names = cash_accounts.iter().map(|p| p.name.as_str());
-
-            match (names.next(), names.next_back()) {
-                (Some(name_start), Some(name_end)) => {
-                    eprint!("the cash accounts are: {}", name_start);
-                    for name in names {
-                        eprint!(", {}", name);
-                    }
-                    eprintln!(" or {}", name_end);
-                }
-                (Some(name), None) => {
-                    eprintln!("the only cash account is: {}", name);
-                }
-                (None, None) => {
-                    eprintln!("there are no cash accounts");
-                }
-                _ => unreachable!(),
-            }
-        }
-    } else {
-        eprint!("Unknown portfolio: {}, ", portfolio_name);
-
-        let mut names = portfolios.iter().map(|p| p.name.as_str());
-
-        match (names.next(), names.next_back()) {
-            (Some(name_start), Some(name_end)) => {
-                eprint!("the portfolios are: {}", name_start);
-                for name in names {
-                    eprint!(", {}", name);
-                }
-                eprintln!(" or {}", name_end);
-            }
-            (Some(name), None) => {
-                eprintln!("the only portfolio is: {}", name);
-            }
-            (None, None) => {
-                eprintln!("there are no portfolios");
-            }
-            _ => unreachable!(),
-        }
     }
 
     Ok(())
