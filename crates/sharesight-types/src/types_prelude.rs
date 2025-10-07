@@ -1,9 +1,10 @@
+use serde::de::Unexpected;
 use serde_with::{DeserializeAs, SerializeAs};
 
 pub use std::fmt;
 
 pub use chrono::{DateTime, FixedOffset, NaiveDate};
-pub use serde::de::DeserializeOwned;
+pub use serde::de::{DeserializeOwned, Visitor};
 pub use serde::{Deserialize, Serialize};
 pub use serde_with::{serde_as, DefaultOnNull, DisplayFromStr, PickFirst};
 
@@ -72,6 +73,56 @@ impl<T: serde::Serialize> SerializeAs<T> for DeserializeDate {
         S: serde::Serializer,
     {
         source.serialize(serializer)
+    }
+}
+
+pub struct DeserializeNumber;
+
+impl<'de> DeserializeAs<'de, Number> for DeserializeNumber {
+    fn deserialize_as<D>(deserializer: D) -> Result<Number, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(NumberVisitor)
+    }
+}
+
+impl<T: serde::Serialize> SerializeAs<T> for DeserializeNumber {
+    fn serialize_as<S>(source: &T, serializer: S) -> Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        source.serialize(serializer)
+    }
+}
+
+pub struct NumberVisitor;
+
+impl<'de> Visitor<'de> for NumberVisitor {
+    type Value = Number;
+
+    fn expecting(&self, formatter: &mut fmt::Formatter) -> fmt::Result {
+        formatter.write_str("a sharesight api number")
+    }
+
+    fn visit_f64<E>(self, v: f64) -> Result<Self::Value, E>
+    where
+        E: serde::de::Error,
+    {
+        Ok(v)
+    }
+
+    fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
+    where
+        E: serde::de::Error,
+    {
+        if v == "Infinity" {
+            Ok(Number::INFINITY)
+        } else if v == "-Infinity" {
+            Ok(Number::NEG_INFINITY)
+        } else {
+            Err(serde::de::Error::invalid_type(Unexpected::Str(v), &self))
+        }
     }
 }
 

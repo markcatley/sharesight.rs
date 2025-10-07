@@ -225,6 +225,17 @@ impl<'a> fmt::Display for ApiStruct<'a> {
                         }
                     }
 
+                    if matches!(
+                        parameter.field_type,
+                        FieldType::Scalar(FieldTypeBase::Number)
+                    ) {
+                        if parameter.optional {
+                            writeln!(f, "    #[serde_as(as = \"Option<DeserializeNumber>\")]")?;
+                        } else {
+                            writeln!(f, "    #[serde_as(as = \"DeserializeNumber\")]")?;
+                        }
+                    }
+
                     if parameter.optional {
                         writeln!(f, "    #[serde(default)]")?;
                     } else if parameter.field_type.is_string()
