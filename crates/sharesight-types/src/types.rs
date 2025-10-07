@@ -6,6 +6,7 @@ pub struct CashAccountCreate;
 impl<'a> ApiEndpoint<'a> for CashAccountCreate {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/cash_accounts.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = CashAccountCreateUrlDisplay<'a>;
     type Parameters = CashAccountCreateParameters;
@@ -100,6 +101,7 @@ pub struct CashAccountDelete;
 impl<'a> ApiEndpoint<'a> for CashAccountDelete {
     const URL_PATH: &'static str = "/cash_accounts/:id.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = CashAccountDeleteUrlDisplay<'a>;
     type Parameters = CashAccountDeleteParameters;
@@ -134,6 +136,7 @@ pub struct CashAccountShow;
 impl<'a> ApiEndpoint<'a> for CashAccountShow {
     const URL_PATH: &'static str = "/cash_accounts/:id.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = CashAccountShowUrlDisplay<'a>;
     type Parameters = CashAccountShowParameters;
@@ -216,6 +219,7 @@ pub struct CashAccountTransactionCreate;
 impl<'a> ApiEndpoint<'a> for CashAccountTransactionCreate {
     const URL_PATH: &'static str = "/cash_accounts/:cash_account_id/cash_account_transactions.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = CashAccountTransactionCreateUrlDisplay<'a>;
     type Parameters = CashAccountTransactionCreateParameters;
@@ -321,6 +325,7 @@ pub struct CashAccountTransactionDelete;
 impl<'a> ApiEndpoint<'a> for CashAccountTransactionDelete {
     const URL_PATH: &'static str = "/cash_account_transactions/:id.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = CashAccountTransactionDeleteUrlDisplay<'a>;
     type Parameters = CashAccountTransactionDeleteParameters;
@@ -355,6 +360,7 @@ pub struct CashAccountTransactionUpdate;
 impl<'a> ApiEndpoint<'a> for CashAccountTransactionUpdate {
     const URL_PATH: &'static str = "/cash_account_transactions/:id.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = CashAccountTransactionUpdateUrlDisplay<'a>;
     type Parameters = CashAccountTransactionUpdateParameters;
@@ -456,6 +462,7 @@ pub struct CashAccountTransactionsList;
 impl<'a> ApiEndpoint<'a> for CashAccountTransactionsList {
     const URL_PATH: &'static str = "/cash_accounts/:cash_account_id/cash_account_transactions.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = CashAccountTransactionsListUrlDisplay<'a>;
     type Parameters = CashAccountTransactionsListParameters;
@@ -574,6 +581,7 @@ pub struct CashAccountUpdate;
 impl<'a> ApiEndpoint<'a> for CashAccountUpdate {
     const URL_PATH: &'static str = "/cash_accounts/:id.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = CashAccountUpdateUrlDisplay<'a>;
     type Parameters = CashAccountUpdateParameters;
@@ -653,6 +661,7 @@ pub struct CashAccountsList;
 impl<'a> ApiEndpoint<'a> for CashAccountsList {
     const URL_PATH: &'static str = "/cash_accounts.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = &'static str;
     type Parameters = CashAccountsListParameters;
@@ -736,6 +745,7 @@ pub struct DocumentShow;
 impl<'a> ApiEndpoint<'a> for DocumentShow {
     const URL_PATH: &'static str = "/documents/:id.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = DocumentShowUrlDisplay<'a>;
     type Parameters = DocumentShowParameters;
@@ -777,6 +787,7 @@ pub struct GroupsList;
 impl<'a> ApiEndpoint<'a> for GroupsList {
     const URL_PATH: &'static str = "/groups.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = &'static str;
     type Parameters = ();
@@ -818,6 +829,7 @@ pub struct HoldingMergesCreate;
 impl<'a> ApiEndpoint<'a> for HoldingMergesCreate {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/holding_merges.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = HoldingMergesCreateUrlDisplay<'a>;
     type Parameters = HoldingMergesCreateParameters;
@@ -928,7 +940,8 @@ pub struct HoldingMergesCreateHoldingMergeTradesSuccess {
     #[serde_as(as = "DeserializeNumber")]
     pub brokerage: Number,
     /// The brokerage currency.
-    pub brokerage_currency_code: Currency,
+    #[serde(default)]
+    pub brokerage_currency_code: Option<Currency>,
     /// The value for the trade as displayed in the 'value' column of the UI. For a merge buy this is the cost of the transaction. The value displayed in the UI for the merge buy is the market value of the cancelled holding at the time of the merge event.
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -939,8 +952,7 @@ pub struct HoldingMergesCreateHoldingMergeTradesSuccess {
     pub company_event_id: Option<i64>,
     /// Your unique identifier for this trade, if given
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub unique_identifier: String,
+    pub unique_identifier: Option<String>,
     /// Any comments for that trade.
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -972,6 +984,7 @@ pub struct HoldingMergesUpdate;
 impl<'a> ApiEndpoint<'a> for HoldingMergesUpdate {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/holding_merges/:id.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = HoldingMergesUpdateUrlDisplay<'a>;
     type Parameters = HoldingMergesUpdateParameters;
@@ -1084,7 +1097,8 @@ pub struct HoldingMergesUpdateHoldingMergeTradesSuccess {
     #[serde_as(as = "DeserializeNumber")]
     pub brokerage: Number,
     /// The brokerage currency.
-    pub brokerage_currency_code: Currency,
+    #[serde(default)]
+    pub brokerage_currency_code: Option<Currency>,
     /// The value for the trade as displayed in the 'value' column of the UI. For a merge buy this is the cost of the transaction. The value displayed in the UI for the merge buy is the market value of the cancelled holding at the time of the merge event.
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -1095,8 +1109,7 @@ pub struct HoldingMergesUpdateHoldingMergeTradesSuccess {
     pub company_event_id: Option<i64>,
     /// Your unique identifier for this trade, if given
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub unique_identifier: String,
+    pub unique_identifier: Option<String>,
     /// Any comments for that trade.
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -1128,6 +1141,7 @@ pub struct HoldingTrades;
 impl<'a> ApiEndpoint<'a> for HoldingTrades {
     const URL_PATH: &'static str = "/holdings/:holding_id/trades.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = HoldingTradesUrlDisplay<'a>;
     type Parameters = HoldingTradesParameters;
@@ -1179,8 +1193,7 @@ pub struct HoldingTradesTradesSuccess {
     pub id: String,
     /// A unique identifier associated with this trade
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub unique_identifier: String,
+    pub unique_identifier: Option<String>,
     /// The trade date (format YYYY-MM-DD).
     #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
@@ -1191,8 +1204,9 @@ pub struct HoldingTradesTradesSuccess {
     #[serde_as(as = "DeserializeNumber")]
     pub price: Number,
     /// For an opening balance, the cost base of the trade. Always returned in the portfolio currency
-    #[serde_as(as = "DeserializeNumber")]
-    pub cost_base: Number,
+    #[serde_as(as = "Option<DeserializeNumber>")]
+    #[serde(default)]
+    pub cost_base: Option<Number>,
     /// The trade's exchange rate as portfolio currency / instrument currency.
     #[serde_as(as = "DeserializeNumber")]
     pub exchange_rate: Number,
@@ -1200,13 +1214,15 @@ pub struct HoldingTradesTradesSuccess {
     #[serde_as(as = "DeserializeNumber")]
     pub brokerage: Number,
     /// The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.
-    pub brokerage_currency_code: Currency,
+    #[serde(default)]
+    pub brokerage_currency_code: Option<Currency>,
     /// The value for the trade as displayed in the 'value' column of the UI. For a return of capital, this will be the (signed) capital return value. For a capital call, this will be the (positive) capital return value. For a cost base adjustment, this will be the value of the adjustment. For an opening balance, this will be the market value: the market price x quantity at the opening balance date In each case this is in portfolio currency (rounded to 2 decimal places).
     #[serde_as(as = "DeserializeNumber")]
     pub value: Number,
     /// For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date
-    #[serde_as(as = "DeserializeDate")]
-    pub paid_on: NaiveDate,
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub paid_on: Option<NaiveDate>,
     /// The company event linked to the transaction.
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
@@ -1225,26 +1241,6 @@ pub struct HoldingTradesTradesSuccess {
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
-    /// The trade type ('BUY','SELL','SPLIT','BONUS','CONSOLD','CANCEL','CAPITAL_RETURN','OPENING_BALANCE','ADJUST_COST_BASE','CAPITAL_CALL').
-    pub transaction_type: TradeDescription,
-    /// Instrument ID of the related Holding.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub instrument_id: i64,
-    /// The instrument code/symbol
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub symbol: String,
-    /// The market code (eg. `ASX`, `NZX`, etc).
-    pub market: Market,
-    /// The filename of any attachment
-    #[serde(default)]
-    pub attachment_filename: Option<String>,
-    /// The document id of any attachment, for use with the Show Document API (v2)
-    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
-    #[serde(default)]
-    pub attachment_id: Option<i64>,
-    /// Returns 'true' if trade is confirmed.  DEPRECATED: Use the state field to determine 'confirmed' vs. 'rejected' vs. 'unconfirmed' instead.
-    pub confirmed: bool,
 }
 
 #[serde_as]
@@ -1272,6 +1268,7 @@ pub struct HoldingTradesRejected;
 impl<'a> ApiEndpoint<'a> for HoldingTradesRejected {
     const URL_PATH: &'static str = "/holdings/:holding_id/rejected_trades.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = HoldingTradesRejectedUrlDisplay<'a>;
     type Parameters = HoldingTradesRejectedParameters;
@@ -1324,8 +1321,7 @@ pub struct HoldingTradesRejectedTradesSuccess {
     pub id: String,
     /// A unique identifier associated with this trade
     #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub unique_identifier: String,
+    pub unique_identifier: Option<String>,
     /// The trade date (format YYYY-MM-DD).
     #[serde_as(as = "DeserializeDate")]
     pub transaction_date: NaiveDate,
@@ -1336,8 +1332,9 @@ pub struct HoldingTradesRejectedTradesSuccess {
     #[serde_as(as = "DeserializeNumber")]
     pub price: Number,
     /// For an opening balance, the cost base of the trade. Always returned in the portfolio currency
-    #[serde_as(as = "DeserializeNumber")]
-    pub cost_base: Number,
+    #[serde_as(as = "Option<DeserializeNumber>")]
+    #[serde(default)]
+    pub cost_base: Option<Number>,
     /// The trade's exchange rate as portfolio currency / instrument currency.
     #[serde_as(as = "DeserializeNumber")]
     pub exchange_rate: Number,
@@ -1345,13 +1342,15 @@ pub struct HoldingTradesRejectedTradesSuccess {
     #[serde_as(as = "DeserializeNumber")]
     pub brokerage: Number,
     /// The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.
-    pub brokerage_currency_code: Currency,
+    #[serde(default)]
+    pub brokerage_currency_code: Option<Currency>,
     /// The value for the trade as displayed in the 'value' column of the UI. For a return of capital, this will be the (signed) capital return value. For a capital call, this will be the (positive) capital return value. For a cost base adjustment, this will be the value of the adjustment. For an opening balance, this will be the market value: the market price x quantity at the opening balance date In each case this is in portfolio currency (rounded to 2 decimal places).
     #[serde_as(as = "DeserializeNumber")]
     pub value: Number,
     /// For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date
-    #[serde_as(as = "DeserializeDate")]
-    pub paid_on: NaiveDate,
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub paid_on: Option<NaiveDate>,
     /// The company event linked to the transaction.
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
@@ -1370,26 +1369,6 @@ pub struct HoldingTradesRejectedTradesSuccess {
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
-    /// The trade type ('BUY','SELL','SPLIT','BONUS','CONSOLD','CANCEL','CAPITAL_RETURN','OPENING_BALANCE','ADJUST_COST_BASE','CAPITAL_CALL').
-    pub transaction_type: TradeDescription,
-    /// Instrument ID of the related Holding.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub instrument_id: i64,
-    /// The instrument code/symbol
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub symbol: String,
-    /// The market code (eg. `ASX`, `NZX`, etc).
-    pub market: Market,
-    /// The filename of any attachment
-    #[serde(default)]
-    pub attachment_filename: Option<String>,
-    /// The document id of any attachment, for use with the Show Document API (v2)
-    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
-    #[serde(default)]
-    pub attachment_id: Option<i64>,
-    /// Returns 'true' if trade is confirmed.  DEPRECATED: Use the state field to determine 'confirmed' vs. 'rejected' vs. 'unconfirmed' instead.
-    pub confirmed: bool,
 }
 
 #[serde_as]
@@ -1417,6 +1396,7 @@ pub struct IdentityByToken;
 impl<'a> ApiEndpoint<'a> for IdentityByToken {
     const URL_PATH: &'static str = ".1-mobile/identity/by_token.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = &'static str;
     type Parameters = IdentityByTokenParameters;
@@ -1466,6 +1446,7 @@ pub struct IdentitySignupByToken;
 impl<'a> ApiEndpoint<'a> for IdentitySignupByToken {
     const URL_PATH: &'static str = ".1-mobile/identity/signup_by_token.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = &'static str;
     type Parameters = IdentitySignupByTokenParameters;
@@ -1517,6 +1498,7 @@ pub struct ListUserInstruments;
 impl<'a> ApiEndpoint<'a> for ListUserInstruments {
     const URL_PATH: &'static str = "/user_instruments.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = &'static str;
     type Parameters = ();
@@ -1589,6 +1571,8 @@ pub struct ListUserInstrumentsInstrumentsSuccess {
     /// The instrument registry.
     #[serde(default)]
     pub registry_name: Option<String>,
+    /// The ISO code of the instrument country.
+    pub country_code: Country,
 }
 
 /// Create a new membership for a user's portfolio, using an existing user id or by creating a new user (providing email, etc.).
@@ -1599,6 +1583,7 @@ pub struct MembershipCreate;
 impl<'a> ApiEndpoint<'a> for MembershipCreate {
     const URL_PATH: &'static str = "/memberships.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = &'static str;
     type Parameters = MembershipCreateParameters;
@@ -1749,6 +1734,7 @@ pub struct MembershipDelete;
 impl<'a> ApiEndpoint<'a> for MembershipDelete {
     const URL_PATH: &'static str = "/memberships/:id.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = MembershipDeleteUrlDisplay<'a>;
     type Parameters = MembershipDeleteParameters;
@@ -1789,6 +1775,7 @@ pub struct MembershipList;
 impl<'a> ApiEndpoint<'a> for MembershipList {
     const URL_PATH: &'static str = "/memberships.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = &'static str;
     type Parameters = ();
@@ -1918,6 +1905,7 @@ pub struct MembershipUpdate;
 impl<'a> ApiEndpoint<'a> for MembershipUpdate {
     const URL_PATH: &'static str = "/memberships/:id.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = MembershipUpdateUrlDisplay<'a>;
     type Parameters = MembershipUpdateParameters;
@@ -2034,6 +2022,7 @@ pub struct Currencies;
 impl<'a> ApiEndpoint<'a> for Currencies {
     const URL_PATH: &'static str = "/currencies.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = &'static str;
     type Parameters = ();
@@ -2084,6 +2073,7 @@ pub struct ListHoldingPayouts;
 impl<'a> ApiEndpoint<'a> for ListHoldingPayouts {
     const URL_PATH: &'static str = "/holdings/:holding_id/payouts.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = ListHoldingPayoutsUrlDisplay<'a>;
     type Parameters = ListHoldingPayoutsParameters;
@@ -2298,6 +2288,7 @@ pub struct ListPortfolioPayouts;
 impl<'a> ApiEndpoint<'a> for ListPortfolioPayouts {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/payouts.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = ListPortfolioPayoutsUrlDisplay<'a>;
     type Parameters = ListPortfolioPayoutsParameters;
@@ -2512,6 +2503,7 @@ pub struct PayoutConfirm;
 impl<'a> ApiEndpoint<'a> for PayoutConfirm {
     const URL_PATH: &'static str = "/payouts.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = &'static str;
     type Parameters = PayoutConfirmParameters;
@@ -2651,6 +2643,7 @@ pub struct PayoutCreate;
 impl<'a> ApiEndpoint<'a> for PayoutCreate {
     const URL_PATH: &'static str = "/payouts";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = &'static str;
     type Parameters = PayoutCreateParameters;
@@ -2982,6 +2975,7 @@ pub struct PayoutDelete;
 impl<'a> ApiEndpoint<'a> for PayoutDelete {
     const URL_PATH: &'static str = "/payouts/:id.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = PayoutDeleteUrlDisplay<'a>;
     type Parameters = PayoutDeleteParameters;
@@ -3023,6 +3017,7 @@ pub struct PayoutReject;
 impl<'a> ApiEndpoint<'a> for PayoutReject {
     const URL_PATH: &'static str = "/payouts.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = &'static str;
     type Parameters = PayoutRejectParameters;
@@ -3128,6 +3123,7 @@ pub struct PayoutShow;
 impl<'a> ApiEndpoint<'a> for PayoutShow {
     const URL_PATH: &'static str = "/payouts/:id.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = PayoutShowUrlDisplay<'a>;
     type Parameters = PayoutShowParameters;
@@ -3325,6 +3321,7 @@ pub struct PayoutUpdate;
 impl<'a> ApiEndpoint<'a> for PayoutUpdate {
     const URL_PATH: &'static str = "/payouts/:id.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = PayoutUpdateUrlDisplay<'a>;
     type Parameters = PayoutUpdateParameters;
@@ -3637,6 +3634,7 @@ pub struct PortfolioCreate;
 impl<'a> ApiEndpoint<'a> for PortfolioCreate {
     const URL_PATH: &'static str = "/portfolios.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = &'static str;
     type Parameters = PortfolioCreateParameters;
@@ -3812,6 +3810,7 @@ pub struct PortfolioDelete;
 impl<'a> ApiEndpoint<'a> for PortfolioDelete {
     const URL_PATH: &'static str = "/portfolios/{id}.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = &'static str;
     type Parameters = ();
@@ -3829,132 +3828,151 @@ pub struct PortfolioDeleteSuccess {
     pub status: (),
 }
 
-/// Returns list of portfolios for the user. If the user owns the portfolio, all the info related to it will be displayed. Otherwise only basic info is returned.
+/// Retrieves a list of a user's portfolios
 pub struct PortfolioList;
 
 impl<'a> ApiEndpoint<'a> for PortfolioList {
-    const URL_PATH: &'static str = "/portfolios.json";
+    const URL_PATH: &'static str = "/portfolios";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "3.0.0";
 
     type UrlDisplay = &'static str;
-    type Parameters = ();
+    type Parameters = PortfolioListParameters;
     type Success = PortfolioListSuccess;
 
     fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        "/portfolios.json"
+        "/portfolios"
     }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct PortfolioListParameters {
+    /// Set to true to see consolidated portfolio views<br>Default value: `false`
+    #[serde(default)]
+    pub consolidated: Option<bool>,
+    /// The instrument ID, where populated consolidated will always default to false.
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub instrument_id: Option<i64>,
 }
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct PortfolioListSuccess {
+    /// List of Portfolios associated with this model
     pub portfolios: Vec<PortfolioListPortfoliosSuccess>,
-    /// List of links for this resource
+    /// The current API Transaction.
+    #[serde(default)]
+    pub api_transaction: Option<PortfolioListApiTransactionSuccess>,
     pub links: PortfolioListLinksSuccess,
 }
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct PortfolioListPortfoliosSuccess {
-    /// The portfolio ID.
+    /// The unique id identifying the portfolio
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
-    /// The portfolio name.
+    /// Whether or not this is a consolidated view portfolio
+    #[serde(default)]
+    pub consolidated: Option<bool>,
+    /// The name of the portfolio
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub name: String,
-    /// The default sale allocation method for tax reporting.
-    pub default_sale_allocation_method: SaleAllocationMethod,
-    /// Discount for Capital Gains Tax.
-    #[serde(default)]
-    pub cg_discount: Option<String>,
-    /// New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as `33.1`).
-    #[serde_as(as = "DeserializeNumber")]
-    pub rwtr_rate: Number,
-    /// Tax Status (`true`: Trade, `false`: Investor). Can be `null`.
-    #[serde(default)]
-    pub trader: Option<bool>,
-    /// Automatic Transactions are disabled (`true`) or enabled (`false`).
-    pub disable_automatic_transactions: bool,
-    /// For Canadian portfolios, the type of tax processing (`"non_registered"`, `"rrsp"` or `"rrif"`). Can be `null`.
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub tax_entity_type: String,
-    /// `true` if the broker import email is enabled. Present for portfolio admins
-    pub broker_email_api_enabled: bool,
-    /// Email prefix of the broker import email address. Present for portfolio admins
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub broker_email_key: String,
-    /// (deprecated) Financial Year end month (`1`: Jan, `2`: Feb, etc.).
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub financial_year_end_month_id: i64,
-    /// Financial Year end date MM-DD.
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub financial_year_end: String,
-    /// Performance Calculation Method
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub interest_method: String,
-    /// ISO code of the portfolio country (see <a href="https://en.wikipedia.org/wiki/ISO_3166-1">ISO 3166-1</a>)
-    pub country_code: Country,
-    /// ISO code of the portfolio currency (see <a href="https://en.wikipedia.org/wiki/ISO_4217">ISO 4217</a>)
-    pub currency_code: Currency,
-    /// Portfolio's inception date (first trade record). Format: dd mmm yyyy
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub inception_date: String,
-    /// Time zone name
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub tz_name: String,
-    /// Calculates accrual adjustments against any portfolio cash accounts to allow for unsettled trades and unpaid dividends
-    pub apply_cash_account_adjustments: bool,
-    /// Specifies the number of working days between the buy trade date and settlement in the cash account. Can be `null`.
-    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
-    #[serde(default)]
-    pub buy_trade_settlement_delay: Option<i64>,
-    /// Specifies the number of working days between the sell trade date and settlement in the cash account. Can be `null`.
-    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
-    #[serde(default)]
-    pub sell_trade_settlement_delay: Option<i64>,
-    /// Accounts for the fact that bank statement data is delayed by a day due to overnight processing
-    pub account_for_delayed_cash_transactions: bool,
-    /// All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account. Can be `null`.
-    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
-    #[serde(default)]
-    pub trade_sync_cash_account_id: Option<i64>,
-    /// All payouts will generate a corresponding deposit in the selected 'payout' account. Can be `null`.
-    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
-    #[serde(default)]
-    pub payout_sync_cash_account_id: Option<i64>,
     /// Typically used by professionals to identify the tax entity owner of the portfolio
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub external_identifier: String,
-    /// List of links for this portfolio
-    pub links: PortfolioListPortfoliosLinksSuccess,
+    /// The id of the holding in this portfolio
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub holding_id: Option<i64>,
+    /// The timezone name applicable to the portfolio country
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tz_name: String,
+    /// For an Australian portfolio, the default sale allocation method for capital gains purposes. One of: fifo, lifo, maximise_cr, minimise_cr, ss_minimise, average, default
+    pub default_sale_allocation_method: SaleAllocationMethod,
+    /// The CGT discount rate for Australian portfolios
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub cg_discount: String,
+    /// The end of the financial year (MM-DD)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub financial_year_end: String,
+    /// The interest method: 'simple' or 'compound'
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub interest_method: String,
+    /// The ISO country code of the (tax) country of this portfolio
+    pub country_code: Country,
+    /// The ISO currency code of this portfolio
+    pub currency_code: Currency,
+    /// The date your portfolio was started on or the oldest portfolio if a consolidated view
+    #[serde_as(as = "DeserializeDate")]
+    pub inception_date: NaiveDate,
+    /// The current user's access level to this portfolio, one of: OWNER, STAFF, ADMIN, EDIT, READ
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub access_level: String,
+    /// The unique identifier of the portfolio owner
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub user_id: Option<i64>,
+    /// The name of the portfolio owner. A first and last name will be returned if available, otherwise the owners organisation name
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub owner_name: String,
+    /// For NZ portfolios, the rate of resident witholding tax to be applied
+    #[serde_as(as = "Option<DeserializeNumber>")]
+    #[serde(default)]
+    pub rwtr_rate: Option<Number>,
+    /// For NZ portfolios, true if the owner is taxed as a trader
+    #[serde(default)]
+    pub trader: Option<bool>,
+    /// If set, transactions such as company events are not automatically applied to the portfolio holdings
+    #[serde(default)]
+    pub disable_automatic_transactions: Option<bool>,
+    /// For Canadian portfolios, the type of tax entity: non_registered, rrsp, rrif, tfsa
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tax_entity_type: String,
+    /// All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub trade_sync_cash_account_id: Option<i64>,
+    /// All payouts will generate a corresponding deposit in the selected 'payout' account
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub payout_sync_cash_account_id: Option<i64>,
 }
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
-pub struct PortfolioListPortfoliosLinksSuccess {
-    /// Url of this portfolio
+pub struct PortfolioListApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub portfolio: String,
-    /// Url of this portfolio
-    #[serde(rename = "self")]
+    pub action: String,
+    /// When the transaction was executed.
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub itself: String,
+    pub timestamp: String,
 }
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct PortfolioListLinksSuccess {
-    /// Url to list of portfolios
+    /// URL to a list of requested resources.
     #[serde(rename = "self")]
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -3967,6 +3985,7 @@ pub struct PortfolioShow;
 impl<'a> ApiEndpoint<'a> for PortfolioShow {
     const URL_PATH: &'static str = "/portfolios/{id}.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = &'static str;
     type Parameters = ();
@@ -3980,6 +3999,14 @@ impl<'a> ApiEndpoint<'a> for PortfolioShow {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct PortfolioShowSuccess {
+    pub portfolio: PortfolioShowPortfolioSuccess,
+    /// List of links for this resource
+    pub links: PortfolioShowLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PortfolioShowPortfolioSuccess {
     /// The portfolio ID.
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
@@ -3991,7 +4018,8 @@ pub struct PortfolioShowSuccess {
     pub default_sale_allocation_method: SaleAllocationMethod,
     /// Discount for Capital Gains Tax.
     #[serde(default)]
-    pub cg_discount: Option<String>,
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub cg_discount: String,
     /// New Zealand Resident Withholding Tax Rate. As a percentage to 1 decimal place (for example, 33.1% comes as `33.1`).
     #[serde_as(as = "DeserializeNumber")]
     pub rwtr_rate: Number,
@@ -4053,16 +4081,26 @@ pub struct PortfolioShowSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub external_identifier: String,
     /// List of links for this portfolio
-    pub links: PortfolioShowLinksSuccess,
+    pub links: PortfolioShowPortfolioLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PortfolioShowPortfolioLinksSuccess {
+    /// Url of this portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub portfolio: String,
+    /// Url of this portfolio
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
 }
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct PortfolioShowLinksSuccess {
-    /// Url of this portfolio
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub portfolio: String,
     /// Url of this portfolio
     #[serde(rename = "self")]
     #[serde(default)]
@@ -4076,6 +4114,7 @@ pub struct PortfolioUpdate;
 impl<'a> ApiEndpoint<'a> for PortfolioUpdate {
     const URL_PATH: &'static str = "/portfolios/{id}.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = &'static str;
     type Parameters = PortfolioUpdateParameters;
@@ -4258,6 +4297,7 @@ pub struct CapitalGains;
 impl<'a> ApiEndpoint<'a> for CapitalGains {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/capital_gains.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = CapitalGainsUrlDisplay<'a>;
     type Parameters = CapitalGainsParameters;
@@ -4516,6 +4556,7 @@ pub struct Diversity;
 impl<'a> ApiEndpoint<'a> for Diversity {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/diversity.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = DiversityUrlDisplay<'a>;
     type Parameters = DiversityParameters;
@@ -4561,31 +4602,75 @@ pub struct DiversityParameters {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct DiversitySuccess {
-    /// Each group in the report, keyed by the group name
-    pub groups: Vec<DiversityGroupsSuccess>,
+    /// A report on the values of groups in a portfolio
+    pub portfolio_diversity: DiversityPortfolioDiversitySuccess,
+    /// Summary information on each group in the portfolio
+    pub portfolio_diversity_groups: Vec<DiversityPortfolioDiversityGroupsSuccess>,
+    /// The elements (holdings and cash accounts) in the portfolio
+    pub portfolio_diversity_holdings: Vec<DiversityPortfolioDiversityHoldingsSuccess>,
+    /// The custom group used for this report, if selected
+    #[serde(default)]
+    pub custom_group: Option<DiversityCustomGroupSuccess>,
+    /// The markets used for this report, if selected
+    pub markets: Vec<DiversityMarketsSuccess>,
+    /// The industry classifications used for this report, if selected
+    #[serde(default)]
+    pub industry_classifications: Option<Vec<DiversityIndustryClassificationsSuccess>>,
+    /// The sector classifications used for this report, if selected
+    #[serde(default)]
+    pub sector_classifications: Option<Vec<DiversitySectorClassificationsSuccess>>,
+    /// The investment types used for this report, if selected
+    #[serde(default)]
+    pub investment_types: Option<Vec<DiversityInvestmentTypesSuccess>>,
+    /// The countries used for this report, if selected
+    #[serde(default)]
+    pub countries: Option<Vec<DiversityCountriesSuccess>>,
+    /// The custom group categories used for this report, if selected
+    #[serde(default)]
+    pub custom_group_categories: Option<Vec<DiversityCustomGroupCategoriesSuccess>>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct DiversityPortfolioDiversitySuccess {
+    /// A unique id identifying this report instance
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub portfolio_diversity_id: String,
     /// The total percentage across the portfolio (always 100%)
     #[serde_as(as = "DeserializeNumber")]
     pub percentage: Number,
+    /// Grouping name (as requested)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub grouping: String,
+    /// The id of the custom group, if any, otherwise nil if a built-in group was selected
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub custom_group_id: String,
     /// The total value of the portfolio (rounded to 2 decimal places).
     #[serde_as(as = "DeserializeNumber")]
     pub value: Number,
-    /// The date this report was generated for (format `YYYY-MM-DD`).
-    #[serde_as(as = "DeserializeDate")]
-    pub date: NaiveDate,
 }
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
-pub struct DiversityGroupsSuccess {
-    /// The group's contents
-    pub group: DiversityGroupsGroupSuccess,
-}
-
-#[serde_as]
-#[derive(Debug, Clone, Deserialize)]
-pub struct DiversityGroupsGroupSuccess {
-    /// A holding or cash account
-    pub elements: Vec<DiversityGroupsGroupElementsSuccess>,
+pub struct DiversityPortfolioDiversityGroupsSuccess {
+    /// A unique id identifying this report instance
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub portfolio_diversity_id: String,
+    /// A service-wide unique id for this group
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub portfolio_diversity_group_id: String,
+    /// The group type - identifies the sideloaded object type to look up the group id
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub group_type: String,
+    /// The group id
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub group_id: i64,
     /// The percentage of the portfolio in this group (rounded to 2 decimal places). For example, 33% comes as `33.0`.
     #[serde_as(as = "DeserializeNumber")]
     pub percentage: Number,
@@ -4596,7 +4681,11 @@ pub struct DiversityGroupsGroupSuccess {
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
-pub struct DiversityGroupsGroupElementsSuccess {
+pub struct DiversityPortfolioDiversityHoldingsSuccess {
+    /// An id identifying the group in the diversity report this element belongs to
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub portfolio_diversity_group_id: String,
     /// The name of this element
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -4604,15 +4693,133 @@ pub struct DiversityGroupsGroupElementsSuccess {
     /// If a holding, the instrument symbol of this element
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub code: String,
+    pub symbol: String,
     /// If a holding, the market code of this element
-    pub market: Market,
+    pub market_code: Market,
+    /// If a holding, its unique id
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub holding_id: String,
+    /// If a holding, its associated instrument id
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub instrument_id: String,
     /// The percentage of the portfolio this element represents (rounded to 2 decimal places). For example, 33% comes as `33.0`.
     #[serde_as(as = "DeserializeNumber")]
     pub percentage: Number,
     /// The value of the holding or cash account (rounded to 2 decimal places).
     #[serde_as(as = "DeserializeNumber")]
     pub value: Number,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct DiversityCustomGroupSuccess {
+    /// The unique id of the custom group - matches custom_group_id when a custom group is selected
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The name of the custom group
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct DiversityMarketsSuccess {
+    /// The id of the market - matches group_id when group_type=market
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The code of the market
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The description of the market
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub description: String,
+    /// The country id of the market
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub country_id: Option<i64>,
+    /// The timezone of the market
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tz: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct DiversityIndustryClassificationsSuccess {
+    /// The id of the industry classification - matches group_id when group_type=industry_classification
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The name of the industry
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct DiversitySectorClassificationsSuccess {
+    /// The id of the sector classification - matches group_id when group_type=sector_classification
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The name of the sector
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct DiversityInvestmentTypesSuccess {
+    /// The id of the investment type - matches group_id when group_type=investment_type
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The label of the investment type to show in reports
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub label: String,
+    /// True if the investment type was not classified
+    pub not_classified: bool,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct DiversityCountriesSuccess {
+    /// The id of the country - matches group_id when group_type=country
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The code of the country
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The name of the country
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct DiversityCustomGroupCategoriesSuccess {
+    /// The id of the custom group category - matches group_id when group_type=custom_group_category
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The name of the custom group category
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// The id of the custom group
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub custom_group_id: String,
+    /// The order this custom group appears in
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub ordering: String,
 }
 
 /// Retrieves the Performance Report for the underlying portfolio.
@@ -4629,6 +4836,7 @@ pub struct Performance;
 impl<'a> ApiEndpoint<'a> for Performance {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/performance.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = PerformanceUrlDisplay<'a>;
     type Parameters = PerformanceParameters;
@@ -4685,6 +4893,43 @@ pub struct PerformanceParameters {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct PerformanceSuccess {
+    /// Performance information on the portfolio
+    pub portfolio_performance: PerformancePortfolioPerformanceSuccess,
+    /// List of holdings.
+    pub portfolio_performance_holdings: Vec<PerformancePortfolioPerformanceHoldingsSuccess>,
+    /// List of cash accounts. This includes Unsettled Trades and Unpaid Payout Adjustments.
+    pub portfolio_performance_cash_accounts:
+        Vec<PerformancePortfolioPerformanceCashAccountsSuccess>,
+    /// List of sub-totals for each group.
+    pub portfolio_performance_sub_totals: Vec<PerformancePortfolioPerformanceSubTotalsSuccess>,
+    /// Sub-total for all cash accounts.
+    pub portfolio_performance_cash_account_sub_total:
+        PerformancePortfolioPerformanceCashAccountSubTotalSuccess,
+    /// The custom group used for this report, if selected
+    #[serde(default)]
+    pub custom_group: Option<PerformanceCustomGroupSuccess>,
+    /// The markets used for this report, if selected
+    pub markets: Vec<PerformanceMarketsSuccess>,
+    /// The industry classifications used for this report, if selected
+    #[serde(default)]
+    pub industry_classifications: Option<Vec<PerformanceIndustryClassificationsSuccess>>,
+    /// The sector classifications used for this report, if selected
+    #[serde(default)]
+    pub sector_classifications: Option<Vec<PerformanceSectorClassificationsSuccess>>,
+    /// The investment types used for this report, if selected
+    #[serde(default)]
+    pub investment_types: Option<Vec<PerformanceInvestmentTypesSuccess>>,
+    /// The countries used for this report, if selected
+    #[serde(default)]
+    pub countries: Option<Vec<PerformanceCountriesSuccess>>,
+    /// The custom group categories used for this report, if selected
+    #[serde(default)]
+    pub custom_group_categories: Option<Vec<PerformanceCustomGroupCategoriesSuccess>>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformancePortfolioPerformanceSuccess {
     /// A unique id identifying this report instance
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -4733,22 +4978,20 @@ pub struct PerformanceSuccess {
     /// End date (format `YYYY-MM-DD`)
     #[serde_as(as = "DeserializeDate")]
     pub end_date: NaiveDate,
-    /// Include sales
+    /// Include sales (format `YYYY-MM-DD`)
     pub include_sales: bool,
-    /// List of holdings.
-    pub holdings: Vec<PerformanceHoldingsSuccess>,
-    /// List of cash accounts. This includes Unsettled Trades and Unpaid Payout Adjustments.
-    pub cash_accounts: Vec<PerformanceCashAccountsSuccess>,
-    /// List of sub-totals for each group.
-    pub sub_totals: Vec<PerformanceSubTotalsSuccess>,
 }
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
-pub struct PerformanceHoldingsSuccess {
+pub struct PerformancePortfolioPerformanceHoldingsSuccess {
     /// The id of this holding
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
+    /// A unique id identifying this report instance
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub portfolio_performance_id: String,
     /// The Sharesight symbol for the held instrument
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -4757,15 +5000,14 @@ pub struct PerformanceHoldingsSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub instrument_id: i64,
     /// The code for the market the held instrument is listed on
-    pub market: Market,
-    /// The group value this instrument has been placed in - note that the field name will be the group type
+    pub market_code: Market,
+    /// The group type for this instrument - identifies the sideloaded object type to look up the group id
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub _group_type_: String,
-    /// The name of the selected grouping for the report
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub grouping: String,
+    pub group_type: String,
+    /// The group id for this instrument
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub group_id: i64,
     /// The name of the instrument
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -4776,6 +5018,9 @@ pub struct PerformanceHoldingsSuccess {
     /// The quantity of shares or other instruments in the holding
     #[serde_as(as = "DeserializeNumber")]
     pub quantity: Number,
+    /// The instrument price in its defined currency
+    #[serde_as(as = "DeserializeNumber")]
+    pub instrument_price: Number,
     /// Capital Gain<sup>1</sup> on the holding (rounded to 2 decimal places).
     #[serde_as(as = "DeserializeNumber")]
     pub capital_gain: Number,
@@ -4804,15 +5049,18 @@ pub struct PerformanceHoldingsSuccess {
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
-pub struct PerformanceCashAccountsSuccess {
+pub struct PerformancePortfolioPerformanceCashAccountsSuccess {
+    /// A unique id identifying this report instance
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub portfolio_performance_id: String,
     /// A unique key for each cash account
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub id: String,
     /// The id of the cash account, null for adjustments
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub cash_account_id: String,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub cash_account_id: i64,
     /// The name of the cash account
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -4820,22 +5068,25 @@ pub struct PerformanceCashAccountsSuccess {
     /// The value of the cash account
     #[serde_as(as = "DeserializeNumber")]
     pub value: Number,
-    /// The currency symbol (e.g. AU$) of the cash account
-    pub currency: Currency,
-    /// The ISO currency code (e.g. AUD) of the portfolio
-    pub currency_code: Currency,
 }
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
-pub struct PerformanceSubTotalsSuccess {
-    /// The group value - note that the field name will be the group type
+pub struct PerformancePortfolioPerformanceSubTotalsSuccess {
+    /// A unique id identifying this report instance
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub _group_type_: String,
+    pub portfolio_performance_id: String,
     /// The total value of the holdings in this group
     #[serde_as(as = "DeserializeNumber")]
     pub value: Number,
+    /// The group type - identifies the sideloaded object type to look up the group id
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub group_type: String,
+    /// The group id
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub group_id: i64,
     /// Capital Gain<sup>1</sup> on the holdings in this group (rounded to 2 decimal places).
     #[serde_as(as = "DeserializeNumber")]
     pub capital_gain: Number,
@@ -4862,12 +5113,135 @@ pub struct PerformanceSubTotalsSuccess {
     pub total_gain_percent: Number,
 }
 
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformancePortfolioPerformanceCashAccountSubTotalSuccess {
+    /// A unique id identifying this report instance
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub portfolio_performance_id: String,
+    /// The total value of the cash accounts and adjustments, in the portfolio currency (rounded to 2 decimal places).
+    #[serde_as(as = "DeserializeNumber")]
+    pub value: Number,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceCustomGroupSuccess {
+    /// The unique id of the custom group - matches custom_group_id when a custom group is selected
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The name of the custom group
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceMarketsSuccess {
+    /// The id of the market - matches group_id when group_type=market
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The code of the market
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The description of the market
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub description: String,
+    /// The country id of the market
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub country_id: Option<i64>,
+    /// The timezone of the market
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tz: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceIndustryClassificationsSuccess {
+    /// The id of the industry classification - matches group_id when group_type=industry_classification
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The name of the industry
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceSectorClassificationsSuccess {
+    /// The id of the sector classification - matches group_id when group_type=sector_classification
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The name of the sector
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceInvestmentTypesSuccess {
+    /// The id of the investment type - matches group_id when group_type=investment_type
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The label of the investment type to show in reports
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub label: String,
+    /// True if the investment type was not classified
+    pub not_classified: bool,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceCountriesSuccess {
+    /// The id of the country - matches group_id when group_type=country
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The code of the country
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The name of the country
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceCustomGroupCategoriesSuccess {
+    /// The id of the custom group category - matches group_id when group_type=custom_group_category
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The name of the custom group category
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// The id of the custom group
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub custom_group_id: String,
+    /// The order this custom group appears in
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub ordering: String,
+}
+
 /// Return a report on unrealised capital gains tax (for Australian portfolios only)
 pub struct UnrealisedCgt;
 
 impl<'a> ApiEndpoint<'a> for UnrealisedCgt {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/unrealised_cgt.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = UnrealisedCgtUrlDisplay<'a>;
     type Parameters = UnrealisedCgtParameters;
@@ -5049,6 +5423,7 @@ pub struct Valuation;
 impl<'a> ApiEndpoint<'a> for Valuation {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/valuation.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = ValuationUrlDisplay<'a>;
     type Parameters = ValuationParameters;
@@ -5097,6 +5472,39 @@ pub struct ValuationParameters {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct ValuationSuccess {
+    /// Valuation information on the portfolio
+    pub portfolio_valuation: ValuationPortfolioValuationSuccess,
+    /// List of holdings.
+    pub portfolio_valuation_holdings: Vec<ValuationPortfolioValuationHoldingsSuccess>,
+    /// List of cash accounts. This includes Unsettled Trades and Unpaid Payout Adjustments.
+    pub portfolio_valuation_cash_accounts: Vec<ValuationPortfolioValuationCashAccountsSuccess>,
+    /// List of sub-totals for each group.
+    pub portfolio_valuation_sub_totals: Vec<ValuationPortfolioValuationSubTotalsSuccess>,
+    /// The custom group used for this report, if selected
+    #[serde(default)]
+    pub custom_group: Option<ValuationCustomGroupSuccess>,
+    /// The markets used for this report, if selected
+    pub markets: Vec<ValuationMarketsSuccess>,
+    /// The industry classifications used for this report, if selected
+    #[serde(default)]
+    pub industry_classifications: Option<Vec<ValuationIndustryClassificationsSuccess>>,
+    /// The sector classifications used for this report, if selected
+    #[serde(default)]
+    pub sector_classifications: Option<Vec<ValuationSectorClassificationsSuccess>>,
+    /// The investment types used for this report, if selected
+    #[serde(default)]
+    pub investment_types: Option<Vec<ValuationInvestmentTypesSuccess>>,
+    /// The countries used for this report, if selected
+    #[serde(default)]
+    pub countries: Option<Vec<ValuationCountriesSuccess>>,
+    /// The custom group categories used for this report, if selected
+    #[serde(default)]
+    pub custom_group_categories: Option<Vec<ValuationCustomGroupCategoriesSuccess>>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct ValuationPortfolioValuationSuccess {
     /// A unique id identifying this report instance
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -5105,8 +5513,9 @@ pub struct ValuationSuccess {
     #[serde_as(as = "DeserializeDate")]
     pub balance_date: NaiveDate,
     /// The portfolio id
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub portfolio_id: i64,
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub portfolio_id: String,
     /// Grouping id or name
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -5118,37 +5527,36 @@ pub struct ValuationSuccess {
     /// The total value of the portfolio
     #[serde_as(as = "DeserializeNumber")]
     pub value: Number,
-    /// List of holdings.
-    pub holdings: Vec<ValuationHoldingsSuccess>,
-    /// List of cash accounts. This includes Unsettled Trades and Unpaid Payout Adjustments.
-    pub cash_accounts: Vec<ValuationCashAccountsSuccess>,
-    /// List of sub-totals for each group.
-    pub sub_totals: Vec<ValuationSubTotalsSuccess>,
 }
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
-pub struct ValuationHoldingsSuccess {
+pub struct ValuationPortfolioValuationHoldingsSuccess {
     /// The id of this holding
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub id: i64,
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub id: String,
+    /// A unique id identifying this report instance
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub portfolio_valuation_id: String,
     /// The Sharesight symbol for the held instrument
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub symbol: String,
     /// A unique id identifying the instrument
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub instrument_id: i64,
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub instrument_id: String,
     /// The code for the market the held instrument is listed on
-    pub market: Market,
-    /// The group value this instrument has been placed in - note that the field name will be the group type
+    pub market_code: Market,
+    /// The group type for this instrument - identifies the sideloaded object type to look up the group id
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub _group_type_: String,
-    /// The name of the selected grouping for the report
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub grouping: String,
+    pub group_type: String,
+    /// The group id for this instrument
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub group_id: i64,
     /// The name of the instrument
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -5159,11 +5567,18 @@ pub struct ValuationHoldingsSuccess {
     /// The quantity of shares or other instruments in the holding
     #[serde_as(as = "DeserializeNumber")]
     pub quantity: Number,
+    /// The instrument price in its defined currency
+    #[serde_as(as = "DeserializeNumber")]
+    pub instrument_price: Number,
 }
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
-pub struct ValuationCashAccountsSuccess {
+pub struct ValuationPortfolioValuationCashAccountsSuccess {
+    /// A unique id identifying this report instance
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub portfolio_valuation_id: String,
     /// A unique key for each cash account
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -5179,22 +5594,135 @@ pub struct ValuationCashAccountsSuccess {
     /// The value of the cash account
     #[serde_as(as = "DeserializeNumber")]
     pub value: Number,
-    /// The currency symbol (e.g. AU$) of the cash account
-    pub currency: Currency,
-    /// The ISO currency code (e.g. AUD) of the portfolio
-    pub currency_code: Currency,
 }
 
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
-pub struct ValuationSubTotalsSuccess {
-    /// The group value - note that the field name will be the group type
+pub struct ValuationPortfolioValuationSubTotalsSuccess {
+    /// A unique id identifying this report instance
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub _group_type_: String,
+    pub portfolio_valuation_id: String,
     /// The total value of the holdings in this group
     #[serde_as(as = "DeserializeNumber")]
     pub value: Number,
+    /// The group type - identifies the sideloaded object type to look up the group id
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub group_type: String,
+    /// The group id
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub group_id: i64,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct ValuationCustomGroupSuccess {
+    /// The unique id of the custom group - matches custom_group_id when a custom group is selected
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The name of the custom group
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct ValuationMarketsSuccess {
+    /// The id of the market - matches group_id when group_type=market
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The code of the market
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The description of the market
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub description: String,
+    /// The country id of the market
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub country_id: Option<i64>,
+    /// The timezone of the market
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tz: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct ValuationIndustryClassificationsSuccess {
+    /// The id of the industry classification - matches group_id when group_type=industry_classification
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The name of the industry
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct ValuationSectorClassificationsSuccess {
+    /// The id of the sector classification - matches group_id when group_type=sector_classification
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The name of the sector
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct ValuationInvestmentTypesSuccess {
+    /// The id of the investment type - matches group_id when group_type=investment_type
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The label of the investment type to show in reports
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub label: String,
+    /// True if the investment type was not classified
+    pub not_classified: bool,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct ValuationCountriesSuccess {
+    /// The id of the country - matches group_id when group_type=country
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The code of the country
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The name of the country
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct ValuationCustomGroupCategoriesSuccess {
+    /// The id of the custom group category - matches group_id when group_type=custom_group_category
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The name of the custom group category
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// The id of the custom group
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub custom_group_id: String,
+    /// The order this custom group appears in
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub ordering: String,
 }
 
 /// Single sign on authorisation. The single sign-on operation returns a URL that will allow the user to login to their Sharesight account without the need to enter their email address and password. The URL is valid for one minute. A single sign-on link or button in your application should be implemented so that the user click initiates this API call and then the URL returned is launched in the user’s browser. A "redirect_to" parameter can be appended to the login url. After successfully been logged in, the user will be then redirected to the specified redirect_to path; example: https://api.sharesight.com/users/sign_in?signon-token=token&amp;redirect_to=/portfolios/1
@@ -5203,6 +5731,7 @@ pub struct RequestSingleSignOn;
 impl<'a> ApiEndpoint<'a> for RequestSingleSignOn {
     const URL_PATH: &'static str = "/single_sign_on.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = &'static str;
     type Parameters = ();
@@ -5228,6 +5757,7 @@ pub struct TradeConfirm;
 impl<'a> ApiEndpoint<'a> for TradeConfirm {
     const URL_PATH: &'static str = "/trades.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = &'static str;
     type Parameters = TradeConfirmParameters;
@@ -5328,6 +5858,7 @@ pub struct TradeReject;
 impl<'a> ApiEndpoint<'a> for TradeReject {
     const URL_PATH: &'static str = "/trades.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+    const VERSION: &'static str = "2.0.0";
 
     type UrlDisplay = &'static str;
     type Parameters = TradeRejectParameters;
@@ -5428,6 +5959,7 @@ pub struct Trades;
 impl<'a> ApiEndpoint<'a> for Trades {
     const URL_PATH: &'static str = "/portfolios/:portfolio_id/trades.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = TradesUrlDisplay<'a>;
     type Parameters = TradesParameters;
@@ -5480,9 +6012,8 @@ pub struct TradesSuccess {
 #[derive(Debug, Clone, Deserialize)]
 pub struct TradesTradesSuccess {
     /// The trade ID. Maybe nil if the trade is based on an adjustment and has not yet been confirmed by the user.
-    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
-    #[serde(default)]
-    pub id: Option<i64>,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
     /// A unique identifier associated with this trade
     #[serde(default)]
     pub unique_identifier: Option<String>,
@@ -5533,26 +6064,6 @@ pub struct TradesTradesSuccess {
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
-    /// The trade type ('BUY','SELL','SPLIT','BONUS','CONSOLD','CANCEL','CAPITAL_RETURN','OPENING_BALANCE','ADJUST_COST_BASE','CAPITAL_CALL').
-    pub transaction_type: TradeDescription,
-    /// Instrument ID of the related Holding.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub instrument_id: i64,
-    /// The instrument code/symbol
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub symbol: String,
-    /// The market code (eg. `ASX`, `NZX`, etc).
-    pub market: Market,
-    /// The filename of any attachment
-    #[serde(default)]
-    pub attachment_filename: Option<String>,
-    /// The document id of any attachment, for use with the Show Document API (v2)
-    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
-    #[serde(default)]
-    pub attachment_id: Option<i64>,
-    /// Returns 'true' if trade is confirmed.  DEPRECATED: Use the state field to determine 'confirmed' vs. 'rejected' vs. 'unconfirmed' instead.
-    pub confirmed: bool,
 }
 
 #[serde_as]
@@ -5580,6 +6091,7 @@ pub struct TradesCreate;
 impl<'a> ApiEndpoint<'a> for TradesCreate {
     const URL_PATH: &'static str = "/trades.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = &'static str;
     type Parameters = TradesCreateParameters;
@@ -5610,12 +6122,6 @@ pub struct TradesCreateTradeParameters {
     /// This is a string of up to 255 characters used to identify duplicate trades. Generate an identifier for each trade and Sharesight will check on upload that this trade has not already been loaded.
     #[serde(default)]
     pub unique_identifier: Option<String>,
-    /// For an confirm trade, ID used to identify the company event the unconfirmed trade is based on.
-    #[serde(default)]
-    pub company_event_id: Option<String>,
-    /// For an confirm trade, the new state of the trade.
-    #[serde(default)]
-    pub state: Option<String>,
     /// The transaction or trade date (format YYYY-MM-DD).
     #[serde(default)]
     pub transaction_date: Option<String>,
@@ -5660,24 +6166,6 @@ pub struct TradesCreateTradeParameters {
     /// An `instrument_id` to look up the Instrument.  Required unless you specify a `holding_id` or search by `instrument_code` and `instrument_market_code`.
     #[serde(default)]
     pub instrument_id: Option<String>,
-    /// Code to look up the Instrument; must be accompanied by `market`. Required unless you specify a `holding_id`.
-    #[serde(default)]
-    pub symbol: Option<String>,
-    /// Market Code to look up the Instrument; must be accompanied by `symbol`.  Required unless you specify a `holding_id`.
-    #[serde(default)]
-    pub market: Option<Market>,
-    /// Market Country Code to look up the Instrument; must be accompanied by `symbol`.  Required unless you specify a `symbol` with `market`, or a `holding_id`.
-    #[serde(default)]
-    pub market_country_code: Option<String>,
-    /// Supported transaction types: 'BUY','SELL','SPLIT','BONUS','CONSOLD','CANCEL','CAPITAL_RETURN','OPENING_BALANCE','ADJUST_COST_BASE','CAPITAL_CALL'.
-    #[serde(default)]
-    pub transaction_type: Option<TradeDescription>,
-    /// Base64 encoded file to be attached to the trade.
-    #[serde(default)]
-    pub attachment: Option<String>,
-    /// File name for the attachment. This parameter is required if attachment is set.
-    #[serde(default)]
-    pub attachment_filename: Option<String>,
 }
 
 #[serde_as]
@@ -5743,26 +6231,6 @@ pub struct TradesCreateTradeSuccess {
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
-    /// The trade type ('BUY','SELL','SPLIT','BONUS','CONSOLD','CANCEL','CAPITAL_RETURN','OPENING_BALANCE','ADJUST_COST_BASE','CAPITAL_CALL').
-    pub transaction_type: TradeDescription,
-    /// Instrument ID of the related Holding.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub instrument_id: i64,
-    /// The instrument code/symbol
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub symbol: String,
-    /// The market code (eg. `ASX`, `NZX`, etc).
-    pub market: Market,
-    /// The filename of any attachment
-    #[serde(default)]
-    pub attachment_filename: Option<String>,
-    /// The document id of any attachment, for use with the Show Document API (v2)
-    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
-    #[serde(default)]
-    pub attachment_id: Option<i64>,
-    /// Returns 'true' if trade is confirmed.  DEPRECATED: Use the state field to determine 'confirmed' vs. 'rejected' vs. 'unconfirmed' instead.
-    pub confirmed: bool,
 }
 
 #[serde_as]
@@ -5790,6 +6258,7 @@ pub struct TradesDestroy;
 impl<'a> ApiEndpoint<'a> for TradesDestroy {
     const URL_PATH: &'static str = "/trades/:id.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = TradesDestroyUrlDisplay<'a>;
     type Parameters = TradesDestroyParameters;
@@ -5852,6 +6321,7 @@ pub struct TradesShow;
 impl<'a> ApiEndpoint<'a> for TradesShow {
     const URL_PATH: &'static str = "/trades/:id.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = TradesShowUrlDisplay<'a>;
     type Parameters = TradesShowParameters;
@@ -5902,8 +6372,9 @@ pub struct TradesShowSuccess {
     #[serde_as(as = "DeserializeNumber")]
     pub price: Number,
     /// For an opening balance, the cost base of the trade. Always returned in the portfolio currency
-    #[serde_as(as = "DeserializeNumber")]
-    pub cost_base: Number,
+    #[serde_as(as = "Option<DeserializeNumber>")]
+    #[serde(default)]
+    pub cost_base: Option<Number>,
     /// The trade's exchange rate as portfolio currency / instrument currency.
     #[serde_as(as = "DeserializeNumber")]
     pub exchange_rate: Number,
@@ -5936,26 +6407,6 @@ pub struct TradesShowSuccess {
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
-    /// The trade type ('BUY','SELL','SPLIT','BONUS','CONSOLD','CANCEL','CAPITAL_RETURN','OPENING_BALANCE','ADJUST_COST_BASE','CAPITAL_CALL').
-    pub transaction_type: TradeDescription,
-    /// Instrument ID of the related Holding.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub instrument_id: i64,
-    /// The instrument code/symbol
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub symbol: String,
-    /// The market code (eg. `ASX`, `NZX`, etc).
-    pub market: Market,
-    /// The filename of any attachment
-    #[serde(default)]
-    pub attachment_filename: Option<String>,
-    /// The document id of any attachment, for use with the Show Document API (v2)
-    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
-    #[serde(default)]
-    pub attachment_id: Option<i64>,
-    /// Returns 'true' if trade is confirmed.  DEPRECATED: Use the state field to determine 'confirmed' vs. 'rejected' vs. 'unconfirmed' instead.
-    pub confirmed: bool,
     /// The current API Transaction.
     pub api_transaction: TradesShowApiTransactionSuccess,
 }
@@ -5985,6 +6436,7 @@ pub struct TradesUpdate;
 impl<'a> ApiEndpoint<'a> for TradesUpdate {
     const URL_PATH: &'static str = "/trades/:id.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = TradesUpdateUrlDisplay<'a>;
     type Parameters = TradesUpdateParameters;
@@ -6061,24 +6513,6 @@ pub struct TradesUpdateTradeParameters {
     /// An `instrument_id` to look up the Instrument.  Required unless you specify a `holding_id` or search by `instrument_code` and `instrument_market_code`.
     #[serde(default)]
     pub instrument_id: Option<String>,
-    /// Code to look up the Instrument; must be accompanied by `market`. Required unless you specify a `holding_id`.
-    #[serde(default)]
-    pub symbol: Option<String>,
-    /// Market Code to look up the Instrument; must be accompanied by `symbol`.  Required unless you specify a `holding_id`.
-    #[serde(default)]
-    pub market: Option<Market>,
-    /// Market Country Code to look up the Instrument; must be accompanied by `symbol`.  Required unless you specify a `symbol` with `market`, or a `holding_id`.
-    #[serde(default)]
-    pub market_country_code: Option<String>,
-    /// Supported transaction types: 'BUY','SELL','SPLIT','BONUS','CONSOLD','CANCEL','CAPITAL_RETURN','OPENING_BALANCE','ADJUST_COST_BASE','CAPITAL_CALL'.
-    #[serde(default)]
-    pub transaction_type: Option<TradeDescription>,
-    /// Base64 encoded file to be attached to the trade.
-    #[serde(default)]
-    pub attachment: Option<String>,
-    /// File name for the attachment. This parameter is required if attachment is set.
-    #[serde(default)]
-    pub attachment_filename: Option<String>,
 }
 
 #[serde_as]
@@ -6110,8 +6544,9 @@ pub struct TradesUpdateTradeSuccess {
     #[serde_as(as = "DeserializeNumber")]
     pub price: Number,
     /// For an opening balance, the cost base of the trade. Always returned in the portfolio currency
-    #[serde_as(as = "DeserializeNumber")]
-    pub cost_base: Number,
+    #[serde_as(as = "Option<DeserializeNumber>")]
+    #[serde(default)]
+    pub cost_base: Option<Number>,
     /// The trade's exchange rate as portfolio currency / instrument currency.
     #[serde_as(as = "DeserializeNumber")]
     pub exchange_rate: Number,
@@ -6144,26 +6579,6 @@ pub struct TradesUpdateTradeSuccess {
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub state: String,
-    /// The trade type ('BUY','SELL','SPLIT','BONUS','CONSOLD','CANCEL','CAPITAL_RETURN','OPENING_BALANCE','ADJUST_COST_BASE','CAPITAL_CALL').
-    pub transaction_type: TradeDescription,
-    /// Instrument ID of the related Holding.
-    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
-    pub instrument_id: i64,
-    /// The instrument code/symbol
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub symbol: String,
-    /// The market code (eg. `ASX`, `NZX`, etc).
-    pub market: Market,
-    /// The filename of any attachment
-    #[serde(default)]
-    pub attachment_filename: Option<String>,
-    /// The document id of any attachment, for use with the Show Document API (v2)
-    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
-    #[serde(default)]
-    pub attachment_id: Option<i64>,
-    /// Returns 'true' if trade is confirmed.  DEPRECATED: Use the state field to determine 'confirmed' vs. 'rejected' vs. 'unconfirmed' instead.
-    pub confirmed: bool,
 }
 
 #[serde_as]
@@ -6191,6 +6606,7 @@ pub struct MyUser;
 impl<'a> ApiEndpoint<'a> for MyUser {
     const URL_PATH: &'static str = "/my_user.json";
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "2.1.0";
 
     type UrlDisplay = &'static str;
     type Parameters = ();
@@ -6258,4 +6674,1719 @@ pub struct MyUserUserSuccess {
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub signup_via_your_integration: String,
+}
+
+/// Apply a coupon code to the current user
+pub struct CouponCodeCreate;
+
+impl<'a> ApiEndpoint<'a> for CouponCodeCreate {
+    const URL_PATH: &'static str = "/coupon_code";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = CouponCodeCreateParameters;
+    type Success = CouponCodeCreateSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/coupon_code"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct CouponCodeCreateParameters {
+    /// Code to be applied
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponCodeCreateSuccess {
+    /// The coupon code applied to this user
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The current API Transaction.
+    pub api_transaction: CouponCodeCreateApiTransactionSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponCodeCreateApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+/// Delete a coupon code from the current user
+pub struct CouponCodeDelete;
+
+impl<'a> ApiEndpoint<'a> for CouponCodeDelete {
+    const URL_PATH: &'static str = "/coupon_code";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = ();
+    type Success = CouponCodeDeleteSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/coupon_code"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponCodeDeleteSuccess {
+    /// The current API Transaction.
+    pub api_transaction: CouponCodeDeleteApiTransactionSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponCodeDeleteApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+/// Return the coupon code for the current user
+pub struct CouponCodeList;
+
+impl<'a> ApiEndpoint<'a> for CouponCodeList {
+    const URL_PATH: &'static str = "/coupon_code";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = ();
+    type Success = CouponCodeListSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/coupon_code"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponCodeListSuccess {
+    /// The coupon code applied to this user
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// True if this coupon is only enabled for API use
+    pub api_only: bool,
+    /// The current API Transaction.
+    pub api_transaction: CouponCodeListApiTransactionSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponCodeListApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+/// Creates coupon rates for a custom investment
+pub struct CouponRateCreate;
+
+impl<'a> ApiEndpoint<'a> for CouponRateCreate {
+    const URL_PATH: &'static str = "/custom_investments/{instrument_id}/coupon_rates";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = CouponRateCreateParameters;
+    type Success = CouponRateCreateSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/custom_investments/{instrument_id}/coupon_rates"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct CouponRateCreateParameters {
+    /// The interest rate as a percentage
+    #[serde_as(as = "DeserializeNumber")]
+    pub interest_rate: Number,
+    /// The date from which the interest rate applies (YYYY-MM-DD)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub date: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponRateCreateSuccess {
+    pub coupon_rate: CouponRateCreateCouponRateSuccess,
+    /// The current API Transaction.
+    pub api_transaction: CouponRateCreateApiTransactionSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponRateCreateCouponRateSuccess {
+    /// Identifier of the coupon rate
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The interest rate as a percentage
+    #[serde_as(as = "DeserializeNumber")]
+    pub interest_rate: Number,
+    /// The date from which the interest rate applies (YYYY-MM-DD)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub date: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponRateCreateApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+/// Deletes custom investment coupon rates
+pub struct CouponRateDelete;
+
+impl<'a> ApiEndpoint<'a> for CouponRateDelete {
+    const URL_PATH: &'static str = "/coupon_rates/{id}";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = ();
+    type Success = CouponRateDeleteSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/coupon_rates/{id}"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponRateDeleteSuccess {
+    /// The current API Transaction.
+    pub api_transaction: CouponRateDeleteApiTransactionSuccess,
+    pub links: CouponRateDeleteLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponRateDeleteApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponRateDeleteLinksSuccess {
+    /// URL to a list of requested resources.
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
+}
+
+/// Retrieves coupon rates for a fixed interest custom investment
+pub struct CouponRateList;
+
+impl<'a> ApiEndpoint<'a> for CouponRateList {
+    const URL_PATH: &'static str = "/custom_investments/{instrument_id}/coupon_rates";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = CouponRateListParameters;
+    type Success = CouponRateListSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/custom_investments/{instrument_id}/coupon_rates"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct CouponRateListParameters {
+    /// Retrieve coupon rates from this date in (YYYY-MM-DD)
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub start_date: Option<NaiveDate>,
+    /// Retrieve prices until this date in (YYYY-MM-DD)
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub end_date: Option<NaiveDate>,
+    /// Pointer to the next page/set of items. This will be the page returned from the previous response.
+    #[serde(default)]
+    pub page: Option<String>,
+    /// Items returned per page. If not given, the default is 50. Maximum is 100.
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub per_page: Option<i64>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponRateListSuccess {
+    /// List of coupon rates
+    pub coupon_rates: Vec<CouponRateListCouponRatesSuccess>,
+    pub pagination: CouponRateListPaginationSuccess,
+    /// The current API Transaction.
+    pub api_transaction: CouponRateListApiTransactionSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponRateListCouponRatesSuccess {
+    /// Identifier of the coupon rate
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The interest rate as a percentage
+    #[serde_as(as = "DeserializeNumber")]
+    pub interest_rate: Number,
+    /// The date from which the interest rate applies (YYYY-MM-DD)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub date: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponRateListPaginationSuccess {
+    /// Pointer to the next page/set of items. This will be the page returned from the previous response.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub page: String,
+    /// Items returned per page. If not given, the default is 50. Maximum is 100.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub per_page: i64,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponRateListApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+/// Updates custom investment coupon rates
+pub struct CouponRateUpdate;
+
+impl<'a> ApiEndpoint<'a> for CouponRateUpdate {
+    const URL_PATH: &'static str = "/coupon_rates/{id}";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = CouponRateUpdateParameters;
+    type Success = CouponRateUpdateSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/coupon_rates/{id}"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct CouponRateUpdateParameters {
+    /// The interest rate as a percentage
+    #[serde_as(as = "DeserializeNumber")]
+    pub interest_rate: Number,
+    /// The date from which the interest rate applies (YYYY-MM-DD)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub date: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponRateUpdateSuccess {
+    pub coupon_rate: CouponRateUpdateCouponRateSuccess,
+    /// The current API Transaction.
+    pub api_transaction: CouponRateUpdateApiTransactionSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponRateUpdateCouponRateSuccess {
+    /// Identifier of the coupon rate
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The interest rate as a percentage
+    #[serde_as(as = "DeserializeNumber")]
+    pub interest_rate: Number,
+    /// The date from which the interest rate applies (YYYY-MM-DD)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub date: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CouponRateUpdateApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+/// Create a price entry for a custom investment
+pub struct CustomInvestmentPriceCreate;
+
+impl<'a> ApiEndpoint<'a> for CustomInvestmentPriceCreate {
+    const URL_PATH: &'static str = "/custom_investment/{id}/prices.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = CustomInvestmentPriceCreateParameters;
+    type Success = CustomInvestmentPriceCreateSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/custom_investment/{id}/prices.json"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct CustomInvestmentPriceCreateParameters {
+    /// The price in the instrument currency
+    #[serde_as(as = "DeserializeNumber")]
+    pub last_traded_price: Number,
+    /// The date of the instrument price in (YYYY-MM-DD) format.
+    #[serde_as(as = "DeserializeDate")]
+    pub last_traded_on: NaiveDate,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentPriceCreateSuccess {
+    /// Identifier for the custom investment
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub custom_investment_id: i64,
+    /// Id of the created price
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The price in the instrument currency
+    #[serde_as(as = "DeserializeNumber")]
+    pub last_traded_price: Number,
+    /// The date of the instrument price
+    #[serde_as(as = "DeserializeDate")]
+    pub last_traded_on: NaiveDate,
+    /// The date and time of the instrument price
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub last_traded_at: String,
+    /// The current API Transaction.
+    pub api_transaction: CustomInvestmentPriceCreateApiTransactionSuccess,
+    pub links: CustomInvestmentPriceCreateLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentPriceCreateApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentPriceCreateLinksSuccess {
+    /// URL to a list of requested resources.
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
+}
+
+/// Delete a price for a custom investment
+pub struct CustomInvestmentPriceDelete;
+
+impl<'a> ApiEndpoint<'a> for CustomInvestmentPriceDelete {
+    const URL_PATH: &'static str = "/prices/{id}.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = ();
+    type Success = CustomInvestmentPriceDeleteSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/prices/{id}.json"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentPriceDeleteSuccess {
+    /// The current API Transaction.
+    pub api_transaction: CustomInvestmentPriceDeleteApiTransactionSuccess,
+    pub links: CustomInvestmentPriceDeleteLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentPriceDeleteApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentPriceDeleteLinksSuccess {
+    /// URL to a list of requested resources.
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
+}
+
+/// Update a price for a custom investment
+pub struct CustomInvestmentPriceUpdate;
+
+impl<'a> ApiEndpoint<'a> for CustomInvestmentPriceUpdate {
+    const URL_PATH: &'static str = "/prices/{id}.json";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = CustomInvestmentPriceUpdateParameters;
+    type Success = CustomInvestmentPriceUpdateSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/prices/{id}.json"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct CustomInvestmentPriceUpdateParameters {
+    /// The price in the instrument currency
+    #[serde(default)]
+    pub last_traded_price: Option<String>,
+    /// The date of the instrument price in (YYYY-MM-DD) format.
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub last_traded_on: Option<NaiveDate>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentPriceUpdateSuccess {
+    /// Identifier for the custom investment
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub custom_investment_id: i64,
+    /// Id of the created price
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The price in the instrument currency
+    #[serde_as(as = "DeserializeNumber")]
+    pub last_traded_price: Number,
+    /// The date of the instrument price
+    #[serde_as(as = "DeserializeDate")]
+    pub last_traded_on: NaiveDate,
+    /// The date and time of the instrument price
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub last_traded_at: String,
+    /// The current API Transaction.
+    pub api_transaction: CustomInvestmentPriceUpdateApiTransactionSuccess,
+    pub links: CustomInvestmentPriceUpdateLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentPriceUpdateApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentPriceUpdateLinksSuccess {
+    /// URL to a list of requested resources.
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
+}
+
+/// Create a Custom Investment
+pub struct CustomInvestmentCreate;
+
+impl<'a> ApiEndpoint<'a> for CustomInvestmentCreate {
+    const URL_PATH: &'static str = "/custom_investments";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = CustomInvestmentCreateParameters;
+    type Success = CustomInvestmentCreateSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/custom_investments"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct CustomInvestmentCreateParameters {
+    /// The ID of the portfolio this instrument is associated with. If not provided, the instrument will be linked to the owner
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub portfolio_id: Option<i64>,
+    /// The investment code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The name of the custom investment
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// The code identifier of the (tax) country of this custom investment. Refer to the `/api/v3/codes#country` documentation for a list of country codes
+    pub country_code: Country,
+    /// Supported investment types: ORDINARY, WARRANT, SHAREFUND, PROPFUND, PREFERENCE, STAPLEDSEC, OPTIONS, RIGHTS, MANAGED_FUND, FIXED_INTEREST, PIE
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub investment_type: String,
+    /// Face value per unit. Only applicable to 'FIXED_INTEREST'. Required for a 'FIXED_INTEREST' instrument
+    #[serde_as(as = "Option<DeserializeNumber>")]
+    #[serde(default)]
+    pub face_value: Option<Number>,
+    /// Initial interest rate. Only applicable to 'FIXED_INTEREST'. Required for a 'FIXED_INTEREST' instrument when `auto_calc_income` is set. (When coupon rates are defined for specific time periods, these will override this value)
+    #[serde_as(as = "Option<DeserializeNumber>")]
+    #[serde(default)]
+    pub interest_rate: Option<Number>,
+    /// 'DIVIDEND' or 'INTEREST' only. Only applicable to 'FIXED_INTEREST'
+    #[serde(default)]
+    pub income_type: Option<String>,
+    /// 'ON_MATURITY','YEARLY','TWICE_YEARLY','QUARTERLY','MONTHLY'. Only applicable to 'FIXED_INTEREST'. Only applicable to 'FIXED_INTEREST'. Required for a 'FIXED_INTEREST' instrument when `auto_calc_income` is set
+    #[serde(default)]
+    pub payment_frequency: Option<String>,
+    /// Date of first interest payment. Only applicable to 'FIXED_INTEREST'. Required for a 'FIXED_INTEREST' instrument when `auto_calc_income` is set. Format is: (YYYY-MM-DD)
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub first_payment_date: Option<NaiveDate>,
+    /// If a maturity date is set, a sell trade will be recorded on the maturity date to reflect the repayment of the principal. Only applicable to 'FIXED_INTEREST'. Required if 'payment_frequency' = 'ON_MATURITY'. Format is: (YYYY-MM-DD)
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub maturity_date: Option<NaiveDate>,
+    /// Autopopulate income payments and maturity trades based on selected dates. Only applicable to 'FIXED_INTEREST'<br>Default value: `false`
+    #[serde(default)]
+    pub auto_calc_income: Option<bool>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentCreateSuccess {
+    pub custom_investment: CustomInvestmentCreateCustomInvestmentSuccess,
+    /// The current API Transaction.
+    pub api_transaction: CustomInvestmentCreateApiTransactionSuccess,
+    pub links: CustomInvestmentCreateLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentCreateCustomInvestmentSuccess {
+    /// The ID of this custom investment
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The portfolio associated with this model
+    pub portfolio: CustomInvestmentCreateCustomInvestmentPortfolioSuccess,
+    /// The investment code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// Market code. It will always be OTHER.
+    pub market_code: Market,
+    /// The name of the custom investment
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// The code identifier of the (tax) country of this custom investment. Refer to the `/api/v3/codes#country` documentation for a list of country codes
+    pub country_code: Country,
+    /// The internal id of the (tax) country of this custom investment. Refer to the `/api/v3/countries` endpoint to look up country details by id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub country_id: i64,
+    /// The ISO-4217 currency code (https://www.currency-iso.org/en/home/amendments/secretariat.html) (e.g. AUD) of this custom investment
+    pub currency_code: Currency,
+    /// A normalised description of the custom investment.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub investment_type: String,
+    /// The Timezone for the investment.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tz_name: String,
+    /// 'DIVIDEND' or 'INTEREST' only. Only applicable to 'FIXED_INTEREST'
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub income_type: String,
+    /// 'ON_MATURITY','YEARLY','TWICE_YEARLY','QUARTERLY','MONTHLY'
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub payment_frequency: String,
+    /// Date of first interest payment. Only applicable to 'FIXED_INTEREST'. This is in the timezone of the instrument. Format is: (YYYY-MM-DD)
+    #[serde_as(as = "DeserializeDate")]
+    pub first_payment_date: NaiveDate,
+    /// If a maturity date is set a sell trade will be recorded on the maturity date to reflect the repayment of the principal. Only applicable to 'FIXED_INTEREST'. This is in the timezone of the instrument. Format is: (YYYY-MM-DD)
+    #[serde_as(as = "DeserializeDate")]
+    pub maturity_date: NaiveDate,
+    /// Autopopulate income payments based on selected dates. Only applicable to 'FIXED_INTEREST'.
+    pub auto_calc_income: bool,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentCreateCustomInvestmentPortfolioSuccess {
+    /// The unique id identifying the portfolio
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// Whether or not this is a consolidated view portfolio
+    pub consolidated: bool,
+    /// The name of the portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentCreateApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentCreateLinksSuccess {
+    /// URL to a list of requested resources.
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
+}
+
+/// Delete a Custom Investment
+pub struct CustomInvestmentDelete;
+
+impl<'a> ApiEndpoint<'a> for CustomInvestmentDelete {
+    const URL_PATH: &'static str = "/custom_investments/{id}";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = ();
+    type Success = CustomInvestmentDeleteSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/custom_investments/{id}"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentDeleteSuccess {
+    /// True if the record was deleted
+    pub deleted: bool,
+    /// The current API Transaction.
+    pub api_transaction: CustomInvestmentDeleteApiTransactionSuccess,
+    pub links: CustomInvestmentDeleteLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentDeleteApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentDeleteLinksSuccess {
+    /// URL to a list of requested resources.
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
+}
+
+/// Retrieves a list of Custom Investments
+pub struct CustomInvestmentList;
+
+impl<'a> ApiEndpoint<'a> for CustomInvestmentList {
+    const URL_PATH: &'static str = "/custom_investments";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = CustomInvestmentListParameters;
+    type Success = CustomInvestmentListSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/custom_investments"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct CustomInvestmentListParameters {
+    /// The portfolio id to List all Custom Investments for
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub portfolio_id: Option<i64>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentListSuccess {
+    /// The custom investments
+    pub custom_investments: Vec<CustomInvestmentListCustomInvestmentsSuccess>,
+    /// The current API Transaction.
+    pub api_transaction: CustomInvestmentListApiTransactionSuccess,
+    pub links: CustomInvestmentListLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentListCustomInvestmentsSuccess {
+    /// The ID of this custom investment
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The portfolio associated with this model
+    pub portfolio: CustomInvestmentListCustomInvestmentsPortfolioSuccess,
+    /// The investment code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// Market code. It will always be OTHER.
+    pub market_code: Market,
+    /// The name of the custom investment
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// The code identifier of the (tax) country of this custom investment. Refer to the `/api/v3/codes#country` documentation for a list of country codes
+    pub country_code: Country,
+    /// The internal id of the (tax) country of this custom investment. Refer to the `/api/v3/countries` endpoint to look up country details by id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub country_id: i64,
+    /// The ISO-4217 currency code (https://www.currency-iso.org/en/home/amendments/secretariat.html) (e.g. AUD) of this custom investment
+    pub currency_code: Currency,
+    /// A normalised description of the custom investment.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub investment_type: String,
+    /// The Timezone for the investment.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tz_name: String,
+    /// 'DIVIDEND' or 'INTEREST' only. Only applicable to 'FIXED_INTEREST'
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub income_type: String,
+    /// 'ON_MATURITY','YEARLY','TWICE_YEARLY','QUARTERLY','MONTHLY'
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub payment_frequency: String,
+    /// Date of first interest payment. Only applicable to 'FIXED_INTEREST'. This is in the timezone of the instrument. Format is: (YYYY-MM-DD)
+    #[serde_as(as = "DeserializeDate")]
+    pub first_payment_date: NaiveDate,
+    /// If a maturity date is set a sell trade will be recorded on the maturity date to reflect the repayment of the principal. Only applicable to 'FIXED_INTEREST'. This is in the timezone of the instrument. Format is: (YYYY-MM-DD)
+    #[serde_as(as = "DeserializeDate")]
+    pub maturity_date: NaiveDate,
+    /// Autopopulate income payments based on selected dates. Only applicable to 'FIXED_INTEREST'.
+    pub auto_calc_income: bool,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentListCustomInvestmentsPortfolioSuccess {
+    /// The unique id identifying the portfolio
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// Whether or not this is a consolidated view portfolio
+    pub consolidated: bool,
+    /// The name of the portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentListApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentListLinksSuccess {
+    /// URL to a list of requested resources.
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
+}
+
+/// Retrieves a single Custom Investment
+pub struct CustomInvestmentShow;
+
+impl<'a> ApiEndpoint<'a> for CustomInvestmentShow {
+    const URL_PATH: &'static str = "/custom_investments/{id}";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = ();
+    type Success = CustomInvestmentShowSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/custom_investments/{id}"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentShowSuccess {
+    pub custom_investment: CustomInvestmentShowCustomInvestmentSuccess,
+    /// The current API Transaction.
+    pub api_transaction: CustomInvestmentShowApiTransactionSuccess,
+    pub links: CustomInvestmentShowLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentShowCustomInvestmentSuccess {
+    /// The ID of this custom investment
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The ID of the portfolio this instrument is associated with. If not provided, the instrument will be linked to the owner.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub portfolio_id: i64,
+    /// The portfolio associated with this model
+    pub portfolio: CustomInvestmentShowCustomInvestmentPortfolioSuccess,
+    /// The investment code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// Market code. It will always be OTHER.
+    pub market_code: Market,
+    /// The name of the custom investment
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// The code identifier of the (tax) country of this custom investment. Refer to the `/api/v3/codes#country` documentation for a list of country codes
+    pub country_code: Country,
+    /// The internal id of the (tax) country of this custom investment. Refer to the `/api/v3/countries` endpoint to look up country details by id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub country_id: i64,
+    /// The ISO-4217 currency code (https://www.currency-iso.org/en/home/amendments/secretariat.html) (e.g. AUD) of this custom investment
+    pub currency_code: Currency,
+    /// A normalised description of the custom investment.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub investment_type: String,
+    /// The Timezone for the investment.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tz_name: String,
+    /// 'DIVIDEND' or 'INTEREST' only. Only applicable to 'FIXED_INTEREST'.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub income_type: String,
+    /// 'ON_MATURITY','YEARLY','TWICE_YEARLY','QUARTERLY','MONTHLY'
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub payment_frequency: String,
+    /// Date of first interest payment. Only applicable to 'FIXED_INTEREST'. This is in the timezone of the instrument. Format is: (YYYY-MM-DD)
+    #[serde_as(as = "DeserializeDate")]
+    pub first_payment_date: NaiveDate,
+    /// If a maturity date is set a sell trade will be recorded on the maturity date to reflect the repayment of the principal. Only applicable to 'FIXED_INTEREST'. This is in the timezone of the instrument. Format is: (YYYY-MM-DD)
+    #[serde_as(as = "DeserializeDate")]
+    pub maturity_date: NaiveDate,
+    /// Autopopulate income payments based on selected dates. Only applicable to 'FIXED_INTEREST'.
+    pub auto_calc_income: bool,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentShowCustomInvestmentPortfolioSuccess {
+    /// The unique id identifying the portfolio
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// Whether or not this is a consolidated view portfolio
+    pub consolidated: bool,
+    /// The name of the portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentShowApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CustomInvestmentShowLinksSuccess {
+    /// URL to a list of requested resources.
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
+}
+
+/// Updates a holding; currently we're only enabling/disabling drp
+pub struct HoldingUpdate;
+
+impl<'a> ApiEndpoint<'a> for HoldingUpdate {
+    const URL_PATH: &'static str = "/holdings/{id}";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = HoldingUpdateParameters;
+    type Success = HoldingUpdateSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/holdings/{id}"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct HoldingUpdateParameters {
+    /// Set to true to enable drp. Set to false to disable drp.
+    #[serde(default)]
+    pub enable_drp: Option<bool>,
+    /// The drp mode setting, can be up, down, half, down_track. Default: down_track
+    #[serde(default)]
+    pub drp_mode_setting: Option<String>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingUpdateSuccess {
+    /// A holding object
+    pub holding: HoldingUpdateHoldingSuccess,
+    /// The current API Transaction.
+    pub api_transaction: HoldingUpdateApiTransactionSuccess,
+    pub links: HoldingUpdateLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingUpdateHoldingSuccess {
+    /// The unique id of this holding
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The drp mode setting.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub drp_mode_setting: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingUpdateApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingUpdateLinksSuccess {
+    /// URL to a list of requested resources.
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
+}
+
+/// Access Sharesight country defintions
+pub struct CountryList;
+
+impl<'a> ApiEndpoint<'a> for CountryList {
+    const URL_PATH: &'static str = "/countries";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = CountryListParameters;
+    type Success = CountryListSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/countries"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct CountryListParameters {
+    /// To filter based on the supported field, leave blank or don't include for all results.
+    #[serde(default)]
+    pub supported: Option<bool>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CountryListSuccess {
+    /// List of country definitions.
+    pub countries: Vec<CountryListCountriesSuccess>,
+    /// The current API Transaction.
+    pub api_transaction: CountryListApiTransactionSuccess,
+    pub links: CountryListLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CountryListCountriesSuccess {
+    /// The ISO country code.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// Sharesight country identifier.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// Sharesight naming of this country – please use the ISO Code as some things are non-standard, eg. we have countries tied to old currencies and cyrptocurrencies like Latvia (pre-Euro) with a currency of 81 (XLV, being the pre-Euro Latvian Dollar)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// Sharesight associated currency identifier.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub currency_id: i64,
+    /// Abbreviated name of final month of financial year, eg. dec, jun, or mar.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub financial_year_end: String,
+    /// Whether or not Sharesight fully supports this country.
+    pub supported: bool,
+    /// The primary timezone for this country.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tz_name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CountryListApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct CountryListLinksSuccess {
+    /// URL to a list of requested resources.
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
+}
+
+/// Retrieves a portfolio by id
+pub struct Portfolio;
+
+impl<'a> ApiEndpoint<'a> for Portfolio {
+    const URL_PATH: &'static str = "/portfolios/{portfolio_id}";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = PortfolioParameters;
+    type Success = PortfolioSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/portfolios/{portfolio_id}"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct PortfolioParameters {
+    /// Set to true if the referenced portfolio is consolidated<br>Default value: `false`
+    #[serde(default)]
+    pub consolidated: Option<bool>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PortfolioSuccess {
+    /// The portfolio associated with this model
+    pub portfolio: PortfolioPortfolioSuccess,
+    /// The current API Transaction.
+    pub api_transaction: PortfolioApiTransactionSuccess,
+    pub links: PortfolioLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PortfolioPortfolioSuccess {
+    /// The unique id identifying the portfolio
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// Whether or not this is a consolidated view portfolio
+    pub consolidated: bool,
+    /// The name of the portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// Typically used by professionals to identify the tax entity owner of the portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub external_identifier: String,
+    /// The timezone name applicable to the portfolio country
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tz_name: String,
+    /// For an Australian portfolio, the default sale allocation method for capital gains purposes. One of: fifo, lifo, maximise_cr, minimise_cr, ss_minimise, average, default
+    pub default_sale_allocation_method: SaleAllocationMethod,
+    /// The CGT discount rate for Australian portfolios
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub cg_discount: String,
+    /// The end of the financial year (MM-DD)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub financial_year_end: String,
+    /// The interest method: 'simple' or 'compound'
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub interest_method: String,
+    /// The ISO country code of the (tax) country of this portfolio
+    pub country_code: Country,
+    /// The ISO currency code of this portfolio
+    pub currency_code: Currency,
+    /// The date your portfolio was started on or the oldest portfolio if a consolidated view
+    #[serde_as(as = "DeserializeDate")]
+    pub inception_date: NaiveDate,
+    /// The current user's access level to this portfolio, one of: OWNER, STAFF, ADMIN, EDIT, READ
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub access_level: String,
+    /// The unique identifier of the portfolio owner
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub user_id: i64,
+    /// The name of the portfolio owner. A first and last name will be returned if available, otherwise the owners organisation name
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub owner_name: String,
+    /// For NZ portfolios, the rate of resident witholding tax to be applied
+    #[serde_as(as = "DeserializeNumber")]
+    pub rwtr_rate: Number,
+    /// For NZ portfolios, true if the owner is taxed as a trader
+    pub trader: bool,
+    /// If set, transactions such as company events are not automatically applied to the portfolio holdings
+    pub disable_automatic_transactions: bool,
+    /// For Canadian portfolios, the type of tax entity: non_registered, rrsp, rrif, tfsa
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tax_entity_type: String,
+    /// All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub trade_sync_cash_account_id: i64,
+    /// All payouts will generate a corresponding deposit in the selected 'payout' account
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub payout_sync_cash_account_id: i64,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PortfolioApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PortfolioLinksSuccess {
+    /// URL to a list of requested resources.
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
+}
+
+/// Retrieves the user settings for the portfolio and current user. These are persisted in the database such that a user will have these settings retained between views of a page on any session
+pub struct UserSettingList;
+
+impl<'a> ApiEndpoint<'a> for UserSettingList {
+    const URL_PATH: &'static str = "/portfolios/{portfolio_id}/user_setting";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = UserSettingListParameters;
+    type Success = UserSettingListSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/portfolios/{portfolio_id}/user_setting"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct UserSettingListParameters {
+    /// Set to true for consolidated portfolio views<br>Default value: `false`
+    #[serde(default)]
+    pub consolidated: Option<bool>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct UserSettingListSuccess {
+    pub portfolio_user_setting: UserSettingListPortfolioUserSettingSuccess,
+    /// The current API Transaction.
+    pub api_transaction: UserSettingListApiTransactionSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct UserSettingListPortfolioUserSettingSuccess {
+    /// The chart type to use for the portfolio: VALUE, VALUELINE, GROWTH, BENCHMARK, HIDE
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub portfolio_chart: String,
+    /// The chart type to use for holdings in the portfolio: PRICE, HOLDING_VALUE, BENCHMARK, HIDE
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub holding_chart: String,
+    /// True to combine holdings in consolidated portfolios
+    pub combined: bool,
+    /// True to combine holdings in consolidated portfolios when showing reports
+    pub report_combined: bool,
+    /// Grouping to use, as a string or integer custom group id
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub grouping: String,
+    /// Grouping to use for reports
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub report_grouping: String,
+    /// Currency to use for reports
+    pub report_currency: Currency,
+    /// True to include sold shares in calculations
+    pub include_sold_shares: bool,
+    /// True to include sold shares in reports
+    pub report_include_sold_shares: bool,
+    /// Instrument ID for benchmark
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub benchmark_instrument_id: String,
+    /// True to show comments on taxable income report
+    pub taxable_show_comments: bool,
+    /// True to show holding totals on taxable income report
+    pub taxable_grouped_by_holding: bool,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct UserSettingListApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+/// Updates the user settings for the portfolio and current user. These are persisted in the database such that a user will have these settings retained between views of a page on any session.
+pub struct UserSettingUpdate;
+
+impl<'a> ApiEndpoint<'a> for UserSettingUpdate {
+    const URL_PATH: &'static str = "/portfolios/{portfolio_id}/user_setting";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Patch;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = UserSettingUpdateParameters;
+    type Success = UserSettingUpdateSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/portfolios/{portfolio_id}/user_setting"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct UserSettingUpdateParameters {
+    /// Set to true for consolidated portfolio views<br>Default value: `false`
+    #[serde(default)]
+    pub consolidated: Option<bool>,
+    #[serde(default)]
+    pub portfolio_user_settings: Option<UserSettingUpdatePortfolioUserSettingsParameters>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct UserSettingUpdatePortfolioUserSettingsParameters {
+    /// The chart type to use for the portfolio: VALUE, VALUELINE, GROWTH, BENCHMARK, HIDE
+    #[serde(default)]
+    pub portfolio_chart: Option<String>,
+    /// The chart type to use for holdings in the portfolio: PRICE, HOLDING_VALUE, BENCHMARK, HIDE
+    #[serde(default)]
+    pub holding_chart: Option<String>,
+    /// True to combine holdings in consolidated portfolios
+    #[serde(default)]
+    pub combined: Option<bool>,
+    /// True to combine holdings in consolidated portfolios when showing reports
+    #[serde(default)]
+    pub report_combined: Option<bool>,
+    /// Grouping to use, as a string or integer custom group id
+    #[serde(default)]
+    pub grouping: Option<String>,
+    /// Grouping to use for reports
+    #[serde(default)]
+    pub report_grouping: Option<String>,
+    /// Currency to use for reports
+    #[serde(default)]
+    pub report_currency: Option<Currency>,
+    /// True to include sold shares in calculations
+    #[serde(default)]
+    pub include_sold_shares: Option<bool>,
+    /// True to include sold shares in reports
+    #[serde(default)]
+    pub report_include_sold_shares: Option<bool>,
+    /// Instrument ID for benchmark
+    #[serde(default)]
+    pub benchmark_instrument_id: Option<String>,
+    /// True to show comments on taxable income report
+    #[serde(default)]
+    pub taxable_show_comments: Option<bool>,
+    /// True to show holding totals on taxable income report
+    #[serde(default)]
+    pub taxable_grouped_by_holding: Option<bool>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct UserSettingUpdateSuccess {
+    pub portfolio_user_setting: UserSettingUpdatePortfolioUserSettingSuccess,
+    /// The current API Transaction.
+    pub api_transaction: UserSettingUpdateApiTransactionSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct UserSettingUpdatePortfolioUserSettingSuccess {
+    /// The chart type to use for the portfolio: VALUE, VALUELINE, GROWTH, BENCHMARK, HIDE
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub portfolio_chart: String,
+    /// The chart type to use for holdings in the portfolio: PRICE, HOLDING_VALUE, BENCHMARK, HIDE
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub holding_chart: String,
+    /// True to combine holdings in consolidated portfolios
+    pub combined: bool,
+    /// True to combine holdings in consolidated portfolios when showing reports
+    pub report_combined: bool,
+    /// Grouping to use, as a string or integer custom group id
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub grouping: String,
+    /// Grouping to use for reports
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub report_grouping: String,
+    /// Currency to use for reports
+    pub report_currency: Currency,
+    /// True to include sold shares in calculations
+    pub include_sold_shares: bool,
+    /// True to include sold shares in reports
+    pub report_include_sold_shares: bool,
+    /// Instrument ID for benchmark
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub benchmark_instrument_id: String,
+    /// True to show comments on taxable income report
+    pub taxable_show_comments: bool,
+    /// True to show holding totals on taxable income report
+    pub taxable_grouped_by_holding: bool,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct UserSettingUpdateApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+/// Disconnect a users API access. This operation invalidates the OAuth token for a user. We recommend you make this API call when a customer chooses to remove their connection via your system.
+pub struct Revoke;
+
+impl<'a> ApiEndpoint<'a> for Revoke {
+    const URL_PATH: &'static str = "/oauth/revoke";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = RevokeParameters;
+    type Success = RevokeSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/oauth/revoke"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct RevokeParameters {
+    /// The client application ID
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub client_id: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct RevokeSuccess {
+    /// The current API Transaction.
+    pub api_transaction: RevokeApiTransactionSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct RevokeApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
 }

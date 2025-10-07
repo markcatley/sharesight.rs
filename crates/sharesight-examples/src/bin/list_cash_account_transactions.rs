@@ -5,9 +5,8 @@ use sharesight_reqwest::Client;
 use sharesight_types::{
     CashAccountTransactionType, CashAccountTransactionTypeName, CashAccountTransactionsList,
     CashAccountTransactionsListCashAccountTransactionsSuccess,
-    CashAccountTransactionsListParameters, CashAccountTransactionsListSuccess, CashAccountsList,
-    CashAccountsListParameters, CashAccountsListSuccess, Currency, Number, PortfolioList,
-    PortfolioListSuccess, DEFAULT_API_HOST,
+    CashAccountTransactionsListParameters, CashAccountTransactionsListSuccess, Currency, Number,
+    DEFAULT_API_HOST,
 };
 
 /// List the portfolios using the Sharesight API
@@ -30,94 +29,90 @@ async fn main() -> anyhow::Result<()> {
     init_logger();
 
     let args = Args::parse();
+
+    log::info!("Running with args: {args:?}");
+
     let client = Client::new_with_token_and_host(args.access_token, args.api_host);
     let portfolio_name = args.portfolio_name;
     let cash_account_name = args.cash_account_name;
 
-    let PortfolioListSuccess { portfolios, .. } = client.execute::<PortfolioList, _>(&()).await?;
+    let portfolios = client.build_portfolio_index().await?;
+    let portfolio = portfolios.find(&portfolio_name).unwrap_or_else(|| {
+        portfolios.log_error_for(&portfolio_name);
+        std::process::exit(0)
+    });
 
-    let portfolio = portfolios.iter().find(|p| p.name == portfolio_name);
+    let cash_accounts = client.build_cash_account_index(portfolio).await?;
+    let cash_account = cash_accounts.find(&cash_account_name).unwrap_or_else(|| {
+        cash_accounts.log_error_for(&cash_account_name);
+        std::process::exit(0)
+    });
 
-    if let Some(portfolio) = portfolio {
-        let account_params = CashAccountsListParameters { date: None };
+    let transactions_params = CashAccountTransactionsListParameters {
+        cash_account_id: cash_account.id,
+        from: None,
+        to: None,
+        description: None,
+        foreign_identifier: None,
+    };
+    let CashAccountTransactionsListSuccess {
+        cash_account_transactions,
+        ..
+    } = client
+        .execute::<CashAccountTransactionsList, _>(&transactions_params)
+        .await?;
 
-        let CashAccountsListSuccess { cash_accounts, .. } = client
-            .execute::<CashAccountsList, _>(&account_params)
-            .await?;
-        let cash_accounts = cash_accounts
-            .into_iter()
-            .filter(|a| a.portfolio_id == portfolio.id)
-            .collect::<Vec<_>>();
-        let cash_account = cash_accounts.iter().find(|a| a.name == cash_account_name);
+    let mut wtr = csv::Writer::from_writer(std::io::stdout());
 
-        if let Some(cash_account) = cash_account {
-            let transactions_params = CashAccountTransactionsListParameters {
-                cash_account_id: cash_account.id,
-                from: None,
-                to: None,
-                description: None,
-                foreign_identifier: None,
-            };
-            let CashAccountTransactionsListSuccess {
-                cash_account_transactions,
-                ..
-            } = client
-                .execute::<CashAccountTransactionsList, _>(&transactions_params)
-                .await?;
-
-            let mut wtr = csv::Writer::from_writer(std::io::stdout());
-
-            for CashAccountTransactionsListCashAccountTransactionsSuccess {
-                id,
-                date_time,
-                amount,
-                balance,
-                cash_account_id,
-                foreign_identifier,
-                holding_id,
-                trade_id,
-                payout_id,
-                cash_account_transaction_type:
-                    CashAccountTransactionType {
-                        name: cash_account_transaction_type,
-                    },
-                links: _,
-            } in cash_account_transactions.into_iter()
-            {
-                #[derive(serde::Serialize)]
-                pub struct TransactionRecord<'a> {
-                    pub id: i64,
-                    pub account_name: &'a str,
-                    pub portfolio_id: i64,
-                    pub date_time: DateTime<FixedOffset>,
-                    pub currency: Currency,
-                    pub amount: Number,
-                    pub balance: Number,
-                    pub cash_account_id: i64,
-                    pub foreign_identifier: Option<String>,
-                    pub holding_id: Option<i64>,
-                    pub trade_id: Option<i64>,
-                    pub payout_id: Option<i64>,
-                    pub cash_account_transaction_type: CashAccountTransactionTypeName,
-                }
-
-                wtr.serialize(TransactionRecord {
-                    id,
-                    account_name: &cash_account.name,
-                    portfolio_id: portfolio.id,
-                    date_time,
-                    currency: cash_account.currency,
-                    amount,
-                    balance,
-                    cash_account_id,
-                    foreign_identifier,
-                    holding_id,
-                    trade_id,
-                    payout_id,
-                    cash_account_transaction_type,
-                })?;
-            }
+    for CashAccountTransactionsListCashAccountTransactionsSuccess {
+        id,
+        date_time,
+        amount,
+        balance,
+        cash_account_id,
+        foreign_identifier,
+        holding_id,
+        trade_id,
+        payout_id,
+        cash_account_transaction_type:
+            CashAccountTransactionType {
+                name: cash_account_transaction_type,
+            },
+        links: _,
+    } in cash_account_transactions.into_iter()
+    {
+        #[derive(serde::Serialize)]
+        pub struct TransactionRecord<'a> {
+            pub id: i64,
+            pub account_name: &'a str,
+            pub portfolio_id: i64,
+            pub date_time: DateTime<FixedOffset>,
+            pub currency: Currency,
+            pub amount: Number,
+            pub balance: Number,
+            pub cash_account_id: i64,
+            pub foreign_identifier: Option<String>,
+            pub holding_id: Option<i64>,
+            pub trade_id: Option<i64>,
+            pub payout_id: Option<i64>,
+            pub cash_account_transaction_type: CashAccountTransactionTypeName,
         }
+
+        wtr.serialize(TransactionRecord {
+            id,
+            account_name: &cash_account.name,
+            portfolio_id: portfolio.id,
+            date_time,
+            currency: cash_account.currency,
+            amount,
+            balance,
+            cash_account_id,
+            foreign_identifier,
+            holding_id,
+            trade_id,
+            payout_id,
+            cash_account_transaction_type,
+        })?;
     }
 
     Ok(())

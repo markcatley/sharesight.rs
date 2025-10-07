@@ -3828,14 +3828,14 @@
           "Parameter": [
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "start_date",
               "description": "<p>Retrieve coupon rates from this date in (YYYY-MM-DD)</p>"
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "end_date",
               "description": "<p>Retrieve prices until this date in (YYYY-MM-DD)</p>"
@@ -4357,7 +4357,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "prices.last_traded_on",
               "description": "<p>The date of the instrument price in (YYYY-MM-DD) format.</p>"
@@ -4795,7 +4795,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "last_traded_on",
               "description": "<p>The date of the instrument price in (YYYY-MM-DD) format.</p>"
@@ -4836,7 +4836,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "last_traded_on",
               "description": "<p>The date of the instrument price</p>"
@@ -5255,14 +5255,14 @@
           "Parameter": [
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "start_date",
               "description": "<p>Retrieve prices from this date in (YYYY-MM-DD)</p>"
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "end_date",
               "description": "<p>Retrieve prices until this date (YYYY-MM-DD)</p>"
@@ -5536,7 +5536,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "last_traded_on",
               "description": "<p>The date of the instrument price in (YYYY-MM-DD) format.</p>"
@@ -5577,7 +5577,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "last_traded_on",
               "description": "<p>The date of the instrument price</p>"
@@ -5868,14 +5868,14 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "first_payment_date",
               "description": "<p>Date of first interest payment. Only applicable to 'FIXED_INTEREST'. Required for a 'FIXED_INTEREST' instrument when <code>auto_calc_income</code> is set. Format is: (YYYY-MM-DD)</p>"
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "maturity_date",
               "description": "<p>If a maturity date is set, a sell trade will be recorded on the maturity date to reflect the repayment of the principal. Only applicable to 'FIXED_INTEREST'. Required if 'payment_frequency' = 'ON_MATURITY'. Format is: (YYYY-MM-DD)</p>"
@@ -6014,14 +6014,14 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "custom_investment.first_payment_date",
               "description": "<p>Date of first interest payment. Only applicable to 'FIXED_INTEREST'. This is in the timezone of the instrument. Format is: (YYYY-MM-DD)</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "custom_investment.maturity_date",
               "description": "<p>If a maturity date is set a sell trade will be recorded on the maturity date to reflect the repayment of the principal. Only applicable to 'FIXED_INTEREST'. This is in the timezone of the instrument. Format is: (YYYY-MM-DD)</p>"
@@ -6530,14 +6530,14 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "custom_investments.first_payment_date",
               "description": "<p>Date of first interest payment. Only applicable to 'FIXED_INTEREST'. This is in the timezone of the instrument. Format is: (YYYY-MM-DD)</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "custom_investments.maturity_date",
               "description": "<p>If a maturity date is set a sell trade will be recorded on the maturity date to reflect the repayment of the principal. Only applicable to 'FIXED_INTEREST'. This is in the timezone of the instrument. Format is: (YYYY-MM-DD)</p>"
@@ -6854,14 +6854,14 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "custom_investment.first_payment_date",
               "description": "<p>Date of first interest payment. Only applicable to 'FIXED_INTEREST'. This is in the timezone of the instrument. Format is: (YYYY-MM-DD)</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "custom_investment.maturity_date",
               "description": "<p>If a maturity date is set a sell trade will be recorded on the maturity date to reflect the repayment of the principal. Only applicable to 'FIXED_INTEREST'. This is in the timezone of the instrument. Format is: (YYYY-MM-DD)</p>"
@@ -7117,14 +7117,14 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "first_payment_date",
               "description": "<p>Date of first interest payment. Only applicable to 'FIXED_INTEREST'. Required for a 'FIXED_INTEREST' instrument when <code>auto_calc_income</code> is set. Format is: (YYYY-MM-DD)</p>"
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "maturity_date",
               "description": "<p>If a maturity date is set, a sell trade will be recorded on the maturity date to reflect the repayment of the principal. Only applicable to 'FIXED_INTEREST'. Required if 'payment_frequency' = 'ON_MATURITY'. Format is: (YYYY-MM-DD)</p>"
@@ -7263,14 +7263,14 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "custom_investment.first_payment_date",
               "description": "<p>Date of first interest payment. Only applicable to 'FIXED_INTEREST'. This is in the timezone of the instrument. Format is: (YYYY-MM-DD)</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "custom_investment.maturity_date",
               "description": "<p>If a maturity date is set a sell trade will be recorded on the maturity date to reflect the repayment of the principal. Only applicable to 'FIXED_INTEREST'. This is in the timezone of the instrument. Format is: (YYYY-MM-DD)</p>"
@@ -8164,7 +8164,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "imported_trades.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
@@ -8241,7 +8241,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "imported_trades.traded_on",
               "description": "<p>The date traded on</p>"
@@ -8270,7 +8270,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "imported_trades.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported</p>"
             },
@@ -8305,7 +8305,7 @@
             {
               "group": "200 Success",
               "type": "Number",
-              "optional": false,
+              "optional": true,
               "field": "imported_trades.cost_base",
               "description": "<p>The cost base for an opening balance</p>"
             },
@@ -8326,7 +8326,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "imported_trades.unique_identifier",
               "description": "<p>A unique identifier for this trade</p>"
             },
@@ -8642,7 +8642,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "imported_trades.traded_on",
               "description": "<p>The date traded on</p>"
@@ -8823,7 +8823,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "imported_trades.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
@@ -8900,7 +8900,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "imported_trades.traded_on",
               "description": "<p>The date traded on</p>"
@@ -8929,7 +8929,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "imported_trades.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported</p>"
             },
@@ -8985,7 +8985,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "imported_trades.unique_identifier",
               "description": "<p>A unique identifier for this trade</p>"
             },
@@ -9287,7 +9287,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "trade.transaction_date",
               "description": "<p>The transaction date of the (fixed income) maturity trade which will be confirmed</p>"
@@ -9350,7 +9350,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "trade.paid_on",
               "description": "<p>When transaction_type 'CAPITAL_RETURN' or 'CAPITAL_CALL' is chosen, this is the paid on date</p>"
@@ -9508,7 +9508,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trade.transaction_date",
               "description": "<p>The trade date (format YYYY-MM-DD).</p>"
@@ -9530,7 +9530,7 @@
             {
               "group": "200 Success",
               "type": "Number",
-              "optional": false,
+              "optional": true,
               "field": "trade.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -9564,7 +9564,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trade.paid_on",
               "description": "<p>For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date</p>"
@@ -9830,7 +9830,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trade.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
@@ -10250,7 +10250,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "holdings.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
@@ -10733,7 +10733,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "holding.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
@@ -11013,7 +11013,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "holding.inception_date",
               "description": "<p>The date your holding was started on typically the date of the first trade</p>"
@@ -11246,13 +11246,13 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.unique_identifier",
               "description": "<p>A unique identifier associated with this trade</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trades.transaction_date",
               "description": "<p>The trade date (format YYYY-MM-DD).</p>"
@@ -11274,7 +11274,7 @@
             {
               "group": "200 Success",
               "type": "Number",
-              "optional": false,
+              "optional": true,
               "field": "trades.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -11295,7 +11295,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.</p>"
             },
@@ -11308,8 +11308,8 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
-              "optional": false,
+              "type": "Date",
+              "optional": true,
               "field": "trades.paid_on",
               "description": "<p>For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date</p>"
             },
@@ -11574,7 +11574,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trades.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
@@ -12067,7 +12067,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "trade.transaction_date",
               "description": "<p>The transaction date of the (fixed income) maturity trade which will be confirmed</p>"
@@ -12130,7 +12130,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "trade.paid_on",
               "description": "<p>When transaction_type 'CAPITAL_RETURN' or 'CAPITAL_CALL' is chosen, this is the paid on date</p>"
@@ -12293,7 +12293,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trade.transaction_date",
               "description": "<p>The trade date (format YYYY-MM-DD).</p>"
@@ -12315,7 +12315,7 @@
             {
               "group": "200 Success",
               "type": "Number",
-              "optional": false,
+              "optional": true,
               "field": "trade.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -12349,7 +12349,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trade.paid_on",
               "description": "<p>For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date</p>"
@@ -12615,7 +12615,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trade.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
@@ -12891,13 +12891,13 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.unique_identifier",
               "description": "<p>A unique identifier associated with this trade</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trades.transaction_date",
               "description": "<p>The trade date (format YYYY-MM-DD).</p>"
@@ -12919,7 +12919,7 @@
             {
               "group": "200 Success",
               "type": "Number",
-              "optional": false,
+              "optional": true,
               "field": "trades.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -12940,7 +12940,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.</p>"
             },
@@ -12953,8 +12953,8 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
-              "optional": false,
+              "type": "Date",
+              "optional": true,
               "field": "trades.paid_on",
               "description": "<p>For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date</p>"
             },
@@ -13219,7 +13219,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trades.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
@@ -13478,14 +13478,14 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "start_date",
               "description": "<p>To list from a given date</p>"
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "end_date",
               "description": "<p>To list until a given date</p>"
@@ -13533,7 +13533,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "imports.target_date",
               "description": "<p>The date the import was run for (<a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO 8601</a>)</p>"
@@ -16075,14 +16075,14 @@
           "Parameter": [
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "paid_on",
               "description": "<p>The payout date (YYYY-MM-DD).</p>"
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "goes_ex_on",
               "description": "<p>The payout ex date (YYYY-MM-DD).</p>"
@@ -16641,14 +16641,14 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.paid_on",
               "description": "<p>The payout date (YYYY-MM-DD).</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.goes_ex_on",
               "description": "<p>The payout ex date (YYYY-MM-DD).</p>"
@@ -16816,21 +16816,21 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.company_event.paid_on",
               "description": "<p>The company event paid on date.</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.company_event.ex_date",
               "description": "<p>The company event ex on date.</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.company_event.announced_on",
               "description": "<p>The company event announced on date.</p>"
@@ -17650,14 +17650,14 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payouts.paid_on",
               "description": "<p>The payout date (YYYY-MM-DD).</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payouts.goes_ex_on",
               "description": "<p>The payout ex date (YYYY-MM-DD).</p>"
@@ -17776,21 +17776,21 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payouts.company_event.paid_on",
               "description": "<p>The company event paid on date.</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payouts.company_event.ex_date",
               "description": "<p>The company event ex on date.</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payouts.company_event.announced_on",
               "description": "<p>The company event announced on date.</p>"
@@ -18450,14 +18450,14 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.paid_on",
               "description": "<p>The payout date (YYYY-MM-DD).</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.goes_ex_on",
               "description": "<p>The payout ex date (YYYY-MM-DD).</p>"
@@ -18625,21 +18625,21 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.company_event.paid_on",
               "description": "<p>The company event paid on date.</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.company_event.ex_date",
               "description": "<p>The company event ex on date.</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.company_event.announced_on",
               "description": "<p>The company event announced on date.</p>"
@@ -19257,14 +19257,14 @@
           "Parameter": [
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "paid_on",
               "description": "<p>The payout date (YYYY-MM-DD).</p>"
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "goes_ex_on",
               "description": "<p>The payout ex date (YYYY-MM-DD).</p>"
@@ -19809,14 +19809,14 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.paid_on",
               "description": "<p>The payout date (YYYY-MM-DD).</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.goes_ex_on",
               "description": "<p>The payout ex date (YYYY-MM-DD).</p>"
@@ -19984,21 +19984,21 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.company_event.paid_on",
               "description": "<p>The company event paid on date.</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.company_event.ex_date",
               "description": "<p>The company event ex on date.</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.company_event.announced_on",
               "description": "<p>The company event announced on date.</p>"
@@ -20858,7 +20858,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "holdings.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
@@ -21305,7 +21305,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "portfolio.inception_date",
               "description": "<p>The date your portfolio was started on or the oldest portfolio if a consolidated view</p>"
@@ -21571,7 +21571,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.consolidated",
               "description": "<p>Whether or not this is a consolidated view portfolio</p>"
             },
@@ -21592,7 +21592,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.holding_id",
               "description": "<p>The id of the holding in this portfolio</p>"
             },
@@ -21647,7 +21647,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "portfolios.inception_date",
               "description": "<p>The date your portfolio was started on or the oldest portfolio if a consolidated view</p>"
@@ -21662,7 +21662,7 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.user_id",
               "description": "<p>The unique identifier of the portfolio owner</p>"
             },
@@ -21676,21 +21676,21 @@
             {
               "group": "200 Success",
               "type": "Number",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.rwtr_rate",
               "description": "<p>For NZ portfolios, the rate of resident witholding tax to be applied</p>"
             },
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.trader",
               "description": "<p>For NZ portfolios, true if the owner is taxed as a trader</p>"
             },
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.disable_automatic_transactions",
               "description": "<p>If set, transactions such as company events are not automatically applied to the portfolio holdings</p>"
             },
@@ -21704,21 +21704,21 @@
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.trade_sync_cash_account_id",
               "description": "<p>All buys and sells will generate a corresponding deposit/withdrawal in the selected 'trading' account</p>"
             },
             {
               "group": "200 Success",
               "type": "Integer",
-              "optional": false,
+              "optional": true,
               "field": "portfolios.payout_sync_cash_account_id",
               "description": "<p>All payouts will generate a corresponding deposit in the selected 'payout' account</p>"
             },
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "api_transaction",
               "description": "<p>The current API Transaction.</p>"
             },
@@ -22529,7 +22529,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "start_date",
               "description": "<p>Calculate from this date (YYYY-MM-DD). Portfolio Timezone as per tz_name returned from /api/v3/portfolios.</p>"
@@ -22550,7 +22550,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "end_date",
               "description": "<p>The current date in the portfolio time zone. Calculate to this date (YYY-MM-DD). Portfolio Timezone as per tz_name returned from /api/v3/portfolios.<br>Default value: <code>today</code></p>"
@@ -22577,14 +22577,14 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "benchmark.start_date",
               "description": "<p>Start date (format <code>YYYY-MM-DD</code>)</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "benchmark.end_date",
               "description": "<p>End date (format <code>YYYY-MM-DD</code>)</p>"
@@ -22633,7 +22633,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "benchmark.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
@@ -22943,7 +22943,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "start_date",
               "description": "<p>Show trades from this date on. Defaults to portfolio inception date.<br>Default value: <code>portfolio_inception_date</code></p>"
@@ -23033,7 +23033,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "holdings.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
@@ -23597,14 +23597,14 @@
           "Parameter": [
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "start_date",
               "description": "<p>Show report from this date on (YYYY-MM-DD). In timezone specified by portfolio_tz_name<br>Default value: <code>portfolio</code></p>"
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "end_date",
               "description": "<p>Show report until this date (YYYY-MM-DD). In timezone specified by portfolio_tz_name<br>Default value: <code>today</code></p>"
@@ -23750,14 +23750,14 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "report.start_date",
               "description": "<p>Start date (format <code>YYYY-MM-DD</code>)</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "report.end_date",
               "description": "<p>End date (format <code>YYYY-MM-DD</code>)</p>"
@@ -23883,7 +23883,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "report.holdings.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
@@ -24296,7 +24296,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "report.combined_holdings.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
@@ -24883,14 +24883,14 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "start_date",
               "description": "<p>Show data from this date on (YYYY-MM-DD). In timezone specified by (returned field) portfolio_tz_name<br>Default value: <code>portfolio_inception_date</code></p>"
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "end_date",
               "description": "<p>Show data until this date (YYYY-MM-DD). In timezone specified by  (returned field) portfolio_tz_name<br>Default value: <code>today</code></p>"
@@ -24945,14 +24945,14 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "performance_index_chart.start_date",
               "description": "<p>Start date (format: <code>YYYY-MM-DD</code>)</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "performance_index_chart.end_date",
               "description": "<p>End date (format: <code>YYYY-MM-DD</code>)</p>"
@@ -25655,7 +25655,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "transaction_date",
               "description": "<p>The transaction or trade date (format YYYY-MM-DD).</p>"
@@ -25718,7 +25718,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "paid_on",
               "description": "<p>When transaction_type &quot;CAPITAL_RETURN&quot; or &quot;CAPITAL_CALL&quot; is chosen, this is the paid on date</p>"
@@ -25872,13 +25872,13 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.unique_identifier",
               "description": "<p>A unique identifier associated with this trade</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trades.transaction_date",
               "description": "<p>The trade date (format YYYY-MM-DD).</p>"
@@ -25900,7 +25900,7 @@
             {
               "group": "200 Success",
               "type": "Number",
-              "optional": false,
+              "optional": true,
               "field": "trades.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -25921,7 +25921,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.</p>"
             },
@@ -25934,8 +25934,8 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
-              "optional": false,
+              "type": "Date",
+              "optional": true,
               "field": "trades.paid_on",
               "description": "<p>For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date</p>"
             },
@@ -26200,7 +26200,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trades.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
@@ -26575,14 +26575,14 @@
           "Parameter": [
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "start_date",
               "description": "<p>Show trades from this date on. Defaults to portfolio inception date. Default value: inception_date</p>"
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "end_date",
               "description": "<p>Show trades until this date (format <code>YYYY-MM-DD</code>). Default value: <code>Today</code></p>"
@@ -26624,13 +26624,13 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.unique_identifier",
               "description": "<p>A unique identifier associated with this trade</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trades.transaction_date",
               "description": "<p>The trade date (format YYYY-MM-DD).</p>"
@@ -26652,7 +26652,7 @@
             {
               "group": "200 Success",
               "type": "Number",
-              "optional": false,
+              "optional": true,
               "field": "trades.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -26673,7 +26673,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "trades.brokerage_currency_code",
               "description": "<p>The ISO code of the brokerage currency, must be either Portfolio or Instrument currency. If the instrument is a cryptocurrency, any valid brokerage currency is supported.</p>"
             },
@@ -26686,8 +26686,8 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
-              "optional": false,
+              "type": "Date",
+              "optional": true,
               "field": "trades.paid_on",
               "description": "<p>For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date</p>"
             },
@@ -26952,7 +26952,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trades.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
@@ -27243,7 +27243,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trade.transaction_date",
               "description": "<p>The trade date (format YYYY-MM-DD).</p>"
@@ -27265,7 +27265,7 @@
             {
               "group": "200 Success",
               "type": "Number",
-              "optional": false,
+              "optional": true,
               "field": "trade.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -27299,7 +27299,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trade.paid_on",
               "description": "<p>For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date</p>"
@@ -27565,7 +27565,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trade.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
@@ -27805,7 +27805,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "transaction_date",
               "description": "<p>The transaction or trade date (format YYYY-MM-DD).</p>"
@@ -27868,7 +27868,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "paid_on",
               "description": "<p>When transaction_type &quot;CAPITAL_RETURN&quot; or &quot;CAPITAL_CALL&quot; is chosen, this is the paid on date</p>"
@@ -28021,7 +28021,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trade.transaction_date",
               "description": "<p>The trade date (format YYYY-MM-DD).</p>"
@@ -28043,7 +28043,7 @@
             {
               "group": "200 Success",
               "type": "Number",
-              "optional": false,
+              "optional": true,
               "field": "trade.cost_base",
               "description": "<p>For an opening balance, the cost base of the trade. Always returned in the portfolio currency</p>"
             },
@@ -28077,7 +28077,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trade.paid_on",
               "description": "<p>For a CAPITAL_RETURN or other trade with a linked payout, this is the paid on date</p>"
@@ -28343,7 +28343,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "trade.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
@@ -28569,7 +28569,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "source_payment_date",
               "description": "<p>Source payment date (format: <code>YYYY-MM-DD</code>). (For interest payout)</p>"
@@ -28770,7 +28770,7 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "source_payment_date",
               "description": "<p>Source payment date (format: <code>YYYY-MM-DD</code>). (For interest payout)</p>"
@@ -28818,14 +28818,14 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.paid_on",
               "description": "<p>The payout date (YYYY-MM-DD).</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.goes_ex_on",
               "description": "<p>The payout ex date (YYYY-MM-DD).</p>"
@@ -28993,21 +28993,21 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.company_event.paid_on",
               "description": "<p>The company event paid on date.</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.company_event.ex_date",
               "description": "<p>The company event ex on date.</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.company_event.announced_on",
               "description": "<p>The company event announced on date.</p>"
@@ -29634,21 +29634,21 @@
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "source_payment_date",
               "description": "<p>Source payment date (format: <code>YYYY-MM-DD</code>). (For interest payout)</p>"
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "paid_on",
               "description": "<p>The payout date (YYYY-MM-DD).</p>"
             },
             {
               "group": "Parameter",
-              "type": "String",
+              "type": "Date",
               "optional": true,
               "field": "goes_ex_on",
               "description": "<p>The payout ex date (YYYY-MM-DD).</p>"
@@ -30200,14 +30200,14 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.paid_on",
               "description": "<p>The payout date (YYYY-MM-DD).</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.goes_ex_on",
               "description": "<p>The payout ex date (YYYY-MM-DD).</p>"
@@ -30375,21 +30375,21 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.company_event.paid_on",
               "description": "<p>The company event paid on date.</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.company_event.ex_date",
               "description": "<p>The company event ex on date.</p>"
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Date",
               "optional": false,
               "field": "payout.company_event.announced_on",
               "description": "<p>The company event announced on date.</p>"
