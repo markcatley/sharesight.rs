@@ -1,10 +1,7 @@
 use clap::Parser;
 use sharesight_examples::init_logger;
 use sharesight_reqwest::Client;
-use sharesight_types::{
-    Performance, PerformanceParameters, PerformanceSuccess, PortfolioList, PortfolioListSuccess,
-    DEFAULT_API_HOST,
-};
+use sharesight_types::{Performance, PerformanceParameters, PerformanceSuccess, DEFAULT_API_HOST};
 
 /// Generate a 'performance' report using the sharesight API
 #[derive(Parser, Debug)]
@@ -27,53 +24,30 @@ async fn main() -> anyhow::Result<()> {
     let client = Client::new_with_token_and_host(args.access_token, args.api_host);
     let portfolio_name = args.portfolio_name;
 
-    let PortfolioListSuccess { portfolios, .. } = client
-        .execute::<PortfolioList, PortfolioListSuccess>(&())
+    let portfolios = client.build_portfolio_index().await?;
+    let portfolio = portfolios.find(&portfolio_name).unwrap_or_else(|| {
+        portfolios.log_error_for(&portfolio_name);
+        std::process::exit(0)
+    });
+
+    let performance_parameters = PerformanceParameters {
+        start_date: None,
+        end_date: None,
+        portfolio_id: portfolio.id,
+        consolidated: None,
+        include_sales: Some(true),
+        grouping: None,
+        custom_group_id: None,
+    };
+    let performance_report = client
+        .execute::<Performance, PerformanceSuccess>(&performance_parameters)
         .await?;
 
-    let portfolio = portfolios.iter().find(|p| p.name == portfolio_name);
-
-    if let Some(portfolio) = portfolio {
-        let performance_parameters = PerformanceParameters {
-            start_date: None,
-            end_date: None,
-            portfolio_id: portfolio.id,
-            consolidated: None,
-            include_sales: Some(true),
-            grouping: None,
-            custom_group_id: None,
-        };
-        let performance_report = client
-            .execute::<Performance, PerformanceSuccess>(&performance_parameters)
-            .await?;
-
-        println!(
-            "Performance report for portfolio '{}' from {} to {}",
-            portfolio.name, performance_report.start_date, performance_report.end_date
-        );
-        println!("{:#?}", performance_report);
-    } else {
-        eprint!("Unknown portfolio: {}, ", portfolio_name);
-
-        let mut names = portfolios.iter().map(|p| p.name.as_str());
-
-        match (names.next(), names.next_back()) {
-            (Some(name_start), Some(name_end)) => {
-                eprint!("the portfolios are: {}", name_start);
-                for name in names {
-                    eprint!(", {}", name);
-                }
-                eprintln!(" or {}", name_end);
-            }
-            (Some(name), None) => {
-                eprintln!("the only portfolio is: {}", name);
-            }
-            (None, None) => {
-                eprintln!("there are no portfolios");
-            }
-            _ => unreachable!(),
-        }
-    }
+    println!(
+        "Performance report for portfolio '{}' from {} to {}",
+        portfolio.name, performance_report.start_date, performance_report.end_date
+    );
+    println!("{:#?}", performance_report);
 
     Ok(())
 }

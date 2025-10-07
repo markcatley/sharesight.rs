@@ -316,7 +316,7 @@ impl<'de> Deserialize<'de> for FieldType {
     {
         let field_type = String::deserialize(deserializer)?;
 
-        if field_type == "[]" {
+        if field_type == "[]" || field_type == "Array" {
             Ok(FieldType::Array(FieldTypeBase::Hash))
         } else if field_type.ends_with("[]") {
             Ok(FieldType::Array(FieldTypeBase::deserialize(

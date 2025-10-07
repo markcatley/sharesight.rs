@@ -24,6 +24,7 @@ compile_error!(
 pub enum ApiHttpMethod {
     Get,
     Post,
+    Patch,
     Put,
     Delete,
 }
@@ -31,6 +32,7 @@ pub enum ApiHttpMethod {
 pub trait ApiEndpoint<'a> {
     const URL_PATH: &'static str;
     const HTTP_METHOD: ApiHttpMethod;
+    const VERSION: &'static str;
 
     type UrlDisplay: 'a + fmt::Display;
     type Parameters: Serialize;
@@ -39,17 +41,30 @@ pub trait ApiEndpoint<'a> {
     fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay;
 
     fn url(api_host: &'a str, parameters: &'a Self::Parameters) -> ApiUrl<'a, Self> {
-        ApiUrl(api_host, parameters)
+        ApiUrl(api_host, parameters, Self::VERSION)
     }
 }
 
-pub struct ApiUrl<'a, T: ApiEndpoint<'a> + ?Sized>(&'a str, &'a T::Parameters);
+pub struct ApiUrl<'a, T: ApiEndpoint<'a> + ?Sized>(&'a str, &'a T::Parameters, &'a str);
 
 impl<'a, T: ApiEndpoint<'a>> fmt::Display for ApiUrl<'a, T> {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let Self(api_host, parameters) = self;
+        let Self(api_host, parameters, version) = self;
 
-        write!(f, "https://{}/api/v2{}", api_host, T::url_path(parameters))
+        let version = if version.starts_with("2.1.") {
+            "v2.1"
+        } else if version.starts_with("2.") {
+            "v2"
+        } else {
+            "v3"
+        };
+        write!(
+            f,
+            "https://{}/api/{}{}",
+            api_host,
+            version,
+            T::url_path(parameters)
+        )
     }
 }
 
