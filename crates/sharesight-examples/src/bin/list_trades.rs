@@ -2,7 +2,7 @@ use clap::Parser;
 use sharesight_examples::init_logger;
 use sharesight_reqwest::Client;
 use sharesight_types::{
-    Currency, Market, PortfolioList, PortfolioListSuccess, TradeDescription, Trades,
+    Currency, Market, Number, PortfolioList, PortfolioListSuccess, TradeDescription, Trades,
     TradesParameters, TradesSuccess, TradesTradesSuccess, DEFAULT_API_HOST,
 };
 
@@ -49,13 +49,13 @@ async fn main() -> anyhow::Result<()> {
             pub id: Option<i64>,
             pub unique_identifier: Option<String>,
             pub transaction_date: chrono::NaiveDate,
-            pub quantity: f64,
-            pub price: f64,
-            pub cost_base: Option<f64>,
-            pub exchange_rate: f64,
-            pub brokerage: f64,
+            pub quantity: Number,
+            pub price: Number,
+            pub cost_base: Option<Number>,
+            pub exchange_rate: Number,
+            pub brokerage: Number,
             pub brokerage_currency_code: Option<Currency>,
-            pub value: f64,
+            pub value: Number,
             pub paid_on: Option<chrono::NaiveDate>,
             pub company_event_id: Option<i64>,
             pub comments: String,

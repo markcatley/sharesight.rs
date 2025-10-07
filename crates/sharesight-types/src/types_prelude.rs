@@ -12,7 +12,7 @@ pub use crate::codes::*;
 
 #[cfg(all(feature = "rust_decimal", not(feature = "bigdecimal")))]
 pub type Number = rust_decimal::Decimal;
-#[cfg(all(feature = "bigdecimal", not(feature = "bigdecimal")))]
+#[cfg(all(feature = "bigdecimal", not(feature = "rust_decimal")))]
 pub type Number = bigdecimal::BigDecimal;
 #[cfg(all(not(feature = "bigdecimal"), not(feature = "rust_decimal")))]
 pub type Number = f64;
@@ -109,19 +109,31 @@ impl<'de> Visitor<'de> for NumberVisitor {
     where
         E: serde::de::Error,
     {
-        Ok(v)
+        #[cfg(any(feature = "rust_decimal", feature = "bigdecimal"))]
+        let result = v
+            .try_into()
+            .map_err(|_| serde::de::Error::invalid_type(Unexpected::Float(v), &self));
+        #[cfg(not(any(feature = "rust_decimal", feature = "bigdecimal")))]
+        let result = Ok(v);
+
+        result
     }
 
     fn visit_str<E>(self, v: &str) -> Result<Self::Value, E>
     where
         E: serde::de::Error,
     {
-        if v == "Infinity" {
-            Ok(Number::INFINITY)
-        } else if v == "-Infinity" {
-            Ok(Number::NEG_INFINITY)
-        } else {
-            Err(serde::de::Error::invalid_type(Unexpected::Str(v), &self))
+        #[cfg(all(feature = "rust_decimal", not(feature = "bigdecimal")))]
+        let infinities = Some((Number::MAX, Number::MIN));
+        #[cfg(all(feature = "bigdecimal", not(feature = "rust_decimal")))]
+        let infinities = None;
+        #[cfg(all(not(feature = "rust_decimal"), not(feature = "bigdecimal")))]
+        let infinities = Some((Number::INFINITY, Number::NEG_INFINITY));
+
+        match (v, infinities) {
+            ("Infinity", Some((infinity, _))) => Ok(infinity),
+            ("-Infinity", Some((_, neg_infinity))) => Ok(neg_infinity),
+            _ => Err(serde::de::Error::invalid_type(Unexpected::Str(v), &self)),
         }
     }
 }

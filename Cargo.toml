@@ -1,7 +1,8 @@
 [workspace]
+resolver = "2"
 members = [
   "crates/sharesight-types",
   "crates/sharesight-generate",
   "crates/sharesight-examples",
-  "crates/sharesight-reqwest"
+  "crates/sharesight-reqwest",
 ]
