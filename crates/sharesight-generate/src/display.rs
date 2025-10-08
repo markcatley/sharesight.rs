@@ -39,7 +39,7 @@ impl<'a> fmt::Display for ApiEndpointStruct<'a> {
                     .nth(1)
                     .map(|ext| format!(".{}", ext))
                     .unwrap_or_default();
-                if s.starts_with(':') {
+                if s.starts_with([':', '{']) {
                     format!("{{}}{}", extension)
                 } else {
                     s.to_string()
@@ -195,6 +195,10 @@ impl<'a> fmt::Display for ApiStruct<'a> {
             writeln!(f, "{} {{", tag)?;
             for parameter in fields {
                 if let [ref prefix_segments @ .., ref field_name] = parameter.field[..] {
+                    if field_name == "supported_denominations" {
+                        continue;
+                    }
+
                     write!(f, "{}", DocComment(&parameter.description))?;
 
                     if field_name == "self" {

@@ -54,10 +54,6 @@ fn main() -> anyhow::Result<()> {
 
         if [
             "Performance_Index_Chart",
-            "PerformanceShow",
-            "HoldingPortfolioList",
-            "HoldingShow",
-            "HoldingList",
             "HoldingDelete",
             "Custom_InvestmentUpdate",
             "Custom_Investment_PriceShow",

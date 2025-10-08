@@ -3850,13 +3850,30 @@ impl<'a> ApiEndpoint<'a> for PortfolioDelete {
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
     const VERSION: &'static str = "2.0.0";
 
-    type UrlDisplay = &'static str;
-    type Parameters = ();
+    type UrlDisplay = PortfolioDeleteUrlDisplay<'a>;
+    type Parameters = PortfolioDeleteParameters;
     type Success = PortfolioDeleteSuccess;
 
-    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        "/portfolios/{id}.json"
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        PortfolioDeleteUrlDisplay(parameters)
     }
+}
+
+pub struct PortfolioDeleteUrlDisplay<'a>(&'a PortfolioDeleteParameters);
+
+impl<'a> fmt::Display for PortfolioDeleteUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/portfolios/{}.json", parameters.id)
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct PortfolioDeleteParameters {
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
 }
 
 #[serde_as]
@@ -4025,13 +4042,30 @@ impl<'a> ApiEndpoint<'a> for PortfolioShow {
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
     const VERSION: &'static str = "2.0.0";
 
-    type UrlDisplay = &'static str;
-    type Parameters = ();
+    type UrlDisplay = PortfolioShowUrlDisplay<'a>;
+    type Parameters = PortfolioShowParameters;
     type Success = PortfolioShowSuccess;
 
-    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        "/portfolios/{id}.json"
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        PortfolioShowUrlDisplay(parameters)
     }
+}
+
+pub struct PortfolioShowUrlDisplay<'a>(&'a PortfolioShowParameters);
+
+impl<'a> fmt::Display for PortfolioShowUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/portfolios/{}.json", parameters.id)
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct PortfolioShowParameters {
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
 }
 
 #[serde_as]
@@ -4135,12 +4169,22 @@ impl<'a> ApiEndpoint<'a> for PortfolioUpdate {
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
     const VERSION: &'static str = "2.0.0";
 
-    type UrlDisplay = &'static str;
+    type UrlDisplay = PortfolioUpdateUrlDisplay<'a>;
     type Parameters = PortfolioUpdateParameters;
     type Success = PortfolioUpdateSuccess;
 
-    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        "/portfolios/{id}.json"
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        PortfolioUpdateUrlDisplay(parameters)
+    }
+}
+
+pub struct PortfolioUpdateUrlDisplay<'a>(&'a PortfolioUpdateParameters);
+
+impl<'a> fmt::Display for PortfolioUpdateUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/portfolios/{}.json", parameters.id)
     }
 }
 
@@ -4148,6 +4192,8 @@ impl<'a> ApiEndpoint<'a> for PortfolioUpdate {
 #[derive(Debug, Clone, Serialize)]
 pub struct PortfolioUpdateParameters {
     pub portfolio: PortfolioUpdatePortfolioParameters,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
 }
 
 #[serde_as]
@@ -6490,12 +6536,26 @@ impl<'a> ApiEndpoint<'a> for CouponRateCreate {
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
     const VERSION: &'static str = "3.0.0";
 
-    type UrlDisplay = &'static str;
+    type UrlDisplay = CouponRateCreateUrlDisplay<'a>;
     type Parameters = CouponRateCreateParameters;
     type Success = CouponRateCreateSuccess;
 
-    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        "/custom_investments/{instrument_id}/coupon_rates"
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        CouponRateCreateUrlDisplay(parameters)
+    }
+}
+
+pub struct CouponRateCreateUrlDisplay<'a>(&'a CouponRateCreateParameters);
+
+impl<'a> fmt::Display for CouponRateCreateUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(
+            f,
+            "/custom_investments/{}/coupon_rates",
+            parameters.instrument_id
+        )
     }
 }
 
@@ -6509,6 +6569,8 @@ pub struct CouponRateCreateParameters {
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub date: String,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub instrument_id: i64,
 }
 
 #[serde_as]
@@ -6561,13 +6623,30 @@ impl<'a> ApiEndpoint<'a> for CouponRateDelete {
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
     const VERSION: &'static str = "3.0.0";
 
-    type UrlDisplay = &'static str;
-    type Parameters = ();
+    type UrlDisplay = CouponRateDeleteUrlDisplay<'a>;
+    type Parameters = CouponRateDeleteParameters;
     type Success = CouponRateDeleteSuccess;
 
-    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        "/coupon_rates/{id}"
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        CouponRateDeleteUrlDisplay(parameters)
     }
+}
+
+pub struct CouponRateDeleteUrlDisplay<'a>(&'a CouponRateDeleteParameters);
+
+impl<'a> fmt::Display for CouponRateDeleteUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/coupon_rates/{}", parameters.id)
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct CouponRateDeleteParameters {
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
 }
 
 #[serde_as]
@@ -6615,12 +6694,26 @@ impl<'a> ApiEndpoint<'a> for CouponRateList {
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
     const VERSION: &'static str = "3.0.0";
 
-    type UrlDisplay = &'static str;
+    type UrlDisplay = CouponRateListUrlDisplay<'a>;
     type Parameters = CouponRateListParameters;
     type Success = CouponRateListSuccess;
 
-    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        "/custom_investments/{instrument_id}/coupon_rates"
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        CouponRateListUrlDisplay(parameters)
+    }
+}
+
+pub struct CouponRateListUrlDisplay<'a>(&'a CouponRateListParameters);
+
+impl<'a> fmt::Display for CouponRateListUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(
+            f,
+            "/custom_investments/{}/coupon_rates",
+            parameters.instrument_id
+        )
     }
 }
 
@@ -6642,6 +6735,8 @@ pub struct CouponRateListParameters {
     #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
     #[serde(default)]
     pub per_page: Option<i64>,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub instrument_id: i64,
 }
 
 #[serde_as]
@@ -6708,12 +6803,22 @@ impl<'a> ApiEndpoint<'a> for CouponRateUpdate {
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
     const VERSION: &'static str = "3.0.0";
 
-    type UrlDisplay = &'static str;
+    type UrlDisplay = CouponRateUpdateUrlDisplay<'a>;
     type Parameters = CouponRateUpdateParameters;
     type Success = CouponRateUpdateSuccess;
 
-    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        "/coupon_rates/{id}"
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        CouponRateUpdateUrlDisplay(parameters)
+    }
+}
+
+pub struct CouponRateUpdateUrlDisplay<'a>(&'a CouponRateUpdateParameters);
+
+impl<'a> fmt::Display for CouponRateUpdateUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/coupon_rates/{}", parameters.id)
     }
 }
 
@@ -6727,6 +6832,8 @@ pub struct CouponRateUpdateParameters {
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub date: String,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
 }
 
 #[serde_as]
@@ -6779,12 +6886,22 @@ impl<'a> ApiEndpoint<'a> for CustomInvestmentPriceCreate {
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Post;
     const VERSION: &'static str = "3.0.0";
 
-    type UrlDisplay = &'static str;
+    type UrlDisplay = CustomInvestmentPriceCreateUrlDisplay<'a>;
     type Parameters = CustomInvestmentPriceCreateParameters;
     type Success = CustomInvestmentPriceCreateSuccess;
 
-    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        "/custom_investment/{id}/prices.json"
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        CustomInvestmentPriceCreateUrlDisplay(parameters)
+    }
+}
+
+pub struct CustomInvestmentPriceCreateUrlDisplay<'a>(&'a CustomInvestmentPriceCreateParameters);
+
+impl<'a> fmt::Display for CustomInvestmentPriceCreateUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/custom_investment/{}/prices.json", parameters.id)
     }
 }
 
@@ -6797,6 +6914,8 @@ pub struct CustomInvestmentPriceCreateParameters {
     /// The date of the instrument price in (YYYY-MM-DD) format.
     #[serde_as(as = "DeserializeDate")]
     pub last_traded_on: NaiveDate,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
 }
 
 #[serde_as]
@@ -6860,13 +6979,30 @@ impl<'a> ApiEndpoint<'a> for CustomInvestmentPriceDelete {
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
     const VERSION: &'static str = "3.0.0";
 
-    type UrlDisplay = &'static str;
-    type Parameters = ();
+    type UrlDisplay = CustomInvestmentPriceDeleteUrlDisplay<'a>;
+    type Parameters = CustomInvestmentPriceDeleteParameters;
     type Success = CustomInvestmentPriceDeleteSuccess;
 
-    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        "/prices/{id}.json"
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        CustomInvestmentPriceDeleteUrlDisplay(parameters)
     }
+}
+
+pub struct CustomInvestmentPriceDeleteUrlDisplay<'a>(&'a CustomInvestmentPriceDeleteParameters);
+
+impl<'a> fmt::Display for CustomInvestmentPriceDeleteUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/prices/{}.json", parameters.id)
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct CustomInvestmentPriceDeleteParameters {
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
 }
 
 #[serde_as]
@@ -6914,12 +7050,22 @@ impl<'a> ApiEndpoint<'a> for CustomInvestmentPriceUpdate {
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
     const VERSION: &'static str = "3.0.0";
 
-    type UrlDisplay = &'static str;
+    type UrlDisplay = CustomInvestmentPriceUpdateUrlDisplay<'a>;
     type Parameters = CustomInvestmentPriceUpdateParameters;
     type Success = CustomInvestmentPriceUpdateSuccess;
 
-    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        "/prices/{id}.json"
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        CustomInvestmentPriceUpdateUrlDisplay(parameters)
+    }
+}
+
+pub struct CustomInvestmentPriceUpdateUrlDisplay<'a>(&'a CustomInvestmentPriceUpdateParameters);
+
+impl<'a> fmt::Display for CustomInvestmentPriceUpdateUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/prices/{}.json", parameters.id)
     }
 }
 
@@ -6933,6 +7079,8 @@ pub struct CustomInvestmentPriceUpdateParameters {
     #[serde_as(as = "Option<DeserializeDate>")]
     #[serde(default)]
     pub last_traded_on: Option<NaiveDate>,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
 }
 
 #[serde_as]
@@ -7164,13 +7312,30 @@ impl<'a> ApiEndpoint<'a> for CustomInvestmentDelete {
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Delete;
     const VERSION: &'static str = "3.0.0";
 
-    type UrlDisplay = &'static str;
-    type Parameters = ();
+    type UrlDisplay = CustomInvestmentDeleteUrlDisplay<'a>;
+    type Parameters = CustomInvestmentDeleteParameters;
     type Success = CustomInvestmentDeleteSuccess;
 
-    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        "/custom_investments/{id}"
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        CustomInvestmentDeleteUrlDisplay(parameters)
     }
+}
+
+pub struct CustomInvestmentDeleteUrlDisplay<'a>(&'a CustomInvestmentDeleteParameters);
+
+impl<'a> fmt::Display for CustomInvestmentDeleteUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/custom_investments/{}", parameters.id)
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct CustomInvestmentDeleteParameters {
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
 }
 
 #[serde_as]
@@ -7350,13 +7515,30 @@ impl<'a> ApiEndpoint<'a> for CustomInvestmentShow {
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
     const VERSION: &'static str = "3.0.0";
 
-    type UrlDisplay = &'static str;
-    type Parameters = ();
+    type UrlDisplay = CustomInvestmentShowUrlDisplay<'a>;
+    type Parameters = CustomInvestmentShowParameters;
     type Success = CustomInvestmentShowSuccess;
 
-    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        "/custom_investments/{id}"
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        CustomInvestmentShowUrlDisplay(parameters)
     }
+}
+
+pub struct CustomInvestmentShowUrlDisplay<'a>(&'a CustomInvestmentShowParameters);
+
+impl<'a> fmt::Display for CustomInvestmentShowUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/custom_investments/{}", parameters.id)
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct CustomInvestmentShowParameters {
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
 }
 
 #[serde_as]
@@ -7465,6 +7647,486 @@ pub struct CustomInvestmentShowLinksSuccess {
     pub itself: String,
 }
 
+/// Retrieves a list of Holdings
+pub struct HoldingList;
+
+impl<'a> ApiEndpoint<'a> for HoldingList {
+    const URL_PATH: &'static str = "/holdings";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = &'static str;
+    type Parameters = ();
+    type Success = HoldingListSuccess;
+
+    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        "/holdings"
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingListSuccess {
+    /// A list of holdings
+    pub holdings: Vec<HoldingListHoldingsSuccess>,
+    /// The current API Transaction.
+    pub api_transaction: HoldingListApiTransactionSuccess,
+    pub links: HoldingListLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingListHoldingsSuccess {
+    /// The unique id of this holding
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// An instrument object for the Holding
+    pub instrument: HoldingListHoldingsInstrumentSuccess,
+    /// A currency object
+    pub instrument_currency: HoldingListHoldingsInstrumentCurrencySuccess,
+    /// The Sharesight code for the instrument. This field is a deprecated alias for 'instrument.code', please use that instead.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub symbol: String,
+    /// True if the holding has a valid position (e.g. positive number of shares)
+    pub valid_position: bool,
+    /// The portfolio associated with this model
+    pub portfolio: HoldingListHoldingsPortfolioSuccess,
+    /// Documents associated with this Holding
+    pub documents: Vec<HoldingListHoldingsDocumentsSuccess>,
+    /// Attachments associated with this Holding
+    pub attachments: Vec<HoldingListHoldingsAttachmentsSuccess>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingListHoldingsInstrumentSuccess {
+    /// The Sharesight code for the instrument
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The Sharesight country identifier associated with this instrument
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub country_id: i64,
+    /// Whether or not this instrument is a cryptocurency
+    pub crypto: bool,
+    /// The Sharesight currency code associated with this instrument
+    pub currency_code: Currency,
+    /// The date the instrument will be or has expired on
+    #[serde_as(as = "DeserializeDate")]
+    pub expires_on: NaiveDate,
+    /// Whether or not this instrument is currently expired
+    pub expired: bool,
+    /// The unique Sharesight identifier for this instrument
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The code of the market the instrument is listed on
+    pub market_code: Market,
+    /// The name of the instrument
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// The timezone name associated with this instrument
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tz_name: String,
+    /// The instrument sector according to FactSet's global security classification scheme. FactSet's default classification can be overridden at the holding level.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub industry_classification_name: String,
+    /// The instrument industry according to FactSet's global security classification scheme. FactSet's default classification can be overridden at the holding level.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub sector_classification_name: String,
+    /// The type of investment. This determines holding functionality, e.g. Ordinary Shares or Fixed Interest
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub friendly_instrument_description: String,
+    /// The type of investment (as a code). This determines holding functionality, e.g. ordinary_shares
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub friendly_instrument_description_code: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingListHoldingsInstrumentCurrencySuccess {
+    /// The 3-letter ISO 4217 currency code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The unique Sharesight identifier for this currency
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The symbol for this currency (eg. $, ¥, £)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub symbol: String,
+    /// The qualified currency symbol when the symbol is not specific enough, eg. 'US$', '¥', or the currency code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub qualified_symbol: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingListHoldingsPortfolioSuccess {
+    /// The unique id identifying the portfolio
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// Whether or not this is a consolidated view portfolio
+    pub consolidated: bool,
+    /// The name of the portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingListHoldingsDocumentsSuccess {
+    /// The unique id of this document
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The name of the document
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub file_name: String,
+    /// The mime type of the document
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub content_type: String,
+    /// The size of the document, in bytes
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub file_size: i64,
+    /// Date the document was created on
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub created_at: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingListHoldingsAttachmentsSuccess {
+    /// The ID of this attachment
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The type of attachment, either 'DOCUMENT' or 'CONTRACT_NOTE'
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub r#type: String,
+    /// The file name for the attachment, including extension
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub file_name: String,
+    /// The size of the file
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub file_size: i64,
+    /// The mimetype of the attached file
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub content_type: String,
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub created_at: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingListApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingListLinksSuccess {
+    /// URL to a list of requested resources.
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
+}
+
+/// Retrieves the details of a holding
+pub struct HoldingShow;
+
+impl<'a> ApiEndpoint<'a> for HoldingShow {
+    const URL_PATH: &'static str = "/holdings/{id}";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = HoldingShowUrlDisplay<'a>;
+    type Parameters = HoldingShowParameters;
+    type Success = HoldingShowSuccess;
+
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        HoldingShowUrlDisplay(parameters)
+    }
+}
+
+pub struct HoldingShowUrlDisplay<'a>(&'a HoldingShowParameters);
+
+impl<'a> fmt::Display for HoldingShowUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/holdings/{}", parameters.id)
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct HoldingShowParameters {
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingShowSuccess {
+    /// A holding object
+    pub holding: HoldingShowHoldingSuccess,
+    /// The current API Transaction.
+    pub api_transaction: HoldingShowApiTransactionSuccess,
+    pub links: HoldingShowLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingShowHoldingSuccess {
+    /// The unique id of this holding
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The drp mode setting of this holding
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub drp_setting: String,
+    /// The payout type for the holding
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub payout_type: String,
+    /// True if foreign tax credits are supported
+    pub foreign_tax_credits_supported: bool,
+    /// True if the payments are classed as trust income for tax purposes. Only relevant to Australian local dividends.
+    pub trust_income: bool,
+    /// An instrument object for the Holding
+    pub instrument: HoldingShowHoldingInstrumentSuccess,
+    /// A currency object
+    pub instrument_currency: HoldingShowHoldingInstrumentCurrencySuccess,
+    /// A currency object
+    pub payout_currency: HoldingShowHoldingPayoutCurrencySuccess,
+    /// The Sharesight code for the instrument. This field is a deprecated alias for 'instrument.code', please use that instead.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub symbol: String,
+    /// True if the holding has a valid position (e.g. positive number of shares)
+    pub valid_position: bool,
+    /// The portfolio associated with this model
+    pub portfolio: HoldingShowHoldingPortfolioSuccess,
+    /// DEPRECATED - please use attachments. A list of holding documents
+    pub documents: Vec<HoldingShowHoldingDocumentsSuccess>,
+    /// A list of holding attachments
+    pub attachments: Vec<HoldingShowHoldingAttachmentsSuccess>,
+    /// The date your holding was started on typically the date of the first trade
+    #[serde_as(as = "DeserializeDate")]
+    pub inception_date: NaiveDate,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingShowHoldingInstrumentSuccess {
+    /// The Sharesight code for the instrument
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The Sharesight country identifier associated with this instrument
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub country_id: i64,
+    /// Whether or not this instrument is a cryptocurency
+    pub crypto: bool,
+    /// The Sharesight currency code associated with this instrument
+    pub currency_code: Currency,
+    /// The date the instrument will be or has expired on
+    #[serde_as(as = "DeserializeDate")]
+    pub expires_on: NaiveDate,
+    /// Whether or not this instrument is currently expired
+    pub expired: bool,
+    /// The unique Sharesight identifier for this instrument
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The code of the market the instrument is listed on
+    pub market_code: Market,
+    /// The name of the instrument
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// The timezone name associated with this instrument
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tz_name: String,
+    /// The instrument sector according to FactSet's global security classification scheme. FactSet's default classification can be overridden at the holding level.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub industry_classification_name: String,
+    /// The instrument industry according to FactSet's global security classification scheme. FactSet's default classification can be overridden at the holding level.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub sector_classification_name: String,
+    /// The type of investment. This determines holding functionality, e.g. Ordinary Shares or Fixed Interest
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub friendly_instrument_description: String,
+    /// The type of investment (as a code). This determines holding functionality, e.g. ordinary_shares
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub friendly_instrument_description_code: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingShowHoldingInstrumentCurrencySuccess {
+    /// The 3-letter ISO 4217 currency code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The unique Sharesight identifier for this currency
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The symbol for this currency (eg. $, ¥, £)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub symbol: String,
+    /// The qualified currency symbol when the symbol is not specific enough, eg. 'US$', '¥', or the currency code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub qualified_symbol: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingShowHoldingPayoutCurrencySuccess {
+    /// The 3-letter ISO 4217 currency code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The unique Sharesight identifier for this currency
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The symbol for this currency (eg. $, ¥, £)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub symbol: String,
+    /// The qualified currency symbol when the symbol is not specific enough, eg. 'US$', '¥', or the currency code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub qualified_symbol: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingShowHoldingPortfolioSuccess {
+    /// The unique id identifying the portfolio
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// Whether or not this is a consolidated view portfolio
+    pub consolidated: bool,
+    /// The name of the portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingShowHoldingDocumentsSuccess {
+    /// The unique id of this document
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The name of the document
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub file_name: String,
+    /// The mime type of the document
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub content_type: String,
+    /// The size of the document, in bytes
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub file_size: i64,
+    /// Date the document was created on
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub created_at: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingShowHoldingAttachmentsSuccess {
+    /// The ID of this attachment
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The type of attachment, either 'DOCUMENT' or 'CONTRACT_NOTE'
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub r#type: String,
+    /// The file name for the attachment, including extension
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub file_name: String,
+    /// The size of the file
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub file_size: i64,
+    /// The mimetype of the attached file
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub content_type: String,
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub created_at: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingShowApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingShowLinksSuccess {
+    /// URL to a list of requested resources.
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
+}
+
 /// Updates a holding; currently we're only enabling/disabling drp
 pub struct HoldingUpdate;
 
@@ -7473,12 +8135,22 @@ impl<'a> ApiEndpoint<'a> for HoldingUpdate {
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Put;
     const VERSION: &'static str = "3.0.0";
 
-    type UrlDisplay = &'static str;
+    type UrlDisplay = HoldingUpdateUrlDisplay<'a>;
     type Parameters = HoldingUpdateParameters;
     type Success = HoldingUpdateSuccess;
 
-    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        "/holdings/{id}"
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        HoldingUpdateUrlDisplay(parameters)
+    }
+}
+
+pub struct HoldingUpdateUrlDisplay<'a>(&'a HoldingUpdateParameters);
+
+impl<'a> fmt::Display for HoldingUpdateUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/holdings/{}", parameters.id)
     }
 }
 
@@ -7491,6 +8163,8 @@ pub struct HoldingUpdateParameters {
     /// The drp mode setting, can be up, down, half, down_track. Default: down_track
     #[serde(default)]
     pub drp_mode_setting: Option<String>,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
 }
 
 #[serde_as]
@@ -7637,6 +8311,211 @@ pub struct CountryListLinksSuccess {
     pub itself: String,
 }
 
+/// Retrieves a list of a Portfolio's Holdings
+pub struct HoldingPortfolioList;
+
+impl<'a> ApiEndpoint<'a> for HoldingPortfolioList {
+    const URL_PATH: &'static str = "/portfolios/{portfolio_id}/holdings";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = HoldingPortfolioListUrlDisplay<'a>;
+    type Parameters = HoldingPortfolioListParameters;
+    type Success = HoldingPortfolioListSuccess;
+
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        HoldingPortfolioListUrlDisplay(parameters)
+    }
+}
+
+pub struct HoldingPortfolioListUrlDisplay<'a>(&'a HoldingPortfolioListParameters);
+
+impl<'a> fmt::Display for HoldingPortfolioListUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/portfolios/{}/holdings", parameters.portfolio_id)
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct HoldingPortfolioListParameters {
+    /// True if a consolidated view is requested<br>Default value: `false`
+    #[serde(default)]
+    pub consolidated: Option<bool>,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub portfolio_id: i64,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingPortfolioListSuccess {
+    /// A list of Holdings
+    pub holdings: Vec<HoldingPortfolioListHoldingsSuccess>,
+    /// The current API Transaction.
+    pub api_transaction: HoldingPortfolioListApiTransactionSuccess,
+    pub links: HoldingPortfolioListLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingPortfolioListHoldingsSuccess {
+    /// The unique id of this holding
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// An instrument object for the Holding
+    pub instrument: HoldingPortfolioListHoldingsInstrumentSuccess,
+    /// A currency object
+    pub instrument_currency: HoldingPortfolioListHoldingsInstrumentCurrencySuccess,
+    /// The Sharesight code for the instrument. This field is a deprecated alias for 'instrument.code', please use that instead.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub symbol: String,
+    /// True if the holding has a valid position (e.g. positive number of shares)
+    pub valid_position: bool,
+    /// The portfolio associated with this model
+    pub portfolio: HoldingPortfolioListHoldingsPortfolioSuccess,
+    /// The group ID this holding belongs to
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub group_id: i64,
+    /// The group name this holding belongs to - coming from the grouping parameter
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub group_name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingPortfolioListHoldingsInstrumentSuccess {
+    /// The Sharesight code for the instrument
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The Sharesight country identifier associated with this instrument
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub country_id: i64,
+    /// Whether or not this instrument is a cryptocurency
+    pub crypto: bool,
+    /// The Sharesight currency code associated with this instrument
+    pub currency_code: Currency,
+    /// The date the instrument will be or has expired on
+    #[serde_as(as = "DeserializeDate")]
+    pub expires_on: NaiveDate,
+    /// Whether or not this instrument is currently expired
+    pub expired: bool,
+    /// The unique Sharesight identifier for this instrument
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The code of the market the instrument is listed on
+    pub market_code: Market,
+    /// The name of the instrument
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// The timezone name associated with this instrument
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tz_name: String,
+    /// The instrument sector according to FactSet's global security classification scheme. FactSet's default classification can be overridden at the holding level.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub industry_classification_name: String,
+    /// The instrument industry according to FactSet's global security classification scheme. FactSet's default classification can be overridden at the holding level.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub sector_classification_name: String,
+    /// The type of investment. This determines holding functionality, e.g. Ordinary Shares or Fixed Interest
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub friendly_instrument_description: String,
+    /// The type of investment (as a code). This determines holding functionality, e.g. ordinary_shares
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub friendly_instrument_description_code: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingPortfolioListHoldingsInstrumentCurrencySuccess {
+    /// The 3-letter ISO 4217 currency code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The unique Sharesight identifier for this currency
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The symbol for this currency (eg. $, ¥, £)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub symbol: String,
+    /// The qualified currency symbol when the symbol is not specific enough, eg. 'US$', '¥', or the currency code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub qualified_symbol: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingPortfolioListHoldingsPortfolioSuccess {
+    /// The unique id identifying the portfolio
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// Whether or not this is a consolidated view portfolio
+    pub consolidated: bool,
+    /// The name of the portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingPortfolioListApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingPortfolioListLinksSuccess {
+    #[serde(rename = "self")]
+    pub itself: HoldingPortfolioListLinksSelfSuccess,
+    pub portfolio: HoldingPortfolioListLinksPortfolioSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingPortfolioListLinksSelfSuccess {
+    /// URL to a list of requested resources.
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct HoldingPortfolioListLinksPortfolioSuccess {
+    /// URL to a portfolio.
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
+}
+
 /// Retrieves a portfolio by id
 pub struct Portfolio;
 
@@ -7645,12 +8524,22 @@ impl<'a> ApiEndpoint<'a> for Portfolio {
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
     const VERSION: &'static str = "3.0.0";
 
-    type UrlDisplay = &'static str;
+    type UrlDisplay = PortfolioUrlDisplay<'a>;
     type Parameters = PortfolioParameters;
     type Success = PortfolioSuccess;
 
-    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        "/portfolios/{portfolio_id}"
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        PortfolioUrlDisplay(parameters)
+    }
+}
+
+pub struct PortfolioUrlDisplay<'a>(&'a PortfolioParameters);
+
+impl<'a> fmt::Display for PortfolioUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/portfolios/{}", parameters.portfolio_id)
     }
 }
 
@@ -7660,6 +8549,8 @@ pub struct PortfolioParameters {
     /// Set to true if the referenced portfolio is consolidated<br>Default value: `false`
     #[serde(default)]
     pub consolidated: Option<bool>,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub portfolio_id: i64,
 }
 
 #[serde_as]
@@ -7780,12 +8671,22 @@ impl<'a> ApiEndpoint<'a> for UserSettingList {
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
     const VERSION: &'static str = "3.0.0";
 
-    type UrlDisplay = &'static str;
+    type UrlDisplay = UserSettingListUrlDisplay<'a>;
     type Parameters = UserSettingListParameters;
     type Success = UserSettingListSuccess;
 
-    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        "/portfolios/{portfolio_id}/user_setting"
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        UserSettingListUrlDisplay(parameters)
+    }
+}
+
+pub struct UserSettingListUrlDisplay<'a>(&'a UserSettingListParameters);
+
+impl<'a> fmt::Display for UserSettingListUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/portfolios/{}/user_setting", parameters.portfolio_id)
     }
 }
 
@@ -7795,6 +8696,8 @@ pub struct UserSettingListParameters {
     /// Set to true for consolidated portfolio views<br>Default value: `false`
     #[serde(default)]
     pub consolidated: Option<bool>,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub portfolio_id: i64,
 }
 
 #[serde_as]
@@ -7871,12 +8774,22 @@ impl<'a> ApiEndpoint<'a> for UserSettingUpdate {
     const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Patch;
     const VERSION: &'static str = "3.0.0";
 
-    type UrlDisplay = &'static str;
+    type UrlDisplay = UserSettingUpdateUrlDisplay<'a>;
     type Parameters = UserSettingUpdateParameters;
     type Success = UserSettingUpdateSuccess;
 
-    fn url_path(_parameters: &'a Self::Parameters) -> Self::UrlDisplay {
-        "/portfolios/{portfolio_id}/user_setting"
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        UserSettingUpdateUrlDisplay(parameters)
+    }
+}
+
+pub struct UserSettingUpdateUrlDisplay<'a>(&'a UserSettingUpdateParameters);
+
+impl<'a> fmt::Display for UserSettingUpdateUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/portfolios/{}/user_setting", parameters.portfolio_id)
     }
 }
 
@@ -7888,6 +8801,8 @@ pub struct UserSettingUpdateParameters {
     pub consolidated: Option<bool>,
     #[serde(default)]
     pub portfolio_user_settings: Option<UserSettingUpdatePortfolioUserSettingsParameters>,
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub portfolio_id: i64,
 }
 
 #[serde_as]
@@ -7995,6 +8910,614 @@ pub struct UserSettingUpdateApiTransactionSuccess {
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub timestamp: String,
+}
+
+/// Retrieves the Performance Report for the underlying portfolio<br><h3>Holding Limit</h3>Depending on user's plan the number of holdings shown in the report is limited. In that case the following response headers will be set:<br><li>`X-HoldingLimit-Limit`: The plan's holding limit.</li><li>`X-HoldingLimit-Total`: The number of holding in the requested portfolio.</li><li>`X-HoldingLimit-Reason`: A human-readable string describing why the number of holdings is limited.</li><h3>Remarks</h3>• Infinity is represented by string values 'Infinity' or '-Infinity'
+pub struct PerformanceShow;
+
+impl<'a> ApiEndpoint<'a> for PerformanceShow {
+    const URL_PATH: &'static str = "/portfolios/{portfolio_id}/performance";
+    const HTTP_METHOD: ApiHttpMethod = ApiHttpMethod::Get;
+    const VERSION: &'static str = "3.0.0";
+
+    type UrlDisplay = PerformanceShowUrlDisplay<'a>;
+    type Parameters = PerformanceShowParameters;
+    type Success = PerformanceShowSuccess;
+
+    fn url_path(parameters: &'a Self::Parameters) -> Self::UrlDisplay {
+        PerformanceShowUrlDisplay(parameters)
+    }
+}
+
+pub struct PerformanceShowUrlDisplay<'a>(&'a PerformanceShowParameters);
+
+impl<'a> fmt::Display for PerformanceShowUrlDisplay<'a> {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let parameters = self.0;
+
+        write!(f, "/portfolios/{}/performance", parameters.portfolio_id)
+    }
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Serialize)]
+pub struct PerformanceShowParameters {
+    /// Show report from this date on (YYYY-MM-DD). In timezone specified by portfolio_tz_name<br>Default value: `portfolio`
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub start_date: Option<NaiveDate>,
+    /// Show report until this date (YYYY-MM-DD). In timezone specified by portfolio_tz_name<br>Default value: `today`
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub end_date: Option<NaiveDate>,
+    /// The Portfolio id
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub portfolio_id: i64,
+    /// Set to true for consolidated portfolio views<br>Default value: `false`
+    #[serde(default)]
+    pub consolidated: Option<bool>,
+    /// pass `true` to include or `false` to exclude sales<br>Default value: `false`
+    #[serde(default)]
+    pub include_sales: Option<bool>,
+    /// To receive totals from holdings combined by instrument in addition to grouping.  This is only applicable when you have multiple holdings for the same instrument (a consolidated portfolio)<br>Default value: `false`
+    #[serde(default)]
+    pub report_combined: Option<bool>,
+    /// An array of labels (by name) to filter on.  You can request multiple by passing multiple unindexed params, eg: `?labels[]=aud&amp;labels[]=usd`
+    #[serde(default)]
+    pub labels: Option<Vec<String>>,
+    /// Group instruments by an attribute.  Valid values: [country, currency, custom_group, industry_classification, investment_type, market, portfolio, sector_classification, ungrouped]<br>Default value: `market`
+    #[serde(default)]
+    pub grouping: Option<String>,
+    /// If present, the custom group id to group by, as an integer id returned from the CustomGroupsList endpoint. When this is used, the 'grouping' parameter must be set to 'custom_group'
+    #[serde_as(as = "Option<PickFirst<(_, DisplayFromStr)>>")]
+    #[serde(default)]
+    pub custom_group_id: Option<i64>,
+    /// Pass `true` to include holdings limited by the user plan in the results. Only identifiying data will be returned for these rows<br>Default value: `false`
+    #[serde(default)]
+    pub include_limited: Option<bool>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowSuccess {
+    pub report: PerformanceShowReportSuccess,
+    /// The current API Transaction.
+    pub api_transaction: PerformanceShowApiTransactionSuccess,
+    pub links: PerformanceShowLinksSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowReportSuccess {
+    /// A unique id identifying this report instance
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub id: String,
+    /// The portfolio id
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub portfolio_id: i64,
+    /// The portfolio timezone name
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub portfolio_tz_name: String,
+    /// The total value of the portfolio
+    #[serde_as(as = "DeserializeNumber")]
+    pub value: Number,
+    /// The grouping being used for this report – coming from the grouping parameter
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub grouping: String,
+    /// A currency object
+    pub currency: PerformanceShowReportCurrencySuccess,
+    /// Start date (format `YYYY-MM-DD`)
+    #[serde_as(as = "DeserializeDate")]
+    pub start_date: NaiveDate,
+    /// End date (format `YYYY-MM-DD`)
+    #[serde_as(as = "DeserializeDate")]
+    pub end_date: NaiveDate,
+    /// Whether or not sales are included
+    pub include_sales: bool,
+    /// Capital Gain (rounded to 2 decimal places)
+    #[serde_as(as = "DeserializeNumber")]
+    pub capital_gain: Number,
+    /// Capital Gain Percentage (rounded to 2 decimal places, 33% as `33.00`)
+    #[serde_as(as = "DeserializeNumber")]
+    pub capital_gain_percent: Number,
+    /// Payout Gain (rounded to 2 decimal places)
+    #[serde_as(as = "DeserializeNumber")]
+    pub payout_gain: Number,
+    /// Payout Gain Percentage (rounded to 2 decimal places, 33% as `33.00`)
+    #[serde_as(as = "DeserializeNumber")]
+    pub payout_gain_percent: Number,
+    /// Currency Gain (rounded to 2 decimal places)
+    #[serde_as(as = "DeserializeNumber")]
+    pub currency_gain: Number,
+    /// Currency Gain Percentage (rounded to 2 decimal places, 33% as `33.00`)
+    #[serde_as(as = "DeserializeNumber")]
+    pub currency_gain_percent: Number,
+    /// Total Gain (rounded to 2 decimal places)
+    #[serde_as(as = "DeserializeNumber")]
+    pub total_gain: Number,
+    /// Total Gain Percentage (rounded to 2 decimal places, 33% as `33.00`)
+    #[serde_as(as = "DeserializeNumber")]
+    pub total_gain_percent: Number,
+    /// True when percentages are per annum
+    pub percentages_annualised: bool,
+    /// List of Holdings
+    pub holdings: Vec<PerformanceShowReportHoldingsSuccess>,
+    /// List of sub-totals for each group
+    pub sub_totals: Vec<PerformanceShowReportSubTotalsSuccess>,
+    /// When you have multiple holdings of the same instruments and pass `report_combined=true`, this returns combined stats for those instruments. You may need to combine this with the holdings collection to get a full picture
+    #[serde(default)]
+    pub combined_holdings: Option<Vec<PerformanceShowReportCombinedHoldingsSuccess>>,
+    pub cash_accounts: Vec<PerformanceShowReportCashAccountsSuccess>,
+    /// The custom group used for this report; not included if custom grouping is not used
+    #[serde(default)]
+    pub custom_group: Option<PerformanceShowReportCustomGroupSuccess>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowReportCurrencySuccess {
+    /// The 3-letter ISO 4217 currency code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The unique Sharesight identifier for this currency
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The symbol for this currency (eg. $, ¥, £)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub symbol: String,
+    /// The qualified currency symbol when the symbol is not specific enough, eg. 'US$', '¥', or the currency code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub qualified_symbol: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowReportHoldingsSuccess {
+    /// The unique id of this holding
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// An instrument object for the Holding
+    pub instrument: PerformanceShowReportHoldingsInstrumentSuccess,
+    /// A currency object
+    pub instrument_currency: PerformanceShowReportHoldingsInstrumentCurrencySuccess,
+    /// True if this holding will not be shown due to subscription restrictions
+    #[serde(default)]
+    pub limited: Option<bool>,
+    /// True if the holding has a valid position (e.g. positive number of shares)
+    pub valid_position: bool,
+    /// This price is in the instrument currency, except for when instrument.market_code equals 'FX' (a forex instrument), then the price is in the Portfolio Currency
+    #[serde_as(as = "DeserializeNumber")]
+    pub instrument_price: Number,
+    /// The portfolio associated with this model
+    pub portfolio: PerformanceShowReportHoldingsPortfolioSuccess,
+    /// Labels assigned to this holding
+    pub labels: Vec<PerformanceShowReportHoldingsLabelsSuccess>,
+    /// The group id this holding belongs to
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub group_id: i64,
+    /// The group name this holding belongs to – coming from the the grouping parameter
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub group_name: String,
+    /// Capital Gain (rounded to 2 decimal places)
+    #[serde_as(as = "DeserializeNumber")]
+    pub capital_gain: Number,
+    /// Capital Gain Percentage (rounded to 2 decimal places, 33% as `33.00`)
+    #[serde_as(as = "DeserializeNumber")]
+    pub capital_gain_percent: Number,
+    /// Payout Gain (rounded to 2 decimal places)
+    #[serde_as(as = "DeserializeNumber")]
+    pub payout_gain: Number,
+    /// Payout Gain Percentage (rounded to 2 decimal places, 33% as `33.00`)
+    #[serde_as(as = "DeserializeNumber")]
+    pub payout_gain_percent: Number,
+    /// Currency Gain (rounded to 2 decimal places)
+    #[serde_as(as = "DeserializeNumber")]
+    pub currency_gain: Number,
+    /// Currency Gain Percentage (rounded to 2 decimal places, 33% as `33.00`)
+    #[serde_as(as = "DeserializeNumber")]
+    pub currency_gain_percent: Number,
+    /// Total Gain (rounded to 2 decimal places)
+    #[serde_as(as = "DeserializeNumber")]
+    pub total_gain: Number,
+    /// Total Gain Percentage (rounded to 2 decimal places, 33% as `33.00`)
+    #[serde_as(as = "DeserializeNumber")]
+    pub total_gain_percent: Number,
+    /// The number of unconfirmed payouts and trades
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub number_of_unconfirmed_transactions: i64,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowReportHoldingsInstrumentSuccess {
+    /// The Sharesight code for the instrument
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The Sharesight country identifier associated with this instrument
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub country_id: i64,
+    /// Whether or not this instrument is a cryptocurency
+    pub crypto: bool,
+    /// The Sharesight currency code associated with this instrument
+    pub currency_code: Currency,
+    /// The date the instrument will be or has expired on
+    #[serde_as(as = "Option<DeserializeDate>")]
+    #[serde(default)]
+    pub expires_on: Option<NaiveDate>,
+    /// Whether or not this instrument is currently expired
+    #[serde(default)]
+    pub expired: Option<bool>,
+    /// The unique Sharesight identifier for this instrument
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The code of the market the instrument is listed on
+    pub market_code: Market,
+    /// The name of the instrument
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// The timezone name associated with this instrument
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tz_name: String,
+    /// The instrument sector according to FactSet's global security classification scheme. FactSet's default classification can be overridden at the holding level.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub industry_classification_name: String,
+    /// The instrument industry according to FactSet's global security classification scheme. FactSet's default classification can be overridden at the holding level.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub sector_classification_name: String,
+    /// The type of investment. This determines holding functionality, e.g. Ordinary Shares or Fixed Interest
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub friendly_instrument_description: String,
+    /// The type of investment (as a code). This determines holding functionality, e.g. ordinary_shares
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub friendly_instrument_description_code: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowReportHoldingsInstrumentCurrencySuccess {
+    /// The 3-letter ISO 4217 currency code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The unique Sharesight identifier for this currency
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The symbol for this currency (eg. $, ¥, £)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub symbol: String,
+    /// The qualified currency symbol when the symbol is not specific enough, eg. 'US$', '¥', or the currency code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub qualified_symbol: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowReportHoldingsPortfolioSuccess {
+    /// The unique id identifying the portfolio
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// Whether or not this is a consolidated view portfolio
+    pub consolidated: bool,
+    /// The name of the portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowReportHoldingsLabelsSuccess {
+    /// The unique id of the label
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The name of the label – used in most API queries
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// The label color (to be used in HTML).  One of 14 assigned during creation: BlueViolet, MediumSeaGreen, Gold, Cyan, Crimson, DarkCyan, OrangeRed, LightGreen, MediumVioletRed, Indigo, SkyBlue, Khaki, LawnGreen
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub color: String,
+    /// An array of holding ids assigned to this label
+    pub holding_ids: Vec<i64>,
+    /// An array of portfolio ids assigned to this label
+    pub portfolio_ids: Vec<i64>,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowReportSubTotalsSuccess {
+    /// The total value of the holdings in this group
+    #[serde_as(as = "DeserializeNumber")]
+    pub value: Number,
+    /// The group id this total belongs to
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub group_id: i64,
+    /// The group name this total belongs to – coming from the the grouping parameter
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub group_name: String,
+    /// Capital Gain (rounded to 2 decimal places)
+    #[serde_as(as = "DeserializeNumber")]
+    pub capital_gain: Number,
+    /// Capital Gain Percentage (rounded to 2 decimal places, 33% as `33.00`)
+    #[serde_as(as = "DeserializeNumber")]
+    pub capital_gain_percent: Number,
+    /// Payout Gain (rounded to 2 decimal places)
+    #[serde_as(as = "DeserializeNumber")]
+    pub payout_gain: Number,
+    /// Payout Gain Percentage (rounded to 2 decimal places, 33% as `33.00`)
+    #[serde_as(as = "DeserializeNumber")]
+    pub payout_gain_percent: Number,
+    /// Currency Gain (rounded to 2 decimal places)
+    #[serde_as(as = "DeserializeNumber")]
+    pub currency_gain: Number,
+    /// Currency Gain Percentage (rounded to 2 decimal places, 33% as `33.00`)
+    #[serde_as(as = "DeserializeNumber")]
+    pub currency_gain_percent: Number,
+    /// Total Gain (rounded to 2 decimal places)
+    #[serde_as(as = "DeserializeNumber")]
+    pub total_gain: Number,
+    /// Total Gain Percentage (rounded to 2 decimal places, 33% as `33.00`)
+    #[serde_as(as = "DeserializeNumber")]
+    pub total_gain_percent: Number,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowReportCombinedHoldingsSuccess {
+    /// The unique id of this holding
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// An instrument object for the Holding
+    pub instrument: PerformanceShowReportCombinedHoldingsInstrumentSuccess,
+    /// A currency object
+    pub instrument_currency: PerformanceShowReportCombinedHoldingsInstrumentCurrencySuccess,
+    /// true if this holding will not be shown due to subscription restrictions
+    #[serde(default)]
+    pub limited: Option<String>,
+    /// True if the holding has a valid position (e.g. positive number of shares)
+    pub valid_position: bool,
+    /// This is in the instrument currency, except for when instrument.market_code equals 'FX' (a forex instrument), then the price is in the Portfolio Currency
+    #[serde_as(as = "DeserializeNumber")]
+    pub instrument_price: Number,
+    /// List of Portfolios associated with this model
+    pub portfolios: Vec<PerformanceShowReportCombinedHoldingsPortfoliosSuccess>,
+    /// The group id this holding belings to
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub group_id: i64,
+    /// The group name this holding belongs to - coming from the grouping parameter
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub group_name: String,
+    /// Capital Gain (rounded to 2 decimal places)
+    #[serde_as(as = "DeserializeNumber")]
+    pub capital_gain: Number,
+    /// Capital Gain Percentage (rounded to 2 decimal places, 33% as `33.00`)
+    #[serde_as(as = "DeserializeNumber")]
+    pub capital_gain_percent: Number,
+    /// Payout Gain (rounded to 2 decimal places)
+    #[serde_as(as = "DeserializeNumber")]
+    pub payout_gain: Number,
+    /// Payout Gain Percentage (rounded to 2 decimal places, 33% as `33.00`)
+    #[serde_as(as = "DeserializeNumber")]
+    pub payout_gain_percentage: Number,
+    /// Currency Gain (rounded to 2 decimal places)
+    #[serde_as(as = "DeserializeNumber")]
+    pub currency_gain: Number,
+    /// Currency Gain Percentage (rounded to 2 decimal places, 33% as `33.00`)
+    #[serde_as(as = "DeserializeNumber")]
+    pub currency_gain_percentage: Number,
+    /// Total Gain (rounded to 2 decimal places
+    #[serde_as(as = "DeserializeNumber")]
+    pub total_gain: Number,
+    /// Total Gain Percentage (rounded to 2 decimal places, 33% as `33.00`)
+    #[serde_as(as = "DeserializeNumber")]
+    pub total_gain_percentage: Number,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowReportCombinedHoldingsInstrumentSuccess {
+    /// The Sharesight code for the instrument
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The Sharesight country identifier associated with this instrument
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub country_id: i64,
+    /// Whether or not this instrument is a cryptocurency
+    pub crypto: bool,
+    /// The Sharesight currency code associated with this instrument
+    pub currency_code: Currency,
+    /// The date the instrument will be or has expired on
+    #[serde_as(as = "DeserializeDate")]
+    pub expires_on: NaiveDate,
+    /// Whether or not this instrument is currently expired
+    pub expired: bool,
+    /// The unique Sharesight identifier for this instrument
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The code of the market the instrument is listed on
+    pub market_code: Market,
+    /// The name of the instrument
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// The timezone name associated with this instrument
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub tz_name: String,
+    /// The instrument sector according to FactSet's global security classification scheme. FactSet's default classification can be overridden at the holding level.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub industry_classification_name: String,
+    /// The instrument industry according to FactSet's global security classification scheme. FactSet's default classification can be overridden at the holding level.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub sector_classification_name: String,
+    /// The type of investment. This determines holding functionality, e.g. Ordinary Shares or Fixed Interest
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub friendly_instrument_description: String,
+    /// The type of investment (as a code). This determines holding functionality, e.g. ordinary_shares
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub friendly_instrument_description_code: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowReportCombinedHoldingsInstrumentCurrencySuccess {
+    /// The 3-letter ISO 4217 currency code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The unique Sharesight identifier for this currency
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The symbol for this currency (eg. $, ¥, £)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub symbol: String,
+    /// The qualified currency symbol when the symbol is not specific enough, eg. 'US$', '¥', or the currency code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub qualified_symbol: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowReportCombinedHoldingsPortfoliosSuccess {
+    /// The unique id identifying the portfolio
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// Whether or not this is a consolidated view portfolio
+    pub consolidated: bool,
+    /// The name of the portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// The id of the holding in this portfolio
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub holding_id: i64,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowReportCashAccountsSuccess {
+    /// Id of this cash account
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// A unique key for each cash account
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub key: i64,
+    /// The name of the cash account
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+    /// The source provider of the cash account. This is `null` for manual cash accounts, but may be `'xero'`, `'macquarie'`, etc
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub source: String,
+    /// The value of the cash account
+    #[serde_as(as = "DeserializeNumber")]
+    pub value: Number,
+    /// A currency object
+    pub currency: PerformanceShowReportCashAccountsCurrencySuccess,
+    /// The portfolio associated with this model
+    pub portfolio: PerformanceShowReportCashAccountsPortfolioSuccess,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowReportCashAccountsCurrencySuccess {
+    /// The 3-letter ISO 4217 currency code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub code: String,
+    /// The unique Sharesight identifier for this currency
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The symbol for this currency (eg. $, ¥, £)
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub symbol: String,
+    /// The qualified currency symbol when the symbol is not specific enough, eg. 'US$', '¥', or the currency code
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub qualified_symbol: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowReportCashAccountsPortfolioSuccess {
+    /// The unique id identifying the portfolio
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// Whether or not this is a consolidated view portfolio
+    pub consolidated: bool,
+    /// The name of the portfolio
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowReportCustomGroupSuccess {
+    /// The unique id of the custom group
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The name of the custom group
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub name: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowApiTransactionSuccess {
+    /// The unique API Transaction id.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub id: i64,
+    /// The API version you called.
+    #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
+    pub version: i64,
+    /// The path executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub action: String,
+    /// When the transaction was executed.
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub timestamp: String,
+}
+
+#[serde_as]
+#[derive(Debug, Clone, Deserialize)]
+pub struct PerformanceShowLinksSuccess {
+    /// URL to a list of requested resources.
+    #[serde(rename = "self")]
+    #[serde(default)]
+    #[serde_as(deserialize_as = "DefaultOnNull")]
+    pub itself: String,
 }
 
 /// Disconnect a users API access. This operation invalidates the OAuth token for a user. We recommend you make this API call when a customer chooses to remove their connection via your system.
