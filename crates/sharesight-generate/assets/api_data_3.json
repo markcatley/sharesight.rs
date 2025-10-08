@@ -23918,7 +23918,7 @@
             },
             {
               "group": "200 Success",
-              "type": "Object",
+              "type": "String[]",
               "optional": false,
               "field": "report.holdings.instrument.supported_denominations",
               "description": "<p>A list of denominations supported by this instrument</p>"
@@ -24331,7 +24331,7 @@
             },
             {
               "group": "200 Success",
-              "type": "Object",
+              "type": "String[]",
               "optional": false,
               "field": "report.combined_holdings.instrument.supported_denominations",
               "description": "<p>A list of denominations supported by this instrument</p>"
@@ -26235,7 +26235,7 @@
             },
             {
               "group": "200 Success",
-              "type": "Object",
+              "type": "String[]",
               "optional": false,
               "field": "trades.instrument.supported_denominations",
               "description": "<p>A list of denominations supported by this instrument</p>"

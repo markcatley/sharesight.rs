@@ -21,11 +21,8 @@ struct Args {
     /// Lookback period in years
     #[clap(short, default_value = "5")]
     look_back_period_in_years: NonZeroU32,
-<<<<<<< HEAD
-=======
     #[clap(short)]
     group: Option<String>,
->>>>>>> 3bb01fc (feat: enhancements to report performance)
     /// The access token to use the api.
     access_token: String,
 }
@@ -75,16 +72,11 @@ async fn main() -> anyhow::Result<()> {
             portfolio_id: portfolio.id,
             consolidated: portfolio.consolidated,
             include_sales: Some(true),
-<<<<<<< HEAD
-            grouping: None,
-            custom_group_id: None,
-=======
-            grouping: grouping.clone(),
-            custom_group_id,
->>>>>>> 3bb01fc (feat: enhancements to report performance)
-            include_limited: None,
             report_combined: None,
             labels: None,
+            grouping: grouping.clone(),
+            custom_group_id,
+            include_limited: None,
         };
         let PerformanceShowSuccess {
             report: performance_report,
