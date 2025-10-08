@@ -17,7 +17,7 @@ struct Args {
     #[clap(long, default_value = DEFAULT_API_HOST)]
     api_host: String,
     /// The name of the portfolio to report the performance for.
-    portfolio_name: String,
+    portfolio_names: Vec<String>,
     /// Lookback period in years
     #[clap(short, default_value = "5")]
     look_back_period_in_years: NonZeroU32,
@@ -33,17 +33,22 @@ async fn main() -> anyhow::Result<()> {
 
     let args = Args::parse();
     let client = Client::new_with_token_and_host(args.access_token, args.api_host);
-    let portfolio_name = args.portfolio_name;
+    let portfolio_names = args.portfolio_names;
     let group_name = args.group;
     let look_back_period_in_years = args.look_back_period_in_years.get() as i32;
 
-    let portfolios = client.build_portfolio_index().await?;
+    let portfolio_index = client.build_portfolio_index().await?;
     let groups = client.execute::<GroupsList, GroupsListSuccess>(&()).await?;
 
-    let portfolio = portfolios.find(&portfolio_name).unwrap_or_else(|| {
-        portfolios.log_error_for(&portfolio_name);
-        std::process::exit(0);
-    });
+    let portfolios = portfolio_names
+        .iter()
+        .map(|portfolio_name| {
+            portfolio_index.find(portfolio_name).unwrap_or_else(|| {
+                portfolio_index.log_error_for(portfolio_name);
+                std::process::exit(0);
+            })
+        })
+        .collect::<Vec<_>>();
     let group = group_name.map(|group_name| {
         groups
             .find_group(&group_name)
@@ -56,19 +61,12 @@ async fn main() -> anyhow::Result<()> {
         group.and_then(|g| g.id.name())
     };
 
-    let today = Utc::now().date_naive();
-    let inception_on = portfolio.inception_date;
-    let mut end_of_current_period = today.start_of_next_quarter() - Duration::days(1);
-    let mut start_of_current_period = end_of_current_period
-        .start_of_next_quarter()
-        .add_years(-look_back_period_in_years);
+    let mut grouping_titles = Vec::<String>::new();
 
-    println!("Start Date,End Date,Gain/Loss,Gain/Loss (%)");
-
-    while start_of_current_period >= inception_on {
+    for portfolio in &portfolios {
         let performance_parameters = PerformanceShowParameters {
-            start_date: Some(start_of_current_period),
-            end_date: Some(end_of_current_period),
+            start_date: None,
+            end_date: None,
             portfolio_id: portfolio.id,
             consolidated: portfolio.consolidated,
             include_sales: Some(true),
@@ -84,14 +82,71 @@ async fn main() -> anyhow::Result<()> {
         } = client
             .execute::<PerformanceShow, _>(&performance_parameters)
             .await?;
+        grouping_titles.extend(
+            performance_report
+                .sub_totals
+                .iter()
+                .map(|s| s.group_name.as_str())
+                .map(str::to_string)
+                .filter(|grouping_title| !grouping_titles.contains(grouping_title))
+                .collect::<Vec<_>>(),
+        );
+    }
 
-        println!(
+    let today = Utc::now().date_naive();
+    let inception_on = portfolios[0].inception_date;
+    let mut end_of_current_period = today.start_of_next_quarter() - Duration::days(1);
+    let mut start_of_current_period = end_of_current_period
+        .start_of_next_quarter()
+        .add_years(-look_back_period_in_years);
+
+    print!("Start Date,End Date,Gain/Loss,Gain/Loss (%)");
+    for title in &grouping_titles {
+        print!(",{} Gain/Loss,{} Gain/Loss (%)", title, title);
+    }
+    println!();
+
+    while start_of_current_period >= inception_on {
+        let performance_parameters = PerformanceShowParameters {
+            start_date: Some(start_of_current_period),
+            end_date: Some(end_of_current_period),
+            portfolio_id: portfolios[0].id,
+            consolidated: None,
+            include_sales: Some(true),
+            grouping: grouping.clone(),
+            custom_group_id,
+            include_limited: None,
+            labels: None,
+            report_combined: None,
+        };
+        let PerformanceShowSuccess {
+            report: performance_report,
+            ..
+        } = client
+            .execute::<PerformanceShow, _>(&performance_parameters)
+            .await?;
+
+        print!(
             "{},{},{},{}",
             performance_report.start_date,
             performance_report.end_date,
             performance_report.total_gain,
             performance_report.total_gain_percent
         );
+
+        for title in &grouping_titles {
+            let sub_total = performance_report
+                .sub_totals
+                .iter()
+                .find(|sub_total| &sub_total.group_name == title);
+            if let Some(sub_total) = sub_total {
+                print!(",{},{}", sub_total.total_gain, sub_total.total_gain_percent);
+            } else {
+                print!(",,");
+            }
+        }
+
+        println!();
 
         start_of_current_period = start_of_current_period.start_of_last_quarter();
         end_of_current_period = end_of_current_period.end_of_last_quarter();

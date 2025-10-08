@@ -1,7 +1,7 @@
 use serde::de::Unexpected;
 use serde_with::{DeserializeAs, SerializeAs};
 
-pub use std::fmt;
+pub use std::{collections::HashMap, fmt};
 
 pub use chrono::{DateTime, FixedOffset, NaiveDate};
 pub use serde::de::{DeserializeOwned, Visitor};

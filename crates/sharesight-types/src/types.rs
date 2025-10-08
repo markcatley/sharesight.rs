@@ -4859,10 +4859,6 @@ pub struct PerformanceHoldingsSuccess {
     pub instrument_id: i64,
     /// The code for the market the held instrument is listed on
     pub market: Market,
-    /// The group value this instrument has been placed in - note that the field name will be the group type
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub _group_type_: String,
     /// The name of the selected grouping for the report
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -4901,6 +4897,9 @@ pub struct PerformanceHoldingsSuccess {
     /// Total Gain (percentage, rounded to 2 decimal places, 33% as `33.0`)<sup>1</sup> on the holding
     #[serde_as(as = "DeserializeNumber")]
     pub total_gain_percent: Number,
+    /// The group value this instrument has been placed in - note that the field name will be the group type
+    #[serde(flatten)]
+    pub grouping_information: HashMap<String, String>,
 }
 
 #[serde_as]
@@ -4930,10 +4929,6 @@ pub struct PerformanceCashAccountsSuccess {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct PerformanceSubTotalsSuccess {
-    /// The group value - note that the field name will be the group type
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub _group_type_: String,
     /// The total value of the holdings in this group
     #[serde_as(as = "DeserializeNumber")]
     pub value: Number,
@@ -4961,6 +4956,9 @@ pub struct PerformanceSubTotalsSuccess {
     /// Total Gain (percentage, rounded to 2 decimal places, 33% as `33.0`)<sup>1</sup> on the holdings in this group
     #[serde_as(as = "DeserializeNumber")]
     pub total_gain_percent: Number,
+    /// The group value - note that the field name will be the group type
+    #[serde(flatten)]
+    pub grouping_information: HashMap<String, String>,
 }
 
 /// Return a report on unrealised capital gains tax (for Australian portfolios only)
@@ -5243,10 +5241,6 @@ pub struct ValuationHoldingsSuccess {
     pub instrument_id: i64,
     /// The code for the market the held instrument is listed on
     pub market: Market,
-    /// The group value this instrument has been placed in - note that the field name will be the group type
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub _group_type_: String,
     /// The name of the selected grouping for the report
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
@@ -5261,6 +5255,9 @@ pub struct ValuationHoldingsSuccess {
     /// The quantity of shares or other instruments in the holding
     #[serde_as(as = "DeserializeNumber")]
     pub quantity: Number,
+    /// The group value this instrument has been placed in - note that the field name will be the group type
+    #[serde(flatten)]
+    pub grouping_information: HashMap<String, String>,
 }
 
 #[serde_as]
@@ -5290,13 +5287,12 @@ pub struct ValuationCashAccountsSuccess {
 #[serde_as]
 #[derive(Debug, Clone, Deserialize)]
 pub struct ValuationSubTotalsSuccess {
-    /// The group value - note that the field name will be the group type
-    #[serde(default)]
-    #[serde_as(deserialize_as = "DefaultOnNull")]
-    pub _group_type_: String,
     /// The total value of the holdings in this group
     #[serde_as(as = "DeserializeNumber")]
     pub value: Number,
+    /// The group value - note that the field name will be the group type
+    #[serde(flatten)]
+    pub grouping_information: HashMap<String, String>,
 }
 
 /// Single sign on authorisation. The single sign-on operation returns a URL that will allow the user to login to their Sharesight account without the need to enter their email address and password. The URL is valid for one minute. A single sign-on link or button in your application should be implemented so that the user click initiates this API call and then the URL returned is launched in the user’s browser. A "redirect_to" parameter can be appended to the login url. After successfully been logged in, the user will be then redirected to the specified redirect_to path; example: https://api.sharesight.com/users/sign_in?signon-token=token&amp;redirect_to=/portfolios/1

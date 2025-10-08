@@ -193,10 +193,17 @@ impl<'a> fmt::Display for ApiStruct<'a> {
                 write!(f, "{}", prefix_segment.to_upper_camel_case())?;
             }
             writeln!(f, "{} {{", tag)?;
+            let mut group_type_field = None::<&Field>;
+
             for parameter in fields {
                 if let [ref prefix_segments @ .., ref field_name] = parameter.field[..] {
-                    if field_name == "supported_denominations" {
-                        continue;
+                    match field_name.as_str() {
+                        "supported_denominations" => continue,
+                        "_group_type_" => {
+                            group_type_field = Some(*parameter);
+                            continue;
+                        }
+                        _ => (),
                     }
 
                     write!(f, "{}", DocComment(&parameter.description))?;
@@ -301,6 +308,12 @@ impl<'a> fmt::Display for ApiStruct<'a> {
                         endpoint_name, label, parameter
                     );
                 }
+            }
+
+            if let Some(parameter) = group_type_field {
+                write!(f, "{}", DocComment(&parameter.description))?;
+                write!(f, "    #[serde(flatten)]")?;
+                write!(f, "    pub grouping_information: HashMap<String, String>,")?;
             }
             writeln!(f, "}}")?;
             writeln!(f)?;
