@@ -23320,7 +23320,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "cash_accounts.key",
               "description": ""
@@ -23552,7 +23552,7 @@
     },
     {
       "type": "GET",
-      "url": "/portfolios/{id}/performance",
+      "url": "/portfolios/{portfolio_id}/performance",
       "title": "Show Performance Report",
       "name": "PerformanceShow",
       "group": "User_API_V3_Reports",
@@ -23612,7 +23612,7 @@
             {
               "group": "Parameter",
               "type": "Integer",
-              "optional": true,
+              "optional": false,
               "field": "portfolio_id",
               "description": "<p>The Portfolio id</p>"
             },
@@ -23639,7 +23639,7 @@
             },
             {
               "group": "Parameter",
-              "type": "Array",
+              "type": "String[]",
               "optional": true,
               "field": "labels",
               "description": "<p>An array of labels (by name) to filter on.  You can request multiple by passing multiple unindexed params, eg: <code>?labels[]=aud&amp;labels[]=usd</code></p>"
@@ -23884,14 +23884,14 @@
             {
               "group": "200 Success",
               "type": "Date",
-              "optional": false,
+              "optional": true,
               "field": "report.holdings.instrument.expires_on",
               "description": "<p>The date the instrument will be or has expired on</p>"
             },
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "report.holdings.instrument.expired",
               "description": "<p>Whether or not this instrument is currently expired</p>"
             },
@@ -23996,7 +23996,7 @@
             {
               "group": "200 Success",
               "type": "Boolean",
-              "optional": false,
+              "optional": true,
               "field": "report.holdings.limited",
               "description": "<p>True if this holding will not be shown due to subscription restrictions</p>"
             },
@@ -24072,14 +24072,14 @@
             },
             {
               "group": "200 Success",
-              "type": "Array",
+              "type": "Integer[]",
               "optional": false,
               "field": "report.holdings.labels.holding_ids",
               "description": "<p>An array of holding ids assigned to this label</p>"
             },
             {
               "group": "200 Success",
-              "type": "Array",
+              "type": "Integer[]",
               "optional": false,
               "field": "report.holdings.labels.portfolio_ids",
               "description": "<p>An array of portfolio ids assigned to this label</p>"
@@ -24248,7 +24248,7 @@
             {
               "group": "200 Success",
               "type": "Array",
-              "optional": false,
+              "optional": true,
               "field": "report.combined_holdings",
               "description": "<p>When you have multiple holdings of the same instruments and pass <code>report_combined=true</code>, this returns combined stats for those instruments. You may need to combine this with the holdings collection to get a full picture</p>"
             },
@@ -24409,7 +24409,7 @@
             {
               "group": "200 Success",
               "type": "String",
-              "optional": false,
+              "optional": true,
               "field": "report.combined_holdings.limited",
               "description": "<p>true if this holding will not be shown due to subscription restrictions</p>"
             },
@@ -24548,7 +24548,7 @@
             },
             {
               "group": "200 Success",
-              "type": "String",
+              "type": "Integer",
               "optional": false,
               "field": "report.cash_accounts.key",
               "description": "<p>A unique key for each cash account</p>"
@@ -24640,7 +24640,7 @@
             {
               "group": "200 Success",
               "type": "Object",
-              "optional": false,
+              "optional": true,
               "field": "report.custom_group",
               "description": "<p>The custom group used for this report; not included if custom grouping is not used</p>"
             },

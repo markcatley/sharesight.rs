@@ -45,8 +45,8 @@ impl ApiEndpoint {
     pub fn url_params(&self) -> Vec<String> {
         self.url
             .split('/')
-            .filter_map(|s| s.strip_prefix(':'))
-            .filter_map(|s| s.split('.').next())
+            .filter_map(|s| s.strip_prefix([':', '{']))
+            .filter_map(|s| s.split(['.', '}']).next())
             .map(String::from)
             .collect::<Vec<_>>()
     }

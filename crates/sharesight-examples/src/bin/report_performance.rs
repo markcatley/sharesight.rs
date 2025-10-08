@@ -1,7 +1,9 @@
 use clap::Parser;
 use sharesight_examples::init_logger;
 use sharesight_reqwest::Client;
-use sharesight_types::{Performance, PerformanceParameters, PerformanceSuccess, DEFAULT_API_HOST};
+use sharesight_types::{
+    PerformanceShow, PerformanceShowParameters, PerformanceShowSuccess, DEFAULT_API_HOST,
+};
 
 /// Generate a 'performance' report using the sharesight API
 #[derive(Parser, Debug)]
@@ -27,20 +29,26 @@ async fn main() -> anyhow::Result<()> {
     let portfolios = client.build_portfolio_index().await?;
     let portfolio = portfolios.find(&portfolio_name).unwrap_or_else(|| {
         portfolios.log_error_for(&portfolio_name);
-        std::process::exit(0)
+        std::process::exit(0);
     });
 
-    let performance_parameters = PerformanceParameters {
+    let performance_parameters = PerformanceShowParameters {
         start_date: None,
         end_date: None,
         portfolio_id: portfolio.id,
-        consolidated: None,
+        consolidated: portfolio.consolidated,
         include_sales: Some(true),
+        report_combined: None,
+        labels: None,
         grouping: None,
         custom_group_id: None,
+        include_limited: None,
     };
-    let performance_report = client
-        .execute::<Performance, PerformanceSuccess>(&performance_parameters)
+    let PerformanceShowSuccess {
+        report: performance_report,
+        ..
+    } = client
+        .execute::<PerformanceShow, _>(&performance_parameters)
         .await?;
 
     println!(
