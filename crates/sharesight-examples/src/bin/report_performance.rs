@@ -21,6 +21,7 @@ struct Args {
     /// Lookback period in years
     #[clap(short, default_value = "5")]
     look_back_period_in_years: NonZeroU32,
+    /// Display performance for each group in the grouping
     #[clap(short)]
     group: Option<String>,
     /// The access token to use the api.
@@ -92,14 +93,9 @@ async fn main() -> anyhow::Result<()> {
         Vec::new()
     };
 
-    print!("Start Date,End Date,Total,");
+    print!("Start Date,End Date,Total");
     for title in &grouping_titles {
-        print!(",{},", title);
-    }
-    println!();
-    print!(",,Gain/Loss,Gain/Loss (%)");
-    for _title in &grouping_titles {
-        print!(",Gain/Loss,Gain/Loss (%)");
+        print!(",{}", title);
     }
     println!();
 
@@ -124,10 +120,9 @@ async fn main() -> anyhow::Result<()> {
             .await?;
 
         print!(
-            "{},{},{},{}",
+            "{},{},{}%",
             performance_report.start_date,
             performance_report.end_date,
-            performance_report.total_gain,
             performance_report.total_gain_percent
         );
 
@@ -137,9 +132,9 @@ async fn main() -> anyhow::Result<()> {
                 .iter()
                 .find(|sub_total| &sub_total.group_name == title);
             if let Some(sub_total) = sub_total {
-                print!(",{},{}", sub_total.total_gain, sub_total.total_gain_percent);
+                print!(",{}%", sub_total.total_gain_percent);
             } else {
-                print!(",,");
+                print!(",");
             }
         }
 
