@@ -18,9 +18,9 @@ struct Args {
     api_host: String,
     /// The name of the portfolio to report the performance for.
     portfolio_name: String,
-    /// Lookback period in years
+    /// Lookback periods in years
     #[clap(short, default_value = "5")]
-    look_back_period_in_years: NonZeroU32,
+    look_back_periods_in_years: Vec<NonZeroU32>,
     /// Display performance for each group in the grouping
     #[clap(short)]
     group: Option<String>,
@@ -36,7 +36,11 @@ async fn main() -> anyhow::Result<()> {
     let client = Client::new_with_token_and_host(args.access_token, args.api_host);
     let portfolio_name = args.portfolio_name;
     let group_name = args.group;
-    let look_back_period_in_years = args.look_back_period_in_years.get() as i32;
+    let look_back_periods_in_years = args
+        .look_back_periods_in_years
+        .iter()
+        .map(|l| l.get() as i32)
+        .collect::<Vec<_>>();
 
     let portfolio_index = client.build_portfolio_index().await?;
     let portfolio = portfolio_index.find(&portfolio_name).unwrap_or_else(|| {
@@ -60,9 +64,18 @@ async fn main() -> anyhow::Result<()> {
     let today = Utc::now().date_naive();
     let inception_on = portfolio.inception_date;
     let mut end_of_current_period = today.start_of_next_quarter() - Duration::days(1);
-    let mut start_of_current_period = end_of_current_period
-        .start_of_next_quarter()
-        .add_years(-look_back_period_in_years);
+    let mut start_of_current_periods = look_back_periods_in_years
+        .iter()
+        .copied()
+        .map(|look_back_period_in_years| {
+            (
+                look_back_period_in_years,
+                end_of_current_period
+                    .start_of_next_quarter()
+                    .add_years(-look_back_period_in_years),
+            )
+        })
+        .collect::<Vec<_>>();
 
     let grouping_titles = if grouping.is_some() {
         let performance_parameters = PerformanceShowParameters {
@@ -93,54 +106,93 @@ async fn main() -> anyhow::Result<()> {
         Vec::new()
     };
 
-    print!("Start Date,End Date,Total");
+    print!("End Date,Total");
+    for _ in start_of_current_periods.iter().skip(1) {
+        print!(",");
+    }
+
     for title in &grouping_titles {
         print!(",{}", title);
+        for _ in start_of_current_periods.iter().skip(1) {
+            print!(",");
+        }
     }
     println!();
 
-    while start_of_current_period >= inception_on {
-        let performance_parameters = PerformanceShowParameters {
-            start_date: Some(start_of_current_period),
-            end_date: Some(end_of_current_period),
-            portfolio_id: portfolio.id,
-            consolidated: portfolio.consolidated,
-            include_sales: Some(true),
-            grouping: grouping.clone(),
-            custom_group_id,
-            include_limited: None,
-            report_combined: None,
-            labels: None,
-        };
-        let PerformanceShowSuccess {
-            report: performance_report,
-            ..
-        } = client
-            .execute::<PerformanceShow, _>(&performance_parameters)
-            .await?;
+    for (period, _) in start_of_current_periods.iter() {
+        print!(",{} year", period);
+    }
 
-        print!(
-            "{},{},{}%",
-            performance_report.start_date,
-            performance_report.end_date,
-            performance_report.total_gain_percent
-        );
+    for _ in &grouping_titles {
+        for (period, _) in start_of_current_periods.iter() {
+            print!(",{} year", period);
+        }
+    }
+    println!();
 
-        for title in &grouping_titles {
-            let sub_total = performance_report
-                .sub_totals
-                .iter()
-                .find(|sub_total| &sub_total.group_name == title);
-            if let Some(sub_total) = sub_total {
-                print!(",{}%", sub_total.total_gain_percent);
+    while start_of_current_periods
+        .iter()
+        .map(|(_, d)| d)
+        .copied()
+        .max()
+        .unwrap()
+        >= inception_on
+    {
+        let mut reports = Vec::new();
+
+        for (_, start_of_current_period) in start_of_current_periods.iter().copied() {
+            if start_of_current_period >= inception_on {
+                let performance_parameters = PerformanceShowParameters {
+                    start_date: Some(start_of_current_period),
+                    end_date: Some(end_of_current_period),
+                    portfolio_id: portfolio.id,
+                    consolidated: portfolio.consolidated,
+                    include_sales: Some(true),
+                    grouping: grouping.clone(),
+                    custom_group_id,
+                    include_limited: None,
+                    report_combined: None,
+                    labels: None,
+                };
+                let PerformanceShowSuccess { report, .. } = client
+                    .execute::<PerformanceShow, _>(&performance_parameters)
+                    .await?;
+
+                reports.push(Some(report));
+            } else {
+                reports.push(None);
+            }
+        }
+
+        print!("{}", end_of_current_period);
+
+        for report in &reports {
+            if let Some(report) = report {
+                print!(",{}%", report.total_gain_percent);
             } else {
                 print!(",");
             }
         }
 
+        for title in &grouping_titles {
+            for performance_report in &reports {
+                let sub_total = performance_report
+                    .iter()
+                    .flat_map(|r| r.sub_totals.iter())
+                    .find(|sub_total| &sub_total.group_name == title);
+                if let Some(sub_total) = sub_total {
+                    print!(",{}%", sub_total.total_gain_percent);
+                } else {
+                    print!(",");
+                }
+            }
+        }
+
         println!();
 
-        start_of_current_period = start_of_current_period.start_of_last_quarter();
+        for (_, start_of_current_period) in start_of_current_periods.iter_mut() {
+            *start_of_current_period = start_of_current_period.start_of_last_quarter();
+        }
         end_of_current_period = end_of_current_period.end_of_last_quarter();
     }
 
