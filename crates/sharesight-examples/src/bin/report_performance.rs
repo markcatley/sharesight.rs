@@ -16,15 +16,17 @@ struct Args {
     /// The host to use to access the API.
     #[clap(long, default_value = DEFAULT_API_HOST)]
     api_host: String,
-    /// The name of the portfolio to report the performance for.
-    portfolio_name: String,
+    /// The names of the portfolios to report the performance for.
+    #[clap(num_args = 1..)]
+    portfolio_names: Vec<String>,
     /// Lookback periods in years
-    #[clap(short, default_value = "5")]
+    #[clap(short, default_value = "5", num_args = 1..)]
     look_back_periods_in_years: Vec<NonZeroU32>,
     /// Display performance for each group in the grouping
     #[clap(short)]
     group: Option<String>,
     /// The access token to use the api.
+    #[clap(short = 't')]
     access_token: String,
 }
 
@@ -34,7 +36,7 @@ async fn main() -> anyhow::Result<()> {
 
     let args = Args::parse();
     let client = Client::new_with_token_and_host(args.access_token, args.api_host);
-    let portfolio_name = args.portfolio_name;
+    let portfolio_names = args.portfolio_names;
     let group_name = args.group;
     let look_back_periods_in_years = args
         .look_back_periods_in_years
@@ -43,10 +45,15 @@ async fn main() -> anyhow::Result<()> {
         .collect::<Vec<_>>();
 
     let portfolio_index = client.build_portfolio_index().await?;
-    let portfolio = portfolio_index.find(&portfolio_name).unwrap_or_else(|| {
-        portfolio_index.log_error_for(&portfolio_name);
-        std::process::exit(0);
-    });
+    let portfolios = portfolio_names
+        .iter()
+        .map(|portfolio_name| {
+            portfolio_index.find(portfolio_name).unwrap_or_else(|| {
+                portfolio_index.log_error_for(portfolio_name);
+                std::process::exit(0);
+            })
+        })
+        .collect::<Vec<_>>();
 
     let groups = client.execute::<GroupsList, GroupsListSuccess>(&()).await?;
     let group = group_name.map(|group_name| {
@@ -62,7 +69,11 @@ async fn main() -> anyhow::Result<()> {
     };
 
     let today = Utc::now().date_naive();
-    let inception_on = portfolio.inception_date;
+    let inception_on = portfolios
+        .iter()
+        .map(|portfolio| portfolio.inception_date)
+        .min()
+        .unwrap();
     let mut end_of_current_period = today.start_of_next_quarter() - Duration::days(1);
     let mut start_of_current_periods = look_back_periods_in_years
         .iter()
@@ -77,55 +88,68 @@ async fn main() -> anyhow::Result<()> {
         })
         .collect::<Vec<_>>();
 
-    let grouping_titles = if grouping.is_some() {
-        let performance_parameters = PerformanceShowParameters {
-            start_date: None,
-            end_date: None,
-            portfolio_id: portfolio.id,
-            consolidated: portfolio.consolidated,
-            include_sales: Some(true),
-            report_combined: None,
-            labels: None,
-            grouping: grouping.clone(),
-            custom_group_id,
-            include_limited: None,
-        };
-        let PerformanceShowSuccess {
-            report: performance_report,
-            ..
-        } = client
-            .execute::<PerformanceShow, _>(&performance_parameters)
-            .await?;
+    let grouping_titles = {
+        let mut titles = Vec::new();
 
-        performance_report
-            .sub_totals
-            .into_iter()
-            .map(|s| s.group_name)
-            .collect::<Vec<_>>()
-    } else {
-        Vec::new()
+        for portfolio in grouping.iter().flat_map(|_| portfolios.iter()).copied() {
+            let performance_parameters = PerformanceShowParameters {
+                start_date: None,
+                end_date: None,
+                portfolio_id: portfolio.id,
+                consolidated: portfolio.consolidated,
+                include_sales: Some(true),
+                report_combined: None,
+                labels: None,
+                grouping: grouping.clone(),
+                custom_group_id,
+                include_limited: None,
+            };
+            let PerformanceShowSuccess {
+                report: performance_report,
+                ..
+            } = client
+                .execute::<PerformanceShow, _>(&performance_parameters)
+                .await?;
+
+            titles.extend(
+                performance_report
+                    .sub_totals
+                    .into_iter()
+                    .map(|s| s.group_name)
+                    .filter(|t| !titles.contains(t))
+                    .collect::<Vec<_>>(),
+            )
+        }
+
+        titles
     };
 
     print!("End Date,Total");
-    for _ in start_of_current_periods.iter().skip(1) {
+    for _ in 0..(start_of_current_periods.len() * portfolios.len() - 1) {
         print!(",");
     }
 
     for title in &grouping_titles {
         print!(",{}", title);
-        for _ in start_of_current_periods.iter().skip(1) {
+        for _ in 0..(start_of_current_periods.len() * portfolios.len() - 1) {
             print!(",");
         }
     }
     println!();
 
-    for (period, _) in start_of_current_periods.iter() {
-        print!(",{} year", period);
-    }
-
-    for _ in &grouping_titles {
+    for _ in 0..(grouping_titles.len() + 1) {
         for (period, _) in start_of_current_periods.iter() {
             print!(",{} year", period);
+            for _ in portfolios.iter().skip(1) {
+                print!(",");
+            }
+        }
+    }
+    println!();
+
+    for _ in 0..((grouping_titles.len() + 1) * start_of_current_periods.len()) {
+        for portfolio in &portfolios {
+            print!(",{}", portfolio.name);
         }
     }
     println!();
@@ -141,26 +165,28 @@ async fn main() -> anyhow::Result<()> {
         let mut reports = Vec::new();
 
         for (_, start_of_current_period) in start_of_current_periods.iter().copied() {
-            if start_of_current_period >= inception_on {
-                let performance_parameters = PerformanceShowParameters {
-                    start_date: Some(start_of_current_period),
-                    end_date: Some(end_of_current_period),
-                    portfolio_id: portfolio.id,
-                    consolidated: portfolio.consolidated,
-                    include_sales: Some(true),
-                    grouping: grouping.clone(),
-                    custom_group_id,
-                    include_limited: None,
-                    report_combined: None,
-                    labels: None,
-                };
-                let PerformanceShowSuccess { report, .. } = client
-                    .execute::<PerformanceShow, _>(&performance_parameters)
-                    .await?;
+            for portfolio in &portfolios {
+                if start_of_current_period >= inception_on {
+                    let performance_parameters = PerformanceShowParameters {
+                        start_date: Some(start_of_current_period),
+                        end_date: Some(end_of_current_period),
+                        portfolio_id: portfolio.id,
+                        consolidated: portfolio.consolidated,
+                        include_sales: Some(true),
+                        grouping: grouping.clone(),
+                        custom_group_id,
+                        include_limited: None,
+                        report_combined: None,
+                        labels: None,
+                    };
+                    let PerformanceShowSuccess { report, .. } = client
+                        .execute::<PerformanceShow, _>(&performance_parameters)
+                        .await?;
 
-                reports.push(Some(report));
-            } else {
-                reports.push(None);
+                    reports.push(Some(report));
+                } else {
+                    reports.push(None);
+                }
             }
         }
 
