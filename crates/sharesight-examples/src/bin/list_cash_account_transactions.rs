@@ -6,22 +6,20 @@ use sharesight_types::{
     CashAccountTransactionType, CashAccountTransactionTypeName, CashAccountTransactionsList,
     CashAccountTransactionsListCashAccountTransactionsSuccess,
     CashAccountTransactionsListParameters, CashAccountTransactionsListSuccess, Currency, Number,
-    DEFAULT_API_HOST,
 };
 
 /// List the portfolios using the Sharesight API
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
 struct Args {
-    /// The host to use to access the API.
-    #[clap(long, default_value = DEFAULT_API_HOST)]
-    api_host: String,
     /// The name of the portfolio of the cash account.
     portfolio_name: String,
     /// The name of the cash account to clear.
     cash_account_name: String,
+    /// JSON file including api host, client_id and client_secret.
+    client_credentials_file: std::path::PathBuf,
     /// The access token to use the api.
-    access_token: String,
+    user_credentials_file: std::path::PathBuf,
 }
 
 #[tokio::main]
@@ -32,7 +30,7 @@ async fn main() -> anyhow::Result<()> {
 
     log::info!("Running with args: {args:?}");
 
-    let client = Client::new_with_token_and_host(args.access_token, args.api_host);
+    let client = Client::new(args.user_credentials_file, args.client_credentials_file).await?;
     let portfolio_name = args.portfolio_name;
     let cash_account_name = args.cash_account_name;
 

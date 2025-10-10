@@ -1,5 +1,5 @@
 use clap::Parser;
-use sharesight_types::{Auth, AuthWithDetails};
+use sharesight_reqwest::Client;
 
 /// Auth with an OAuth2 Authorization Code using the Sharesight API
 #[derive(Parser, Debug)]
@@ -7,52 +7,16 @@ use sharesight_types::{Auth, AuthWithDetails};
 struct Args {
     #[clap(long, short)]
     token_only: bool,
-    /// A file to read and write auth details from and to.
-    file: std::path::PathBuf,
+    /// JSON file including api host, client_id and client_secret.
+    client_credentials_file: std::path::PathBuf,
+    /// The access token to use the api.
+    user_credentials_file: std::path::PathBuf,
 }
 
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     let args = Args::parse();
-    let auth_arg = serde_json::from_reader::<_, AuthWithDetails>(std::fs::File::open(&args.file)?)?;
-    let client = reqwest::Client::new();
-
-    let params = [
-        ("grant_type", "refresh_token"),
-        ("refresh_token", &auth_arg.auth.refresh_token.unwrap()),
-        ("client_id", &auth_arg.client_id),
-        ("client_secret", &auth_arg.client_secret),
-    ];
-    let resp = client
-        .post(format!("https://{}/oauth2/token", auth_arg.host))
-        .form(&params)
-        .send()
-        .await?;
-
-    if resp.status().is_success() {
-        let auth = resp.json::<Auth>().await?;
-
-        if args.token_only {
-            print!("{}", auth.access_token);
-        } else {
-            println!("Access token: {}", auth.access_token);
-            if let Some(refresh_token) = &auth.refresh_token {
-                println!("Refresh token: {}", refresh_token);
-            }
-            println!("Expires in: {}s", auth.expires_in);
-            println!("Created at: {}", auth.created_at);
-        }
-
-        let file = std::fs::File::create(&args.file)?;
-        let auth = AuthWithDetails { auth, ..auth_arg };
-
-        serde_json::to_writer_pretty(file, &auth)?;
-    } else {
-        eprintln!("{:?}", resp);
-        eprintln!("{}", resp.text().await?);
-
-        std::process::exit(-1);
-    }
+    let _client = Client::new(args.user_credentials_file, args.client_credentials_file).await?;
 
     Ok(())
 }

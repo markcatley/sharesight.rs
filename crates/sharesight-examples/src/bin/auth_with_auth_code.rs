@@ -1,5 +1,8 @@
 use clap::Parser;
-use sharesight_types::{Auth, AuthWithDetails, DEFAULT_API_HOST};
+use serde::Deserialize;
+use serde_json::Value;
+use sharesight_reqwest::ClientCredentials;
+use sharesight_types::DEFAULT_API_HOST;
 
 /// Auth with an OAuth2 Authorization Code using the Sharesight API
 #[derive(Parser, Debug)]
@@ -17,9 +20,10 @@ struct Args {
     client_secret: String,
     /// The authorization code of the user to use to access the API.
     authorization_code: String,
-    /// A file to write the output to.
-    #[clap(long, short)]
-    file: Option<std::path::PathBuf>,
+    /// JSON file including api host, client_id and client_secret.
+    client_credentials_file: std::path::PathBuf,
+    /// The access token to use the api.
+    user_credentials_file: std::path::PathBuf,
 }
 
 #[tokio::main]
@@ -50,17 +54,36 @@ async fn main() -> anyhow::Result<()> {
         println!("Expires in: {}s", auth.expires_in);
         println!("Created at: {}", auth.created_at);
 
-        if let Some(path) = args.file {
-            let file = std::fs::File::create(path)?;
-            let auth = AuthWithDetails {
-                auth,
-                host: args.api_host,
-                client_id: args.client_id,
-                client_secret: args.client_secret,
-            };
-
-            serde_json::to_writer_pretty(file, &auth)?;
-        }
+        let client_credentials = ClientCredentials {
+            host: args.api_host,
+            client_id: args.client_id.into(),
+            client_secret: args.client_secret.into(),
+        };
+        serde_json::to_writer_pretty(
+            std::fs::File::create(args.client_credentials_file)?,
+            &client_credentials,
+        )?;
+        let user_credentials = [
+            ("access_token", Value::String(auth.access_token)),
+            (
+                "id_token",
+                auth.refresh_token.map(Value::String).unwrap_or(Value::Null),
+            ),
+            ("lifetime", Value::Number(auth.expires_in.into())),
+            ("issued", Value::Number(auth.created_at.into())),
+            (
+                "stale",
+                Value::Number((auth.created_at + auth.expires_in as i64).into()),
+            ),
+            (
+                "expiry",
+                Value::Number((auth.created_at + 365 * 24 * 60 * 60).into()),
+            ),
+        ];
+        serde_json::to_writer_pretty(
+            std::fs::File::create(args.user_credentials_file)?,
+            &user_credentials,
+        )?;
     } else {
         println!("{:?}", resp);
 
@@ -68,4 +91,12 @@ async fn main() -> anyhow::Result<()> {
     }
 
     Ok(())
+}
+
+#[derive(Debug, Deserialize)]
+pub struct Auth {
+    pub access_token: String,
+    pub expires_in: u32,
+    pub refresh_token: Option<String>,
+    pub created_at: i64,
 }

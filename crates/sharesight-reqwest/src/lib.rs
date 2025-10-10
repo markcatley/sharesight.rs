@@ -1,38 +1,75 @@
 use std::sync::Arc;
 
 use log::warn;
-use serde::de::DeserializeOwned;
+use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use sharesight_types::{
     ApiEndpoint, CashAccountsList, CashAccountsListCashAccountsSuccess, CashAccountsListParameters,
     CashAccountsListSuccess, PortfolioList, PortfolioListParameters,
     PortfolioListPortfoliosSuccess, PortfolioListSuccess,
 };
 
+pub use aliri_tokens::TokenWithLifetime;
+
 pub struct Client {
-    client: reqwest::Client,
-    api_host: Arc<String>,
-    credentials: Credentials,
-}
-
-enum Credentials {
-    AccessToken(String),
-}
-
-impl Credentials {
-    fn access_token(&self) -> &str {
-        match self {
-            Credentials::AccessToken(t) => t,
-        }
-    }
+    client: reqwest_middleware::ClientWithMiddleware,
+    host: Arc<str>,
 }
 
 impl Client {
-    pub fn new_with_token_and_host(access_token: String, api_host: String) -> Self {
-        Client {
-            api_host: Arc::new(api_host),
-            credentials: Credentials::AccessToken(access_token),
-            client: reqwest::Client::default(),
-        }
+    pub async fn new(
+        user_credentials_file: std::path::PathBuf,
+        client_credentials_file: std::path::PathBuf,
+    ) -> Result<Self, SharesightReqwestError> {
+        use predicates::prelude::PredicateBooleanExt;
+
+        let client = reqwest::Client::default();
+
+        let client_credentials = serde_json::from_reader::<_, ClientCredentials>(
+            std::fs::File::open(client_credentials_file)?,
+        )?;
+        let credentials =
+            std::sync::Arc::new(aliri_tokens::sources::oauth2::dto::ClientCredentials {
+                client_id: client_credentials.client_id,
+                client_secret: client_credentials.client_secret,
+            });
+
+        let credentials = aliri_tokens::sources::oauth2::dto::ClientCredentialsWithAudience {
+            credentials,
+            audience: "".into(),
+        };
+
+        let fallback = aliri_tokens::sources::oauth2::ClientCredentialsTokenSource::new(
+            client.clone(),
+            reqwest::Url::parse(&format!("https://{}/oauth2/token", client_credentials.host))
+                .unwrap(),
+            credentials,
+            aliri_tokens::TokenLifetimeConfig::default(),
+        );
+
+        let file_source = aliri_tokens::sources::file::FileTokenSource::new(user_credentials_file);
+
+        let token_source = aliri_tokens::sources::cache::CachedTokenSource::new(fallback)
+            .with_cache("file", file_source);
+
+        let token_watcher = aliri_tokens::TokenWatcher::spawn_from_token_source(
+            token_source,
+            aliri_tokens::jitter::RandomEarlyJitter::new(aliri_clock::DurationSecs(60)),
+            aliri_tokens::backoff::ErrorBackoffConfig::default(),
+        )
+        .await?;
+        let client = reqwest_middleware::ClientBuilder::new(client)
+            .with(
+                aliri_reqwest::AccessTokenMiddleware::new(token_watcher).with_predicate(
+                    aliri_reqwest::HttpsOnly
+                        .and(aliri_reqwest::ExactHostMatch::new(&client_credentials.host)),
+                ),
+            )
+            .build();
+
+        Ok(Client {
+            host: client_credentials.host.into(),
+            client,
+        })
     }
 
     pub async fn execute<'a, T: ApiEndpoint<'a>, U: DeserializeOwned>(
@@ -48,8 +85,7 @@ impl Client {
         };
         let resp = self
             .client
-            .request(method, T::url(&self.api_host, parameters).to_string())
-            .bearer_auth(self.credentials.access_token())
+            .request(method, T::url(&self.host, parameters).to_string())
             .json(parameters)
             .send()
             .await?;
@@ -122,20 +158,20 @@ impl Client {
     }
 }
 
-impl AsRef<reqwest::Client> for Client {
-    fn as_ref(&self) -> &reqwest::Client {
-        &self.client
-    }
-}
-
 #[derive(Debug, thiserror::Error)]
 pub enum SharesightReqwestError {
     #[error("Http request returned non-success status code\n{0} {1}\n{2}")]
     Http(reqwest::Url, reqwest::StatusCode, String),
     #[error("Http error occurred\n{0:?}")]
     Reqwest(#[from] reqwest::Error),
+    #[error("Http error occurred\n{0:?}")]
+    ReqwestMiddleware(#[from] reqwest_middleware::Error),
     #[error("Deserialize error occurred\n{0:?}")]
     Deserialize(#[from] serde_json::Error),
+    #[error("Token request error occurred\n{0:?}")]
+    TokenRequestError(#[from] aliri_tokens::sources::oauth2::TokenRequestError),
+    #[error("IO error occurred\n{0:?}")]
+    IoError(#[from] std::io::Error),
 }
 
 #[derive(Debug)]
@@ -214,4 +250,11 @@ impl NameIndexItem for CashAccountsListCashAccountsSuccess {
     fn name(&self) -> &str {
         &self.name
     }
+}
+
+#[derive(Debug, Deserialize, Serialize)]
+pub struct ClientCredentials {
+    pub host: String,
+    pub client_id: aliri_tokens::ClientId,
+    pub client_secret: aliri_tokens::ClientSecret,
 }
