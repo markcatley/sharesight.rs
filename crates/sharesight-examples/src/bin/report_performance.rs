@@ -6,16 +6,13 @@ use sharesight_examples::init_logger;
 use sharesight_reqwest::Client;
 use sharesight_types::{
     GroupsList, GroupsListGroupsSuccess, GroupsListSuccess, PerformanceShow,
-    PerformanceShowParameters, PerformanceShowSuccess, DEFAULT_API_HOST,
+    PerformanceShowParameters, PerformanceShowSuccess,
 };
 
 /// Generate a 'performance' report using the sharesight API
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
 struct Args {
-    /// The host to use to access the API.
-    #[clap(long, default_value = DEFAULT_API_HOST)]
-    api_host: String,
     /// The names of the portfolios to report the performance for.
     #[clap(num_args = 1..)]
     portfolio_names: Vec<String>,
@@ -26,8 +23,12 @@ struct Args {
     #[clap(short)]
     group: Option<String>,
     /// The access token to use the api.
-    #[clap(short = 't')]
-    access_token: String,
+    /// JSON file including api host, client_id and client_secret.
+    #[clap(short)]
+    client_credentials_file: std::path::PathBuf,
+    /// The access token to use the api.
+    #[clap(short)]
+    user_credentials_file: std::path::PathBuf,
 }
 
 #[tokio::main]
@@ -35,7 +36,7 @@ async fn main() -> anyhow::Result<()> {
     init_logger();
 
     let args = Args::parse();
-    let client = Client::new_with_token_and_host(args.access_token, args.api_host);
+    let client = Client::new(args.user_credentials_file, args.client_credentials_file).await?;
     let portfolio_names = args.portfolio_names;
     let group_name = args.group;
     let look_back_periods_in_years = args

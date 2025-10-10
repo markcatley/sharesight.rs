@@ -153,23 +153,6 @@ impl<'de> Visitor<'de> for NumberVisitor {
     }
 }
 
-#[derive(Debug, serde::Deserialize, serde::Serialize)]
-#[allow(dead_code)]
-pub struct Auth {
-    access_token: String,
-    expires_in: u32,
-    refresh_token: Option<String>,
-    created_at: i64,
-}
-
-#[derive(Debug, serde::Deserialize, serde::Serialize)]
-#[allow(dead_code)]
-pub struct AuthWithHost {
-    #[serde(flatten)]
-    auth: Auth,
-    host: String,
-}
-
 #[derive(Clone, Debug, Eq, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(untagged)]
 pub enum IdOrName {

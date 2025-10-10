@@ -1,19 +1,18 @@
 use clap::Parser;
 use sharesight_examples::init_logger;
 use sharesight_reqwest::Client;
-use sharesight_types::{Valuation, ValuationParameters, ValuationSuccess, DEFAULT_API_HOST};
+use sharesight_types::{Valuation, ValuationParameters, ValuationSuccess};
 
 /// Generate a 'valuation' report using the sharesight API
 #[derive(Parser, Debug)]
 #[clap(author, version, about, long_about = None)]
 struct Args {
-    /// The host to use to access the API.
-    #[clap(long, default_value = DEFAULT_API_HOST)]
-    api_host: String,
     /// The name of the portfolio to report the valuation for.
     portfolio_name: String,
+    /// JSON file including api host, client_id and client_secret.
+    client_credentials_file: std::path::PathBuf,
     /// The access token to use the api.
-    access_token: String,
+    user_credentials_file: std::path::PathBuf,
 }
 
 #[tokio::main]
@@ -21,7 +20,7 @@ async fn main() -> anyhow::Result<()> {
     init_logger();
 
     let args = Args::parse();
-    let client = Client::new_with_token_and_host(args.access_token, args.api_host);
+    let client = Client::new(args.user_credentials_file, args.client_credentials_file).await?;
     let portfolio_name = args.portfolio_name;
 
     let portfolios = client.build_portfolio_index().await?;
