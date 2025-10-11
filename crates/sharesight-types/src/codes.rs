@@ -52,9 +52,6 @@ pub enum Market {
     NSE,
     /// Foreign Exchange Currency
     FX,
-    /// Crypto Exchange
-    #[serde(rename = "CRYPTO")]
-    Crypto,
     /// Canadian Fund
     FundCA,
     /// NYSE American (AMEX)
@@ -107,6 +104,40 @@ pub enum Market {
     NEO,
     /// US Fund
     FundUS,
+    /// Prague Stock Exchange
+    PSE,
+    /// Athens Stock Exchange
+    ASE,
+    /// B3 BOVESPA
+    BVMF,
+    /// Bolsa Mexicana de Valores
+    BMV,
+    /// Bolsa de Valores de Lima
+    BVL,
+    /// Cryptocurrency
+    CRYPTO,
+    /// Indonesia Stock Exchange
+    IDX,
+    /// Bucharest Stock Exchange
+    BVB,
+    /// Irish Fund
+    FundIE,
+    /// Vienna Stock Exchange
+    VIE,
+    /// Luxembourg Fund
+    FundLU,
+    /// Philippine Stock Exchange
+    PHS,
+    /// Goldie Wealth
+    GOLDIE,
+    /// Borsa Istanbul
+    BIST,
+    /// CBOE Australia - Limit Venue
+    CXA,
+    /// Deutsche Börse Xetra
+    XETR,
+    /// Precious Metals
+    METAL,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Deserialize, Serialize)]
