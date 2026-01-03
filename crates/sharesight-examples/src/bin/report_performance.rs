@@ -29,6 +29,9 @@ struct Args {
     /// The access token to use the api.
     #[clap(short)]
     user_credentials_file: std::path::PathBuf,
+    // Inception date to use, defaults to the earliest portfolio inception date.
+    #[clap(long)]
+    inception_date: Option<NaiveDate>,
 }
 
 #[tokio::main]
@@ -70,11 +73,13 @@ async fn main() -> anyhow::Result<()> {
     };
 
     let today = Utc::now().date_naive();
-    let inception_on = portfolios
-        .iter()
-        .map(|portfolio| portfolio.inception_date)
-        .min()
-        .unwrap();
+    let inception_on = args.inception_date.unwrap_or_else(|| {
+        portfolios
+            .iter()
+            .map(|portfolio| portfolio.inception_date)
+            .min()
+            .unwrap()
+    });
     let mut end_of_current_period = today.start_of_next_quarter() - Duration::days(1);
     let mut start_of_current_periods = look_back_periods_in_years
         .iter()
