@@ -1,6 +1,7 @@
 use std::sync::Arc;
 
 use log::warn;
+use reqwest_middleware::reqwest;
 use serde::{de::DeserializeOwned, Deserialize, Serialize};
 use sharesight_types::{
     ApiEndpoint, CashAccountsList, CashAccountsListCashAccountsSuccess, CashAccountsListParameters,
