@@ -11,6 +11,11 @@ updates:
       timezone: "Pacific/Auckland"
       interval: "daily"
       time: "07:00"
+    groups:
+      reqwest:
+        patterns:
+          - reqwest
+          - reqwest-middleware
   - package-ecosystem: "github-actions" # See documentation for possible values
     directory: "/" # Location of package manifests
     schedule:
