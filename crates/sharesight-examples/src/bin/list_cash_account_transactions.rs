@@ -1,4 +1,4 @@
-use chrono::{DateTime, FixedOffset};
+use chrono::NaiveDateTime;
 use clap::Parser;
 use sharesight_examples::init_logger;
 use sharesight_reqwest::Client;
@@ -84,7 +84,7 @@ async fn main() -> anyhow::Result<()> {
             pub id: i64,
             pub account_name: &'a str,
             pub portfolio_id: i64,
-            pub date_time: DateTime<FixedOffset>,
+            pub date_time: NaiveDateTime,
             pub currency: Currency,
             pub amount: Number,
             pub balance: Number,

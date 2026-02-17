@@ -349,7 +349,7 @@ impl<'a> fmt::Display for FieldTypeBaseRustTypeNameDisplay<'a> {
             FieldTypeBase::Integer => write!(f, "i64"),
             FieldTypeBase::Date => write!(f, "NaiveDate"),
             FieldTypeBase::Number => write!(f, "Number"),
-            FieldTypeBase::DateTime => write!(f, "DateTime<FixedOffset>"),
+            FieldTypeBase::DateTime => write!(f, "NaiveDateTime"),
             FieldTypeBase::Unit => write!(f, "()"),
             FieldTypeBase::File => write!(f, "()"),
             FieldTypeBase::Boolean => write!(f, "bool"),

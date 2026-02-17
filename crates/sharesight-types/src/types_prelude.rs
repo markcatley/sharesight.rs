@@ -3,7 +3,7 @@ use serde_with::{DeserializeAs, SerializeAs};
 
 pub use std::fmt;
 
-pub use chrono::{DateTime, FixedOffset, NaiveDate};
+pub use chrono::{NaiveDate, NaiveDateTime};
 pub use serde::de::{DeserializeOwned, Visitor};
 pub use serde::{Deserialize, Serialize};
 pub use serde_with::{serde_as, DefaultOnNull, DisplayFromStr, PickFirst};

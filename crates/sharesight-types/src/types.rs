@@ -260,7 +260,7 @@ pub struct CashAccountTransactionCreateParameters {
     /// Transaction types may be any string. For example: `"OPENING BALANCE"`, `"DEPOSIT"`, `"WITHDRAWAL"`, `"INTEREST_PAYMENT"`, `"FEE"`, `"FEE_REIMBURSEMENT"`. The transaction type `"OPENING BALANCE"` has a rule to create an opening balance transaction, the others are all treated the same.
     pub type_name: CashAccountTransactionTypeName,
     /// The new transaction date and time (format `YYYY-MM-DDThh:mm:ss`, see <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>).
-    pub date_time: DateTime<FixedOffset>,
+    pub date_time: NaiveDateTime,
     /// The new transaction foreign-identifier.
     #[serde(default)]
     pub foreign_identifier: Option<String>,
@@ -283,7 +283,7 @@ pub struct CashAccountTransactionCreateCashAccountTransactionSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub description: String,
     /// The transaction date time (format `YYYY-MM-DDThh:mm:ss`, see <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>).
-    pub date_time: DateTime<FixedOffset>,
+    pub date_time: NaiveDateTime,
     /// The transaction amount (rounded to 2 decimal places).
     #[serde_as(as = "DeserializeNumber")]
     pub amount: Number,
@@ -397,7 +397,7 @@ pub struct CashAccountTransactionUpdateParameters {
     /// Transaction types may be any string. For example: `"OPENING BALANCE"`, `"DEPOSIT"`, `"WITHDRAWAL"`, `"INTEREST_PAYMENT"`, `"FEE"`, `"FEE_REIMBURSEMENT"`. The transaction type `"OPENING BALANCE"` has a rule to create an opening balance transaction, the others are all treated the same.
     pub type_name: CashAccountTransactionTypeName,
     /// The transaction date and time (format `YYYY-MM-DDThh:mm:ss`, see <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>).
-    pub date_time: DateTime<FixedOffset>,
+    pub date_time: NaiveDateTime,
     /// The transaction foreign-identifier.
     #[serde(default)]
     pub foreign_identifier: Option<String>,
@@ -420,7 +420,7 @@ pub struct CashAccountTransactionUpdateCashAccountTransactionSuccess {
     #[serde_as(deserialize_as = "DefaultOnNull")]
     pub description: String,
     /// The transaction date time (format `YYYY-MM-DDThh:mm:ss`, see <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>).
-    pub date_time: DateTime<FixedOffset>,
+    pub date_time: NaiveDateTime,
     /// The transaction amount (rounded to 2 decimal places).
     #[serde_as(as = "DeserializeNumber")]
     pub amount: Number,
@@ -525,7 +525,7 @@ pub struct CashAccountTransactionsListCashAccountTransactionsSuccess {
     #[serde_as(as = "PickFirst<(_, DisplayFromStr)>")]
     pub id: i64,
     /// The transaction date and time.
-    pub date_time: DateTime<FixedOffset>,
+    pub date_time: NaiveDateTime,
     /// The transaction amount (rounded to 2 decimal places).
     #[serde_as(as = "DeserializeNumber")]
     pub amount: Number,
@@ -1592,7 +1592,7 @@ pub struct ListUserInstrumentsInstrumentsSuccess {
     pub current_price: Option<Number>,
     /// The date and time the current price was loaded (format YYYY-MM-DDThh:mm:ss, see <a href="https://en.wikipedia.org/wiki/ISO_8601">ISO 8601</a>).
     #[serde(default)]
-    pub current_price_updated_at: Option<DateTime<FixedOffset>>,
+    pub current_price_updated_at: Option<NaiveDateTime>,
     /// The instrument sector.
     #[serde(default)]
     #[serde_as(deserialize_as = "DefaultOnNull")]
