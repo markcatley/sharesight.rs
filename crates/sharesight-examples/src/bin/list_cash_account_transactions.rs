@@ -3,7 +3,7 @@ use clap::Parser;
 use sharesight_examples::init_logger;
 use sharesight_reqwest::Client;
 use sharesight_types::{
-    CashAccountTransactionType, CashAccountTransactionTypeName, CashAccountTransactionsList,
+    CashAccountTransactionType, CashAccountTransactionsList,
     CashAccountTransactionsListCashAccountTransactionsSuccess,
     CashAccountTransactionsListParameters, CashAccountTransactionsListSuccess, Currency, Number,
 };
@@ -72,10 +72,7 @@ async fn main() -> anyhow::Result<()> {
         holding_id,
         trade_id,
         payout_id,
-        cash_account_transaction_type:
-            CashAccountTransactionType {
-                name: cash_account_transaction_type,
-            },
+        cash_account_transaction_type,
         links: _,
     } in cash_account_transactions.into_iter()
     {
@@ -93,7 +90,7 @@ async fn main() -> anyhow::Result<()> {
             pub holding_id: Option<i64>,
             pub trade_id: Option<i64>,
             pub payout_id: Option<i64>,
-            pub cash_account_transaction_type: CashAccountTransactionTypeName,
+            pub cash_account_transaction_type: Option<CashAccountTransactionType>,
         }
 
         wtr.serialize(TransactionRecord {

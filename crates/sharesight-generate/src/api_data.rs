@@ -340,6 +340,7 @@ pub enum FieldTypeBase {
     #[serde(alias = "Float")]
     Number,
     DateTime,
+    NaiveDateTime,
     #[serde(rename = "")]
     Unit,
     File,

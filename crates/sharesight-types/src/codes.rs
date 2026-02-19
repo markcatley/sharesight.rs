@@ -1347,7 +1347,7 @@ pub enum SaleAllocationMethod {
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Deserialize, Serialize)]
 #[serde(rename_all = "SCREAMING_SNAKE_CASE")]
-pub enum CashAccountTransactionTypeName {
+pub enum CashAccountTransactionType {
     #[serde(rename = "OPENING BALANCE")]
     OpeningBalance,
     Deposit,
@@ -1355,11 +1355,6 @@ pub enum CashAccountTransactionTypeName {
     InterestPayment,
     Fee,
     FeeReimbursement,
-}
-
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Deserialize)]
-pub struct CashAccountTransactionType {
-    pub name: CashAccountTransactionTypeName,
 }
 
 #[cfg(test)]
