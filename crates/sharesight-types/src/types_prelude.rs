@@ -3,7 +3,7 @@ use serde_with::{DeserializeAs, SerializeAs};
 
 pub use std::fmt;
 
-pub use chrono::{NaiveDate, NaiveDateTime};
+pub use chrono::{DateTime, FixedOffset, NaiveDate, NaiveDateTime};
 pub use serde::de::{DeserializeOwned, Visitor};
 pub use serde::{Deserialize, Serialize};
 pub use serde_with::{serde_as, DefaultOnNull, DisplayFromStr, PickFirst};
@@ -88,6 +88,25 @@ impl<T: serde::Serialize> SerializeAs<T> for DeserializeDate {
         S: serde::Serializer,
     {
         source.serialize(serializer)
+    }
+}
+
+pub struct DeserializeDateTime;
+
+impl<'de> DeserializeAs<'de, NaiveDateTime> for DeserializeDateTime {
+    fn deserialize_as<D>(deserializer: D) -> Result<NaiveDateTime, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        DateTime::<FixedOffset>::deserialize(deserializer).and_then(|datetime| {
+            if datetime.offset().local_minus_utc() == 0 {
+                Ok(datetime.naive_local())
+            } else {
+                Err(serde::de::Error::custom(format!(
+                    "Expected datetime to be UTC, was: {datetime}"
+                )))
+            }
+        })
     }
 }
 
@@ -207,5 +226,24 @@ mod id_or_name_tests {
         );
 
         Ok(())
+    }
+}
+
+pub struct DeserializeOptionalCashAccountTransactionType;
+
+impl<'de> DeserializeAs<'de, Option<CashAccountTransactionType>>
+    for DeserializeOptionalCashAccountTransactionType
+{
+    fn deserialize_as<D>(deserializer: D) -> Result<Option<CashAccountTransactionType>, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[derive(Deserialize)]
+        struct OptionalCashAccountTransactionTypeWrapper {
+            name: Option<CashAccountTransactionType>,
+        }
+
+        OptionalCashAccountTransactionTypeWrapper::deserialize(deserializer)
+            .map(|wrapper| wrapper.name)
     }
 }

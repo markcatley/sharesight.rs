@@ -232,6 +232,23 @@ impl<'a> fmt::Display for ApiStruct<'a> {
 
                     if matches!(
                         parameter.field_type,
+                        FieldType::Scalar(FieldTypeBase::NaiveDateTime)
+                    ) {
+                        if parameter.optional {
+                            writeln!(
+                                f,
+                                "    #[serde_as(deserialize_as = \"Option<DeserializeDateTime>\")]"
+                            )?;
+                        } else {
+                            writeln!(
+                                f,
+                                "    #[serde_as(deserialize_as = \"DeserializeDateTime\")]"
+                            )?;
+                        }
+                    }
+
+                    if matches!(
+                        parameter.field_type,
                         FieldType::Scalar(FieldTypeBase::Number)
                     ) {
                         if parameter.optional {
@@ -239,6 +256,13 @@ impl<'a> fmt::Display for ApiStruct<'a> {
                         } else {
                             writeln!(f, "    #[serde_as(as = \"DeserializeNumber\")]")?;
                         }
+                    }
+
+                    if field_name == "cash_account_transaction_type" {
+                        writeln!(
+                            f,
+                            "    #[serde_as(deserialize_as = \"DeserializeOptionalCashAccountTransactionType\")]"
+                        )?;
                     }
 
                     if parameter.optional {
@@ -318,7 +342,7 @@ fn string_enum_type(s: &str, endpoint_name: &str) -> Option<&'static str> {
         "transaction_type" => Some("TradeDescription"),
         "transaction_description" => Some("PayoutDescription"),
         "default_sale_allocation_method" => Some("SaleAllocationMethod"),
-        "type_name" => Some("CashAccountTransactionTypeName"),
+        "type_name" => Some("CashAccountTransactionType"),
         "id" if endpoint_name == "GroupsList" => Some("IdOrName"),
         _ => None,
     }
@@ -349,7 +373,8 @@ impl<'a> fmt::Display for FieldTypeBaseRustTypeNameDisplay<'a> {
             FieldTypeBase::Integer => write!(f, "i64"),
             FieldTypeBase::Date => write!(f, "NaiveDate"),
             FieldTypeBase::Number => write!(f, "Number"),
-            FieldTypeBase::DateTime => write!(f, "NaiveDateTime"),
+            FieldTypeBase::DateTime => write!(f, "DateTime<FixedOffset>"),
+            FieldTypeBase::NaiveDateTime => write!(f, "NaiveDateTime"),
             FieldTypeBase::Unit => write!(f, "()"),
             FieldTypeBase::File => write!(f, "()"),
             FieldTypeBase::Boolean => write!(f, "bool"),

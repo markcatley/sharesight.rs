@@ -668,7 +668,7 @@
             },
             {
               "group": "Parameter",
-              "type": "DateTime",
+              "type": "NaiveDateTime",
               "optional": false,
               "field": "date_time",
               "description": "<p>The new transaction date and time (format <code>YYYY-MM-DDThh:mm:ss</code>, see <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO 8601</a>).</p>"
@@ -716,7 +716,7 @@
             },
             {
               "group": "200 Success",
-              "type": "DateTime",
+              "type": "NaiveDateTime",
               "optional": false,
               "field": "cash_account_transaction.date_time",
               "description": "<p>The transaction date time (format <code>YYYY-MM-DDThh:mm:ss</code>, see <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO 8601</a>).</p>"
@@ -766,7 +766,7 @@
             {
               "group": "200 Success",
               "type": "Hash",
-              "optional": false,
+              "optional": true,
               "field": "cash_account_transaction.cash_account_transaction_type",
               "description": "<p>The transaction type.</p>"
             },
@@ -1066,7 +1066,7 @@
             },
             {
               "group": "Parameter",
-              "type": "DateTime",
+              "type": "NaiveDateTime",
               "optional": false,
               "field": "date_time",
               "description": "<p>The transaction date and time (format <code>YYYY-MM-DDThh:mm:ss</code>, see <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO 8601</a>).</p>"
@@ -1114,7 +1114,7 @@
             },
             {
               "group": "200 Success",
-              "type": "DateTime",
+              "type": "NaiveDateTime",
               "optional": false,
               "field": "cash_account_transaction.date_time",
               "description": "<p>The transaction date time (format <code>YYYY-MM-DDThh:mm:ss</code>, see <a href=\"https://en.wikipedia.org/wiki/ISO_8601\">ISO 8601</a>).</p>"
@@ -1164,7 +1164,7 @@
             {
               "group": "200 Success",
               "type": "Hash",
-              "optional": false,
+              "optional": true,
               "field": "cash_account_transaction.cash_account_transaction_type",
               "description": "<p>The transaction type.</p>"
             },
@@ -1338,7 +1338,7 @@
             },
             {
               "group": "200 Success",
-              "type": "DateTime",
+              "type": "NaiveDateTime",
               "optional": false,
               "field": "cash_account_transactions.date_time",
               "description": "<p>The transaction date and time.</p>"
@@ -1395,7 +1395,7 @@
             {
               "group": "200 Success",
               "type": "Hash",
-              "optional": false,
+              "optional": true,
               "field": "cash_account_transactions.cash_account_transaction_type",
               "description": "<p>The transaction type.</p>"
             },
