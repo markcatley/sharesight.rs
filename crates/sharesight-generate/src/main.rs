@@ -36,7 +36,7 @@ fn main() -> anyhow::Result<()> {
         info!("Reading {:?}", input);
 
         let ApiData { api: endpoints } = serde_json::from_reader::<_, ApiData>(File::open(input)?)?;
-        api_endpoints.extend(endpoints.into_iter());
+        api_endpoints.extend(endpoints);
     }
 
     writeln!(f, "use crate::types_prelude::*;")?;
